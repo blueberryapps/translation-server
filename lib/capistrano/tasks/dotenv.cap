@@ -1,0 +1,24 @@
+namespace :deploy do
+
+  after :updating, 'dotenv:symlink'
+
+end
+
+namespace :dotenv do
+
+  desc "Symlink .env file"
+  task :symlink do
+    on roles(:app) do
+      target = release_path.join('.env')
+      source = shared_path.join('config/dotenv')
+      unless test "[ -L #{target} ]"
+        if test "[ -f #{target} ]"
+          execute :rm, target
+        end
+        execute :ln, '-s', source, target
+      end
+    end
+  end
+
+end
+

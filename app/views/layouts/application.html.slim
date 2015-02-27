@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title= page_title
+    meta charset="utf-8"
+    = stylesheet_link_tag :application, media: 'all'
+    = csrf_meta_tags
+
+  body class=body_class
+    = render 'application/flashes'
+    = yield
+
+    = javascript_include_tag :application
+    = yield :javascript
+
