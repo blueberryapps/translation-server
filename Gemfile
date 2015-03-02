@@ -47,3 +47,6 @@ group :test do
   gem 'shoulda-matchers', require: false
 end
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-jcrop'
+end

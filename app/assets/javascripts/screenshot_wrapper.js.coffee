@@ -13,6 +13,13 @@ $(document).ready ->
     height = data.height
     box    = 50
 
+    if data.highlight
+      if wrapper.find('.screenshot-highlight').length == 0
+        wrapper.append('<div class="screenshot-highlight"></div>')
+      highlight = wrapper.find('.screenshot-highlight')
+      highlight.css(left: box, top: box, width: width, height: height)
+
+
     $(this).css(left: -x+box, top: -y+box)
 
     wrapper.width(width + box * 2)
