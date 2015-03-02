@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.5'
+ruby '2.2.0'
 
 gem 'airbrake'
 gem 'coffee-rails', '~> 4.1.0'
@@ -9,11 +9,12 @@ gem 'dotenv-rails'
 gem 'flutie'
 gem 'jquery-rails'
 gem 'pg'
-gem 'rails', '~> 4.1.6'
+gem 'rails', '~> 4.2.0'
 gem 'sass-rails', '~> 4.0.4'
 gem 'simple_form'
 gem 'slim-rails'
 gem 'uglifier', '>= 2.5.0'
+gem 'yajl-ruby'
 
 group :development do
   gem 'better_errors'
