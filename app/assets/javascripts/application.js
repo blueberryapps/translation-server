@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require jcrop/js/jquery.Jcrop
+//= require highlight_js/highlight
+//= require highlight_js/languages/json
 //= require_tree .

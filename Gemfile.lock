@@ -124,6 +124,9 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    hashie (3.4.0)
+    highlight_js-rails (7.1.0)
+      rails (>= 3.1.1)
     hike (1.2.3)
     hitimes (1.2.2)
     i18n (0.7.0)
@@ -211,6 +214,7 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
+    redcarpet (3.2.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rspec (3.2.0)
@@ -326,6 +330,8 @@ DEPENDENCIES
   factory_girl_rails
   flutie
   guard-rspec
+  hashie
+  highlight_js-rails
   jquery-rails
   mailcatcher
   newrelic_rpm (>= 3.9.6)
@@ -334,6 +340,7 @@ DEPENDENCIES
   pry-rails
   rails (~> 4.2.0)
   rails-assets-jcrop!
+  redcarpet
   responders
   rspec-rails (>= 3.1)
   sass-rails (~> 4.0.4)

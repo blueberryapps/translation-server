@@ -8,9 +8,11 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'flutie'
+gem 'highlight_js-rails'
 gem 'jquery-rails'
 gem 'pg'
 gem 'rails', '~> 4.2.0'
+gem 'redcarpet'
 gem 'responders'
 gem 'sass-rails', '~> 4.0.4'
 gem 'simple_form'
@@ -32,6 +34,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'hashie'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '>= 3.1'
 end
