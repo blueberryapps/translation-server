@@ -5,9 +5,9 @@ p
   strong Note:
   = @key.note
 
-= link_to 'Edit', edit_key_path(@key)
+= link_to 'Edit', [:edit, @key]
 '|
-= link_to 'Back', keys_path
+= link_to 'Back', [:keys]
 
 h3 Locale
 ul

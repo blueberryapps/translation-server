@@ -1,48 +1,46 @@
 class TranslationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_translation, only: [:show, :edit, :update, :destroy]
 
   # GET /translations
   def index
     @translations = Translation.all
+    respond_with @translations
   end
 
   # GET /translations/1
   def show
+    respond_with @translation
   end
 
   # GET /translations/new
   def new
     @translation = Translation.new
+    respond_with @translation
   end
 
   # GET /translations/1/edit
   def edit
+    respond_with @translation
   end
 
   # POST /translations
   def create
     @translation = Translation.new(translation_params)
-
-    if @translation.save
-      redirect_to @translation, notice: 'Translation was successfully created.'
-    else
-      render :new
-    end
+    @translation.save
+    respond_with @translation
   end
 
   # PATCH/PUT /translations/1
   def update
-    if @translation.update(translation_params)
-      redirect_to @translation, notice: 'Translation was successfully updated.'
-    else
-      render :edit
-    end
+    @translation.update(translation_params)
+    respond_with @translation
   end
 
   # DELETE /translations/1
   def destroy
     @translation.destroy
-    redirect_to translations_url, notice: 'Translation was successfully destroyed.'
+    respond_with @translation, location: [:translations]
   end
 
   private

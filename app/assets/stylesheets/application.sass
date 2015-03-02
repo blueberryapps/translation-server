@@ -7,3 +7,45 @@
 
 .screenshot
   position: relative
+
+// Flash messages
+.alert
+  border:
+    radius: 0
+    width: 1px 0
+    style: solid
+  color: #fff
+  .container
+    position: relative
+    padding-left: 64px
+    > .glyphicon
+      position: absolute
+      left: 0
+      top: -16px
+      bottom: -15px
+      width: 50px
+      padding-top: .55em
+      text-align: center
+      background: #000
+      background: rgba(0, 0, 0, .5)
+      font-size: 1.5em
+  &.alert-info
+    background: #c5e4ff
+    background: linear-gradient(to bottom,  #c5e4ff 0%, #94b0cb 100%)
+    border-top-color: #94b0cb
+    border-bottom-color: #94b0cb
+  &.alert-success
+    background: #e98b26
+    background: linear-gradient(to bottom,  #2fbe73 0%, #20a04f 100%)
+    border-top-color: #4feac0
+    border-bottom-color: #076a1f
+  &.alert-warning
+    background: #e98b26
+    background: linear-gradient(to bottom,  #e98b26 0%, #e4721f 100%)
+    border-top-color: #f8d93f
+    border-bottom-color: #cf3c07
+  &.alert-alert
+    background: #e98b26
+    background: linear-gradient(to bottom,  #d24937 0%, #b02a20 100%)
+    border-top-color: #f07c5c
+    border-bottom-color: #570a07

@@ -1,4 +1,5 @@
 class KeysController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_key, only: [:show, :edit, :update, :destroy]
 
   # GET /keys
@@ -39,7 +40,7 @@ class KeysController < ApplicationController
   # DELETE /keys/1
   def destroy
     @key.destroy
-    respond_with @key, location: keys_url
+    respond_with @key, location: [:keys]
   end
 
   private

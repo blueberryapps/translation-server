@@ -13,9 +13,9 @@ table
       tr
         td = locale.code
         td = link_to 'Show', locale
-        td = link_to 'Edit', edit_locale_path(locale)
+        td = link_to 'Edit', [:edit, locale]
         td = link_to 'Destroy', locale, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
-= link_to 'New Locale', new_locale_path
+= link_to 'New Locale', [:new, :locale]

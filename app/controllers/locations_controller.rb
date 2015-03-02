@@ -1,4 +1,5 @@
 class LocationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_location, only: [:show, :edit, :update, :destroy]
 
   # GET /locations
@@ -39,7 +40,7 @@ class LocationsController < ApplicationController
   # DELETE /locations/1
   def destroy
     @location.destroy
-    respond_with @location, location: locations_url
+    respond_with @location, location: [:locations]
   end
 
   private

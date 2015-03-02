@@ -15,9 +15,9 @@ table
         td = key.key
         td = key.note
         td = link_to 'Show', key
-        td = link_to 'Edit', edit_key_path(key)
+        td = link_to 'Edit', [:edit, key]
         td = link_to 'Destroy', key, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
-= link_to 'New Key', new_key_path
+= link_to 'New Key', [:new, :key]

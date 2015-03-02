@@ -16,8 +16,8 @@ Rails.application.routes.draw do
 
   resources :translations
 
-  resources :users
   devise_for :users
+  resources :users
 
   root to: 'root#index'
 end

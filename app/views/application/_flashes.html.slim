@@ -1,5 +1,6 @@
-#flash
-  - flash.each do |key, value| 
-    div id="flash-#{ key }"
-      = value
+.container
+  #flash
+    - flash.each do |key, value|
+      div class="alert alert-#{ key }"
+        = value
 

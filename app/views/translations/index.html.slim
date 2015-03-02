@@ -17,9 +17,9 @@ table
         td = translation.locale
         td = translation.text
         td = link_to 'Show', translation
-        td = link_to 'Edit', edit_translation_path(translation)
+        td = link_to 'Edit', [:edit, translation]
         td = link_to 'Destroy', translation, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
-= link_to 'New Translation', new_translation_path
+= link_to 'New Translation', [:new, :translation]

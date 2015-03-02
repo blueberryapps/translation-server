@@ -1,4 +1,5 @@
 class ImagesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_image, only: [:show, :edit, :update, :destroy]
 
   # GET /images
@@ -27,7 +28,6 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new(image_params)
     @image.save
-
     respond_with @image
   end
 
@@ -40,7 +40,7 @@ class ImagesController < ApplicationController
   # DELETE /images/1
   def destroy
     @image.destroy
-    respond_with @image, location: images_url
+    respond_with @image, location: [:images]
   end
 
   private

@@ -13,9 +13,9 @@ table
       tr
         td = location.path
         td = link_to 'Show', location
-        td = link_to 'Edit', edit_location_path(location)
+        td = link_to 'Edit', [:edit, location]
         td = link_to 'Destroy', location, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
-= link_to 'New Location', new_location_path
+= link_to 'New Location', [:new, :location]

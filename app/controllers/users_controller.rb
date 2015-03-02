@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -27,7 +28,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.save
-
     respond_with @user
   end
 
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
-    respond_with @user, location: users_url
+    respond_with @user, location: [:users]
   end
 
   private

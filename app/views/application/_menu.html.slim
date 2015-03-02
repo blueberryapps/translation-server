@@ -7,9 +7,9 @@
       = link_to root_url, class: 'navbar-brand'
         ' Translation server
 
-    .collapse.navbar-collapse
-      ul.nav.navbar-nav.navbar-right
-        - if current_user
+    - if current_user
+      .collapse.navbar-collapse
+        ul.nav.navbar-nav.navbar-right
           li.current-user
             = link_to [current_user]
               = image_tag current_user.photo_url(36), class: 'current-user-photo'
@@ -21,11 +21,11 @@
             a data-toggle="collapse" data-target="#aside" href="#"
               .glyphicon.glyphicon-menu-hamburger
 
-      .menu-holder
-        ul.nav.navbar-nav.primary
-          li = link_to :locales, locales_path
-          li = link_to :keys, keys_path
-          li = link_to :images, images_path
-          li = link_to :translations, translations_path
-          li = link_to :locations, locations_path
-          li = link_to :users, users_path
+        .menu-holder
+          ul.nav.navbar-nav.primary
+            li = link_to :locales, [:locales]
+            li = link_to :keys, [:keys]
+            li = link_to :images, [:images]
+            li = link_to :translations, [:translations]
+            li = link_to :locations, [:locations]
+            li = link_to :users, [:users]

@@ -1,48 +1,46 @@
 class LocalesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_locale, only: [:show, :edit, :update, :destroy]
 
   # GET /locales
   def index
     @locales = Locale.all
+    respond_with @locales
   end
 
   # GET /locales/1
   def show
+    respond_with @locale
   end
 
   # GET /locales/new
   def new
     @locale = Locale.new
+    respond_with @locale
   end
 
   # GET /locales/1/edit
   def edit
+    respond_with @locale
   end
 
   # POST /locales
   def create
     @locale = Locale.new(locale_params)
-
-    if @locale.save
-      redirect_to @locale, notice: 'Locale was successfully created.'
-    else
-      render :new
-    end
+    @locale.save
+    respond_with @locale
   end
 
   # PATCH/PUT /locales/1
   def update
-    if @locale.update(locale_params)
-      redirect_to @locale, notice: 'Locale was successfully updated.'
-    else
-      render :edit
-    end
+    @locale.update(locale_params)
+    respond_with @locale
   end
 
   # DELETE /locales/1
   def destroy
     @locale.destroy
-    redirect_to locales_url, notice: 'Locale was successfully destroyed.'
+    respond_with @locale, location: [:locales]
   end
 
   private

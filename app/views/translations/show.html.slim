@@ -8,6 +8,6 @@ p
   strong Text:
   = @translation.text
 
-= link_to 'Edit', edit_translation_path(@translation)
+= link_to 'Edit', [:edit, @translation]
 '|
-= link_to 'Back', translations_path
+= link_to 'Back', [:translations]

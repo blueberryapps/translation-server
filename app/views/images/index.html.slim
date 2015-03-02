@@ -27,9 +27,9 @@ table
         td = image.height
         td = image.image_tag
         td = link_to 'Show', image
-        td = link_to 'Edit', edit_image_path(image)
+        td = link_to 'Edit', [:edit, image]
         td = link_to 'Destroy', image, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
-= link_to 'New Image', new_image_path
+= link_to 'New Image', [:new, :image]

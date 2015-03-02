@@ -1,7 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+users = [
+  { email: 'jzajpt@blueberryapps.com' },
+  { email: 'tdundacek@blueberryapps.com' },
+  { email: 'mmoravcik@blueberryapps.com' },
+  { email: 'jiri.orsag@gmail.com' },
+  { email: 'obartas@blueberryapps.com' },
+  { email: 'lvoda@blueberryapps.com' }
+]
+
+users.each do |hsh|
+  default_args = { password: 'heslo123' }
+  User.create!(hsh.merge(default_args))
+end
