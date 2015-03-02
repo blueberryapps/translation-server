@@ -1,0 +1,25 @@
+h1 Translates
+
+= render 'hierarchy', hierarchy: @hierarchy
+
+= key_path
+
+table.table
+  thead
+    tr
+      th Key
+      th = locale
+      th Locations
+  tbody
+    - @keys.each do |key|
+      tr
+        td
+          = key.key
+        td
+          = render 'translations/inline_form',
+                   translation: Translation.resolve(key: key, locale: locale)
+        td
+          ul
+            - key.images.each do |image|
+              = image.image_tag
+              = image.location

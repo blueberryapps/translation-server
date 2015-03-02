@@ -11,7 +11,7 @@ $(document).ready ->
     y      = data.y
     width  = data.width
     height = data.height
-    box    = 100
+    box    = 50
 
     $(this).css(left: -x+box, top: -y+box)
 

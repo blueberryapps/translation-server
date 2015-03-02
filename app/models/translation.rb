@@ -5,6 +5,10 @@ class Translation < ActiveRecord::Base
   validates :key, uniqueness: { scope: :locale }
   validates :key, :locale, presence: true
 
+  def self.resolve(params)
+    where(key: params[:key], locale: params[:locale]).first_or_initialize
+  end
+
   def to_s
     text
   end
@@ -22,19 +26,12 @@ class Translation < ActiveRecord::Base
   end
 
   def to_h
-    hierarchichal_hash_from_array(full_array)
+    hierarchical_hash_from_array(full_array)
   end
 
-  def hierarchichal_hash_from_array(array_hierarchy, hash_hierarchy = {})
+  def hierarchical_hash_from_array(array_hierarchy, hash_hierarchy = {})
     return hash_hierarchy if array_hierarchy.empty?
 
-    # The last 2 values in the array are the most drilled down part, so given:
-    # [d,c,b,a,1]
-    # The first Iteration you would get:
-    # { "a" => 1 }
-    # Second iteration:
-    # { "b" => { "a" => 1 } }, etc..
-    #
     if hash_hierarchy.empty?
       value = array_hierarchy.pop
       hash_hierarchy.merge!(array_hierarchy.pop => value)
@@ -42,6 +39,6 @@ class Translation < ActiveRecord::Base
       hash_hierarchy = { array_hierarchy.pop => hash_hierarchy }
     end
 
-    return hierarchichal_hash_from_array(array_hierarchy, hash_hierarchy)
+    return hierarchical_hash_from_array(array_hierarchy, hash_hierarchy)
   end
 end

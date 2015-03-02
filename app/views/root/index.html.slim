@@ -1,3 +1,10 @@
 h1 Root#index
 p Find me in app/views/root/index.html.slim
-= link_to 'Sign in', [:new, :user_session]
+
+- if current_user
+  ul
+    - Locale.alphabetical.each do |locale|
+      li = link_to [:translates, locale: locale]
+        = "Translate #{locale}"
+- else
+  = link_to 'Sign in', [:new, :user_session]

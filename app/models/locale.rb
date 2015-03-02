@@ -3,6 +3,8 @@ class Locale < ActiveRecord::Base
 
   validates :code, uniqueness: true, length: { minimum: 1 }
 
+  scope :alphabetical, -> { order :code }
+
   def to_s
     code
   end

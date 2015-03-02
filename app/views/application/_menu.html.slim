@@ -12,7 +12,7 @@
         ul.nav.navbar-nav.navbar-right
           li.current-user
             = link_to [current_user]
-              = image_tag current_user.photo_url(36), class: 'current-user-photo'
+              = image_tag current_user.photo_url(20), class: 'current-user-photo'
               = current_user.username
           li.nav-log-off.hidden-xs
             = link_to [:destroy, :user_session], method: :delete, title: t(:sign_out, scope: [:devise])
@@ -23,6 +23,7 @@
 
         .menu-holder
           ul.nav.navbar-nav.primary
+            li = link_to :translates, [:translates]
             li = link_to :locales, [:locales]
             li = link_to :keys, [:keys]
             li = link_to :images, [:images]
