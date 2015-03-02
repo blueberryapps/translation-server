@@ -1,4 +1,10 @@
-# Yet another Blueberry Rails project
+# Translation server
+
+Stores translations with location and screenshot.
+Enable users to easily edit translations and then any rails application can
+use them.
+
+# Developer
 
 Use the following guides for getting things done, programming well, and
 programming in style.
