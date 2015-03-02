@@ -1,0 +1,13 @@
+p
+  strong Key:
+  = @translation.key
+p
+  strong Locale:
+  = @translation.locale
+p
+  strong Text:
+  = @translation.text
+
+= link_to 'Edit', edit_translation_path(@translation)
+'|
+= link_to 'Back', translations_path

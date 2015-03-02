@@ -1,0 +1,30 @@
+p
+  strong Key:
+  = @key.key
+p
+  strong Note:
+  = @key.note
+
+= link_to 'Edit', edit_key_path(@key)
+'|
+= link_to 'Back', keys_path
+
+h3 Locale
+ul
+  - @key.locales.each do |locale|
+    li = locale
+
+h3 Locations
+ul
+  - @key.locations.each do |location|
+    li = location
+
+h3 Images
+ul
+  - @key.images.each do |image|
+    li = image.image_tag
+
+h3 Translations
+ul
+  - @key.translations.each do |translation|
+    li = translation
