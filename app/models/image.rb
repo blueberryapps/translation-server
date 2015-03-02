@@ -15,6 +15,6 @@ class Image < ActiveRecord::Base
   end
 
   def image_tag
-    tag 'img', src: image, data: metadata
+    tag 'img', src: image, data: metadata, class: 'screenshot'
   end
 end

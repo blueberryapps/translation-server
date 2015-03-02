@@ -1,0 +1,31 @@
+.navbar.navbar-inverse
+  .container
+    .navbar-header
+      button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu"
+        .glyphicon.glyphicon-menu-hamburger
+
+      = link_to root_url, class: 'navbar-brand'
+        ' Translation server
+
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        - if current_user
+          li.current-user
+            = link_to [current_user]
+              = image_tag current_user.photo_url(36), class: 'current-user-photo'
+              = current_user.username
+          li.nav-log-off.hidden-xs
+            = link_to [:destroy, :user_session], method: :delete, title: t(:sign_out, scope: [:devise])
+              .glyphicon.glyphicon-off
+          li.aside-toggle.hidden
+            a data-toggle="collapse" data-target="#aside" href="#"
+              .glyphicon.glyphicon-menu-hamburger
+
+      .menu-holder
+        ul.nav.navbar-nav.primary
+          li = link_to :locales, locales_path
+          li = link_to :keys, keys_path
+          li = link_to :images, images_path
+          li = link_to :translations, translations_path
+          li = link_to :locations, locations_path
+          li = link_to :users, users_path
