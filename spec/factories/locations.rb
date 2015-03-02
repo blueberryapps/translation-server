@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :location do
-    path "MyString"
+    sequence(:path) { |n| "super/path/#{n}" }
   end
 
 end

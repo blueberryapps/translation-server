@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :translation do
-    key nil
-locale nil
-text "MyText"
+    key
+    locale
+    text "translated text"
   end
 
 end

@@ -237,6 +237,8 @@ GEM
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
     shellany (0.0.1)
+    shoulda-matchers (2.8.0)
+      activesupport (>= 3.0.0)
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -326,8 +328,10 @@ DEPENDENCIES
   poltergeist (>= 1.5.0)
   pry-rails
   rails (~> 4.2.0)
+  responders
   rspec-rails (>= 3.1)
   sass-rails (~> 4.0.4)
+  shoulda-matchers
   simple_form
   simplecov (~> 0.9.1)
   slim-rails

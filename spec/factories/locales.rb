@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :locale do
-    code "MyString"
+    sequence(:code) { |n| "cs#{n}" }
   end
 
 end

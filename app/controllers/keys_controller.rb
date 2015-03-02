@@ -4,45 +4,42 @@ class KeysController < ApplicationController
   # GET /keys
   def index
     @keys = Key.all
+    respond_with @keys
   end
 
   # GET /keys/1
   def show
+    respond_with @key
   end
 
   # GET /keys/new
   def new
     @key = Key.new
+    respond_with @key
   end
 
   # GET /keys/1/edit
   def edit
+    respond_with @key
   end
 
   # POST /keys
   def create
     @key = Key.new(key_params)
-
-    if @key.save
-      redirect_to @key, notice: 'Key was successfully created.'
-    else
-      render :new
-    end
+    @key.save
+    respond_with @key
   end
 
   # PATCH/PUT /keys/1
   def update
-    if @key.update(key_params)
-      redirect_to @key, notice: 'Key was successfully updated.'
-    else
-      render :edit
-    end
+    @key.update(key_params)
+    respond_with @key
   end
 
   # DELETE /keys/1
   def destroy
     @key.destroy
-    redirect_to keys_url, notice: 'Key was successfully destroyed.'
+    respond_with @key, location: keys_url
   end
 
   private

@@ -10,6 +10,7 @@ gem 'flutie'
 gem 'jquery-rails'
 gem 'pg'
 gem 'rails', '~> 4.2.0'
+gem 'responders'
 gem 'sass-rails', '~> 4.0.4'
 gem 'simple_form'
 gem 'slim-rails'
@@ -42,5 +43,6 @@ group :test do
   gem 'poltergeist', '>= 1.5.0'
   gem 'database_cleaner'
   gem 'simplecov', '~> 0.9.1', require: false
+  gem 'shoulda-matchers', require: false
 end
 

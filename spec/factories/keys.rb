@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :key do
-    key "MyString"
-note "MyText"
+    sequence(:key) { |n| "key.#{n}" }
+    note "description of key"
   end
 
 end

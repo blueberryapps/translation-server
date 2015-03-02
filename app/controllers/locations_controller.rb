@@ -4,45 +4,42 @@ class LocationsController < ApplicationController
   # GET /locations
   def index
     @locations = Location.all
+    respond_with @locations
   end
 
   # GET /locations/1
   def show
+    respond_with @location
   end
 
   # GET /locations/new
   def new
     @location = Location.new
+    respond_with @location
   end
 
   # GET /locations/1/edit
   def edit
+    respond_with @location
   end
 
   # POST /locations
   def create
     @location = Location.new(location_params)
-
-    if @location.save
-      redirect_to @location, notice: 'Location was successfully created.'
-    else
-      render :new
-    end
+    @location.save
+    respond_with @location
   end
 
   # PATCH/PUT /locations/1
   def update
-    if @location.update(location_params)
-      redirect_to @location, notice: 'Location was successfully updated.'
-    else
-      render :edit
-    end
+    @location.update(location_params)
+    respond_with @location
   end
 
   # DELETE /locations/1
   def destroy
     @location.destroy
-    redirect_to locations_url, notice: 'Location was successfully destroyed.'
+    respond_with @location, location: locations_url
   end
 
   private
