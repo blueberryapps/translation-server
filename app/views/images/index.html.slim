@@ -1,5 +1,7 @@
 h1 Listing images
 
+= link_to 'New Image', [:new, :image]
+
 table.table
   thead
     tr
@@ -30,6 +32,4 @@ table.table
         td = link_to 'Edit', [:edit, image]
         td = link_to 'Destroy', image, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-br
-
-= link_to 'New Image', [:new, :image]
+= paginate @images, theme: 'twitter-bootstrap-3'

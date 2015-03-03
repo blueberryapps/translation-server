@@ -4,7 +4,7 @@ class KeysController < ApplicationController
 
   # GET /keys
   def index
-    @keys = Key.all
+    @keys = Key.alphabetical.page(params[:page])
     respond_with @keys
   end
 

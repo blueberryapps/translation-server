@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    @images = Image.all
+    @images = Image.alphabetical.page(params[:page])
     respond_with @images
   end
 

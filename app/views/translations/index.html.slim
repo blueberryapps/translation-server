@@ -1,5 +1,7 @@
 h1 Listing translations
 
+= link_to 'New Translation', [:new, :translation]
+
 table.table
   thead
     tr
@@ -20,6 +22,4 @@ table.table
         td = link_to 'Edit', [:edit, translation]
         td = link_to 'Destroy', translation, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-br
-
-= link_to 'New Translation', [:new, :translation]
+= paginate @translations, theme: 'twitter-bootstrap-3'

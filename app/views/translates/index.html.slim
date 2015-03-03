@@ -1,8 +1,7 @@
 h1 Translates
 
+= render 'breadcumb'
 = render 'hierarchy', hierarchy: @hierarchy
-
-= build_breadcumb(key_path_splitted)
 
 table.table
   thead
@@ -24,3 +23,5 @@ table.table
               li
                 = image.location
                 = image.image_tag
+
+= paginate @keys, theme: 'twitter-bootstrap-3'

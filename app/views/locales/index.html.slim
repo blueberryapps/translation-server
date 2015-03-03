@@ -1,5 +1,7 @@
 h1 Listing locales
 
+= link_to 'New Locale', [:new, :locale]
+
 table.table
   thead
     tr
@@ -16,6 +18,4 @@ table.table
         td = link_to 'Edit', [:edit, locale]
         td = link_to 'Destroy', locale, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-br
-
-= link_to 'New Locale', [:new, :locale]
+= paginate @locales, theme: 'twitter-bootstrap-3'

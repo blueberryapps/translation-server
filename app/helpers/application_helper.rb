@@ -8,11 +8,12 @@ module ApplicationHelper
     [key_path, key].select(&:present?).join('/')
   end
 
-  def build_breadcumb(keys)
+  def build_breadcumb(keys, separator = '.')
     current_keys = []
-    keys.map do |k|
-      current_keys << k
-      link_to k, [:browse, :translates, key_path: current_keys.join('/')]
-    end.join('/').html_safe
+    links = keys.map do |k|
+              current_keys << k
+              link_to k, [:browse, :translates, key_path: current_keys.join('/')]
+            end
+    separator ? links.join(separator).html_safe : links
   end
 end

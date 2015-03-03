@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable,
          :trackable, :validatable
 
+  scope :alphabetical,  -> { order :email }
+
   before_create :ensure_api_key
 
   def photo_url(size = 50)

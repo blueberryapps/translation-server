@@ -4,7 +4,7 @@ class LocalesController < ApplicationController
 
   # GET /locales
   def index
-    @locales = Locale.all
+    @locales = Locale.alphabetical.page(params[:page])
     respond_with @locales
   end
 

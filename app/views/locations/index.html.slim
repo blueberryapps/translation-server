@@ -1,5 +1,7 @@
 h1 Listing locations
 
+= link_to 'New Location', [:new, :location]
+
 table.table
   thead
     tr
@@ -16,6 +18,4 @@ table.table
         td = link_to 'Edit', [:edit, location]
         td = link_to 'Destroy', location, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-br
-
-= link_to 'New Location', [:new, :location]
+= paginate @locations, theme: 'twitter-bootstrap-3'

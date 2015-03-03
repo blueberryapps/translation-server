@@ -4,7 +4,7 @@ class LocationsController < ApplicationController
 
   # GET /locations
   def index
-    @locations = Location.all
+    @locations = Location.alphabetical.page(params[:page])
     respond_with @locations
   end
 

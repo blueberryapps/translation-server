@@ -2,6 +2,8 @@ class Translation < ActiveRecord::Base
   belongs_to :key
   belongs_to :locale
 
+  scope :alphabetical,  -> { order :id }
+
   validates :key, uniqueness: { scope: :locale }
   validates :key, :locale, presence: true
 

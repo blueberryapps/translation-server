@@ -7,6 +7,8 @@ class Image < ActiveRecord::Base
   belongs_to :location
   belongs_to :key
 
+  scope :alphabetical,  -> { order :id }
+
   validates :location, :key, presence: true
 
   before_validation :set_image_from_file

@@ -2,6 +2,7 @@ class TranslatesController < ApplicationController
   helper_method :key_path
   helper_method :key_path_splitted
   helper_method :locale
+
   def index
     if locale
       @keys = Key.alphabetical.with_locale(locale)
@@ -16,6 +17,8 @@ class TranslatesController < ApplicationController
           @hierarchy = @hierarchy[key]
         end
       end
+
+      @keys = @keys.page(params[:page])
     else
       render 'no_locale'
     end

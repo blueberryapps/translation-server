@@ -4,7 +4,7 @@ class TranslationsController < ApplicationController
 
   # GET /translations
   def index
-    @translations = Translation.all
+    @translations = Translation.alphabetical.page(params[:page])
     respond_with @translations
   end
 
