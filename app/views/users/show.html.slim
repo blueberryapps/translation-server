@@ -2,6 +2,11 @@ p
   strong Email:
   = @user.email
 
+- if current_user == @user
+  p
+    strong API Key:
+    = @user.api_key
+
 = link_to 'Edit', [:edit, @user]
 '|
 = link_to 'Back', [:users]

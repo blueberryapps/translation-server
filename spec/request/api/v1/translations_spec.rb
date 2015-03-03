@@ -3,6 +3,12 @@ require 'rails_helper'
 module API
   module V1
     describe 'Translations API Requests', type: :request do
+      let(:api_user) { create :user, id: 5, api_key: 'XYZZYX' }
+
+      let(:headers) do
+        { 'HTTP_AUTHORIZATION' => "Token token=#{api_user.api_key}" }
+      end
+
       context 'human readable' do
         describe 'GET /api/v1/translations.json?hierarchical=true' do
           let(:cs)  { create :locale, code: 'cs' }
@@ -17,7 +23,7 @@ module API
           end
 
           action do
-            get '/api/v1/translations.json?hierarchical=true'
+            get '/api/v1/translations.json', { hierarchical: true }, headers
           end
 
           it 'responds with success' do
@@ -41,7 +47,7 @@ module API
           end
 
           action do
-            get '/api/v1/translations.yaml?hierarchical=true'
+            get '/api/v1/translations.yaml', { hierarchical: true }, headers
           end
 
           it 'responds with success' do
@@ -67,7 +73,7 @@ module API
           end
 
           action do
-            get '/api/v1/translations.json'
+            get '/api/v1/translations.json', {}, headers
           end
 
           it 'responds with success' do
@@ -91,7 +97,7 @@ module API
           end
 
           action do
-            get '/api/v1/translations.yaml'
+            get '/api/v1/translations.yaml', {}, headers
           end
 
           it 'responds with success' do

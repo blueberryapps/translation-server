@@ -19,10 +19,20 @@ RSpec.describe API::V1::ImagesController, type: :controller do
     }
   end
 
+  let(:api_user) { create :user, id: 5, api_key: 'XYZZYX' }
+
+  before do
+    @request.env["HTTP_AUTHORIZATION"] = "Token token=#{api_user.api_key}"
+  end
+
   describe 'POST #create' do
     context 'with valid params' do
       action do
         post :create, attributes
+      end
+
+      it 'rep' do
+        expect(response.status).to eq(200)
       end
 
       it 'creates a new Image', action: false do

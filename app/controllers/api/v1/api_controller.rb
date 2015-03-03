@@ -2,7 +2,7 @@ module API
   module V1
     class ApiController < ActionController::Base
 
-      #before_filter :authenticate
+      before_filter :authenticate
 
       respond_to :json, :yaml
 

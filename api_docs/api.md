@@ -1,4 +1,41 @@
+# POST /api/v1/images
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Body
+
+            {
+              "location": "foo/bar",
+              "locale": "cs",
+              "images": [
+                {
+                  "key": "foo.bar",
+                  "image": "XYZ",
+                  "x": 10,
+                  "y": 20,
+                  "width": 30,
+                  "height": 40
+                }
+              ]
+            }
+
++ Response 200 (application/json)
+
+        {
+          "message": "Imported 1 images"
+        }
+
 # machine readable GET /api/v1/translations.yaml
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
 
 + Response 200 (application/x-yaml)
 
@@ -13,6 +50,12 @@
 
 # machine readable GET /api/v1/translations.json
 
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
 + Response 200 (application/json)
 
         {
@@ -25,6 +68,12 @@
         }
 
 # human readable GET /api/v1/translations.yaml?hierarchical=true
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
 
 + Response 200 (application/x-yaml)
 
@@ -43,6 +92,12 @@
 
 # human readable GET /api/v1/translations.json?hierarchical=true
 
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
 + Response 200 (application/json)
 
         {
@@ -60,30 +115,5 @@
               "B"
             ]
           }
-        }
-
-# POST /api/v1/images
-
-+ Request (application/json)
-
-        {
-          "location": "foo/bar",
-          "locale": "cs",
-          "images": [
-            {
-              "key": "foo.bar",
-              "image": "XYZ",
-              "x": 10,
-              "y": 20,
-              "width": 30,
-              "height": 40
-            }
-          ]
-        }
-
-+ Response 200 (application/json)
-
-        {
-          "message": "Imported 1 images"
         }
 

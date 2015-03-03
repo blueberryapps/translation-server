@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable,
          :trackable, :validatable
 
+  before_create :ensure_api_key
+
   def photo_url(size = 50)
     link = 'https://www.gravatar.com/avatar/%s?s=%s&d=wavatar'
     link % [Digest::MD5.hexdigest(email.downcase), size]
@@ -13,5 +15,18 @@ class User < ActiveRecord::Base
 
   def username
     email.split('@').first
+  end
+
+  private
+
+  def ensure_api_key
+    self.api_key ||= generate_api_key
+  end
+
+  def generate_api_key
+    loop do
+      token = SecureRandom.hex(16)
+      break token unless User.exists?(api_key: token)
+    end
   end
 end
