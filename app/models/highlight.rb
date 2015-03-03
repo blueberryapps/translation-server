@@ -4,15 +4,15 @@ class Highlight < ActiveRecord::Base
 
   def metadata
     {
-      x:         x-5,
-      y:         y-5,
-      width:     width+10,
-      height:    height+10,
+      x:         x - 7,
+      y:         y - 7,
+      width:     width + 14,
+      height:    height + 14,
       highlight: true
     }
   end
 
   def image_tag
-    image.image_tag(metadata)
+    image.image_tag(metadata) if image.image && x && y && width && height
   end
 end

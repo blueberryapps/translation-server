@@ -25,7 +25,7 @@ module API
       def create
         location = Location.where(path: params[:location]).first_or_create
         locale   = Locale.where(code: params[:locale]).first_or_create
-
+        default_image = Image.where(location: location, name: location.path).first_or_create
         params[:translations].each do |data|
           key = Key.where(key: data[:key].split('.', 2).last)
                    .first_or_create(data_type: data[:data_type])
@@ -33,6 +33,7 @@ module API
           unless Translation.where(locale: locale, key: key).first
             Translation.create translation_params(data).merge(locale: locale, key: key)
           end
+          Highlight.where(image: default_image, key: key).first_or_create
         end
 
         render json: {
