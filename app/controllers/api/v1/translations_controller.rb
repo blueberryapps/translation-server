@@ -17,12 +17,37 @@ module API
         respond_with @translations
       end
 
+      def create
+        location = Location.where(path: params[:location]).first_or_create
+        locale   = Locale.where(code: params[:locale]).first_or_create
+
+        params[:translations].each do |data|
+          key = Key.where(key: data[:key].split('.', 2).last).first_or_create
+
+          unless Translation.where(locale: locale, key: key).first
+            Translation.create translation_params(data).merge(locale: locale, key: key)
+          end
+
+          # creates connection between key and location
+          Image.where(location: location, key: key).first_or_create
+        end
+
+        render json: {
+          message: "Imported #{params[:translations].size} translations"
+        }
+
+      end
+
       private
 
       def index_etag
         translation = Translation.unscope(:order).order(:updated_at).last
         updated_at = translation ? translation.updated_at : ''
         [updated_at]
+      end
+
+      def translation_params(data)
+        data.slice(:text).permit(:text)
       end
     end
   end

@@ -1,19 +1,23 @@
 class TranslatesController < ApplicationController
   helper_method :key_path
+  helper_method :key_path_splitted
   helper_method :locale
-
   def index
-    @keys = Key.alphabetical.with_locale(locale)
-    if key_path
-      @keys = @keys.with_key_path(key_path.gsub('/', '.'))
-    end
-
-    @hierarchy = Key.hierarchy(@keys)
-
-    if key_path_splitted.any?
-      key_path_splitted.each do |key|
-        @hierarchy = @hierarchy[key]
+    if locale
+      @keys = Key.alphabetical.with_locale(locale)
+      if key_path
+        @keys = @keys.with_key_path(key_path.gsub('/', '.'))
       end
+
+      @hierarchy = Key.hierarchy(@keys)
+
+      if key_path_splitted.any?
+        key_path_splitted.each do |key|
+          @hierarchy = @hierarchy[key]
+        end
+      end
+    else
+      render 'no_locale'
     end
   end
 
@@ -30,6 +34,6 @@ class TranslatesController < ApplicationController
       session[:locale_id] = params[:locale]
     end
 
-    Locale.find(session[:locale_id] || Locale.first.id)
+    Locale.find(session[:locale_id] || Locale.first.id) rescue nil
   end
 end

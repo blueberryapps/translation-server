@@ -5,7 +5,6 @@ RSpec.describe API::V1::ImagesController, type: :controller do
   let(:attributes) do
     {
       location: 'foo/bar',
-      locale:   'cs',
       images: [
         {
           key:    'foo.bar',
@@ -39,10 +38,6 @@ RSpec.describe API::V1::ImagesController, type: :controller do
         expect {
           post :create, attributes
         }.to change(Image, :count).by(1)
-      end
-
-      it 'creates locale' do
-        expect(Locale.where(code: 'cs').size).to eq(1)
       end
 
       it 'creates key' do

@@ -1,6 +1,6 @@
 class Location < ActiveRecord::Base
   has_many :images
-  validates :path, uniqueness: true, presence: true
+  validates :path, uniqueness: true
 
   def to_s
     path

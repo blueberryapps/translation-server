@@ -8,12 +8,15 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :translations, only: :index
+      resources :translations, only: [:index, :create]
       resources :images,       only: :create
+      match 'images', to: 'images#create', via: [:options]
     end
   end
 
-  resources :images
+  resources :images do
+    get :display, on: :member
+  end
 
   resources :locations
 

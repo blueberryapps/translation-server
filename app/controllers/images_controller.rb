@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_image, only: [:show, :edit, :update, :destroy]
+  before_action :set_image, only: [:show, :display, :edit, :update, :destroy]
 
   # GET /images
   def index
@@ -11,6 +11,13 @@ class ImagesController < ApplicationController
   # GET /images/1
   def show
     respond_with @image
+  end
+
+  def display
+    return unless stale? etag: [@image.updated_at]
+    send_data @image.binary,
+              content_type: @image.content_type,
+              disposition:  'inline'
   end
 
   # GET /images/new

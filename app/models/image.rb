@@ -2,10 +2,12 @@ require 'base64'
 
 class Image < ActiveRecord::Base
   include ActionView::Helpers::TagHelper
+  include Rails.application.routes.url_helpers
+
   belongs_to :location
   belongs_to :key
 
-  validates :location, :key, :image, presence: true
+  validates :location, :key, presence: true
 
   before_validation :set_image_from_file
 
@@ -22,7 +24,20 @@ class Image < ActiveRecord::Base
   end
 
   def image_tag
-    tag 'img', src: image, data: metadata, class: 'screenshot'
+    return '' if image.blank?
+    tag 'img', src: display_image_path(id), data: metadata, class: 'screenshot'
+  end
+
+  def binary
+    Base64.decode64(image_parts.last)
+  end
+
+  def content_type
+    image_parts.first.gsub('data:', '')
+  end
+
+  def image_parts
+    @parts ||= image.split(';base64,', 2)
   end
 
   private

@@ -2,7 +2,7 @@ h1 Translates
 
 = render 'hierarchy', hierarchy: @hierarchy
 
-= key_path
+= build_breadcumb(key_path_splitted)
 
 table.table
   thead
@@ -14,12 +14,13 @@ table.table
     - @keys.each do |key|
       tr
         td
-          = key.key
+          = build_breadcumb(key.normalized_key)
         td
           = render 'translations/inline_form',
                    translation: Translation.resolve(key: key, locale: locale)
         td
           ul
             - key.images.each do |image|
-              = image.image_tag
-              = image.location
+              li
+                = image.location
+                = image.image_tag
