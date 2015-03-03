@@ -1,4 +1,47 @@
-# GET /api/v1/translations
+# machine readable GET /api/v1/translations.yaml
+
++ Response 200 (application/x-yaml)
+
+        ---
+        cs.foo.bar: cs translated text
+        en.foo.bar: en translated text
+        en.bar:
+        - A
+        - B
+
+
+
+# machine readable GET /api/v1/translations.json
+
++ Response 200 (application/json)
+
+        {
+          "cs.foo.bar": "cs translated text",
+          "en.foo.bar": "en translated text",
+          "en.bar": [
+            "A",
+            "B"
+          ]
+        }
+
+# human readable GET /api/v1/translations.yaml?hierarchical=true
+
++ Response 200 (application/x-yaml)
+
+        ---
+        cs:
+          foo:
+            bar: cs translated text
+        en:
+          foo:
+            bar: en translated text
+          bar:
+          - A
+          - B
+
+
+
+# human readable GET /api/v1/translations.json?hierarchical=true
 
 + Response 200 (application/json)
 
@@ -17,5 +60,30 @@
               "B"
             ]
           }
+        }
+
+# POST /api/v1/images
+
++ Request (application/json)
+
+        {
+          "location": "foo/bar",
+          "locale": "cs",
+          "images": [
+            {
+              "key": "foo.bar",
+              "image": "XYZ",
+              "x": 10,
+              "y": 20,
+              "width": 30,
+              "height": 40
+            }
+          ]
+        }
+
++ Response 200 (application/json)
+
+        {
+          "message": "Imported 1 images"
         }
 

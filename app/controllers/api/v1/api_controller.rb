@@ -4,7 +4,7 @@ module API
 
       #before_filter :authenticate
 
-      respond_to :json
+      respond_to :json, :yaml
 
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 

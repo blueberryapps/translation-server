@@ -24,7 +24,7 @@ RSpec.configure do |config|
         example_group = example_group[:example_group]
       end
 
-      action = example_groups[-2][:description_args].first if example_groups[-2]
+      action = example_groups[0..-2].map{ |e| e[:description_args].first }.reverse.join(' ')
       example_groups[-1][:description_args].first.match(/(\w+)\sRequests/)
       file_name = $1.underscore
 
@@ -63,6 +63,10 @@ RSpec.configure do |config|
 
         if response.body.present? && response.content_type == 'application/json'
           f.write "#{JSON.pretty_generate(JSON.parse(response.body))}\n\n".indent(8)
+        end
+
+        if response.body.present? && response.content_type == 'application/x-yaml'
+          f.write "#{response.body}\n\n".indent(8)
         end
       end unless response.status == 401 || response.status == 403 || response.status == 301
     end

@@ -26,6 +26,10 @@ class Translation < ActiveRecord::Base
   end
 
   def to_h
+    { [locale, key.key].join('.') => parsed_text }
+  end
+
+  def to_hierarchical_h
     hierarchical_hash_from_array(full_array)
   end
 
