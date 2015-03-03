@@ -1,0 +1,53 @@
+p#notice = notice
+
+= link_to 'Edit', edit_highlight_path(@highlight)
+'|
+= link_to 'Back', highlights_path
+.row
+  .col-sm-6
+    p
+      strong Image:
+      = @highlight.image.name
+    p
+      strong Key:
+      = @highlight.key
+    p
+      strong X:
+      = @highlight.x
+    p
+      strong Y:
+      = @highlight.y
+    p
+      strong Width:
+      = @highlight.width
+    p
+      strong Height:
+      = @highlight.height
+
+  .col-sm-6
+    = simple_form_for(@highlight) do |f|
+      = f.error_notification
+
+      .form-inputs
+        .col-sm-3
+          = f.input :x
+        .col-sm-3
+          = f.input :y
+        .col-sm-3
+          = f.input :width
+        .col-sm-3
+          = f.input :height
+      .form-actions
+        .col-sm-3
+          = f.button :submit
+
+h3 Preview Image:
+
+= @highlight.image_tag
+
+h3 Source image:
+
+.row
+  .col-sm-12
+    = tag 'img', src: @highlight.image.image, id: 'image_to_select', class: 'img-responsive'
+

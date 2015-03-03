@@ -8,16 +8,16 @@ $(document).ready ->
 
   aspect = original_width / resized_width
 
-  x      = parseInt $('#image_x').val()
-  y      = parseInt $('#image_y').val()
-  width  = parseInt $('#image_width').val()
-  height = parseInt $('#image_height').val()
+  x      = parseInt $('#highlight_x').val()
+  y      = parseInt $('#highlight_y').val()
+  width  = parseInt $('#highlight_width').val()
+  height = parseInt $('#highlight_height').val()
 
   image.Jcrop(
     setSelect: [ x / aspect, y / aspect, (x + width) / aspect, (y + height) / aspect ]
     onChange: (c) ->
-      $('#image_x').val(Math.round c.x * aspect)
-      $('#image_y').val(Math.round c.y * aspect)
-      $('#image_width').val(Math.round c.w * aspect)
-      $('#image_height').val(Math.round c.h * aspect)
+      $('#highlight_x').val(Math.round c.x * aspect)
+      $('#highlight_y').val(Math.round c.y * aspect)
+      $('#highlight_width').val(Math.round c.w * aspect)
+      $('#highlight_height').val(Math.round c.h * aspect)
   )

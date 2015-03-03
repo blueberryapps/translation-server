@@ -5,27 +5,17 @@ class Image < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   belongs_to :location
-  belongs_to :key
+  has_many   :highlights
 
   scope :alphabetical,  -> { order :id }
 
-  validates :location, :key, presence: true
+  validates :location, :name, presence: true
 
   before_validation :set_image_from_file
 
   attr_accessor :image_file
 
-  def metadata
-    {
-      x:         x,
-      y:         y,
-      width:     width,
-      height:    height,
-      highlight: highlight
-    }
-  end
-
-  def image_tag
+  def image_tag(metadata = {})
     return '' if image.blank?
     tag 'img', src: display_image_path(id), data: metadata, class: 'screenshot'
   end
@@ -40,6 +30,10 @@ class Image < ActiveRecord::Base
 
   def image_parts
     @parts ||= image.split(';base64,', 2)
+  end
+
+  def to_s
+    name
   end
 
   private

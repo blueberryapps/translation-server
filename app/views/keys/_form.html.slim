@@ -3,7 +3,7 @@
 
   .form-inputs
     = f.input :key
-    = f.input :array
+    = f.input :data_type, collection: Key::DATA_TYPES
     = f.input :note
 
   .form-actions

@@ -16,11 +16,7 @@ class Translation < ActiveRecord::Base
   end
 
   def parsed_text
-    if key.array?
-      YAML.load(text) || []
-    else
-      text
-    end
+    key.normalize_value(text)
   end
 
   def full_array

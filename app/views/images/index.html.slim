@@ -6,13 +6,8 @@ table.table
   thead
     tr
       th Location
-      th Key
+      th Name
       th Variant
-      th X
-      th Y
-      th Width
-      th Height
-      th Image
       th
       th
       th
@@ -21,13 +16,8 @@ table.table
     - @images.each do |image|
       tr
         td = image.location
-        td = image.key
+        td = image.name
         td = image.variant
-        td = image.x
-        td = image.y
-        td = image.width
-        td = image.height
-        td = image.image_tag
         td = link_to 'Show', image
         td = link_to 'Edit', [:edit, image]
         td = link_to 'Destroy', image, data: {:confirm => 'Are you sure?'}, :method => :delete

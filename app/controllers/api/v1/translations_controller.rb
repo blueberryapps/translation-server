@@ -2,6 +2,11 @@ module API
   module V1
     class TranslationsController < ApiController
 
+      def index_head
+        stale? etag: index_etag
+        head :ok
+      end
+
       def index
         return unless stale? etag: index_etag
 
@@ -22,14 +27,12 @@ module API
         locale   = Locale.where(code: params[:locale]).first_or_create
 
         params[:translations].each do |data|
-          key = Key.where(key: data[:key].split('.', 2).last).first_or_create
+          key = Key.where(key: data[:key].split('.', 2).last)
+                   .first_or_create(data_type: data[:data_type])
 
           unless Translation.where(locale: locale, key: key).first
             Translation.create translation_params(data).merge(locale: locale, key: key)
           end
-
-          # creates connection between key and location
-          Image.where(location: location, key: key).first_or_create
         end
 
         render json: {

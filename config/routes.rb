@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :highlights
+
   resources :translates, only: :index do
     collection do
       get 'browse/*key_path' => 'translates#index', as: :browse
@@ -10,7 +12,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :translations, only: [:index, :create]
       resources :images,       only: :create
-      match 'images', to: 'images#create', via: [:options]
+      match 'translations', to: 'translations#index_head', via: [:head]
     end
   end
 

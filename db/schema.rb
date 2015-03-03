@@ -11,34 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303060757) do
+ActiveRecord::Schema.define(version: 20150303172656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "images", force: :cascade do |t|
-    t.integer  "location_id"
+  create_table "highlights", force: :cascade do |t|
+    t.integer  "image_id"
     t.integer  "key_id"
-    t.string   "variant"
     t.integer  "x"
     t.integer  "y"
     t.integer  "width"
     t.integer  "height"
-    t.text     "image"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.boolean  "highlight",   default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "images", ["key_id"], name: "index_images_on_key_id", using: :btree
+  add_index "highlights", ["image_id"], name: "index_highlights_on_image_id", using: :btree
+  add_index "highlights", ["key_id"], name: "index_highlights_on_key_id", using: :btree
+
+  create_table "images", force: :cascade do |t|
+    t.integer  "location_id"
+    t.string   "name"
+    t.string   "variant"
+    t.text     "image"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   add_index "images", ["location_id"], name: "index_images_on_location_id", using: :btree
 
   create_table "keys", force: :cascade do |t|
     t.string   "key"
     t.text     "note"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "array",      default: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "data_type",  default: "string"
   end
 
   create_table "locales", force: :cascade do |t|
@@ -84,7 +92,8 @@ ActiveRecord::Schema.define(version: 20150303060757) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "images", "keys"
+  add_foreign_key "highlights", "images"
+  add_foreign_key "highlights", "keys"
   add_foreign_key "images", "locations"
   add_foreign_key "translations", "keys"
   add_foreign_key "translations", "locales"

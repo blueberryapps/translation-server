@@ -3,14 +3,9 @@
 
   .form-inputs
     = f.association :location
-    = f.association :key
-    = f.input :variant
-    = f.input :x
-    = f.input :y
-    = f.input :width
-    = f.input :height
-    = f.input :highlight
-    = f.input :image_file, as: :file
+    = f.input       :variant
+    = f.input       :name
+    = f.input       :image_file, as: :file
 
   .form-actions
     = f.button :submit

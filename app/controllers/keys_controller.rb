@@ -51,6 +51,6 @@ class KeysController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def key_params
-      params.require(:key).permit(:key, :note, :array)
+      params.require(:key).permit(:key, :note, :data_type)
     end
 end

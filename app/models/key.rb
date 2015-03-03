@@ -1,6 +1,10 @@
 class Key < ActiveRecord::Base
 
-  has_many :images
+  DATA_TYPES = %w(string array integer float)
+
+  has_many :highlights
+  has_many :images, through: :highlights
+
   has_many :translations
   has_many :locales,   through: :translations
   has_many :locations, through: :images
@@ -21,6 +25,15 @@ class Key < ActiveRecord::Base
 
   def normalized_key
     I18n.normalize_keys(nil, key, nil, '.')
+  end
+
+  def normalize_value(value)
+    case data_type
+    when 'array' then YAML.load(value) || []
+    when 'integer' then value.to_i
+    when 'float' then value.to_f
+    else value
+    end
   end
 
   def to_s

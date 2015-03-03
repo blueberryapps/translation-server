@@ -1,4 +1,6 @@
-h1 Translates
+h1
+  ' Translates:
+  =< locale
 
 = render 'breadcumb'
 = render 'hierarchy', hierarchy: @hierarchy
@@ -7,6 +9,7 @@ table.table
   thead
     tr
       th Key
+      th Data Type
       th = locale
       th Locations
   tbody
@@ -15,13 +18,15 @@ table.table
         td
           = build_breadcumb(key.normalized_key)
         td
+          = key.data_type
+        td
           = render 'translations/inline_form',
                    translation: Translation.resolve(key: key, locale: locale)
         td
           ul
-            - key.images.each do |image|
+            - key.highlights.each do |highlight|
               li
-                = image.location
-                = image.image_tag
+                = highlight.image.location
+                = highlight.image_tag
 
 = paginate @keys, theme: 'twitter-bootstrap-3'

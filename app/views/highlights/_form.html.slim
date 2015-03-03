@@ -1,0 +1,9 @@
+= simple_form_for(@highlight) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :image
+    = f.association :key
+
+  .form-actions
+    = f.button :submit

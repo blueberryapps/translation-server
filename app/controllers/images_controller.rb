@@ -59,8 +59,8 @@ class ImagesController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def image_params
       params.require(:image).permit(
-        :location_id, :key_id, :variant, :x, :y, :width, :height,
-        :image, :image_file, :highlight
+        :location_id, :variant, :name,
+        :image, :image_file
       )
     end
 end

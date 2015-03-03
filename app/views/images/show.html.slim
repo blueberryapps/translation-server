@@ -8,54 +8,12 @@
       strong Location:
       = @image.location
     p
-      strong Key:
-      = @image.key
+      strong Name:
+      = @image.name
     p
       strong Variant:
       = @image.variant
-    p
-      strong Highlight:
-      = @image.highlight
-    p
-      strong X:
-      = @image.x
-    p
-      strong Y:
-      = @image.y
-    p
-      strong Width:
-      = @image.width
-    p
-      strong Height:
-      = @image.height
-
-  .col-sm-6
-    = simple_form_for(@image) do |f|
-      = f.error_notification
-
-      .form-inputs
-        .col-sm-3
-          = f.input :x
-        .col-sm-3
-          = f.input :y
-        .col-sm-3
-          = f.input :width
-        .col-sm-3
-          = f.input :height
-      .form-actions
-        .col-sm-3
-          = f.input :highlight
-        .col-sm-3
-          = f.button :submit
 
 h3 Preview Image:
 
 = @image.image_tag
-
-
-h3 Image:
-
-.row
-  .col-sm-12
-    = tag 'img', src: @image.image, id: 'image_to_select', class: 'img-responsive'
-

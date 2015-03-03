@@ -1,0 +1,31 @@
+h1 Listing highlights
+
+table
+  thead
+    tr
+      th Image
+      th Key
+      th X
+      th Y
+      th Width
+      th Height
+      th
+      th
+      th
+
+  tbody
+    - @highlights.each do |highlight|
+      tr
+        td = highlight.image
+        td = highlight.key
+        td = highlight.x
+        td = highlight.y
+        td = highlight.width
+        td = highlight.height
+        td = link_to 'Show', highlight
+        td = link_to 'Edit', edit_highlight_path(highlight)
+        td = link_to 'Destroy', highlight, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Highlight', new_highlight_path
