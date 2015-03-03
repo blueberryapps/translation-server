@@ -1,6 +1,6 @@
 class Location < ActiveRecord::Base
   has_many :images
-  validates :path, uniqueness: true
+  validates :path, uniqueness: true, presence: true
 
   scope :alphabetical,  -> { order :path }
 

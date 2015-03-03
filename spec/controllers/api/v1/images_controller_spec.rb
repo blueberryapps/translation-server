@@ -4,10 +4,10 @@ RSpec.describe API::V1::ImagesController, type: :controller do
 
   let(:attributes) do
     {
-      location: 'foo/bar',
+      location: '/foo/bar',
       images: [
         {
-          key:    'foo.bar',
+          key:    'cs.foo.bar',
           image:  'XYZ',
           x:      10,
           y:      20,
@@ -45,7 +45,7 @@ RSpec.describe API::V1::ImagesController, type: :controller do
       end
 
       it 'creates location' do
-        expect(Location.where(path: 'foo/bar').size).to eq(1)
+        expect(Location.where(path: '/foo/bar').size).to eq(1)
       end
     end
   end

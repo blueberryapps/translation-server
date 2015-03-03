@@ -1,72 +1,3 @@
-# POST /api/v1/images
-
-+ Request (application/json)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-    + Body
-
-            {
-              "location": "foo/bar",
-              "locale": "cs",
-              "images": [
-                {
-                  "key": "foo.bar",
-                  "image": "XYZ",
-                  "x": 10,
-                  "y": 20,
-                  "width": 30,
-                  "height": 40
-                }
-              ]
-            }
-
-+ Response 200 (application/json)
-
-        {
-          "message": "Imported 1 images"
-        }
-
-# machine readable GET /api/v1/translations.yaml
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/x-yaml)
-
-        ---
-        cs.foo.bar: cs translated text
-        en.foo.bar: en translated text
-        en.bar:
-        - A
-        - B
-
-
-
-# machine readable GET /api/v1/translations.json
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/json)
-
-        {
-          "cs.foo.bar": "cs translated text",
-          "en.foo.bar": "en translated text",
-          "en.bar": [
-            "A",
-            "B"
-          ]
-        }
-
 # human readable GET /api/v1/translations.yaml?hierarchical=true
 
 + Request (application/x-www-form-urlencoded)
@@ -115,5 +46,109 @@
               "B"
             ]
           }
+        }
+
+# machine readable GET /api/v1/translations.yaml
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/x-yaml)
+
+        ---
+        cs.foo.bar: cs translated text
+        en.foo.bar: en translated text
+        en.bar:
+        - A
+        - B
+
+
+
+# machine readable GET /api/v1/translations.json
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/json)
+
+        {
+          "cs.foo.bar": "cs translated text",
+          "en.foo.bar": "en translated text",
+          "en.bar": [
+            "A",
+            "B"
+          ]
+        }
+
+# POST /api/v1/translations
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Body
+
+            {
+              "location": "/register",
+              "locale": "cs",
+              "translations": [
+                {
+                  "key": "cs.foo.bar",
+                  "text": "transalted text"
+                },
+                {
+                  "key": "cs.foo.foo",
+                  "text": "super text"
+                },
+                {
+                  "key": "cs.bar",
+                  "text": "foo text"
+                }
+              ]
+            }
+
++ Response 200 (application/json)
+
+        {
+          "message": "Imported 3 translations"
+        }
+
+# POST /api/v1/images
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Body
+
+            {
+              "location": "foo/bar",
+              "locale": "cs",
+              "images": [
+                {
+                  "key": "foo.bar",
+                  "image": "XYZ",
+                  "x": 10,
+                  "y": 20,
+                  "width": 30,
+                  "height": 40
+                }
+              ]
+            }
+
++ Response 200 (application/json)
+
+        {
+          "message": "Imported 1 images"
         }
 

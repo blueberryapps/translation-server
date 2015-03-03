@@ -108,6 +108,35 @@ module API
           end
         end
       end
+
+      describe 'POST /api/v1/translations' do
+        let(:headers) do
+          {
+            'HTTP_AUTHORIZATION' => "Token token=#{api_user.api_key}",
+            'CONTENT_TYPE' => 'application/json'
+          }
+        end
+
+        let(:attributes) do
+          {
+            location: '/register',
+            locale:   'cs',
+            translations: [
+              { key:  'cs.foo.bar', text: 'transalted text' },
+              { key:  'cs.foo.foo', text: 'super text' },
+              { key:  'cs.bar', text: 'foo text' }
+            ]
+          }
+        end
+
+        action do
+          post '/api/v1/translations', attributes.to_json, headers
+        end
+
+        it 'responds with success' do
+          expect(response.status).to eq 200
+        end
+      end
     end
   end
 end
