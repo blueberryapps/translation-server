@@ -9,6 +9,23 @@ module API
         { 'HTTP_AUTHORIZATION' => "Token token=#{api_user.api_key}" }
       end
 
+      context 'not authorized' do
+        let(:headers) do
+          { 'HTTP_AUTHORIZATION' => "Token token=UNKNOWN_TOKEN" }
+        end
+
+        describe 'GET /api/v1/translations' do
+          action do
+            get '/api/v1/translations', {}, headers
+          end
+
+          it 'responds with Bad credentials' do
+            expect(response.status).to eq 401
+            expect(response.json.errors.token).to eq 'Bad credentials'
+          end
+        end
+      end
+
       context 'human readable' do
         describe 'GET /api/v1/translations.json?hierarchical=true' do
           let(:cs)  { create :locale, code: 'cs' }

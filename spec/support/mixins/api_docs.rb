@@ -68,7 +68,7 @@ RSpec.configure do |config|
         if response.body.present? && response.content_type == 'application/x-yaml'
           f.write "#{response.body}\n\n".indent(8)
         end
-      end unless response.status == 401 || response.status == 403 || response.status == 301
+      end unless response.status == 403 || response.status == 301
     end
   end
 end

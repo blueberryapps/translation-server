@@ -1,25 +1,18 @@
-# human readable GET /api/v1/translations.yaml?hierarchical=true
+# not authorized GET /api/v1/translations
 
 + Request (application/x-www-form-urlencoded)
 
     + Headers
 
-            Authorization: Token token=XYZZYX
+            Authorization: Token token=UNKNOWN_TOKEN
 
-+ Response 200 (application/x-yaml)
++ Response 401 (application/json)
 
-        ---
-        cs:
-          foo:
-            bar: cs translated text
-        en:
-          foo:
-            bar: en translated text
-          bar:
-          - A
-          - B
-
-
+        {
+          "errors": {
+            "token": "Bad credentials"
+          }
+        }
 
 # human readable GET /api/v1/translations.json?hierarchical=true
 
@@ -48,7 +41,7 @@
           }
         }
 
-# machine readable GET /api/v1/translations.yaml
+# human readable GET /api/v1/translations.yaml?hierarchical=true
 
 + Request (application/x-www-form-urlencoded)
 
@@ -59,11 +52,15 @@
 + Response 200 (application/x-yaml)
 
         ---
-        cs.foo.bar: cs translated text
-        en.foo.bar: en translated text
-        en.bar:
-        - A
-        - B
+        cs:
+          foo:
+            bar: cs translated text
+        en:
+          foo:
+            bar: en translated text
+          bar:
+          - A
+          - B
 
 
 
@@ -85,6 +82,25 @@
             "B"
           ]
         }
+
+# machine readable GET /api/v1/translations.yaml
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/x-yaml)
+
+        ---
+        cs.foo.bar: cs translated text
+        en.foo.bar: en translated text
+        en.bar:
+        - A
+        - B
+
+
 
 # POST /api/v1/translations
 
