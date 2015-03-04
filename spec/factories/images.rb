@@ -1,13 +1,9 @@
 FactoryGirl.define do
   factory :image do
+    sequence(:name) { |n| "iamge_name_#{n}" }
     location
-    key
     variant 'desktop'
-    x       1
-    y       1
-    width   1
-    height  1
-    image  'XXYYYZZZ'
+    image   'XXYYYZZZ'
   end
 
 end

@@ -1,5 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Highlight, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to :image }
+  it { should belong_to :key }
+
 end

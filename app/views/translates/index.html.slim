@@ -14,6 +14,7 @@ table.table
       th Locations
   tbody
     - @keys.each do |key|
+      - translation = Translation.resolve(key: key, locale: locale)
       tr
         td
           = build_breadcumb(key.normalized_key)
@@ -21,12 +22,11 @@ table.table
           = key.data_type
         td
           = render 'translations/inline_form',
-                   translation: Translation.resolve(key: key, locale: locale)
+                   translation: translation
         td
-          ul
+          ul.screenshots-list
             - key.highlights.each do |highlight|
               li
-                = highlight.image.location
-                = highlight.image_tag
+                = render 'translations/modal', translation: translation, highlight: highlight
 
 = paginate @keys, theme: 'twitter-bootstrap-3'

@@ -2,11 +2,10 @@ require 'rails_helper'
 
 RSpec.describe ImagesController, type: :controller do
 
-  let(:key)      { create :key }
   let(:location) { create :location }
 
   let(:valid_attributes) do
-    attributes_for :image, location_id: location.id, key_id: key.id
+    attributes_for :image, location_id: location.id
   end
 
   let(:invalid_attributes) { valid_attributes.merge('location_id' => nil) }
@@ -80,13 +79,13 @@ RSpec.describe ImagesController, type: :controller do
 
   describe 'PUT #update' do
     context 'with valid params' do
-      let(:new_attributes) { { x: 20 } }
+      let(:new_attributes) { { name: 'testing name' } }
 
       it 'updates the requested image' do
         image = Image.create! valid_attributes
         put :update, {:id => image.to_param, :image => new_attributes}
         image.reload
-        expect(image.x).to eq(20)
+        expect(image.name).to eq('testing name')
       end
 
       it 'assigns the requested image as @image' do

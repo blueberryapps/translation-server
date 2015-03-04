@@ -14,94 +14,6 @@
           }
         }
 
-# human readable GET /api/v1/translations.json?hierarchical=true
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/json)
-
-        {
-          "cs": {
-            "foo": {
-              "bar": "cs translated text"
-            }
-          },
-          "en": {
-            "foo": {
-              "bar": "en translated text"
-            },
-            "bar": [
-              "A",
-              "B"
-            ]
-          }
-        }
-
-# human readable GET /api/v1/translations.yaml?hierarchical=true
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/x-yaml)
-
-        ---
-        cs:
-          foo:
-            bar: cs translated text
-        en:
-          foo:
-            bar: en translated text
-          bar:
-          - A
-          - B
-
-
-
-# machine readable GET /api/v1/translations.json
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/json)
-
-        {
-          "cs.foo.bar": "cs translated text",
-          "en.foo.bar": "en translated text",
-          "en.bar": [
-            "A",
-            "B"
-          ]
-        }
-
-# machine readable GET /api/v1/translations.yaml
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/x-yaml)
-
-        ---
-        cs.foo.bar: cs translated text
-        en.foo.bar: en translated text
-        en.bar:
-        - A
-        - B
-
-
-
 # POST /api/v1/translations
 
 + Request (application/json)
@@ -137,6 +49,56 @@
           "message": "Imported 3 translations"
         }
 
+# GET /api/v1/translations.yaml
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/x-yaml)
+
+        ---
+        cs:
+          foo:
+            bar: cs translated text
+        en:
+          foo:
+            bar: en translated text
+          bar:
+          - A
+          - B
+
+
+
+# GET /api/v1/translations.json
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/json)
+
+        {
+          "cs": {
+            "foo": {
+              "bar": "cs translated text"
+            }
+          },
+          "en": {
+            "foo": {
+              "bar": "en translated text"
+            },
+            "bar": [
+              "A",
+              "B"
+            ]
+          }
+        }
+
 # POST /api/v1/images
 
 + Request (application/json)
@@ -148,12 +110,18 @@
     + Body
 
             {
-              "location": "foo/bar",
+              "location": "/foo/bar",
               "locale": "cs",
               "images": [
                 {
-                  "key": "foo.bar",
                   "image": "XYZ",
+                  "name": "/foo/bar#modal"
+                }
+              ],
+              "highlights": [
+                {
+                  "image_name": "/foo/bar#modal",
+                  "key": "cs.foo.bar",
                   "x": 10,
                   "y": 20,
                   "width": 30,
@@ -165,6 +133,6 @@
 + Response 200 (application/json)
 
         {
-          "message": "Imported 1 images"
+          "message": "Imported 1 images and 1 highlights"
         }
 

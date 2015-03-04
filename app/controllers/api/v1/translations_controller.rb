@@ -10,16 +10,11 @@ module API
       def index
         return unless stale? etag: index_etag
 
-        @translations = Translation.all.each_with_object({}) do |translation, hash|
-          output =  if params[:hierarchical]
-                      translation.to_hierarchical_h
-                    else
-                      translation.to_h
-                    end
-          hash.deep_merge! output
-        end
+        @output = Translation.all.each_with_object({}) do |translation, hash|
+                    hash.deep_merge! translation.to_hierarchical_h
+                  end
 
-        respond_with @translations
+        respond_with @output
       end
 
       def create

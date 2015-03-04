@@ -16,16 +16,22 @@ module API
 
         let(:attributes) do
           {
-            location: 'foo/bar',
+            location: '/foo/bar',
             locale:   'cs',
             images: [
               {
-                key:    'foo.bar',
                 image:  'XYZ',
-                x:      10,
-                y:      20,
-                width:  30,
-                height: 40
+                name:   '/foo/bar#modal'
+              }
+            ],
+            highlights: [
+              {
+                image_name: '/foo/bar#modal',
+                key:        'cs.foo.bar',
+                x:          10,
+                y:          20,
+                width:      30,
+                height:     40
               }
             ]
           }
@@ -37,7 +43,8 @@ module API
           }.to change(Image, :count).by(1)
 
           expect(response.status).to eq 200
-          expect(response.json.message).to eq 'Imported 1 images'
+          expect(response.json.message)
+            .to eq 'Imported 1 images and 1 highlights'
         end
       end
     end

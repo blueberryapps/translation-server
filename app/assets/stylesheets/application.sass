@@ -5,14 +5,40 @@
 
 .screenshot-container
   position: relative
+  width: 300px
+  height: 150px
   overflow: hidden
+  margin-bottom: 5px
+  border: 1px solid #999
+
+.screenshot-box
+  position: relative
 
 .screenshot
   position: relative
+
 .screenshot-highlight
   border: 5px solid red
   border-radius: 3px
   position: absolute
+
+.highlight_modal
+  cursor: pointer
+
+.screenshots-list
+  li
+    display: inline-block
+    list-style: none
+    position: relative
+    width: 300px
+    min-height: 25px
+    .location
+      position: absolute
+      bottom: 0
+      right: 0
+      z-index: 5
+      padding: 3px
+      background: rgba(255, 255, 255, 0.7)
 
 // Flash messages
 .alert

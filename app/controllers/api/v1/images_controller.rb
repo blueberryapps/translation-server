@@ -33,7 +33,7 @@ module API
         end
 
         render json: {
-          message: "Imported #{params[:images].size} images"
+          message: "Imported #{params[:images].size} images and #{params[:highlights].size} highlights"
         }
       end
 

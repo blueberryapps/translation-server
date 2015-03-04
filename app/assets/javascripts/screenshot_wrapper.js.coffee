@@ -1,27 +1,46 @@
 $(document).ready ->
 
   $('.screenshot').each ->
-    if $(this).closest('.screenshot-container').length == 0
-      $(this).wrap('<div class="screenshot-container"></div>')
-
-    wrapper = $(this).closest('.screenshot-container')
-
     data   = $(this).data()
     x      = data.x
     y      = data.y
     width  = data.width
     height = data.height
-    box    = 50
+    bounds = 200
+    zoom   = 0.7
 
-    if data.highlight
-      if wrapper.find('.screenshot-highlight').length == 0
-        wrapper.append('<div class="screenshot-highlight"></div>')
-      highlight = wrapper.find('.screenshot-highlight')
-      highlight.css(left: box, top: box, width: width, height: height)
+    if data.full && data.highlight
+      if $(this).closest('.screenshot-box').length == 0
+        $(this).wrap('<div class="screenshot-box"></div>')
+      box = $(this).closest('.screenshot-box')
 
+      if box.find('.screenshot-highlight').length == 0
+        box.append('<div class="screenshot-highlight"></div>')
+      highlight = box.find('.screenshot-highlight')
+      highlight.css(left: x, top: y, width: width, height: height)
 
-    $(this).css(left: -x+box, top: -y+box)
+    else
+      if $(this).closest('.screenshot-box').length == 0
+        $(this).wrap('<div class="screenshot-box"></div>')
+      box = $(this).closest('.screenshot-box')
 
-    wrapper.width(width + box * 2)
-    wrapper.height(height + box * 2)
+      if $(box).closest('.screenshot-container').length == 0
+        $(box).wrap('<div class="screenshot-container"></div>')
+      wrapper = $(box).closest('.screenshot-container')
 
+      if data.highlight
+        if box.find('.screenshot-highlight').length == 0
+          box.append('<div class="screenshot-highlight"></div>')
+        highlight = box.find('.screenshot-highlight')
+        highlight.css(left: bounds, top: bounds, width: width, height: height)
+
+      if data.full
+      else
+        $(this).css(left: -x+bounds, top: -y+bounds)
+
+        box.width(width + bounds * 2)
+        box.height(height + bounds * 2)
+        box.css 'zoom', zoom
+
+        box.css 'left', (wrapper.width() - box.width() ) / 2 * zoom
+        box.css 'top', (wrapper.height() - box.height()) / 2 * zoom

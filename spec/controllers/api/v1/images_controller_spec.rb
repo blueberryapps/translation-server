@@ -7,12 +7,18 @@ RSpec.describe API::V1::ImagesController, type: :controller do
       location: '/foo/bar',
       images: [
         {
-          key:    'cs.foo.bar',
           image:  'XYZ',
-          x:      10,
-          y:      20,
-          width:  30,
-          height: 40
+          name:   '/foo/bar#modal'
+        }
+      ],
+      highlights: [
+        {
+          image_name: '/foo/bar#modal',
+          key:        'cs.foo.bar',
+          x:          10,
+          y:          20,
+          width:      30,
+          height:     40
         }
       ]
     }
@@ -46,6 +52,12 @@ RSpec.describe API::V1::ImagesController, type: :controller do
 
       it 'creates location' do
         expect(Location.where(path: '/foo/bar').size).to eq(1)
+      end
+
+      it 'creates Highlight' do
+        image = Image.where(name: '/foo/bar#modal').first
+        key   = Key.where(key: 'foo.bar').first
+        expect(Highlight.where(image: image, key: key).size).to eq(1)
       end
     end
   end
