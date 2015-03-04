@@ -9,15 +9,16 @@ $(document).ready ->
     bounds = 200
     zoom   = 0.7
 
-    if data.full && data.highlight
+    if data.full
       if $(this).closest('.screenshot-box').length == 0
         $(this).wrap('<div class="screenshot-box"></div>')
       box = $(this).closest('.screenshot-box')
 
       if box.find('.screenshot-highlight').length == 0
         box.append('<div class="screenshot-highlight"></div>')
-      highlight = box.find('.screenshot-highlight')
-      highlight.css(left: x, top: y, width: width, height: height)
+      if data.highlight
+        highlight = box.find('.screenshot-highlight')
+        highlight.css(left: x, top: y, width: width, height: height)
 
     else
       if $(this).closest('.screenshot-box').length == 0
