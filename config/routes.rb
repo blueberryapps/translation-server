@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'browse/*key_path' => 'translates#index', as: :browse
     end
   end
+  post '/translates' => 'translates#index'
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do

@@ -1,7 +1,7 @@
 ul
   - if back_key_path.present?
     li
-      = link_to [:browse, :translates, key_path: back_key_path]
+      = link_to build_key_path_url(back_key_path)
         ' Back
   - elsif key_path.present?
     li
@@ -10,7 +10,7 @@ ul
 
   - hierarchy.each do |key, value|
     li
-      = link_to [:browse, :translates, key_path: build_key_path(key)]
+      = link_to build_key_path_url(build_key_path(key))
         - if value.any?
           .glyphicon.glyphicon-book
         - else
