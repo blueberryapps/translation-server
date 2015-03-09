@@ -32,7 +32,6 @@ module API
         render json: {
           message: "Imported #{params[:translations].size} translations"
         }
-
       end
 
       private

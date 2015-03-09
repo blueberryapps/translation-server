@@ -6,6 +6,18 @@ class Release < ActiveRecord::Base
   before_create     :dump_translations
   before_validation :ensure_version
 
+  def as_json(*)
+    {
+      locale:  locale.to_s,
+      version: version,
+      created_at: created_at
+    }
+  end
+
+  def as_yml(*)
+    "ahoj"
+  end
+
   private
 
   def default_version

@@ -24,8 +24,9 @@ module API
         @user
       end
 
-      def record_not_found
-        render json: { errors: 'Not Found' }, status: :not_found
+      def record_not_found(expection)
+        render json: { errors: 'Not Found', message: expection.message },
+               status: :not_found
       end
 
       def render_unauthorized
