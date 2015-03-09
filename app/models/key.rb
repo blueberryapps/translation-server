@@ -1,4 +1,5 @@
 class Key < ActiveRecord::Base
+  include Resolvable
 
   DATA_TYPES = %w(string array integer float)
 

@@ -1,4 +1,6 @@
 class Translation < ActiveRecord::Base
+  include Resolvable
+
   belongs_to :key
   belongs_to :locale
 

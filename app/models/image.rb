@@ -1,6 +1,8 @@
 require 'base64'
 
 class Image < ActiveRecord::Base
+  include Resolvable
+
   include ActionView::Helpers::TagHelper
   include Rails.application.routes.url_helpers
 
