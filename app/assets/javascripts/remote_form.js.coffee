@@ -13,8 +13,8 @@ $(document).ready ->
         set_state form, 'not changed'
 
   set_state = (form, state) ->
-    root_element = form.closest('tr')
-    changing_element = root_element.find('td:first-child')
+    root_element = form.closest('.panel')
+    changing_element = root_element.find('button')
     changing_element.text(state)
 
     if state == 'success'

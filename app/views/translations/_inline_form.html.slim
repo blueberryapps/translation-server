@@ -1,9 +1,0 @@
-= simple_form_for(translation, remote: true) do |f|
-  = f.error_notification
-  = f.association :key, as: :hidden
-  = f.association :locale, as: :hidden
-
-  .form-inline
-    .form-group
-      = f.input :text, label: false
-      = f.button :submit

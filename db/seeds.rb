@@ -2,7 +2,7 @@ users = [
   { email: 'jzajpt@blueberryapps.com' },
   { email: 'tdundacek@blueberryapps.com' },
   { email: 'mmoravcik@blueberryapps.com' },
-  { email: 'jiri.orsag@gmail.com' },
+  { email: 'jorsag@blueberryapps.com' },
   { email: 'obartas@blueberryapps.com' },
   { email: 'lvoda@blueberryapps.com' }
 ]

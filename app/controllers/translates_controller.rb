@@ -14,12 +14,6 @@ class TranslatesController < ApplicationController
 
       @hierarchy = Key.hierarchy(@keys)
 
-      if key_path_splitted.any?
-        key_path_splitted.each do |key|
-          @hierarchy = @hierarchy[key]
-        end
-      end
-
       @keys = @keys.page(params[:page])
     else
       render 'no_locale'

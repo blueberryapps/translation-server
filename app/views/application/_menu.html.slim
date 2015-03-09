@@ -1,12 +1,11 @@
-.navbar.navbar-inverse
-  .container
+.navbar
+  .container-fluid
     .navbar-header
-      button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu"
+      button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#main-menu'
         .glyphicon.glyphicon-menu-hamburger
-
       = link_to root_url, class: 'navbar-brand'
         i.icon-logo
-        ' Translation server
+        ' TranslationServer
 
     - if current_user
       .collapse.navbar-collapse
@@ -19,7 +18,7 @@
             = link_to [:destroy, :user_session], method: :delete, title: t(:sign_out, scope: [:devise])
               .glyphicon.glyphicon-off
           li.aside-toggle.hidden
-            a data-toggle="collapse" data-target="#aside" href="#"
+            a data-toggle='collapse' data-target='#aside' href='#'
               .glyphicon.glyphicon-menu-hamburger
 
         .menu-holder

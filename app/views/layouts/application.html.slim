@@ -2,17 +2,17 @@ doctype html
 html
   head
     title= page_title
-    meta charset="utf-8"
+    meta charset='utf-8'
     meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
     = stylesheet_link_tag :application, media: 'all'
     = csrf_meta_tags
 
   body class=body_class
     = render 'application/menu'
-
     = render 'application/flashes'
-    .container
-        = yield
+
+    .container-fluid
+      = yield
 
     = javascript_include_tag :application
     = yield :javascript
