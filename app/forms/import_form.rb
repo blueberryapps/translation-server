@@ -13,15 +13,15 @@ class ImportForm
     @imported = 0
 
     YAML.load(file.read).each do |locale, translations|
-      locale = Locale.resolvs(code: locale)
+      locale = Locale.resolve(code: locale)
 
       dot_hash(translations).each do |key, translation|
-        key = Key.resolvs({ key: key }, { data_type: data_type(translation) })
+        key = Key.resolve({ key: key }, { data_type: data_type(translation) })
 
         find_args   = { key: key, locale: locale }
         text        = convert_value(translation)
 
-        translation = Translation.resolvs(find_args, {text: text })
+        translation = Translation.resolve(find_args, {text: text }).save
         @imported += 1
       end
     end

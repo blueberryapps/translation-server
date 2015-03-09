@@ -61,12 +61,21 @@ RSpec.configure do |config|
         # Response
         f.write "+ Response #{response.status} (#{response.content_type})\n\n"
 
+        # Response Headers
+        etag_header = response.headers['ETag']
+        if etag_header.present?
+          f.write "+ Headers\n\n".indent(4)
+          f.write "Etag: #{etag_header}\n\n".indent(12)
+        end
+
         if response.body.present? && response.content_type == 'application/json'
-          f.write "#{JSON.pretty_generate(JSON.parse(response.body))}\n\n".indent(8)
+          f.write "+ Body\n\n".indent(4) if etag_header
+          f.write "#{JSON.pretty_generate(JSON.parse(response.body))}\n\n".indent(etag_header ? 12 : 8)
         end
 
         if response.body.present? && response.content_type == 'application/x-yaml'
-          f.write "#{response.body}\n\n".indent(8)
+          f.write "+ Body\n\n".indent(4) if etag_header
+          f.write "#{response.body}\n\n".indent(etag_header ? 12 : 8)
         end
       end unless response.status == 403 || response.status == 301
     end

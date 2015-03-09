@@ -69,6 +69,14 @@ module API
         end
       end
 
+      describe 'HEAD /api/v1/translations' do
+        it 'returns Etag' do
+          head '/api/v1/translations', {}, headers
+          expect(response.status).to eq(200)
+          expect(response.headers['ETag']).not_to eq(nil)
+        end
+      end
+
       describe 'POST /api/v1/translations' do
         let(:headers) do
           {

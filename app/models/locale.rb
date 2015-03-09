@@ -2,6 +2,7 @@ class Locale < ActiveRecord::Base
   include Resolvable
 
   has_many :translations
+  has_many :releases
 
   scope :alphabetical,  -> { order :code }
 
@@ -10,7 +11,7 @@ class Locale < ActiveRecord::Base
   scope :alphabetical, -> { order :code }
 
   def self.default
-    @default ||= resolvs code: 'default'
+    @default ||= resolve code: 'default'
   end
 
   def to_s

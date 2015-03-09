@@ -1,0 +1,8 @@
+= simple_form_for(@release) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :locale
+
+  .form-actions
+    = f.button :submit
