@@ -1,0 +1,12 @@
+$(document).ready ->
+
+  $('.hint_default_translate').click ->
+    element = $(this)
+    data = element.data()
+    $.ajax(
+      url:  $('body').data('hint-url'),
+      data: { text: data.text },
+      dataType: 'json'
+      success: (data) ->
+        alert(data.text)
+    )

@@ -1,0 +1,3 @@
+enable_defaults!
+
+variable :YANDEX_KEY, :string, default: ''

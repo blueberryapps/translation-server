@@ -7,7 +7,7 @@ html
     = stylesheet_link_tag :application, media: 'all'
     = csrf_meta_tags
 
-  body class=body_class
+  body class=body_class data-hint-url=hint_translates_path
     = render 'application/menu'
     = render 'application/flashes'
 

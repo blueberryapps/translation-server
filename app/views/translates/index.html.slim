@@ -19,7 +19,8 @@ aside
       .translation-wrapper
         .tr-text
           .original
-            = simple_format key.default_text
+            .hint_default_translate data-text=key.default_text
+              = simple_format key.default_text
           .translation
             = render 'inline_form',
                      translation: translation
