@@ -1,0 +1,6 @@
+= simple_form_for(translation, remote: true) do |f|
+  = f.association :key, as: :hidden
+  = f.association :locale, as: :hidden
+  = f.input :text,
+            label: false,
+            input_html: { data: { original: f.object.text } }
