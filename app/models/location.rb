@@ -1,4 +1,6 @@
 class Location < ActiveRecord::Base
+  include Resolvable
+
   has_many :images
   validates :path, uniqueness: true, presence: true
 

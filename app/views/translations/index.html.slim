@@ -17,7 +17,7 @@ table.table
       tr
         td = translation.key
         td = translation.locale
-        td = translation.text
+        td = simple_format translation.text
         td = link_to 'Show', translation
         td = link_to 'Edit', [:edit, translation]
         td = link_to 'Destroy', translation, data: {:confirm => 'Are you sure?'}, :method => :delete

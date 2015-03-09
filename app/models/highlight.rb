@@ -1,4 +1,6 @@
 class Highlight < ActiveRecord::Base
+  include Resolvable
+
   belongs_to :image
   belongs_to :key
 

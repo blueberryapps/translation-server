@@ -1,4 +1,6 @@
 class Locale < ActiveRecord::Base
+  include Resolvable
+
   has_many :translations
 
   scope :alphabetical,  -> { order :code }

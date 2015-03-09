@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :imports, only: [:index, :create]
+
   resources :highlights
 
   resources :translates, only: :index do

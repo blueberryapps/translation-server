@@ -6,7 +6,7 @@ p
   = @translation.locale
 p
   strong Text:
-  = @translation.text
+  = simple_format @translation.text
 
 = link_to 'Edit', [:edit, @translation]
 '|
