@@ -9,6 +9,10 @@ class Locale < ActiveRecord::Base
 
   scope :alphabetical, -> { order :code }
 
+  def self.default
+    @default ||= resolvs code: 'default'
+  end
+
   def to_s
     code
   end

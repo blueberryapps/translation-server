@@ -47,6 +47,10 @@ class Key < ActiveRecord::Base
     key
   end
 
+  def default_text
+    translations.where(locale: Locale.default).first.try(:text) || note
+  end
+
   def self.hierarchical_hash_from_array(array_hierarchy, hash_hierarchy = {})
     return hash_hierarchy if array_hierarchy.empty?
 
