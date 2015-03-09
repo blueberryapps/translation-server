@@ -20,6 +20,10 @@ class TranslatesController < ApplicationController
     end
   end
 
+  def hint
+    render json: { text: translator.translate(params[:text], to: locale) }
+  end
+
   def key_path
     @key_path = params[:key_path].presence || ''
   end
@@ -43,5 +47,9 @@ class TranslatesController < ApplicationController
       scope: Key.alphabetical.with_locale(locale),
       query: params[:query]
     }
+  end
+
+  def translator
+    @translator ||= Yandex::Translator.new(ENVied.YANDEX_KEY)
   end
 end

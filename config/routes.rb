@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :translates, only: :index do
     collection do
       get 'browse/*key_path' => 'translates#index', as: :browse
+      get 'hint' => 'translates#hint', as: :hint
     end
   end
   post '/translates' => 'translates#index'
