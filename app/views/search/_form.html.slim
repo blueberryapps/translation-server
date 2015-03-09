@@ -1,0 +1,6 @@
+= simple_form_for(@search, url: [:translates]) do |f|
+  .input-group
+    = f.input :query, label: false, input_html: { name: 'query' }, placeholder: t(:placeholder, scope: [:search])
+    .input-group-btn
+      = f.button :button, name: '', value: t(:submit, scope: [:search]), class: 'btn btn-default btn-full'
+        .glyphicon.glyphicon-search

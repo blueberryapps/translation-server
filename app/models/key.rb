@@ -13,9 +13,15 @@ class Key < ActiveRecord::Base
 
   scope :alphabetical,  -> { order :key }
   scope :with_key_path, -> (key_path) { where 'key like ?', "#{key_path}%" }
-  scope :with_locale,   -> (locale)   {
+
+  def self.with_locale(locale)
     joins(:translations).where translations: { locale: locale }
-  }
+  end
+
+  def self.with_query(query)
+    string = "%#{query.to_s.mb_chars.downcase}%"
+    joins(:translations).where 'lower(key) like ? or lower(translations.text) like ?', string, string
+  end
 
   def self.hierarchy(keys)
     keys.each_with_object({}) do |key, hash|

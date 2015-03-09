@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  search:
+    placeholder: "Search text"
+    submit: "Search"

@@ -21,6 +21,7 @@ gem 'sass-rails', '~> 4.0.4'
 gem 'simple_form'
 gem 'slim-rails'
 gem 'uglifier', '>= 2.5.0'
+gem 'virtus'
 gem 'yajl-ruby'
 
 group :development do
