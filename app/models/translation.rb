@@ -4,13 +4,20 @@ class Translation < ActiveRecord::Base
   belongs_to :key
   belongs_to :locale
 
-  scope :alphabetical,  -> { order :id }
+  scope :alphabetical, -> { order :id }
+  scope :with_locale,  -> (locale) { where locale: locale }
 
   validates :key, uniqueness: { scope: :locale }
   validates :key, :locale, presence: true
 
-  def self.resolve(params)
-    where(key: params[:key], locale: params[:locale]).first_or_initialize
+  def self.dump_hash(scope)
+    scope.each_with_object({}) do |translation, hash|
+      hash.deep_merge! translation.to_hierarchical_h
+    end
+  end
+
+  def self.resolve(where_params = {}, initialize_params = {})
+    where(where_params).first_or_initialize(initialize_params)
   end
 
   def to_s

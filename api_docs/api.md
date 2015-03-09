@@ -35,22 +35,6 @@
           "message": "Imported 1 images and 1 highlights"
         }
 
-# not authorized GET /api/v1/translations
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=UNKNOWN_TOKEN
-
-+ Response 401 (application/json)
-
-        {
-          "errors": {
-            "token": "Bad credentials"
-          }
-        }
-
 # GET /api/v1/translations.json
 
 + Request (application/x-www-form-urlencoded)
@@ -77,29 +61,6 @@
             ]
           }
         }
-
-# GET /api/v1/translations.yaml
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/x-yaml)
-
-        ---
-        cs:
-          foo:
-            bar: cs translated text
-        en:
-          foo:
-            bar: en translated text
-          bar:
-          - A
-          - B
-
-
 
 # POST /api/v1/translations
 
@@ -134,5 +95,44 @@
 
         {
           "message": "Imported 3 translations"
+        }
+
+# GET /api/v1/translations.yaml
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/x-yaml)
+
+        ---
+        cs:
+          foo:
+            bar: cs translated text
+        en:
+          foo:
+            bar: en translated text
+          bar:
+          - A
+          - B
+
+
+
+# not authorized GET /api/v1/translations
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=UNKNOWN_TOKEN
+
++ Response 401 (application/json)
+
+        {
+          "errors": {
+            "token": "Bad credentials"
+          }
         }
 

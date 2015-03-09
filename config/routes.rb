@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :releases, except: [:edit, :update]
+
   resources :imports, only: [:index, :create]
 
   resources :highlights

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303172656) do
+ActiveRecord::Schema.define(version: 20150309091603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,16 @@ ActiveRecord::Schema.define(version: 20150303172656) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "releases", force: :cascade do |t|
+    t.integer  "locale_id"
+    t.string   "version"
+    t.text     "yaml"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "releases", ["locale_id"], name: "index_releases_on_locale_id", using: :btree
+
   create_table "translations", force: :cascade do |t|
     t.integer  "key_id"
     t.integer  "locale_id"
@@ -95,6 +105,7 @@ ActiveRecord::Schema.define(version: 20150303172656) do
   add_foreign_key "highlights", "images"
   add_foreign_key "highlights", "keys"
   add_foreign_key "images", "locations"
+  add_foreign_key "releases", "locales"
   add_foreign_key "translations", "keys"
   add_foreign_key "translations", "locales"
 end

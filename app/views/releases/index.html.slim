@@ -1,0 +1,24 @@
+h1 Listing releases
+
+= link_to 'New Release', [:new, :release]
+
+table.table
+  thead
+    tr
+      th Locale
+      th Version
+      th Created at
+      th
+      th
+      th
+
+  tbody
+    - @releases.each do |release|
+      tr
+        td = release.locale
+        td = release.version
+        td = localize release.created_at
+        td = link_to 'Show', release
+        td = link_to 'Destroy', release, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+= paginate @releases, theme: 'twitter-bootstrap-3'
