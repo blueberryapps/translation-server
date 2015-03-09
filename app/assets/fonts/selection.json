@@ -16,16 +16,16 @@
 					}
 				],
 				"isMulticolor": true,
-				"grid": 0,
-				"tags": [
-					"world"
-				],
 				"colorPermutations": {
 					"12552552551": [
 						0,
 						1
 					]
-				}
+				},
+				"tags": [
+					"world"
+				],
+				"grid": 0
 			},
 			"attrs": [
 				{
@@ -48,6 +48,87 @@
 			},
 			"setIdx": 0,
 			"iconIdx": 0
+		},
+		{
+			"icon": {
+				"paths": [
+					"M896 0h-896v1024h1024v-896l-128-128zM512 128h128v256h-128v-256zM896 896h-768v-768h64v320h576v-320h74.978l53.022 53.018v714.982z"
+				],
+				"attrs": [],
+				"tags": [
+					"floppy-disk",
+					"save"
+				],
+				"defaultCode": 57652,
+				"grid": 16
+			},
+			"attrs": [],
+			"properties": {
+				"id": 376,
+				"order": 3,
+				"prevSize": 32,
+				"code": 59746,
+				"ligatures": "floppy-disk, save2",
+				"name": "save"
+			},
+			"setIdx": 1,
+			"iconIdx": 98
+		},
+		{
+			"icon": {
+				"paths": [
+					"M512 0c-278.748 0-505.458 222.762-511.848 499.974 5.92-241.864 189.832-435.974 415.848-435.974 229.75 0 416 200.576 416 448 0 53.020 42.98 96 96 96s96-42.98 96-96c0-282.77-229.23-512-512-512zM512 1024c278.748 0 505.458-222.762 511.848-499.974-5.92 241.864-189.832 435.974-415.848 435.974-229.75 0-416-200.576-416-448 0-53.020-42.98-96-96-96s-96 42.98-96 96c0 282.77 229.23 512 512 512z"
+				],
+				"attrs": [],
+				"tags": [
+					"spinner",
+					"loading",
+					"loading-wheel",
+					"busy",
+					"wait"
+				],
+				"defaultCode": 57776,
+				"grid": 16
+			},
+			"attrs": [],
+			"properties": {
+				"id": 521,
+				"order": 4,
+				"prevSize": 32,
+				"code": 59778,
+				"ligatures": "spinner9, loading10",
+				"name": "spinner"
+			},
+			"setIdx": 1,
+			"iconIdx": 130
+		},
+		{
+			"icon": {
+				"paths": [
+					"M864 128l-480 480-224-224-160 160 384 384 640-640z"
+				],
+				"attrs": [],
+				"tags": [
+					"checkmark",
+					"tick",
+					"correct",
+					"accept",
+					"ok"
+				],
+				"defaultCode": 58224,
+				"grid": 16
+			},
+			"attrs": [],
+			"properties": {
+				"id": 980,
+				"order": 5,
+				"prevSize": 32,
+				"code": 59920,
+				"ligatures": "checkmark, tick",
+				"name": "check"
+			},
+			"setIdx": 1,
+			"iconIdx": 272
 		}
 	],
 	"height": 1024,

@@ -14,8 +14,9 @@ aside
       .panel-heading
         span.label.label-primary = key.data_type
         span = build_breadcumb(key.normalized_key)
-        = button_tag(type: 'submit', class: 'btn btn-primary btn-xs pull-right', form: "edit_translation_#{translation.id}") do
+        = button_tag(type: 'submit', class: 'btn btn-xs pull-right', form: "edit_translation_#{translation.id}") do
           | save
+          i.icon-logo
       .translation-wrapper
         .tr-text
           .original
