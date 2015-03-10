@@ -43,7 +43,8 @@ module API
       end
 
       def translation_params(data)
-        data.slice(:text).permit(:text)
+        text = data[:text]
+        { text: text.is_a?(Array) ? YAML.dump(text).gsub("---\n", '') : text }
       end
     end
   end
