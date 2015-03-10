@@ -8,11 +8,11 @@ class TranslatesController < ApplicationController
       @search = SearchForm.new(search_params)
       @keys   = @search.resolve
 
+      @hierarchy = Key.hierarchy(@search.resolve)
+
       if key_path
         @keys = @keys.with_key_path(key_path.gsub('/', '.'))
       end
-
-      @hierarchy = Key.hierarchy(@keys)
 
       @keys = @keys.page(params[:page])
     else
