@@ -42,10 +42,11 @@ class ImportForm
     end
   end
 
-  def convert_value(translation)
-    case translation
-    when Array then YAML.dump(translation).gsub("---\n", '')
-    else translation
+  def convert_value(value)
+    if value.is_a?(Hash) || value.is_a?(Array) || value.is_a?(Symbol)
+      YAML.dump(value).gsub("---\n", '')
+    else
+      value
     end
   end
 
