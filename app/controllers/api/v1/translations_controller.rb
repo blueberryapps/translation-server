@@ -10,7 +10,7 @@ module API
       def index
         return unless stale? etag: index_etag
 
-        @output = Translation.dump_hash Translation.all
+        @output = Translation.dump_hash Translation.include_dependencies
 
         respond_with @output
       end
