@@ -42,6 +42,8 @@ Rails.application.routes.draw do
 
   resource :developer
 
+  match '/is_alive' => 'root#is_alive', via: [:get]
+
   # TODO: REMOVE THIS
   match '/delete/all' => 'root#delete', via: [:get]
 

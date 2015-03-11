@@ -13,4 +13,8 @@ class RootController < ApplicationController
     Locale.delete_all
     redirect_to root_url
   end
+
+  def is_alive
+    render text: 'Yeah Treanslation server is alive'
+  end
 end
