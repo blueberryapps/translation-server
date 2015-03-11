@@ -1,6 +1,7 @@
 @import bootstrap-sprockets
 @import bootstrap_variables
 @import bootstrap
+@import bootstrap3-switch
 @import highlight_js/tomorrow
 @import jcrop/css/jquery.Jcrop
 @import font-awesome
@@ -17,6 +18,10 @@
   @keyframes #{$name}
     @content
 
+.bootstrap-switch
+  .bootstrap-switch-handle-off
+    &.bootstrap-switch-default
+      background: #f80
 i.fa
   pointer-events: none
 
@@ -35,17 +40,23 @@ i.fa
 .big-icon
   font-size: 300px
   margin-right: 10px
+
 .btn-xs, .btn-xs:focus
   min-width: 24px
   text-align: center
   outline: none
+
+.select_screenshot
+  text-decoration: underline
+  cursor: pointer
+  &.active
+    color: $brand-primary
 
 .screenshot-container
   position: relative
   width: 300px
   height: 150px
   overflow: hidden
-  margin-bottom: 5px
   border: 1px solid #999
 
 .screenshot-box
@@ -65,6 +76,7 @@ i.fa
       vertical-align: middle
       font-size: 100px
       color: #ddd
+
 .screenshot-highlight
   border: 5px solid red
   border-radius: 3px
@@ -112,6 +124,8 @@ i.fa
     .tr-image
       float: left
       width: 300px
+      height: 150px
+      overflow-y: overlay
 
   .panel-heading
     .label

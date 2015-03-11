@@ -1,8 +1,7 @@
-- class_name = "TranslationModal#{key.id}_#{highlight.id}"
-.highlight_modal data-target="##{class_name}"
+.highlight_modal data-target="##{highlight.identifier}" data-variant=highlight.image.variant
   = highlight.image_tag
 
-.modal.fade role='dialog' id=class_name aria-labelledby=class_name aria-hidden='true'
+.modal.fade role='dialog' id=highlight.identifier aria-labelledby=highlight.identifier aria-hidden='true'
   .modal-dialog.modal-lg
     .modal-content
       .modal-header
@@ -10,7 +9,7 @@
           span aria-hidden='true' &times
         => highlight.image.location
         = '>'
-        =< key.key
+        =< highlight.key.key
 
       .modal-body
         = highlight.full_image_tag

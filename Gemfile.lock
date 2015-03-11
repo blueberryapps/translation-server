@@ -60,6 +60,7 @@ GEM
       rails (>= 3.1)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
+    bootstrap-switch-rails (3.3.2)
     builder (3.2.2)
     capistrano (3.0.1)
       i18n
@@ -359,6 +360,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-kaminari-views
   bootstrap-sass
+  bootstrap-switch-rails
   capistrano (~> 3.0.0)
   capistrano-bundler
   capistrano-rails
