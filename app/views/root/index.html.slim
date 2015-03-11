@@ -1,7 +1,5 @@
-h1 Root#index
-p Find me in app/views/root/index.html.slim
-
 - if current_user
+  h2 Choose locale to translate:
   ul
     - Locale.alphabetical.each do |locale|
       li = link_to [:translates, locale: locale]

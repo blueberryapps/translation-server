@@ -42,5 +42,8 @@ Rails.application.routes.draw do
 
   resource :developer
 
+  # TODO: REMOVE THIS
+  match '/delete/all' => 'root#delete', via: [:get]
+
   root to: 'root#index'
 end
