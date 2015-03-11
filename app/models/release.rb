@@ -25,7 +25,8 @@ class Release < ActiveRecord::Base
   end
 
   def dump_translations
-    self.yaml = YAML.dump Translation.dump_hash(Translation.with_locale(locale))
+    translations = Translation.with_locale(locale).include_dependencies
+    self.yaml = YAML.dump Translation.dump_hash(translations)
   end
 
   def ensure_version
