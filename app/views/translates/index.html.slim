@@ -1,12 +1,14 @@
-= render 'search/form'
-
+h1
+  p.pull-right
+    a.btn.btn-primary.translations_submit_all save all unsaved translations
+  ' Translates:
+  = locale.to_s.upcase
 aside
+  = render 'search/form'
   = render 'hierarchy', hierarchy: @hierarchy, keys: []
 .content
   = render 'breadcumb'
 
-  p
-    a.btn.btn-primary.translations_submit_all submit
 
   - @keys.each do |key|
     - translation = Translation.resolve(key: key, locale: locale)
@@ -14,22 +16,32 @@ aside
       .panel-heading
         span.label.label-primary = key.data_type
         span = build_breadcumb(key.normalized_key)
-        = button_tag(type: 'submit', class: 'btn btn-xs pull-right', form: "edit_translation_#{translation.id}") do
-          | save
-          i.icon-logo
+
+        .pull-right
+          => hint_translation(key.default_text)
+          = button_tag(type: 'submit', class: 'btn btn-xs', form: "edit_translation_#{translation.id}")
+            = fa_icon 'check'
+
+
       .translation-wrapper
         .tr-text
           .original
-            .hint_default_translate data-text=key.default_text
-              = simple_format key.default_text
+            = simple_format key.default_text
           .translation
             = render 'inline_form',
                      translation: translation
         .tr-image
-          - key.highlights.each do |highlight|
+          - highlights = key.highlights
+          - highlights.each do |highlight|
             = render 'modal', highlight: highlight, key: key
+          - unless highlights.any?(&:image_tag)
+            .screenshot.empty data-full="true"
+              = fa_icon 'camera'
       .panel-footer
         - key.highlights.each do |highlight|
           = highlight.image.location
+
+  p.pull-right
+    a.btn.btn-primary.translations_submit_all save all unsaved translations
 
   = paginate @keys, theme: 'twitter-bootstrap-3'

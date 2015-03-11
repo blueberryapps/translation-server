@@ -1,7 +1,7 @@
 ol class="breadcrumb"
   li
     = link_to [:translates]
-      ' ROOT
+      = locale.to_s.upcase
 
   - build_breadcumb(key_path_splitted, nil).each do |link|
     li = link.html_safe

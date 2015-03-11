@@ -27,4 +27,23 @@ module ApplicationHelper
             end
     separator ? links.join(separator).html_safe : links
   end
+
+  def hint_translation(text)
+    available_locales = %w(
+      sq ar hy az be bs bg ca zh hr cs da nl et fi fr ka de el he hu is id it ja
+      lv lt mk ms mt no pl pt ro ru sr sk sl es sv th tr uk vi
+    )
+
+    if available_locales.include?(locale.to_s) && text.present?
+      klass = 'hint_default_translate'
+      text  = text
+    else
+      text  = ''
+      klass = 'disabled'
+    end
+
+    "<span class='#{klass} btn btn-xs btn-primary' title='Translated to: #{locale.to_s.upcase}' data-text='#{text}'>
+        <i class='fa fa-question'></i>
+    </span>".html_safe
+  end
 end

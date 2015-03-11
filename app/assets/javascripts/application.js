@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap/modal
+//= require bootstrap/popover
 //= require jcrop/js/jquery.Jcrop
 //= require highlight_js/highlight
 //= require highlight_js/languages/json

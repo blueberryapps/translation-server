@@ -23,8 +23,8 @@ class ReleasesController < ApplicationController
   def create
     @release = Release.new(release_params)
     @release.save
-
-    respond_with @release
+    respond_with @release,
+                 location: URI(request.referer).path == "/" ? '/' : @release
   end
 
   # DELETE /releases/1

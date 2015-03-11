@@ -1,19 +1,25 @@
-p
-  strong Email:
-  = @user.email
+h1
+  - if current_user == @user
+    .pull-right
+      = link_to 'Edit', [:edit, @user], class: 'btn btn-primary'
+  ' User:
+  = @user.username
+.row
+  .col-sm-6
+    dl.dl-horizontal
+      dt Email
+      dd = @user.email
 
-- if current_user == @user
-  p
-    strong API Key:
-    = @user.api_key
-
-= link_to 'Edit', [:edit, @user]
-'|
-= link_to 'Back', [:users]
-
+    - if current_user == @user
+      dl.dl-horizontal
+        dt API Key
+        dd = @user.api_key
+  .col-sm-6
+    .pull-right
+      = image_tag @user.photo_url(200), class: 'current-user-photo'
 
 br
 br
 br
 // TODO: REMOVE THIS
-= link_to '!!!!CLEAN DATABASE!!!!', '/delete/all'
+= link_to '!!!! CLEAN DATABASE !!!!', '/delete/all', class: 'btn btn-danger'

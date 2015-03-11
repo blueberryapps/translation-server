@@ -1,8 +1,9 @@
 ul
   - hierarchy.each do |key, value|
-    li
+    li class=('active' if key_path == (keys + [key]).join('/'))
       = link_to build_key_path_url(keys + [key])
         - if value.any?
           .glyphicon.glyphicon-book
           = key
-          = render 'hierarchy', hierarchy: value, keys: keys + [key]
+      - if value.any?
+        = render 'hierarchy', hierarchy: value, keys: keys + [key]

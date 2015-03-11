@@ -9,9 +9,9 @@ html
 
   body class=body_class data-hint-url=hint_translates_path
     = render 'application/menu'
-    = render 'application/flashes'
 
     .container-fluid
+      = render 'application/flashes'
       = yield
 
     = javascript_include_tag :application

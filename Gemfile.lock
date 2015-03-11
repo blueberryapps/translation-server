@@ -126,6 +126,8 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.6)
     flutie (2.0.0)
+    font-awesome-rails (4.3.0.0)
+      railties (>= 3.2, < 5.0)
     formatador (0.2.5)
     globalid (0.3.3)
       activesupport (>= 4.1.0)
@@ -368,6 +370,7 @@ DEPENDENCIES
   envied
   factory_girl_rails
   flutie
+  font-awesome-rails
   guard-rspec
   hashie
   highlight_js-rails

@@ -1,8 +1,46 @@
 - if current_user
-  h2 Choose locale to translate:
-  ul
-    - Locale.alphabetical.each do |locale|
-      li = link_to [:translates, locale: locale]
-        = "Translate #{locale}"
+  h1 Choose locale to translate:
+
+  .row
+    .col-sm-9
+      - Locale.alphabetical.each do |locale|
+        .col-sm-6
+          .panel.panel-default.panel-translation
+            .panel-heading
+              = link_to [:translates, locale: locale],
+                        class: 'btn btn-primary btn-xs pull-right'
+                = "Go to #{locale.to_s.upcase} translations"
+              = link_to [:translates, locale: locale]
+                = locale.to_s.upcase
+            .panel-body
+              dl.dl-horizontal
+                dt Translations
+                dd = locale.translations.count
+              dl.dl-horizontal
+                dt Releases
+                dd = locale.releases.count
+              - last_release = locale.releases.last
+              dl.dl-horizontal
+                dt Latest Release
+                dd
+                  = last_release ? link_to(last_release.version, last_release) : '-'
+                  =< link_to releases_path(release: { locale_id: locale.id }),
+                            method: :post,
+                            data: { confirm: "Are you sure to create new release for: #{locale.to_s.upcase}" },
+                            class: 'btn btn-default btn-sm pull-right'
+                    = "Create new release"
+                dl.dl-horizontal
+                dt Latest Release at
+                dd = last_release ? localize(last_release.created_at) : '-'
+      - if Locale.count == 0
+        .alert.alert-info
+          ' Sorry, but there is no locale to translate
+    .col-sm-3
+      = fa_icon 'language', class: 'big-icon'
+
 - else
-  = link_to 'Sign in', [:new, :user_session]
+  .pull-right
+    = fa_icon 'language', class: 'big-icon'
+  h1 Transaltion server
+
+  = link_to 'Sign in', [:new, :user_session], class: 'btn btn-primary'

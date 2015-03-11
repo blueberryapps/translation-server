@@ -16,7 +16,7 @@ $(document).ready ->
 
       if box.find('.screenshot-highlight').length == 0
         box.append('<div class="screenshot-highlight"></div>')
-      if data.highlight
+      if data.highlight && x != undefined
         highlight = box.find('.screenshot-highlight')
         highlight.css(left: x, top: y, width: width, height: height)
 
@@ -29,7 +29,7 @@ $(document).ready ->
         $(box).wrap('<div class="screenshot-container"></div>')
       wrapper = $(box).closest('.screenshot-container')
 
-      if data.highlight
+      if data.highlight && x != undefined
         if box.find('.screenshot-highlight').length == 0
           box.append('<div class="screenshot-highlight"></div>')
         highlight = box.find('.screenshot-highlight')

@@ -1,17 +1,10 @@
-
-= link_to 'Back', [:releases]
-
-p
-  strong Locale:
-  = @release.locale
-p
-  strong Version:
+h1
+  ' Release:
   = @release.version
+
 p
   strong Created at:
-  = localize @release.created_at
-p
-  strong Yaml:
+  =< localize @release.created_at
 
 pre
   code

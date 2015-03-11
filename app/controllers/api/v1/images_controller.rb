@@ -8,21 +8,25 @@ module API
         location_path = URI.parse(params[:location]).path
         location = Location.where(path: location_path).first_or_create
 
+        variant = 'desktop'
         params[:images].each do |data|
-          if image = Image.where(location: location, name: data[:name]).first
+          variant = data[:variant]
+          lookup_params = {
+            location: location,
+            name: data[:name],
+            variant: data[:variant]
+          }
+          if image = Image.where(lookup_params).first
             image.update image_params(data)
           else
-            args = image_params(data).merge(
-              location: location,
-              name: data[:name]
-            )
+            args = image_params(data).merge(location: location)
             image = Image.create args
           end
         end
 
         params[:highlights].each do |data|
           key   = Key.where(key: data[:key].split('.', 2).last).first_or_create
-          image = Image.where(name: data[:image_name]).first
+          image = Image.where(name: data[:image_name], variant: variant).first
 
           if highlight = Highlight.where(image: image, key: key).first
             highlight.update highlight_params(data)
@@ -40,7 +44,7 @@ module API
       private
 
       def image_params(data)
-        data.slice(:image).permit(:image)
+        data.slice(:image, :name, :variant).permit(:image, :name, :variant)
       end
 
       def highlight_params(data)
