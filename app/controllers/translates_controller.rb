@@ -6,9 +6,10 @@ class TranslatesController < ApplicationController
   def index
     if locale
       @search = SearchForm.new(search_params)
-      @keys   = @search.resolve
+      @keys   = @search.resolve.uniq
 
       @hierarchy = Key.hierarchy(@search.resolve)
+      @locations = Location.alphabetical
 
       if key_path
         @keys = @keys.with_key_path(key_path.gsub('/', '.'))
@@ -44,8 +45,9 @@ class TranslatesController < ApplicationController
 
   def search_params
     {
-      scope: Key.alphabetical.with_locale(locale),
-      query: params[:query]
+      location: params[:location],
+      query:    params[:query],
+      scope:    Key.alphabetical.with_locale(locale)
     }
   end
 

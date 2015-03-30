@@ -24,6 +24,10 @@ class Key < ActiveRecord::Base
     joins(:translations).where 'lower(key) like ? or lower(translations.text) like ?', string, string
   end
 
+  def self.with_location(location)
+    joins(:locations).where locations: { id: location }
+  end
+
   def self.hierarchy(keys)
     keys.each_with_object({}) do |key, hash|
       hash.deep_merge! hierarchical_hash_from_array(key.key.split('.') + [{}])
