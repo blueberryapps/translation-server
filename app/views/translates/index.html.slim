@@ -9,6 +9,9 @@ h1
   = locale.to_s.upcase
 aside
   = render 'search/form'
+  h3 Urls
+  = render 'locations', locations: @locations
+  h3 Keys
   = render 'hierarchy', hierarchy: @hierarchy, keys: []
 .content
   = render 'breadcumb'
@@ -44,11 +47,12 @@ aside
             .screenshot.empty data-full='true' data-variant='desktop'
               = fa_icon 'camera'
       .panel-footer
-        - highlights.each do |highlight|
-          - if highlight.image_tag
-            span.select_screenshot data-variant=highlight.image.variant data-screenshot=highlight.identifier
-              =< highlight.image.location
-          - else
+        - with_images, without_images = highlights.partition(&:image_tag)
+        - with_images.each do |highlight|
+          span.select_screenshot data-variant=highlight.image.variant data-screenshot=highlight.identifier
+            =< highlight.image.location
+        - without_images.each do |highlight|
+          - unless with_images.any? { |h| h.image.location == highlight.image.location }
             span data-variant=highlight.image.variant =< highlight.image.location
 
   p.pull-right

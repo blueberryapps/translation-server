@@ -1,0 +1,6 @@
+ul
+  - locations.each do |location|
+    li class=('active' if params[:location] == location.id.to_s)
+      = link_to [:translates, location: location.id]
+        .glyphicon.glyphicon-link
+        = location

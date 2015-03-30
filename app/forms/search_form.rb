@@ -5,8 +5,21 @@ class SearchForm
 
   attribute :scope
   attribute :query
+  attribute :location
 
   def resolve
+    query_location query_scope(scope)
+  end
+
+  def query_location(scope)
+    if location.present?
+      scope.with_location(location)
+    else
+      scope
+    end
+  end
+
+  def query_scope(scope)
     if query.present?
       scope.with_query(query)
     else
