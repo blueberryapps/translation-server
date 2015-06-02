@@ -14,7 +14,11 @@ class Translation < ActiveRecord::Base
 
   def self.dump_hash(scope)
     scope.each_with_object({}) do |translation, hash|
-      hash.deep_merge! translation.to_hierarchical_h
+      begin
+        hash.deep_merge! translation.to_hierarchical_h
+      rescue Exception => e
+        Rails.logger.error "Problem with dumping: #{translation.key} -> #{translation}: #{e.class} #{e.message}"
+      end
     end
   end
 
