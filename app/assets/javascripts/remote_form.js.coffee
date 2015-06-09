@@ -58,6 +58,11 @@ $(document).ready ->
     form = $(this)
     check_state(form)
 
+    form.find('textarea').bind 'blur', (e) ->
+      check_state(form)
+      if is_changed_state(form)
+        form.trigger('submit')
+
     form.find('textarea').bind 'change keyup keydown', (e) ->
       check_state(form)
       code = e.keyCode || e.which

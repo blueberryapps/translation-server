@@ -34,11 +34,17 @@ class TranslatesController < ApplicationController
   end
 
   def locale
+    return @locale if @locale
+
     if params[:locale]
       session[:locale_id] = params[:locale]
     end
 
-    Locale.find(session[:locale_id] || Locale.first.id) rescue nil
+    if params[:locale_code]
+      return @locale = Locale.where(code: params[:locale_code]).first
+    end
+
+    @locale = Locale.find(session[:locale_id] || Locale.first.id) rescue nil
   end
 
   private

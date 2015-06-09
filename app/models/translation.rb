@@ -7,7 +7,7 @@ class Translation < ActiveRecord::Base
   scope :alphabetical, -> { order :id }
   scope :with_locale,  -> (locale) { where locale: locale }
 
-  scope :include_dependencies, -> { includes :locale, :key }
+  scope :include_dependencies, -> { includes(:locale, :key).order('keys.key') }
 
   validates :key, uniqueness: { scope: :locale }
   validates :key, :locale, presence: true
