@@ -1,4 +1,4 @@
-= simple_form_for(@search, url: [:translates]) do |f|
+= simple_form_for(@search, url: [:translates, locale_code: locale.code], method: :get) do |f|
   .input-group
     = f.input :query, label: false, input_html: { name: 'query' }, placeholder: t(:placeholder, scope: [:search])
     .input-group-btn

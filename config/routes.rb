@@ -6,13 +6,15 @@ Rails.application.routes.draw do
 
   resources :highlights
 
-  resources :translates, only: :index do
-    collection do
-      get 'browse/*key_path' => 'translates#index', as: :browse
-      get 'hint' => 'translates#hint', as: :hint
+  scope ':locale_code' do
+    resources :translates, only: :index do
+      collection do
+        get 'browse/*key_path' => 'translates#index', as: :browse
+      end
     end
+    post '/translates' => 'translates#index'
   end
-  post '/translates' => 'translates#index'
+  get '/translates/hint' => 'translates#hint', as: :hint_translates
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do

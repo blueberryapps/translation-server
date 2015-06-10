@@ -50,6 +50,7 @@ end
 
 group :staging, :production do
   gem 'newrelic_rpm', '>= 3.9.6'
+  gem 'rails_12factor' #for HEROKU
 end
 
 group :test do

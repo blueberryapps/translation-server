@@ -9,10 +9,10 @@ h1
   = locale.to_s.upcase
 aside
   = render 'search/form'
-  h3 Urls
-  = render 'locations', locations: @locations
   h3 Keys
   = render 'hierarchy', hierarchy: @hierarchy, keys: []
+  h3 Urls
+  = render 'locations', locations: @locations
 .content
   = render 'breadcumb'
 

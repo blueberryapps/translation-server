@@ -13,8 +13,8 @@ module ApplicationHelper
       :browse,
       :translates,
       {
-        key_path: key,
-        query: @search.query
+        locale_code: locale.code,
+        key_path: key
       }
     ]
   end

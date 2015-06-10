@@ -7,10 +7,10 @@
         .col-sm-6
           .panel.panel-default.panel-translation
             .panel-heading
-              = link_to [:translates, locale: locale],
+              = link_to [:translates, locale_code: locale.code],
                         class: 'btn btn-primary btn-xs pull-right'
                 = "Go to #{locale.to_s.upcase} translations"
-              = link_to [:translates, locale: locale]
+              = link_to [:translates, locale_code: locale.code]
                 = locale.to_s.upcase
             .panel-body
               dl.dl-horizontal
@@ -41,6 +41,6 @@
 - else
   .pull-right
     = fa_icon 'language', class: 'big-icon'
-  h1 Transaltion server
+  h1 Translation server
 
   = link_to 'Sign in', [:new, :user_session], class: 'btn btn-primary'
