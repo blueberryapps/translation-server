@@ -1,6 +1,8 @@
-h1 Listing keys
+h1
+  ' Listing keys
+  = link_to 'New Key', [:new, :key], class: 'btn btn-sm btn-primary'
 
-= link_to 'New Key', [:new, :key]
+= render 'search/basic'
 
 table.table
   thead

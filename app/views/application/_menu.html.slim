@@ -23,14 +23,13 @@
 
         .menu-holder
           ul.nav.navbar-nav.primary
-            li = link_to 'Translates', root_path
             li = link_to 'Releases', [:releases]
             / li = link_to :locales, [:locales]
             / li = link_to :locations, [:locations]
-            / li = link_to :keys, [:keys]
             / li = link_to :images, [:images]
             / li = link_to :highlights, [:highlights]
             / li = link_to :translations, [:translations]
             li = link_to 'Import', [:imports]
             li = link_to 'Developer', [:developer]
+            li = link_to 'Translation Keys', [:keys]
             li = link_to 'Users', [:users]
