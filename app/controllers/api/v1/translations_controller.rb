@@ -33,10 +33,15 @@ module API
               Translation.create translation_params(data).merge(locale: locale, key: key)
             end
 
-            if default_image
-              Highlight.where(image: default_image, key: key).first_or_create
-            end
             success += 1
+
+            if default_image
+              Highlight.where(
+                image:  default_image,
+                key:    key,
+                locale: locale
+              ).first_or_create
+            end
           else
             errors << { key: key.key, errors: key.errors.full_messages }
           end

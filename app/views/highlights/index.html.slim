@@ -1,9 +1,10 @@
 h1 Listing highlights
 
-table
+table.table
   thead
     tr
       th Image
+      th Locale
       th Key
       th Selected
       th
@@ -14,6 +15,7 @@ table
     - @highlights.each do |highlight|
       tr
         td = link_to highlight.image, highlight.image
+        td = highlight.locale
         td = highlight.key
         td = highlight.image_tag
         td = link_to 'Show', highlight

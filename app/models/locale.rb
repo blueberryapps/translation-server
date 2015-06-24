@@ -3,6 +3,7 @@ class Locale < ActiveRecord::Base
 
   has_many :translations
   has_many :releases
+  has_many :highlights
 
   scope :alphabetical,  -> { order :code }
 

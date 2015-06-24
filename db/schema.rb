@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309091603) do
+ActiveRecord::Schema.define(version: 20150624151239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,12 +23,16 @@ ActiveRecord::Schema.define(version: 20150309091603) do
     t.integer  "y"
     t.integer  "width"
     t.integer  "height"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "locale_id"
+    t.integer  "location_id"
   end
 
   add_index "highlights", ["image_id"], name: "index_highlights_on_image_id", using: :btree
   add_index "highlights", ["key_id"], name: "index_highlights_on_key_id", using: :btree
+  add_index "highlights", ["locale_id"], name: "index_highlights_on_locale_id", using: :btree
+  add_index "highlights", ["location_id"], name: "index_highlights_on_location_id", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.integer  "location_id"
@@ -75,8 +79,9 @@ ActiveRecord::Schema.define(version: 20150309091603) do
     t.integer  "key_id"
     t.integer  "locale_id"
     t.text     "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "edited",     default: false
   end
 
   add_index "translations", ["key_id"], name: "index_translations_on_key_id", using: :btree

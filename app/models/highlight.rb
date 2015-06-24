@@ -3,6 +3,8 @@ class Highlight < ActiveRecord::Base
 
   belongs_to :image
   belongs_to :key
+  belongs_to :locale
+  belongs_to :location
 
   validates :key, :image, presence: true
 

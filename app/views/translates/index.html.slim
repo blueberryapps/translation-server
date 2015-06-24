@@ -18,7 +18,7 @@ aside
 
   - @keys.each do |key|
     - translation = Translation.resolve(key: key, locale: locale)
-    - highlights = key.highlights
+    - highlights = key.highlights.where(locale: locale)
     .panel.panel-default.panel-translation
       .panel-heading
         span.label.label-primary = key.data_type
