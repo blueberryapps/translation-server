@@ -24,3 +24,11 @@ en:
   search:
     placeholder: "Search text"
     submit: "Search"
+  activerecord:
+    errors:
+      models:
+        key:
+          attributes:
+            key:
+              existing_parent: 'already existing parent key for this key'
+              existing_childs: 'already existing child keys for this key'

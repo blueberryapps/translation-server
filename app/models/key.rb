@@ -11,6 +11,7 @@ class Key < ActiveRecord::Base
   has_many :locations, through: :images
 
   validates :key, uniqueness: true, length: { minimum: 1 }
+  validate :validate_key_scopes
 
   scope :alphabetical,  -> { order :key }
   scope :with_key_path, -> (key_path) { where 'key like ?', "#{key_path}%" }
@@ -34,6 +35,19 @@ class Key < ActiveRecord::Base
     end
   end
 
+  def self.hierarchical_hash_from_array(array_hierarchy, hash_hierarchy = {})
+    return hash_hierarchy if array_hierarchy.empty?
+
+    if hash_hierarchy.empty?
+      value = array_hierarchy.pop
+      hash_hierarchy.merge!(array_hierarchy.pop => value)
+    else
+      hash_hierarchy = { array_hierarchy.pop => hash_hierarchy }
+    end
+
+    return hierarchical_hash_from_array(array_hierarchy, hash_hierarchy)
+  end
+
   def normalized_key
     I18n.normalize_keys(nil, key, nil, '.')
   end
@@ -55,16 +69,17 @@ class Key < ActiveRecord::Base
     translations.where(locale: Locale.default).first.try(:text) || note
   end
 
-  def self.hierarchical_hash_from_array(array_hierarchy, hash_hierarchy = {})
-    return hash_hierarchy if array_hierarchy.empty?
+  private
 
-    if hash_hierarchy.empty?
-      value = array_hierarchy.pop
-      hash_hierarchy.merge!(array_hierarchy.pop => value)
-    else
-      hash_hierarchy = { array_hierarchy.pop => hash_hierarchy }
+  def parent_key
+    key.split('.')[0..-2].join('.')
+  end
+
+  def validate_key_scopes
+    if self.class.where('key ilike ?', "#{key}.%").count > 0
+      errors.add(:key, :existing_childs)
+    elsif parent_key.present? && self.class.where(key: parent_key).count > 0
+      errors.add(:key, :existing_parent)
     end
-
-    return hierarchical_hash_from_array(array_hierarchy, hash_hierarchy)
   end
 end
