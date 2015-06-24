@@ -61,7 +61,7 @@ RSpec.describe TranslationsController, type: :controller do
 
       it 'redirects to the created translation' do
         post :create, {:translation => valid_attributes}
-        expect(response).to redirect_to(Translation.last)
+        expect(response).to redirect_to(translations_url)
       end
     end
 

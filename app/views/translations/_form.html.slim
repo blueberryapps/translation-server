@@ -1,5 +1,6 @@
 = simple_form_for(translation) do |f|
   = f.error_notification
+  = hidden_field_tag :redirect_to, @redirect_to
 
   .form-inputs
     = f.association :key

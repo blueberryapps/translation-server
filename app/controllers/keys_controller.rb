@@ -4,7 +4,8 @@ class KeysController < ApplicationController
 
   # GET /keys
   def index
-    @keys = Key.alphabetical.page(params[:page])
+    @search = SearchForm.new(search_params)
+    @keys   = @search.resolve.page(params[:page])
     respond_with @keys
   end
 
@@ -44,13 +45,20 @@ class KeysController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_key
-      @key = Key.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_key
+    @key = Key.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def key_params
-      params.require(:key).permit(:key, :note, :data_type)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def key_params
+    params.require(:key).permit(:key, :note, :data_type)
+  end
+
+  def search_params
+    {
+      query:    params[:query],
+      scope:    Key.alphabetical
+    }
+  end
 end

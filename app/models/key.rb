@@ -4,10 +4,10 @@ class Key < ActiveRecord::Base
   DATA_TYPES = %w(string array integer float)
   BOOL_REGEXP = /^(true|t|yes|y|1)$/i
 
-  has_many :highlights
+  has_many :highlights, dependent: :destroy
   has_many :images, through: :highlights
 
-  has_many :translations
+  has_many :translations, dependent: :destroy
   has_many :locales,   through: :translations
   has_many :locations, through: :images
 
