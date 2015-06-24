@@ -24,7 +24,7 @@ class ReleasesController < ApplicationController
     @release = Release.new(release_params)
     @release.save
     respond_with @release,
-                 location: URI(request.referer).path == "/" ? '/' : @release
+                 location: redirect_to_root? ? '/' : @release
   end
 
   # DELETE /releases/1
@@ -34,13 +34,17 @@ class ReleasesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_release
-      @release = Release.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_release
+    @release = Release.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def release_params
-      params.require(:release).permit(:locale_id, :version, :yaml)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def release_params
+    params.require(:release).permit(:locale_id, :version, :yaml)
+  end
+
+  def redirect_to_root?
+    request.referer && URI(request.referer).path == '/'
+  end
 end
