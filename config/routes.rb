@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     get :display, on: :member
   end
 
+  resources :exports, only: :index
+
   resources :locations
 
   resources :keys

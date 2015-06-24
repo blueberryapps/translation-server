@@ -1,3 +1,17 @@
-h1 Import YML
+- if @import.info
+  div class="alert alert-success" role='alert' = @import.info.html_safe
+- elsif @import.error
+  div class="alert alert-danger" role='alert' = @import.error.html_safe
 
-= render 'form'
+.row
+  .col-xs-6
+    h1 Export YML
+    p Download lates version of translations:
+    ul
+      - Locale.alphabetical.each do |locale|
+        li = link_to locale, [:exports, locale: locale.id, format: :yml]
+
+.row
+  .col-xs-12
+    h1 Import YML/JSON
+    = render 'form', file: true
