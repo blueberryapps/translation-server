@@ -17,6 +17,8 @@ module API
 
       def create
         locale = Locale.where(code: params[:locale]).first_or_create
+        errors = []
+        success = 0
 
         if params[:location]
           location      = Location.where(path: params[:location]).first_or_create
@@ -25,19 +27,24 @@ module API
 
         params[:translations].each do |data|
           key = Key.where(key: data[:key].split('.', 2).last)
-                   .first_or_create(data_type: data[:data_type])
+                   .first_or_initialize(data_type: data[:data_type])
+          if key.valid? && key.save
+            unless Translation.where(locale: locale, key: key).first
+              Translation.create translation_params(data).merge(locale: locale, key: key)
+            end
 
-          unless Translation.where(locale: locale, key: key).first
-            Translation.create translation_params(data).merge(locale: locale, key: key)
-          end
-
-          if default_image
-            Highlight.where(image: default_image, key: key).first_or_create
+            if default_image
+              Highlight.where(image: default_image, key: key).first_or_create
+            end
+            success += 1
+          else
+            errors << { key: key.key, errors: key.errors.full_messages }
           end
         end
 
         render json: {
-          message: "Imported #{params[:translations].size} translations"
+          message: "Imported #{success} translations",
+          errors: errors
         }
       end
 
