@@ -19,7 +19,7 @@ RSpec.describe ReleasesController, type: :controller do
   describe "GET #show" do
     it "assigns the requested release as @release" do
       release = Release.create! valid_attributes
-      get :show, {:id => release.to_param}
+      get :show, { id: release.to_param }
       expect(assigns(:release)).to eq(release)
     end
   end
@@ -35,25 +35,25 @@ RSpec.describe ReleasesController, type: :controller do
     context "with valid params" do
       it "creates a new Release" do
         expect {
-          post :create, {:release => valid_attributes}
+          post :create, { release: valid_attributes }
         }.to change(Release, :count).by(1)
       end
 
       it "assigns a newly created release as @release" do
-        post :create, {:release => valid_attributes}
+        post :create, { release: valid_attributes }
         expect(assigns(:release)).to be_a(Release)
         expect(assigns(:release)).to be_persisted
       end
 
       it "redirects to the created release" do
-        post :create, {:release => valid_attributes}
+        post :create, { release: valid_attributes }
         expect(response).to redirect_to(Release.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved release as @release" do
-        post :create, {:release => invalid_attributes}
+        post :create, { release: invalid_attributes }
         expect(assigns(:release)).to be_a_new(Release)
       end
 
@@ -68,13 +68,13 @@ RSpec.describe ReleasesController, type: :controller do
     it "destroys the requested release" do
       release = Release.create! valid_attributes
       expect {
-        delete :destroy, {:id => release.to_param}
+        delete :destroy, { id: release.to_param }
       }.to change(Release, :count).by(-1)
     end
 
     it "redirects to the releases list" do
       release = Release.create! valid_attributes
-      delete :destroy, {:id => release.to_param}
+      delete :destroy, { id: release.to_param }
       expect(response).to redirect_to(releases_url)
     end
   end
