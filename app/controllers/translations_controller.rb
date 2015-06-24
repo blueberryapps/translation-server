@@ -45,7 +45,8 @@ class TranslationsController < ApplicationController
   # DELETE /translations/1
   def destroy
     @translation.destroy
-    respond_with @translation, location: [:translations]
+    respond_with @translation,
+                 location: request.referer ? request.referer : [:translations]
   end
 
   private

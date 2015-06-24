@@ -26,8 +26,10 @@ aside
 
         .pull-right
           => hint_translation(key.default_text)
-          = button_tag(type: 'submit', class: 'btn btn-xs', form: "edit_translation_#{translation.id}")
+          => button_tag(type: 'submit', class: 'btn btn-xs', form: "edit_translation_#{translation.id}")
             = fa_icon 'check'
+          = link_to translation, method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure to delete transaltion: #{locale.code} -> #{key}?" }
+            = fa_icon 'trash'
 
 
       .translation-wrapper
