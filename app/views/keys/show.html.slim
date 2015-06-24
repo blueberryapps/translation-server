@@ -4,7 +4,9 @@ h1
   => @key.key
   => link_to 'Edit', [:edit, @key], class: 'btn btn-sm btn-primary'
 
-h3 Translations
+h3
+  ' Translations
+  => link_to 'Create new translation', [:new, :translation, key_id: @key.id], class: 'btn btn-sm btn-primary'
 table.table
   thead
     tr

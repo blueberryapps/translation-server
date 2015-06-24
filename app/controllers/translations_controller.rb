@@ -15,7 +15,8 @@ class TranslationsController < ApplicationController
 
   # GET /translations/new
   def new
-    @translation = Translation.new
+    @redirect_to = success_location
+    @translation = Translation.new(new_translation_params)
     respond_with @translation
   end
 
@@ -28,7 +29,7 @@ class TranslationsController < ApplicationController
   def create
     @translation = Translation.new(translation_params)
     @translation.save
-    respond_with @translation
+    respond_with @translation, location: location_after_create
   end
 
   # PATCH/PUT /translations/1
@@ -46,17 +47,30 @@ class TranslationsController < ApplicationController
   def destroy
     @translation.destroy
     respond_with @translation,
-                 location: request.referer ? request.referer : [:translations]
+                 location: success_location
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_translation
-      @translation = Translation.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_translation
+    @translation = Translation.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def translation_params
-      params.require(:translation).permit(:key_id, :locale_id, :text)
-    end
+  def success_location
+    request.referer ? request.referer : [:translations]
+  end
+
+  def location_after_create
+    params[:redirect_to].present? ? params[:redirect_to] : success_location
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def translation_params
+    params.require(:translation).permit(:key_id, :locale_id, :text)
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def new_translation_params
+    params.permit(:key_id, :locale_id)
+  end
 end
