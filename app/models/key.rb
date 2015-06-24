@@ -2,6 +2,7 @@ class Key < ActiveRecord::Base
   include Resolvable
 
   DATA_TYPES = %w(string array integer float)
+  BOOL_REGEXP = /^(true|t|yes|y|1)$/i
 
   has_many :highlights
   has_many :images, through: :highlights
@@ -40,9 +41,12 @@ class Key < ActiveRecord::Base
 
   def normalize_value(value)
     case data_type
-    when 'array' then YAML.load(value) || []
+    when 'array'   then YAML.load(value) || []
     when 'integer' then value.to_i
-    when 'float' then value.to_f
+    when 'float'   then value.to_f
+    when 'string'  then value
+    when 'symbol'  then value.to_sym
+    when 'boolean' then value =~ BOOL_REGEXP ? true : false
     else value
     end
   end
