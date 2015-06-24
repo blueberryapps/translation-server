@@ -14,7 +14,8 @@ module ApplicationHelper
       :translates,
       {
         locale_code: locale.code,
-        key_path: key
+        key_path: key,
+        edited_filter: @edited_filter
       }
     ]
   end

@@ -26,6 +26,10 @@ class Key < ActiveRecord::Base
     joins(:translations).where 'lower(key) like ? or lower(translations.text) like ?', string, string
   end
 
+  def self.with_edited_filter(edited)
+    joins(:translations).where translations: { edited: edited }
+  end
+
   def self.with_location(location)
     joins(:locations).where locations: { id: location }
   end

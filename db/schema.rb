@@ -41,8 +41,10 @@ ActiveRecord::Schema.define(version: 20150624151239) do
     t.text     "image"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "locale_id"
   end
 
+  add_index "images", ["locale_id"], name: "index_images_on_locale_id", using: :btree
   add_index "images", ["location_id"], name: "index_images_on_location_id", using: :btree
 
   create_table "keys", force: :cascade do |t|
