@@ -1,6 +1,11 @@
 = simple_form_for(@import, url: [:imports]) do |f|
-  .input-group
-    = f.input :file, label: false, as: :file
+
+  h3 Select file
+  = f.input :file, label: false, as: :file
+  h3 or paste formatted YAML/JSON text
+  = f.input :text, label: false, as: :text, input_html: { rows: 20 }
+
+  = f.input :overwrite, label: "#{fa_icon 'warning'} Overwrite all existing translations from file translations".html_safe, as: :boolean
   .input-group-btn
     = f.button :button
       ' Import YML
