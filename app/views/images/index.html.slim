@@ -8,6 +8,7 @@ table.table
       th Location
       th Name
       th Variant
+      th Highlights count
       th
       th
       th
@@ -18,6 +19,7 @@ table.table
         td = image.location
         td = image.name
         td = image.variant
+        td = image.highlights.count
         td = link_to 'Show', image
         td = link_to 'Edit', [:edit, image]
         td = link_to 'Destroy', image, data: {:confirm => 'Are you sure?'}, :method => :delete

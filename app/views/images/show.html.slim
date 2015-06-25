@@ -17,3 +17,25 @@
 h3 Preview Image:
 
 = @image.image_tag full: true
+
+h3 Hightlights:
+
+table.table
+  thead
+    tr
+      th Locale
+      th Key
+      th X
+      th Y
+      th Width
+      th Height
+  tbody
+    - @image.highlights.each do |highlight|
+      tr
+        td = highlight.locale
+        td = highlight.key
+        td = highlight.x
+        td = highlight.y
+        td = highlight.width
+        td = highlight.height
+

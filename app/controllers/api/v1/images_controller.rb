@@ -13,26 +13,44 @@ module API
           variant = data[:variant]
           lookup_params = {
             location: location,
-            name: data[:name],
-            variant: data[:variant]
+            name:     data[:name],
+            variant:  data[:variant]
           }
-          if image = Image.where(lookup_params).first
-            image.update image_params(data)
-          else
-            args = image_params(data).merge(location: location)
-            image = Image.create args
-          end
+          args = image_params(data).merge(location: location)
+          Image.create args
         end
 
         params[:highlights].each do |data|
-          key   = Key.where(key: data[:key].split('.', 2).last).first_or_create
-          image = Image.where(name: data[:image_name], variant: variant).first
+          locale = Locale.where(code: parse_locale(data)).first_or_create
+          key    = Key.where(key: parse_key(data)).first_or_create
 
-          if highlight = Highlight.where(image: image, key: key).first
-            highlight.update highlight_params(data)
+          image_lookup = {
+            name:     data[:image_name],
+            variant:  variant,
+            location: location
+          }
+          image = Image.where(image_lookup).order(created_at: :desc).first
+
+          highlight_lookup = {
+            key:      key,
+            locale:   locale,
+            location: location
+          }
+
+          if highlight = Highlight.where(highlight_lookup).first
+            highlight.update highlight_params(data).merge(image: image)
           else
-            args = highlight_params(data).merge(image: image, key: key)
+            args = highlight_params(data)
+              .merge(highlight_lookup)
+              .merge(image: image)
+
             Highlight.create args
+          end
+
+          Image.where(image_lookup).each do |image|
+            if image.highlights.count == 0
+              image.delete
+            end
           end
         end
 
@@ -49,6 +67,14 @@ module API
 
       def highlight_params(data)
         data.slice(:x, :y, :width, :height).permit(:x, :y, :width, :height)
+      end
+
+      def parse_key(data)
+        data[:key].split('.', 2).last
+      end
+
+      def parse_locale(data)
+        data[:key].split('.', 2).first
       end
     end
   end
