@@ -1,7 +1,7 @@
 class Key < ActiveRecord::Base
   include Resolvable
 
-  DATA_TYPES = %w(string array integer float)
+  DATA_TYPES = %w(string array integer float symbol boolean)
   BOOL_REGEXP = /^(true|t|yes|y|1)$/i
 
   has_many :highlights, dependent: :destroy
