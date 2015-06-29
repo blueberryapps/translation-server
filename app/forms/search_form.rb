@@ -4,11 +4,12 @@ class SearchForm
   include ActiveModel::Conversion
 
   attribute :scope
-  attribute :query
-  attribute :location
+  attribute :query,         String
+  attribute :location,      String
+  attribute :edited_filter, String, default: 'all'
 
   def resolve
-    query_location query_scope(scope)
+    query_edited query_location(query_scope(scope))
   end
 
   def query_location(scope)
@@ -24,6 +25,14 @@ class SearchForm
       scope.with_query(query)
     else
       scope
+    end
+  end
+
+  def query_edited(scope)
+    case edited_filter
+    when 'new' then scope.with_edited_filter(false)
+    when 'edited' then scope.with_edited_filter(true)
+    else scope
     end
   end
 

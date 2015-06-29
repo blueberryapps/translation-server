@@ -65,12 +65,15 @@ class TranslationsController < ApplicationController
   end
 
   # Only allow a trusted parameter "white list" through.
-  def translation_params
-    params.require(:translation).permit(:key_id, :locale_id, :text)
+  def new_translation_params
+    params.permit(:key_id, :locale_id)
   end
 
   # Only allow a trusted parameter "white list" through.
-  def new_translation_params
-    params.permit(:key_id, :locale_id)
+  def translation_params
+    params
+      .require(:translation)
+      .permit(:key_id, :locale_id, :text)
+      .merge(edited: true)
   end
 end

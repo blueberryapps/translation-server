@@ -1,5 +1,8 @@
 = simple_form_for(@search, url: [:translates, locale_code: locale.code], method: :get) do |f|
-  .input-group
+  .form-inline.form-group
+    => f.label :edited_filter, 'Translation state'
+    = f.input :edited_filter, collection: ['all', 'new', 'edited'], input_html: { name: 'edited_filter' }, label: false, include_blank: false
+  .input-group.form-group
     = f.input :query, label: false, input_html: { name: 'query' }, placeholder: t(:placeholder, scope: [:search])
     .input-group-btn
       = f.button :button, name: '', value: t(:submit, scope: [:search]), class: 'btn btn-default btn-full'

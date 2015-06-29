@@ -5,6 +5,7 @@ h1
                        data: { 'on-text' => 'Desktop', 'off-text' => 'Mobile' }
 
     a.btn.btn-primary.translations_submit_all save all unsaved translations
+
   ' Translates:
   = locale.to_s.upcase
 aside
@@ -20,11 +21,15 @@ aside
     - translation = Translation.resolve(key: key, locale: locale)
     - highlights = key.highlights.where(locale: locale)
     .panel.panel-default.panel-translation
-      .panel-heading
+      .panel-heading class="#{translation.edited ? '' : 'already-edited'}"
         span.label.label-primary = key.data_type
         span = build_breadcumb(key.normalized_key)
 
         .pull-right
+          - if translation.edited
+            => "Updated at: #{l translation.updated_at, format: :short}"
+          - else
+            => "Created at: #{l translation.created_at, format: :short}"
           => hint_translation(key.default_text)
           => button_tag(type: 'submit', class: 'btn btn-xs', form: "edit_translation_#{translation.id}")
             = fa_icon 'check'

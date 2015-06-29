@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   scope ':locale_code' do
     resources :translates, only: :index do
       collection do
-        get 'browse/*key_path' => 'translates#index', as: :browse
+        get 'browse/:edited_filter/*key_path' => 'translates#index', as: :browse
       end
     end
     post '/translates' => 'translates#index'

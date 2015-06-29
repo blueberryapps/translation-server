@@ -4,8 +4,10 @@ class Translation < ActiveRecord::Base
   belongs_to :key
   belongs_to :locale
 
-  scope :alphabetical, -> { order :id }
-  scope :with_locale,  -> (locale) { where locale: locale }
+  scope :alphabetical,   -> { order :id }
+  scope :with_locale,    -> (locale) { where locale: locale }
+  scope :needs_edit,     -> { where(edited: false) }
+  scope :already_edited, -> { where(edited: true) }
 
   scope :include_dependencies, -> { includes(:locale, :key).order('keys.key') }
 
