@@ -55,7 +55,7 @@ class TranslatesController < ApplicationController
       location:      params[:location],
       query:         params[:query],
       scope:         Key.alphabetical.with_locale(locale),
-      edited_filter: params[:edited_filter]
+      edited_filter: params[:edited_filter].presence || 'all'
     }
   end
 
