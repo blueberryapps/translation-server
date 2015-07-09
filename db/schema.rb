@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624151239) do
+ActiveRecord::Schema.define(version: 20150709133711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,11 +41,10 @@ ActiveRecord::Schema.define(version: 20150624151239) do
     t.text     "image"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "locale_id"
   end
 
-  add_index "images", ["locale_id"], name: "index_images_on_locale_id", using: :btree
   add_index "images", ["location_id"], name: "index_images_on_location_id", using: :btree
+  add_index "images", ["name"], name: "index_images_on_name", using: :btree
 
   create_table "keys", force: :cascade do |t|
     t.string   "key"
@@ -55,17 +54,24 @@ ActiveRecord::Schema.define(version: 20150624151239) do
     t.string   "data_type",  default: "string"
   end
 
+  add_index "keys", ["key", "id"], name: "index_keys_on_key_and_id", using: :btree
+  add_index "keys", ["key"], name: "index_keys_on_key", using: :btree
+
   create_table "locales", force: :cascade do |t|
     t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_index "locales", ["code"], name: "index_locales_on_code", using: :btree
+
   create_table "locations", force: :cascade do |t|
     t.string   "path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "locations", ["path"], name: "index_locations_on_path", using: :btree
 
   create_table "releases", force: :cascade do |t|
     t.integer  "locale_id"
@@ -86,6 +92,7 @@ ActiveRecord::Schema.define(version: 20150624151239) do
     t.boolean  "edited",     default: false
   end
 
+  add_index "translations", ["key_id", "locale_id"], name: "index_translations_on_key_id_and_locale_id", using: :btree
   add_index "translations", ["key_id"], name: "index_translations_on_key_id", using: :btree
   add_index "translations", ["locale_id"], name: "index_translations_on_locale_id", using: :btree
 
