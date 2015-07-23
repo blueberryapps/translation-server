@@ -1,4 +1,4 @@
-class TranslatesController < ApplicationController
+class TranslatesController < AuthController
   helper_method :key_path
   helper_method :key_path_splitted
   helper_method :locale

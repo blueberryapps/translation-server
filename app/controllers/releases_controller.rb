@@ -1,5 +1,4 @@
-class ReleasesController < ApplicationController
-  before_action :authenticate_user!
+class ReleasesController < AuthController
   before_action :set_release, only: [:show, :destroy]
 
   # GET /releases

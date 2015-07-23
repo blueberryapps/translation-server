@@ -1,5 +1,4 @@
-class KeysController < ApplicationController
-  before_action :authenticate_user!
+class KeysController < AuthController
   before_action :set_key, only: [:show, :edit, :update, :destroy]
 
   # GET /keys

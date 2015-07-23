@@ -1,5 +1,4 @@
-class TranslationsController < ApplicationController
-  before_action :authenticate_user!
+class TranslationsController < AuthController
   before_action :set_translation, only: [:show, :edit, :update, :destroy]
 
   # GET /translations

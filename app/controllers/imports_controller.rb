@@ -1,4 +1,4 @@
-class ImportsController < ApplicationController
+class ImportsController < AuthController
   def index
     @import = ImportForm.new
     respond_with @import

@@ -1,5 +1,4 @@
-class LocalesController < ApplicationController
-  before_action :authenticate_user!
+class LocalesController < AuthController
   before_action :set_locale, only: [:show, :edit, :update, :destroy]
 
   # GET /locales
