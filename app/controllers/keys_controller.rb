@@ -1,4 +1,4 @@
-class KeysController < AuthController
+class KeysController < AdminController
   before_action :set_key, only: [:show, :edit, :update, :destroy]
 
   # GET /keys
@@ -44,6 +44,7 @@ class KeysController < AuthController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_key
     @key = Key.find(params[:id])

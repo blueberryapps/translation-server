@@ -10,6 +10,7 @@ class ImportForm
   attribute :file
   attribute :text,      String, default: ''
   attribute :overwrite, Boolean, default: false
+  attribute :available_locales, Array
 
   def info
     if @error
@@ -74,10 +75,20 @@ class ImportForm
     end
   end
 
+  def valid_locale_code?(locale)
+    validation = available_locales.include? locale
+    unless validation
+      raise ImportError, "User hasn't got permission to manage this locale."
+    end
+
+    validation
+  end
+
   def import_data(data)
     @imported = []
 
     data.each do |locale, translations|
+      valid_locale_code? locale
       locale = Locale.resolve(code: locale)
 
       dot_hash(translations).each do |key, translation|

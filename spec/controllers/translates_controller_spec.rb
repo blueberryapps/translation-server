@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe TranslatesController, type: :controller do
   let!(:locale) { create :locale }
 
+  let(:user) { create(:user) }
+  before     { sign_in user }
+
   describe 'GET #index' do
     it 'returns http success' do
       get :index, locale_code: locale.code

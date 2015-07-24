@@ -3,6 +3,8 @@ class TranslatesController < AuthController
   helper_method :key_path_splitted
   helper_method :locale
 
+  before_action :authorize_user!
+
   def index
     if locale
       @search = SearchForm.new(search_params)
@@ -49,6 +51,10 @@ class TranslatesController < AuthController
   end
 
   private
+
+  def authorize_user!
+    authorize locale, :manage?
+  end
 
   def search_params
     {

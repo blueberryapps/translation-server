@@ -1,4 +1,4 @@
-class UsersController < AuthController
+class UsersController < AdminController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -50,6 +50,6 @@ class UsersController < AuthController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:email, :password)
+      params.require(:user).permit(:email, :password, :role, available_locales: [])
     end
 end
