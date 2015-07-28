@@ -3,6 +3,7 @@ class Key < ActiveRecord::Base
 
   DATA_TYPES = %w(string array integer float symbol boolean)
   BOOL_REGEXP = /^(true|t|yes|y|1)$/i
+  NEW_LINES_REGEXP = /[\r\n]+/
 
   has_many :highlights, dependent: :destroy
   has_many :images, through: :highlights
@@ -62,7 +63,7 @@ class Key < ActiveRecord::Base
     when 'array'   then YAML.load(value) || []
     when 'integer' then value.to_i
     when 'float'   then value.to_f
-    when 'string'  then value
+    when 'string'  then value.to_s.gsub(NEW_LINES_REGEXP, "\n")
     when 'symbol'  then value.to_sym
     when 'boolean' then value =~ BOOL_REGEXP ? true : false
     else value
