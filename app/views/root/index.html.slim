@@ -3,7 +3,7 @@
 
   .row
     .col-sm-9
-      - Locale.alphabetical.each do |locale|
+      - @locales.each do |locale|
         .col-sm-6
           .panel.panel-default.panel-translation
             .panel-heading
@@ -32,7 +32,7 @@
                 dl.dl-horizontal
                 dt Latest Release at
                 dd = last_release ? localize(last_release.created_at) : '-'
-      - if Locale.count == 0
+      - if @locales.empty?
         .alert.alert-info
           ' Sorry, but there is no locale to translate
     .col-sm-3

@@ -1,4 +1,4 @@
-class ExportsController < ApplicationController
+class ExportsController < AuthController
   before_action :set_locale
   def index
     @translations = Translation.with_locale(@locale).include_dependencies

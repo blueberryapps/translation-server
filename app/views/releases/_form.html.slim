@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.association :locale
+    = f.association :locale, collection: policy_scope(Locale)
 
   .form-actions
     = f.button :submit

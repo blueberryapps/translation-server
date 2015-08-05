@@ -1,6 +1,8 @@
 class Locale < ActiveRecord::Base
   include Resolvable
 
+  default_scope { order(:code) }
+
   has_many :translations
   has_many :releases
   has_many :highlights

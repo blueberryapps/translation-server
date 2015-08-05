@@ -1,10 +1,9 @@
-class ReleasesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_release, only: [:show, :destroy]
+class ReleasesController < AuthController
+  before_action :set_release!, only: [:show, :destroy]
 
   # GET /releases
   def index
-    @releases = Release.order(version: :desc).page(params[:page])
+    @releases = policy_scope(Release).order(version: :desc).page(params[:page])
     respond_with @releases
   end
 
@@ -22,6 +21,7 @@ class ReleasesController < ApplicationController
   # POST /releases
   def create
     @release = Release.new(release_params)
+    ReleasePolicy.new(current_user, @release).manage?
     @release.save
     respond_with @release,
                  location: redirect_to_root? ? '/' : @release
@@ -35,8 +35,9 @@ class ReleasesController < ApplicationController
 
   private
   # Use callbacks to share common setup or constraints between actions.
-  def set_release
+  def set_release!
     @release = Release.find(params[:id])
+    ReleasePolicy.new(current_user, @release).manage?
   end
 
   # Only allow a trusted parameter "white list" through.

@@ -4,6 +4,9 @@
   .form-inputs
     = f.input :email
     = f.input :password
+    = f.input :role, collection: User::ROLES
+    - unless f.object.admin?
+     = f.input :available_locales, as: :check_boxes, collection: Locale.all.map(&:to_s)
 
   .form-actions
     = f.button :submit

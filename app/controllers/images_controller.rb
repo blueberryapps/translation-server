@@ -1,5 +1,4 @@
-class ImagesController < ApplicationController
-  before_action :authenticate_user!
+class ImagesController < AuthController
   before_action :set_image, only: [:show, :display, :edit, :update, :destroy]
 
   # GET /images

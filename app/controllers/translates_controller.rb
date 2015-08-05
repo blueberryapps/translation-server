@@ -1,7 +1,9 @@
-class TranslatesController < ApplicationController
+class TranslatesController < AuthController
   helper_method :key_path
   helper_method :key_path_splitted
   helper_method :locale
+
+  before_action :authorize_user!
 
   def index
     if locale
@@ -49,6 +51,10 @@ class TranslatesController < ApplicationController
   end
 
   private
+
+  def authorize_user!
+    authorize locale, :manage?
+  end
 
   def search_params
     {

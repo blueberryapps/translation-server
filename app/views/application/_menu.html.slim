@@ -31,5 +31,6 @@
             / li = link_to :translations, [:translations]
             li = link_to 'Import', [:imports]
             li = link_to 'Developer', [:developer]
-            li = link_to 'Translation Keys', [:keys]
-            li = link_to 'Users', [:users]
+            - if current_user && current_user.admin?
+              li = link_to 'Translation Keys', [:keys]
+              li = link_to 'Users', [:users]

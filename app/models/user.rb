@@ -1,10 +1,13 @@
 require 'digest'
 
 class User < ActiveRecord::Base
+  ROLES = %w(admin user)
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable,
          :trackable, :validatable
+
+  validates :role, inclusion: ROLES
 
   scope :alphabetical,  -> { order :email }
 
@@ -17,6 +20,14 @@ class User < ActiveRecord::Base
 
   def username
     email.split('@').first
+  end
+
+  def admin?
+    role == 'admin'
+  end
+
+  def can_manage_locale?(locale)
+    admin? || available_locales.include?(locale.code)
   end
 
   private

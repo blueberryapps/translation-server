@@ -1,5 +1,4 @@
-class KeysController < ApplicationController
-  before_action :authenticate_user!
+class KeysController < AdminController
   before_action :set_key, only: [:show, :edit, :update, :destroy]
 
   # GET /keys
@@ -45,6 +44,7 @@ class KeysController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_key
     @key = Key.find(params[:id])

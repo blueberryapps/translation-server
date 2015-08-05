@@ -1,5 +1,4 @@
-class HighlightsController < ApplicationController
-  before_action :authenticate_user!
+class HighlightsController < AuthController
   before_action :set_highlight, only: [:show, :edit, :update, :destroy]
 
   # GET /highlights
