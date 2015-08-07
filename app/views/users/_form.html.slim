@@ -4,7 +4,7 @@
   .form-inputs
     = f.input :email
     = f.input :password
-    = f.input :role, collection: User::ROLES
+    = f.input :role, collection: User::ROLES, include_blank: false
     - unless f.object.admin?
      = f.input :available_locales, as: :check_boxes, collection: Locale.all.map(&:to_s)
 
