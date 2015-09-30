@@ -28,6 +28,13 @@ class Translation < ActiveRecord::Base
     where(where_params).first_or_initialize(initialize_params)
   end
 
+  def text=(value)
+    if key.try(:data_type) == 'string'
+      value = Nokogiri::HTML::DocumentFragment.parse(value).to_xhtml(indent: 2)
+    end
+    super
+  end
+
   def to_s
     text
   end
