@@ -16,6 +16,7 @@
 //= require bootstrap/modal
 //= require bootstrap/popover
 //= require bootstrap-switch
+//= require bootstrap-wysihtml5
 //= require jcrop/js/jquery.Jcrop
 //= require highlight_js/highlight
 //= require highlight_js/languages/json

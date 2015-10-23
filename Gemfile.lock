@@ -61,6 +61,8 @@ GEM
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
     bootstrap-switch-rails (3.3.2)
+    bootstrap-wysihtml5-rails (0.3.3.7)
+      railties (>= 3.0)
     builder (3.2.2)
     capistrano (3.0.1)
       i18n
@@ -368,6 +370,7 @@ DEPENDENCIES
   bootstrap-kaminari-views
   bootstrap-sass
   bootstrap-switch-rails
+  bootstrap-wysihtml5-rails
   capistrano (~> 3.0.0)
   capistrano-bundler
   capistrano-rails

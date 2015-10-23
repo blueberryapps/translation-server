@@ -54,6 +54,10 @@ class Key < ActiveRecord::Base
     return hierarchical_hash_from_array(array_hierarchy, hash_hierarchy)
   end
 
+  def html?
+    key.ends_with?('_html')
+  end
+
   def normalized_key
     I18n.normalize_keys(nil, key, nil, '.')
   end
