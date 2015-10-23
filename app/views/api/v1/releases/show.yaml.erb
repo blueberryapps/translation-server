@@ -3,6 +3,6 @@
 # VERSION:  <%= release.version %>
 # RELEASED: <%= release.created_at %>
 
-<%= release.yaml.html_safe.split("\n")[1..-1].join("\n") %>
+<%= release.yaml.split("\n")[1..-1].join("\n").html_safe %>
 
 <% end %>
