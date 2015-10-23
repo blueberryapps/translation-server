@@ -62,6 +62,16 @@ module API
             expect(response.yaml.cs.bar.foo).to eq('Translation')
           end
         end
+
+        context 'dirrefent locales in one release' do
+          it 'returns valid yaml for version 2', action: false do
+            get "/api/v1/releases/#{@release2.version},#{@release_en.version}.yaml", {}, headers
+            expect(response.status).to eq(200)
+            expect(response.yaml.cs.foo.bar).to eq('Released2')
+            expect(response.yaml.cs.bar.foo).to eq('Translation')
+            expect(response.yaml.en.foo.bar).to eq('Translated')
+          end
+        end
       end
 
       describe 'HEAD /api/v1/releases' do
