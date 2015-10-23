@@ -1,7 +1,7 @@
 module API
   module V1
     class ReleasesController < ApiController
-      before_action :set_release, only: [:show, :show_head]
+      before_action :set_releases, only: [:show, :show_head]
 
       def index_head
         stale? etag: index_etag
@@ -24,7 +24,7 @@ module API
       def show
         return unless stale? etag: show_etag
 
-        respond_with @release
+        respond_with @releases
       end
 
       private
@@ -35,17 +35,18 @@ module API
         [updated_at]
       end
 
-      def set_release
-        @release = Release.where(version: params[:id]).first
+      def set_releases
+        ids = params[:id].split(',')
+        @releases = Release.where(version: ids).order(:version)
 
-        unless @release
+        unless @releases.any?
           raise ActiveRecord::RecordNotFound,
                 "Release could not be found by version: #{params[:id]}"
         end
       end
 
       def show_etag
-        [@release.updated_at || '']
+        [@releases.map(&:updated_at) || ''].flatten
       end
 
       def translation_params(data)
