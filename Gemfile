@@ -5,7 +5,6 @@ ruby '2.2.0'
 gem 'airbrake'
 gem 'autoprefixer-rails'
 gem 'bootstrap-kaminari-views'
-gem 'bootstrap-sass'
 gem 'bootstrap-switch-rails'
 gem 'bootstrap-wysihtml5-rails'
 gem 'coffee-rails', '~> 4.1.0'
@@ -23,7 +22,7 @@ gem 'pundit'
 gem 'rails', '~> 4.2.0'
 gem 'redcarpet'
 gem 'responders'
-gem 'sass-rails', '~> 4.0.4'
+gem 'sass-rails'
 gem 'simple_form'
 gem 'slim-rails'
 gem 'uglifier', '>= 2.5.0'
@@ -63,5 +62,6 @@ group :test do
 end
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-jcrop'
+  gem 'rails-assets-bootstrap-sass'
+  gem 'rails-assets-jcrop',  '0.9.12'
 end
