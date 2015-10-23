@@ -12,9 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-sprockets
-//= require bootstrap/modal
-//= require bootstrap/popover
+//= require bootstrap-sass
 //= require bootstrap-switch
 //= require bootstrap-wysihtml5
 //= require jcrop/js/jquery.Jcrop
