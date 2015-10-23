@@ -30,7 +30,8 @@ class Translation < ActiveRecord::Base
 
   def text=(value)
     if key.try(:data_type) == 'string'
-      value = Nokogiri::HTML::DocumentFragment.parse(value).to_xhtml(indent: 2)
+      value = Nokogiri::HTML::DocumentFragment
+        .parse(value.to_s.gsub(/\r/, '')).to_xhtml(indent: 2)
     end
     super
   end
