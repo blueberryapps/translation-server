@@ -23,6 +23,11 @@ RSpec.describe Translation, type: :model do
       specify    { expect(subject.text).to eq('hello') }
     end
 
+    context 'removes windows new lines' do
+      let(:text) { "hello\r\n" }
+      specify    { expect(subject.text).to eq("hello\n") }
+    end
+
     context 'does not update valid html' do
       let(:text) { '<i>valid</i>' }
       specify    { expect(subject.text).to eq('<i>valid</i>') }
