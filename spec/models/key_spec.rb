@@ -30,6 +30,23 @@ RSpec.describe Key, type: :model do
       before { Key.create key: 'super.cool' }
       specify { expect(key.valid?).to eq(true) }
     end
+
+    context 'with valid name' do
+      specify { expect(Key.new(key: 'foo.bar').valid?).to eq(true) }
+      specify { expect(Key.new(key: 'foo-bar').valid?).to eq(true) }
+      specify { expect(Key.new(key: 'foo_bar').valid?).to eq(true) }
+      specify { expect(Key.new(key: 'foo_bar1').valid?).to eq(true) }
+      specify { expect(Key.new(key: 'Foo_bar').valid?).to eq(true) }
+    end
+
+    context 'with invalid name' do
+      specify { expect(Key.new(key: 'foo(bar').valid?).to eq(false) }
+      specify { expect(Key.new(key: 'foo)bar').valid?).to eq(false) }
+      specify { expect(Key.new(key: 'foo{bar').valid?).to eq(false) }
+      specify { expect(Key.new(key: 'foo}bar').valid?).to eq(false) }
+      specify { expect(Key.new(key: 'foo]bar').valid?).to eq(false) }
+      specify { expect(Key.new(key: 'foo[bar').valid?).to eq(false) }
+    end
   end
 
   describe '#normalize_value' do

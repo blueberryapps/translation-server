@@ -12,7 +12,10 @@ class Key < ActiveRecord::Base
   has_many :locales,   through: :translations
   has_many :locations, through: :images
 
-  validates :key, uniqueness: true, length: { minimum: 1 }
+  validates :key, uniqueness: true,
+                  length: { minimum: 1 },
+                  format: { with: /\A[a-zA-Z0-9\.\-_]+\z/ }
+
   validate :validate_key_scopes
 
   scope :alphabetical,  -> { order :key }

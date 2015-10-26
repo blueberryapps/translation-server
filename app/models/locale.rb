@@ -9,7 +9,9 @@ class Locale < ActiveRecord::Base
 
   scope :alphabetical,  -> { order :code }
 
-  validates :code, uniqueness: true, length: { minimum: 1 }
+  validates :code, uniqueness: true,
+                   length: { minimum: 1 },
+                   format: { with: /\A[a-zA-Z0-9_]+\z/ }
 
   scope :alphabetical, -> { order :code }
 
