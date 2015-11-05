@@ -1,7 +1,15 @@
 module API
   module V1
     class TranslationsController < ApiController
-
+  
+      def self.last_updated_at(time = nil)
+        time ? (@last_updated_at = time) : @last_updated_at
+      end
+      
+      def self.cache(cache)
+        cache ? (@cache = cache) : @cache
+      end
+    
       def index_head
         stale? etag: index_etag
         head :ok
@@ -9,10 +17,14 @@ module API
 
       def index
         return unless stale? etag: index_etag
-
-        @output = Translation.dump_hash Translation.include_dependencies
-
-        respond_with @output
+        
+        if self.last_updated_at == index_etag.first
+          respond_with self.cache
+        else
+          self.cache Translation.dump_hash(Translation.include_dependencies)
+          self.last_updated_at index_etag.first
+          respond_with self.cache
+        end
       end
 
       def create
