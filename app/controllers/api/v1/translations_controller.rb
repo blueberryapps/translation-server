@@ -10,9 +10,16 @@ module API
       def index
         return unless stale? etag: index_etag
 
-        @output = Translation.dump_hash Translation.include_dependencies
+        if translation_cache = TranslationCache.find_cache(kind: params[:format], etag: index_etag)
+          response.headers['CustomCache'] = index_etag.to_json
+          render status: 200, text: translation_cache.cache
+        else
+          @output = Translation.dump_hash Translation.include_dependencies
 
-        respond_with @output
+          TranslationCache.cache(kind: params[:format], etag: index_etag, cache: dump_cache(@output))
+
+          respond_with @output
+        end
       end
 
       def create
@@ -54,6 +61,13 @@ module API
       end
 
       private
+
+      def dump_cache(output)
+        case params[:format]
+        when 'json' then output.to_json
+        when 'yaml' then YAML.dump(output).html_safe
+        end
+      end
 
       def index_etag
         translation = Translation.unscope(:order).order(:updated_at).last

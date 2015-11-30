@@ -20,6 +20,72 @@ RSpec.describe API::V1::TranslationsController, type: :controller do
     @request.env["HTTP_AUTHORIZATION"] = "Token token=#{api_user.api_key}"
   end
 
+  describe 'GET #index' do
+    action do
+      get :index, format: format
+    end
+
+    context 'json' do
+      let(:format) { 'json' }
+
+      it 'response 200' do
+        expect(response.status).to eq(200)
+      end
+
+      it 'response content type' do
+        expect(response.content_type).to eq('application/json')
+      end
+
+      it 'response headers does not contain CustomCache' do
+        expect(response.headers).not_to have_key('CustomCache')
+      end
+
+      context 'with cache' do
+        before do
+          get :index, format: format
+        end
+
+        it 'response 200' do
+          expect(response.status).to eq(200)
+        end
+
+        it 'response content type' do
+          expect(response.content_type).to eq('application/json')
+        end
+
+        it 'response headers does not contain CustomCache' do
+          expect(response.headers).to have_key('CustomCache')
+        end
+      end
+    end
+
+    context 'yaml' do
+      let(:format) { 'yaml' }
+
+      it 'response 200' do
+        expect(response.status).to eq(200)
+      end
+
+      it 'response content type' do
+        expect(response.content_type).to eq('application/x-yaml')
+      end
+
+      context 'with cache' do
+        before do
+          get :index, format: format
+        end
+
+        it 'response 200' do
+          expect(response.status).to eq(200)
+        end
+
+        it 'response content type' do
+          expect(response.content_type).to eq('application/x-yaml')
+        end
+      end
+    end
+  end
+
   describe 'POST #create' do
     context 'with valid params' do
       action do
