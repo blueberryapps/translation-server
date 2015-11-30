@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023072435) do
+ActiveRecord::Schema.define(version: 20151130092008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,12 @@ ActiveRecord::Schema.define(version: 20151023072435) do
   end
 
   add_index "releases", ["locale_id"], name: "index_releases_on_locale_id", using: :btree
+
+  create_table "translation_caches", force: :cascade do |t|
+    t.string "etag"
+    t.text   "cache"
+    t.string "kind"
+  end
 
   create_table "translations", force: :cascade do |t|
     t.integer  "key_id"
