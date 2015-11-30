@@ -10,7 +10,8 @@ $('textarea.wysiwyg').wysihtml5(
     'blockquote':  false, #Blockquote
     'indent':      false
   },
-  cleanUp: false
+  cleanUp: false,
+  parser: (html) -> html
 )
 $('textarea.wysiwyg').each ->
   textarea = $(this)
