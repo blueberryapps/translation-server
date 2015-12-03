@@ -66,6 +66,7 @@ module API
         case params[:format]
         when 'json' then output.to_json
         when 'yaml' then YAML.dump(output).html_safe
+        else output.to_json
         end
       end
 
