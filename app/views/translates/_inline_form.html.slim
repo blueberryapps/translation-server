@@ -6,5 +6,6 @@
             input_html: { \
               class: ('wysiwyg' if f.object.key.html?),
               tabindex: '1',
-              data: { original: f.object.text } \
+              data: { original: f.object.text }, \
+              style: ('height: 300px' if f.object.key.html?), \
             }
