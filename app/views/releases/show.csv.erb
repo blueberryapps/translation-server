@@ -1,0 +1,3 @@
+<%= "Release: #{@release.version} - Created at: #{localize @release.created_at}" %>
+
+<%= Yaml2csv::yaml2csv(@release.yaml) %>

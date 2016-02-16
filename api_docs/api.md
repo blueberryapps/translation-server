@@ -1,3 +1,95 @@
+# HEAD /api/v1/translations
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "6666cd76f96956469e7be39d750cc7d9"
+
+# GET /api/v1/translations.yaml
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/x-yaml)
+
+    + Headers
+
+            Etag: "5c75206a4eb840e5e6774bf04921bc2d"
+
+    + Body
+
+            ---
+            en:
+              bar:
+              - A
+              - B
+              foo:
+                bar: en translated text
+            cs:
+              foo:
+                bar: cs translated text
+
+
+
+# GET /api/v1/translations.json
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "867ccb89d5c916ef2dabc4eee65e5c7d"
+
+    + Body
+
+            {
+              "en": {
+                "bar": [
+                  "A",
+                  "B"
+                ],
+                "foo": {
+                  "bar": "en translated text"
+                }
+              },
+              "cs": {
+                "foo": {
+                  "bar": "cs translated text"
+                }
+              }
+            }
+
+# not authorized GET /api/v1/translations
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=UNKNOWN_TOKEN
+
++ Response 401 (application/json)
+
+        {
+          "errors": {
+            "token": "Bad credentials"
+          }
+        }
+
 # POST /api/v1/translations
 
 + Request (application/json)
@@ -42,134 +134,6 @@
               ]
             }
 
-# GET /api/v1/translations.yaml
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/x-yaml)
-
-    + Headers
-
-            Etag: "f9b13d33047589aa80f414e0ea08c1f5"
-
-    + Body
-
-            ---
-            en:
-              bar:
-              - A
-              - B
-              foo:
-                bar: en translated text
-            cs:
-              foo:
-                bar: cs translated text
-
-
-
-# not authorized GET /api/v1/translations
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=UNKNOWN_TOKEN
-
-+ Response 401 (application/json)
-
-        {
-          "errors": {
-            "token": "Bad credentials"
-          }
-        }
-
-# GET /api/v1/translations.json
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "f9b13d33047589aa80f414e0ea08c1f5"
-
-    + Body
-
-            {
-              "en": {
-                "bar": [
-                  "A",
-                  "B"
-                ],
-                "foo": {
-                  "bar": "en translated text"
-                }
-              },
-              "cs": {
-                "foo": {
-                  "bar": "cs translated text"
-                }
-              }
-            }
-
-# HEAD /api/v1/translations
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "6666cd76f96956469e7be39d750cc7d9"
-
-# GET /api/v1/releases
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "86bc307ffa7f0e568ac26c1eb85e5d1b"
-
-    + Body
-
-            {
-              "releases": [
-                {
-                  "locale": "cs",
-                  "version": "cs_v001",
-                  "created_at": "2015-10-23T08:04:20.708Z"
-                },
-                {
-                  "locale": "cs",
-                  "version": "cs_v002",
-                  "created_at": "2015-10-23T08:04:20.720Z"
-                },
-                {
-                  "locale": "en",
-                  "version": "en_v001",
-                  "created_at": "2015-10-23T08:04:20.727Z"
-                }
-              ]
-            }
-
 # HEAD /api/v1/releases
 
 + Request (application/x-www-form-urlencoded)
@@ -182,9 +146,9 @@
 
     + Headers
 
-            Etag: "86bc307ffa7f0e568ac26c1eb85e5d1b"
+            Etag: "ffa570dce4e946564c4cd1c9fa95bab9"
 
-# GET /api/v1/releases/:version.yaml version 1
+# GET /api/v1/releases/:version.yaml version 2
 
 + Request (application/x-www-form-urlencoded)
 
@@ -196,19 +160,19 @@
 
     + Headers
 
-            Etag: "86bc307ffa7f0e568ac26c1eb85e5d1b"
+            Etag: "ffa570dce4e946564c4cd1c9fa95bab9"
 
     + Body
 
             # LOCALE:   cs
-            # VERSION:  cs_v001
-            # RELEASED: 2015-10-23 08:04:20 UTC
+            # VERSION:  cs_v002
+            # RELEASED: 2016-02-16 20:51:18 UTC
 
             cs:
               bar:
                 foo: Translation
               foo:
-                bar: Super
+                bar: Released2
 
 
 
@@ -224,13 +188,13 @@
 
     + Headers
 
-            Etag: "2faea48ce656a03e394ba434f443546f"
+            Etag: "4f5b11d517429f6cc3e34e906b4d5adf"
 
     + Body
 
             # LOCALE:   cs
             # VERSION:  cs_v002
-            # RELEASED: 2015-10-23 08:04:21 UTC
+            # RELEASED: 2016-02-16 20:51:18 UTC
 
             cs:
               bar:
@@ -240,7 +204,7 @@
 
             # LOCALE:   en
             # VERSION:  en_v001
-            # RELEASED: 2015-10-23 08:04:21 UTC
+            # RELEASED: 2016-02-16 20:51:18 UTC
 
             en:
               foo:
@@ -248,7 +212,7 @@
 
 
 
-# GET /api/v1/releases/:version.yaml version 2
+# GET /api/v1/releases/:version.yaml version 1
 
 + Request (application/x-www-form-urlencoded)
 
@@ -260,19 +224,19 @@
 
     + Headers
 
-            Etag: "2a648b08e1532439c599ed4f5686baa1"
+            Etag: "ffa570dce4e946564c4cd1c9fa95bab9"
 
     + Body
 
             # LOCALE:   cs
-            # VERSION:  cs_v002
-            # RELEASED: 2015-10-23 08:04:21 UTC
+            # VERSION:  cs_v001
+            # RELEASED: 2016-02-16 20:51:18 UTC
 
             cs:
               bar:
                 foo: Translation
               foo:
-                bar: Released2
+                bar: Super
 
 
 
@@ -288,7 +252,43 @@
 
     + Headers
 
-            Etag: "2a648b08e1532439c599ed4f5686baa1"
+            Etag: "ffa570dce4e946564c4cd1c9fa95bab9"
+
+# GET /api/v1/releases
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "775cd3cf1d38a1b15e1fa7e44c2bf46d"
+
+    + Body
+
+            {
+              "releases": [
+                {
+                  "locale": "cs",
+                  "version": "cs_v001",
+                  "created_at": "2016-02-16T20:51:18.990Z"
+                },
+                {
+                  "locale": "cs",
+                  "version": "cs_v002",
+                  "created_at": "2016-02-16T20:51:18.998Z"
+                },
+                {
+                  "locale": "en",
+                  "version": "en_v001",
+                  "created_at": "2016-02-16T20:51:19.004Z"
+                }
+              ]
+            }
 
 # POST /api/v1/images
 

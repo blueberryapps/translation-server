@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/benhutton/yaml2csv.git
+  revision: 39e542baca16b16c8a19ee93ff382a1a96b3528d
+  specs:
+    yaml2csv (0.0.3)
+      ya2yaml (~> 0.30)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -357,6 +364,7 @@ GEM
     websocket-extensions (0.1.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    ya2yaml (0.31)
     yajl-ruby (1.2.1)
     yandex-translator (0.3.0)
       httparty
@@ -412,4 +420,8 @@ DEPENDENCIES
   uglifier (>= 2.5.0)
   virtus
   yajl-ruby
+  yaml2csv!
   yandex-translator
+
+BUNDLED WITH
+   1.11.2

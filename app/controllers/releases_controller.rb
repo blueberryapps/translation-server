@@ -9,7 +9,7 @@ class ReleasesController < AuthController
 
   # GET /releases/1
   def show
-    respond_with @release
+    @release
   end
 
   # GET /releases/new

@@ -28,6 +28,7 @@ gem 'slim-rails'
 gem 'uglifier', '>= 2.5.0'
 gem 'virtus'
 gem 'yajl-ruby'
+gem 'yaml2csv', github: 'benhutton/yaml2csv'
 gem 'yandex-translator'
 
 group :development do

@@ -8,9 +8,8 @@ table.table
       th Locale
       th Version
       th Created at
-      th
-      th
-      th
+      th Actions
+      th Download
 
   tbody
     - @releases.each do |release|
@@ -18,7 +17,11 @@ table.table
         td = release.locale
         td = release.version
         td = localize release.created_at
-        td = link_to 'Show', release
-        td = link_to 'Destroy', release, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td 
+          =<> link_to 'Show', release, class: 'btn btn-primary'
+          =<> link_to 'Destroy', release, data: { :confirm => 'Are you sure?' }, :method => :delete, class: 'btn btn-danger'
+        td 
+          =<> link_to 'YML', [release, format: :yml], class: 'btn btn-info'
+          =<> link_to 'CSV', [release, format: :csv], class: 'btn btn-info'
 
 = paginate @releases, theme: 'twitter-bootstrap-3'

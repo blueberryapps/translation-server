@@ -1,0 +1,11 @@
+h1
+  ' Release:
+  = @release.version
+
+p
+  strong Created at:
+  =< localize @release.created_at
+
+pre
+  code
+    = @release.yaml
