@@ -1,10 +1,6 @@
 users = [
-  { email: 'jzajpt@blueberryapps.com' },
-  { email: 'tdundacek@blueberryapps.com' },
-  { email: 'mmoravcik@blueberryapps.com' },
-  { email: 'jorsag@blueberryapps.com' },
-  { email: 'obartas@blueberryapps.com' },
-  { email: 'lvoda@blueberryapps.com' }
+  { email: 'jbrhel@blueberryapps.com' },
+  { email: 'apleskac@blueberryapps.com' }
 ]
 
 users.each do |hsh|
