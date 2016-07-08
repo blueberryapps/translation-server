@@ -29,6 +29,7 @@ gem 'uglifier', '>= 2.5.0'
 gem 'virtus'
 gem 'yajl-ruby'
 gem 'yandex-translator'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development do
   gem 'better_errors'
