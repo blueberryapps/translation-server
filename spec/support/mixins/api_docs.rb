@@ -26,7 +26,7 @@ RSpec.configure do |config|
 
       action = example_groups[0..-2].map{ |e| e[:description_args].first }.reverse.join(' ')
       example_groups[-1][:description_args].first.match(/(\w+)\sRequests/)
-      file_name = $1.underscore
+      file_name = ($1 || example_groups[-1][:description_args].first).underscore
 
       if defined? Rails
         file = File.join(Rails.root, "/api_docs/#{file_name}.md")
@@ -41,8 +41,9 @@ RSpec.configure do |config|
         # Request
         request_body = request.body.read
         authorization_header = request.headers['Authorization']
+        request_params = request.params.except(*%w(format controller action))
 
-        if request_body.present? || authorization_header.present?
+        if request_body.present? || authorization_header.present? || request_params.any?
           f.write "+ Request (#{request.content_type})\n\n"
 
           # Request Headers
@@ -55,6 +56,12 @@ RSpec.configure do |config|
           if request_body.present? && request.content_type == 'application/json'
             f.write "+ Body\n\n".indent(4) if authorization_header
             f.write "#{JSON.pretty_generate(JSON.parse(request_body))}\n\n".indent(authorization_header ? 12 : 8)
+          end
+
+          # Request Params
+          if request_params.any?
+            f.write "+ Params\n\n".indent(4) if authorization_header
+            f.write "#{request_params}\n\n".indent(authorization_header ? 12 : 8)
           end
         end
 
