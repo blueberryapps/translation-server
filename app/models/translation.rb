@@ -4,6 +4,9 @@ class Translation < ActiveRecord::Base
   belongs_to :key
   belongs_to :locale
 
+  after_create :notify_translation_changed
+  after_update :notify_translation_changed
+
   scope :alphabetical,   -> { order :id }
   scope :with_locale,    -> (locale) { where locale: locale }
   scope :needs_edit,     -> { where(edited: false) }
@@ -26,6 +29,17 @@ class Translation < ActiveRecord::Base
 
   def self.resolve(where_params = {}, initialize_params = {})
     where(where_params).first_or_initialize(initialize_params)
+  end
+
+  def self.on_change
+    connection.execute "LISTEN translations"
+    loop do
+      connection.raw_connection.wait_for_notify do |event, pid,  translation|
+        yield translation
+      end
+    end
+  ensure
+    connection.execute "UNLISTEN translations"
   end
 
   def text=(value)
@@ -67,5 +81,11 @@ class Translation < ActiveRecord::Base
     end
 
     return hierarchical_hash_from_array(array_hierarchy, hash_hierarchy)
+  end
+
+  private
+
+  def notify_translation_changed
+    self.class.connection.execute "NOTIFY translations, 'changed'"
   end
 end

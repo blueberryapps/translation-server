@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :images,       only: :create
       resources :translations, only: [:index, :create]
       resources :releases,     only: [:index, :show]
+      resources :changes,      only: :index
       match 'releases',     to: 'releases#index_head',     via: [:head]
       match 'releases/:id', to: 'releases#show_head',      via: [:head]
       match 'translations', to: 'translations#index_head', via: [:head]
