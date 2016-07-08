@@ -65,10 +65,6 @@ $(document).ready ->
 
     form.find('textarea').bind 'change keyup keydown', (e) ->
       check_state(form)
-      code = e.keyCode || e.which
-      if "#{code}" == '9' && e.type == 'keydown'
-        if is_changed_state(form)
-          form.trigger('submit')
 
   $('.translations_submit_all').click ->
     $('.edit_translation').each ->

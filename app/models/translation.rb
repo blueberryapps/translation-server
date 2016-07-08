@@ -4,8 +4,7 @@ class Translation < ActiveRecord::Base
   belongs_to :key
   belongs_to :locale
 
-  after_create :notify_translation_changed
-  after_update :notify_translation_changed
+  after_save :notify_translation_changed
 
   scope :alphabetical,   -> { order :id }
   scope :with_locale,    -> (locale) { where locale: locale }
