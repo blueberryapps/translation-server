@@ -49,8 +49,5 @@ Rails.application.routes.draw do
 
   match '/is_alive' => 'root#is_alive', via: [:get]
 
-  # TODO: REMOVE THIS
-  match '/delete/all' => 'root#delete', via: [:get]
-
   root to: 'root#index'
 end
