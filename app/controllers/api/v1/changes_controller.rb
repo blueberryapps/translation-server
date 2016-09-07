@@ -9,7 +9,7 @@ module API
         return render_unauthorized unless User.find_by(api_key: params[:token])
 
         response.headers['Content-Type'] = 'text/event-stream'
-        sse = SSE.new(response.stream)
+        sse = SSE.new(response.stream, retry: 30)
 
         begin
           Translation.on_change do |data|
