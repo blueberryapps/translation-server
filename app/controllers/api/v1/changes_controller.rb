@@ -16,6 +16,7 @@ module API
             sse.write({}, event: 'translations_changed')
           end
         rescue IOError
+          Translation.connection.execute 'UNLISTEN *'
           # Client Disconnected
         ensure
           sse.close

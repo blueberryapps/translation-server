@@ -31,14 +31,14 @@ class Translation < ActiveRecord::Base
   end
 
   def self.on_change
-    connection.execute "LISTEN translations"
+    connection.execute 'LISTEN translations'
     loop do
-      connection.raw_connection.wait_for_notify do |event, pid,  translation|
+      connection.raw_connection.wait_for_notify(60) do |event, pid,  translation|
         yield translation
       end
     end
   ensure
-    connection.execute "UNLISTEN translations"
+    connection.execute 'UNLISTEN translations'
   end
 
   def text=(value)
