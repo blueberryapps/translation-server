@@ -13,9 +13,8 @@ module API
 
         begin
           Translation.on_change do |data|
-            action, id = data.split(':')
-            translations = id ? Translation.dump_hash(Translation.where(id: id)) : {}
-            sse.write(translations, event: "translations_#{action}")
+            action, data = data.split(':', 2)
+            sse.write(JSON.parse(data || '{}'), event: "translations_#{action}")
           end
         rescue IOError
           Translation.connection.execute 'UNLISTEN *'
