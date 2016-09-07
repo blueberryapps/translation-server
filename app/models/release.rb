@@ -6,7 +6,7 @@ class Release < ActiveRecord::Base
   before_create     :dump_translations
   before_validation :ensure_version
 
-  def as_json(*)
+  def to_list
     {
       locale:  locale.to_s,
       version: version,
@@ -14,8 +14,8 @@ class Release < ActiveRecord::Base
     }
   end
 
-  def as_yml(*)
-    "ahoj"
+  def as_json(*)
+    YAML.load(yaml)
   end
 
   private

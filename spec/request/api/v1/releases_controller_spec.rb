@@ -44,6 +44,36 @@ module API
         end
       end
 
+      describe "GET /api/v1/releases/:version.json" do
+        context 'version 1' do
+          it 'returns valid json version 1' do
+            get "/api/v1/releases/#{@release1.version}.json", {}, headers
+            expect(response.status).to eq(200)
+            expect(response.json.cs.foo.bar).to eq('Super')
+            expect(response.json.cs.bar.foo).to eq('Translation')
+          end
+        end
+
+        context 'version 2' do
+          it 'returns valid json for version 2', action: false do
+            get "/api/v1/releases/#{@release2.version}.json", {}, headers
+            expect(response.status).to eq(200)
+            expect(response.json.cs.foo.bar).to eq('Released2')
+            expect(response.json.cs.bar.foo).to eq('Translation')
+          end
+        end
+
+        context 'dirrefent locales in one release' do
+          it 'returns valid json for version 2', action: false do
+            get "/api/v1/releases/#{@release2.version},#{@release_en.version}.json", {}, headers
+            expect(response.status).to eq(200)
+            expect(response.json.cs.foo.bar).to eq('Released2')
+            expect(response.json.cs.bar.foo).to eq('Translation')
+            expect(response.json.en.foo.bar).to eq('Translated')
+          end
+        end
+      end
+
       describe "GET /api/v1/releases/:version.yaml" do
         context 'version 1' do
           it 'returns valid yaml version 1' do

@@ -27,7 +27,7 @@ gem 'simple_form'
 gem 'slim-rails'
 gem 'uglifier', '>= 2.5.0'
 gem 'virtus'
-gem 'yajl-ruby'
+gem 'yajl-ruby', require: 'yajl'
 gem 'yandex-translator'
 gem 'rack-cors', require: 'rack/cors'
 

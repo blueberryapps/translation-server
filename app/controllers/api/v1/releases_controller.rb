@@ -18,7 +18,7 @@ module API
 
         @releases = Release.all
 
-        respond_with releases: @releases
+        respond_with releases: @releases.map(&:to_list)
       end
 
       def show
