@@ -10,4 +10,16 @@ environment ENV['RACK_ENV'] || 'development'
 
 on_worker_boot do
   ActiveRecord::Base.establish_connection
+
+  Thread.new do
+    begin
+      ActiveRecord::Base.connection_pool.with_connection do |connection|
+        loop do
+          conn = connection.execute "NOTIFY translations, 'heartbeat'"
+          sleep 2.seconds
+        end
+      end
+    ensure
+    end
+  end
 end

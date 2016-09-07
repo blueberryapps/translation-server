@@ -13,7 +13,7 @@ module API
 
         begin
           Translation.on_change do |data|
-            sse.write({}, event: 'translations_changed')
+            sse.write({}, event: "translations_#{data}")
           end
         rescue IOError
           Translation.connection.execute 'UNLISTEN *'
