@@ -13,7 +13,9 @@ module API
 
         begin
           Translation.on_change do |data|
-            sse.write({}, event: "translations_#{data}")
+            action, id = data.split(':')
+            translations = id ? Translation.dump_hash(Translation.where(id: id)) : {}
+            sse.write(translations, event: "translations_#{action}")
           end
         rescue IOError
           Translation.connection.execute 'UNLISTEN *'

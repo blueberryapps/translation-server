@@ -85,6 +85,6 @@ class Translation < ActiveRecord::Base
   private
 
   def notify_translation_changed
-    self.class.connection.execute "NOTIFY translations, 'changed'"
+    self.class.connection.execute "NOTIFY translations, 'changed:#{id}'"
   end
 end
