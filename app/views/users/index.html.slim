@@ -5,17 +5,23 @@ h1 Listing users
 table.table
   thead
     tr
+      th
       th Email
-      th
-      th
-      th
+      th Role
+      th Projects
+      - if current_user.admin?
+        th
+        th
 
   tbody
     - @users.each do |user|
       tr
+        td = image_tag user.photo_url(30), class: 'current-user-photo'
         td = user.email
-        td = link_to 'Show', user
-        td = link_to 'Edit', [:edit, user]
-        td = link_to 'Destroy', user, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = user.role
+        td = user.projects.join(', ')
+        - if current_user.admin?
+          td = link_to 'Edit', [:edit, user]
+          td = link_to 'Destroy', user, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 = paginate @users, theme: 'twitter-bootstrap-3'

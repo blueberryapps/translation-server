@@ -1,0 +1,41 @@
+h1
+  ' Listing projects
+  = link_to 'New Project', [:new, :project], class: 'btn btn-primary'
+
+
+.row
+  .col-sm-9
+    - @projects.each do |project|
+      .col-sm-6
+        .panel.panel-default.panel-translation
+          .panel-heading
+            = link_to project
+              b = project
+            .pull-right
+              =< link_to 'Add new locale', [:new, project, :locale], class: 'btn btn-default btn-xs'
+              =< link_to 'Edit', [:edit, project], class: 'btn btn-primary btn-xs'
+
+          .panel-body
+            - project.locales.each do |locale|
+              =< link_to [project, :translates, locale_code: locale.code],
+                        class: 'btn btn-primary'
+                = locale.to_s.upcase
+            br
+            br
+            dl.dl-horizontal
+              dt API Key
+              dd = project.api_token
+            dl.dl-horizontal
+              dt Translations
+              dd = project.translations.count
+            dl.dl-horizontal
+              dt Keys
+              dd = project.keys.count
+            dl.dl-horizontal
+              dt Releases
+              dd
+                - project.locales.each do |locale|
+                  - if (release = locale.releases.last)
+                    = link_to release
+                      b = release.version
+                      small =< localize(release.created_at)

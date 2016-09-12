@@ -4,15 +4,15 @@ module API
   module V1
     describe 'Releases API Requests', type: :request do
 
-      let(:locale_cs) { Locale.resolve code: 'cs' }
-      let(:locale_en) { Locale.resolve code: 'en' }
-      let(:key1)      { Key.resolve key: 'foo.bar' }
-      let(:key2)      { Key.resolve key: 'bar.foo' }
+      let(:locale_cs) { Locale.resolve code: 'cs', project: project }
+      let(:locale_en) { Locale.resolve code: 'en', project: project }
+      let(:key1)      { Key.resolve key: 'foo.bar', project: project }
+      let(:key2)      { Key.resolve key: 'bar.foo', project: project }
 
-      let(:api_user) { create :user, id: 5, api_key: 'XYZZYX' }
+      let(:project) { create :project, id: 5, api_token: 'XYZZYX' }
 
       let(:headers) do
-        { 'HTTP_AUTHORIZATION' => "Token token=#{api_user.api_key}" }
+        { 'HTTP_AUTHORIZATION' => "Token token=#{project.api_token}" }
       end
 
       before do

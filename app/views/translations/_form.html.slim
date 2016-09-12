@@ -1,4 +1,4 @@
-= simple_form_for(translation) do |f|
+= simple_form_for(form_project_path(translation)) do |f|
   = f.error_notification
   = hidden_field_tag :redirect_to, @redirect_to
 

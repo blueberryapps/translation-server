@@ -3,6 +3,7 @@ class Translation < ActiveRecord::Base
 
   belongs_to :key
   belongs_to :locale
+  has_one :project, through: :locale
 
   after_save :notify_translation_changed
 
@@ -26,19 +27,15 @@ class Translation < ActiveRecord::Base
     end
   end
 
-  def self.resolve(where_params = {}, initialize_params = {})
-    where(where_params).first_or_initialize(initialize_params)
-  end
-
-  def self.on_change
-    connection.execute 'LISTEN translations'
+  def self.on_change(project)
+    connection.execute "LISTEN translations_#{project.id}"
     loop do
       connection.raw_connection.wait_for_notify(60) do |event, pid,  translation|
         yield translation
       end
     end
   ensure
-    connection.execute 'UNLISTEN translations'
+    connection.execute 'UNLISTEN *'
   end
 
   def text=(value)
@@ -85,7 +82,8 @@ class Translation < ActiveRecord::Base
   private
 
   def notify_translation_changed
-    text = self.class.dump_hash([self]).to_json
-    self.class.connection.execute "NOTIFY translations, 'changed:#{text}'" if text.bytes.size < 7000
+    if locale.project && (text = Base64.encode64(self.class.dump_hash([self]).to_json)).bytes.size < 7000
+      self.class.connection.execute "NOTIFY translations_#{locale.project.id}, 'changed:#{text}'"
+    end
   end
 end

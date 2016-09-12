@@ -16,12 +16,12 @@ module API
 
       def authenticate_token
         authenticate_with_http_token do |token, _|
-          @user = User.find_by(api_key: token)
+          @project = Project.find_by(api_token: token)
         end
       end
 
-      def current_user
-        @user
+      def current_project
+        @project
       end
 
       def record_not_found(expection)

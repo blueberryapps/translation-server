@@ -1,9 +1,9 @@
-class LocationsController < AuthController
+class LocationsController < BaseProjectController
   before_action :set_location, only: [:show, :edit, :update, :destroy]
 
   # GET /locations
   def index
-    @locations = Location.alphabetical.page(params[:page])
+    @locations = current_project.locations.alphabetical.page(params[:page])
     respond_with @locations
   end
 
@@ -14,7 +14,7 @@ class LocationsController < AuthController
 
   # GET /locations/new
   def new
-    @location = Location.new
+    @location = current_project.locations.build
     respond_with @location
   end
 
@@ -25,7 +25,7 @@ class LocationsController < AuthController
 
   # POST /locations
   def create
-    @location = Location.new(location_params)
+    @location = current_project.locations.build(location_params)
     @location.save
     respond_with @location
   end
@@ -39,7 +39,7 @@ class LocationsController < AuthController
   # DELETE /locations/1
   def destroy
     @location.destroy
-    respond_with @location, location: [:locations]
+    respond_with @location, location: [@location.project, :locations]
   end
 
   private

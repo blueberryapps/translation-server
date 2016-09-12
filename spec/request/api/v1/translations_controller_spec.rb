@@ -3,15 +3,15 @@ require 'rails_helper'
 module API
   module V1
     describe 'Translations API Requests', type: :request do
-      let(:api_user)  { create :user, id: 5, api_key: 'XYZZYX' }
-      let(:cs)        { create :locale, code: 'cs' }
-      let(:en)        { create :locale, code: 'en' }
-      let(:key)       { create :key, key: 'foo.bar' }
-      let(:array_key) { create :key, key: 'bar', data_type: 'array' }
+      let(:project)   { create :project, id: 5, api_token: 'XYZZYX' }
+      let(:cs)        { create :locale, code: 'cs', project: project }
+      let(:en)        { create :locale, code: 'en', project: project }
+      let(:key)       { create :key, key: 'foo.bar', project: project }
+      let(:array_key) { create :key, key: 'bar', data_type: 'array', project: project }
 
 
       let(:headers) do
-        { 'HTTP_AUTHORIZATION' => "Token token=#{api_user.api_key}" }
+        { 'HTTP_AUTHORIZATION' => "Token token=#{project.api_token}" }
       end
 
       context 'not authorized' do
@@ -80,7 +80,7 @@ module API
       describe 'POST /api/v1/translations' do
         let(:headers) do
           {
-            'HTTP_AUTHORIZATION' => "Token token=#{api_user.api_key}",
+            'HTTP_AUTHORIZATION' => "Token token=#{project.api_token}",
             'CONTENT_TYPE' => 'application/json'
           }
         end

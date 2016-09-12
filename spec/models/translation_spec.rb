@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Translation, type: :model do
   it { should belong_to :locale }
+  it { should have_one :project }
   it { should belong_to :key }
 
   describe '#text=' do

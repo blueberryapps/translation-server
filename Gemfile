@@ -22,6 +22,7 @@ gem 'pundit'
 gem 'rails', '~> 4.2.0'
 gem 'redcarpet'
 gem 'responders'
+gem 'rest-client'
 gem 'sass-rails'
 gem 'simple_form'
 gem 'slim-rails'
@@ -60,6 +61,7 @@ group :test do
   gem 'database_cleaner'
   gem 'simplecov', '~> 0.9.1', require: false
   gem 'shoulda-matchers', require: false
+  gem 'webmock'
 end
 
 source 'https://rails-assets.org' do

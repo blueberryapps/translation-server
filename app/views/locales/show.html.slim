@@ -4,4 +4,4 @@ p
 
 = link_to 'Edit', [:edit, @locale]
 '|
-= link_to 'Back', [:locales]
+= link_to 'Back', [@locale.project || current_project, :locales]

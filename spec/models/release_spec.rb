@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Release, type: :model do
+  it { should belong_to :locale }
+  it { should have_one :project }
   let(:locale) { Locale.resolve code: 'cs' }
   let(:key)    { Key.resolve key: 'foo.bar' }
 

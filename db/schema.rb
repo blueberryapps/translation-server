@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130092008) do
+ActiveRecord::Schema.define(version: 20160912131153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20151130092008) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.string   "data_type",  default: "string"
+    t.integer  "project_id"
   end
 
   add_index "keys", ["key", "id"], name: "index_keys_on_key_and_id", using: :btree
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 20151130092008) do
     t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "project_id"
   end
 
   add_index "locales", ["code"], name: "index_locales_on_code", using: :btree
@@ -69,9 +71,29 @@ ActiveRecord::Schema.define(version: 20151130092008) do
     t.string   "path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "project_id"
   end
 
   add_index "locations", ["path"], name: "index_locations_on_path", using: :btree
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "default_locale_id"
+    t.string   "api_token"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "projects", ["api_token"], name: "index_projects_on_api_token", using: :btree
+  add_index "projects", ["default_locale_id"], name: "index_projects_on_default_locale_id", using: :btree
+
+  create_table "projects_users", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "user_id"
+  end
+
+  add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id", using: :btree
+  add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id", using: :btree
 
   create_table "releases", force: :cascade do |t|
     t.integer  "locale_id"

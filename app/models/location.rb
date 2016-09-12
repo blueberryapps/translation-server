@@ -3,8 +3,9 @@ class Location < ActiveRecord::Base
 
   has_many :images
   has_many :highlights
+  belongs_to :project
 
-  validates :path, uniqueness: true, presence: true
+  validates :path, uniqueness: { scope: :project_id }, presence: true
 
   scope :alphabetical,  -> { order :path }
 

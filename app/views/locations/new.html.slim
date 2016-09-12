@@ -2,4 +2,4 @@ h1 New location
 
 == render 'form'
 
-= link_to 'Back', [:locations]
+= link_to 'Back', [@location.project || current_project, :locations]

@@ -1,6 +1,6 @@
 ol class="breadcrumb"
   li
-    = link_to [:translates]
+    = link_to build_key_path_url('x')
       = locale.to_s.upcase
 
   - build_breadcumb(key_path_splitted, nil).each do |link|

@@ -5,11 +5,11 @@ module API
     describe 'Images API Requests', type: :request do
       describe 'POST /api/v1/images' do
 
-        let(:api_user) { create :user, id: 5, api_key: 'XYZZYX' }
+        let(:project) { create :project, id: 5, api_token: 'XYZZYX' }
 
         let(:headers) do
           {
-            'HTTP_AUTHORIZATION' => "Token token=#{api_user.api_key}",
+            'HTTP_AUTHORIZATION' => "Token token=#{project.api_token}",
             'CONTENT_TYPE' => 'application/json'
           }
         end

@@ -1,9 +1,9 @@
-class LocalesController < AuthController
+class LocalesController < BaseProjectController
   before_action :set_locale, only: [:show, :edit, :update, :destroy]
 
   # GET /locales
   def index
-    @locales = Locale.alphabetical.page(params[:page])
+    @locales = current_project.locales.alphabetical.page(params[:page])
     respond_with @locales
   end
 
@@ -14,7 +14,7 @@ class LocalesController < AuthController
 
   # GET /locales/new
   def new
-    @locale = Locale.new
+    @locale = current_project.locales.build
     respond_with @locale
   end
 
@@ -25,7 +25,7 @@ class LocalesController < AuthController
 
   # POST /locales
   def create
-    @locale = Locale.new(locale_params)
+    @locale = current_project.locales.build(locale_params)
     @locale.save
     respond_with @locale
   end
@@ -39,17 +39,18 @@ class LocalesController < AuthController
   # DELETE /locales/1
   def destroy
     @locale.destroy
-    respond_with @locale, location: [:locales]
+    respond_with @locale, location: [@locale.project, :locales]
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_locale
-      @locale = Locale.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def locale_params
-      params.require(:locale).permit(:code)
-    end
+  def set_locale
+    @locale = Locale.find(params[:id])
+    @project ||= @locale.project
+    authorize(@project) if @project
+  end
+
+  def locale_params
+    params.require(:locale).permit(:code)
+  end
 end

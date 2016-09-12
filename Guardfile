@@ -68,6 +68,7 @@ guard :rspec, cmd: "bundle exec rspec" do
 
   # Capybara features specs
   watch(rails.view_dirs)     { |m| rspec.spec.("features/#{m[1]}") }
+  watch(rails.view_dirs)     { |m| "#{rspec.spec_dir}/controllers/#{m[1]}_controller_spec.rb" }
 
   # Turnip features and steps
   watch(%r{^spec/acceptance/(.+)\.feature$})

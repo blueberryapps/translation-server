@@ -1,21 +1,22 @@
 class Release < ActiveRecord::Base
   LATEST_VERSION = /_latest$/
   belongs_to :locale
+  has_one :project, through: :locale
 
   validates :locale, presence: true
 
   before_create     :dump_translations
   before_validation :ensure_version
 
-  def self.with_versions(versions)
+  def self.with_versions(versions, current_project)
     versions.map do |version_text|
       if LATEST_VERSION =~ version_text
-        locale_id = Locale.where(code: version_text.gsub(LATEST_VERSION, ''))
+        locale_id = current_project.locales.where(code: version_text.gsub(LATEST_VERSION, ''))
           .first.try(:id)
 
-        self.where(locale_id: locale_id).order(created_at: :desc).first
+        current_project.releases.where(locale_id: locale_id).order(created_at: :desc).first
       else
-        self.where(version: version_text).first
+        current_project.releases.where(version: version_text).first
       end
     end.select(&:present?)
   end
@@ -39,8 +40,11 @@ class Release < ActiveRecord::Base
   end
 
   def dump_translations
-    translations = Translation.with_locale(locale).include_dependencies
-    self.yaml = YAML.dump Translation.dump_hash(translations)
+    self.yaml ||= YAML.dump(
+      Translation.dump_hash(
+        Translation.with_locale(locale).include_dependencies
+      )
+    )
   end
 
   def ensure_version

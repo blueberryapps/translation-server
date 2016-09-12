@@ -1,4 +1,4 @@
-class ExportsController < AuthController
+class ExportsController < BaseProjectController
   before_action :set_locale
   def index
     @translations = Translation.with_locale(@locale).include_dependencies
@@ -12,6 +12,6 @@ class ExportsController < AuthController
   end
 
   def set_locale
-    @locale = Locale.find(params[:locale])
+    @locale = current_project.locales.where(id: params[:locale]).first
   end
 end

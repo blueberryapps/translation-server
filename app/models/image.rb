@@ -8,6 +8,7 @@ class Image < ActiveRecord::Base
 
   belongs_to :location
   has_many   :highlights
+  has_one    :project, through: :location
 
   scope :alphabetical,  -> { order :id }
 

@@ -4,5 +4,5 @@ h1 Editing key
 
 = link_to 'Show', @key
 '|
-= link_to 'Back', [:keys]
+= link_to 'Back', [@key.project || current_project, :keys]
 

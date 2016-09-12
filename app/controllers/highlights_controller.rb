@@ -1,9 +1,9 @@
-class HighlightsController < AuthController
+class HighlightsController < BaseProjectController
   before_action :set_highlight, only: [:show, :edit, :update, :destroy]
 
   # GET /highlights
   def index
-    @highlights = Highlight.all
+    @highlights = current_project.highlights.all
     respond_with @highlights
   end
 
@@ -14,7 +14,7 @@ class HighlightsController < AuthController
 
   # GET /highlights/new
   def new
-    @highlight = Highlight.new
+    @highlight = current_project.highlights.build
     respond_with @highlight
   end
 
@@ -25,7 +25,7 @@ class HighlightsController < AuthController
 
   # POST /highlights
   def create
-    @highlight = Highlight.new(highlight_params)
+    @highlight = current_project.highlights.build(highlight_params)
     @highlight.save
     respond_with @highlight
   end
@@ -39,7 +39,7 @@ class HighlightsController < AuthController
   # DELETE /highlights/1
   def destroy
     @highlight.destroy
-    respond_with @highlight, location: [:highlights]
+    respond_with @highlight, location: [@highlight.project, :highlights]
   end
 
   private

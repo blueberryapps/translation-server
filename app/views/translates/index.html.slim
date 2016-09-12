@@ -6,8 +6,14 @@ h1
 
     a.btn.btn-primary.translations_submit_all save all unsaved translations
 
-  ' Translates:
+  ' Translating:
   = locale.to_s.upcase
+  - if (other_locales = current_project.locales.select{ |l| l != locale }).any?
+    small<
+      ' Switch to:
+      - other_locales.each do |other_locale|
+        =< link_to other_locale, { locale_code: other_locale.code }, class: 'btn btn-default'
+
 aside
   = render 'search/form'
   h3 Keys
@@ -39,7 +45,7 @@ aside
 
       .translation-wrapper.clearfix
         .tr-text
-          .original
+          .original data-default-locale=current_project.default_locale
             p = key.default_text
           .translation
             = render 'inline_form',

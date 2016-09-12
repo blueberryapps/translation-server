@@ -1,19 +1,33 @@
 Rails.application.routes.draw do
 
-  resources :releases, except: [:edit, :update]
+  resources :projects do
+    resources :releases, except: [:edit, :update], shallow: true
 
-  resources :imports, only: [:index, :create]
+    resources :imports, only: [:index, :create]
+    resources :exports, only: :index
 
-  resources :highlights
+    get '/:locale_code/browse/:edited_filter/*key_path' => 'translates#index', as: :browse
+    get '/:locale_code/translates' => 'translates#index', as: :translates
+    post '/:locale_code/translates' => 'translates#index'
 
-  scope ':locale_code' do
-    resources :translates, only: :index do
-      collection do
-        get 'browse/:edited_filter/*key_path' => 'translates#index', as: :browse
-      end
+    resources :locations, shallow: true
+
+    resources :keys, shallow: true
+
+    resources :locales, shallow: true
+
+    resources :translations, shallow: true
+
+    resources :highlights, shallow: true
+
+    resources :images, shallow: true do
+      get :display, on: :member
     end
-    post '/translates' => 'translates#index'
   end
+
+  match '/transfer' => 'transfer#index', via: [:get], as: :transfer
+  match '/transfer' => 'transfer#create', via: [:post]
+
   get '/translates/hint' => 'translates#hint', as: :hint_translates
 
   namespace :api, defaults: { format: :json } do
@@ -25,22 +39,9 @@ Rails.application.routes.draw do
       match 'releases',     to: 'releases#index_head',     via: [:head]
       match 'releases/:id', to: 'releases#show_head',      via: [:head]
       match 'translations', to: 'translations#index_head', via: [:head]
+      match 'transfer/:locale_codes', to: 'transfer#index', via: [:get]
     end
   end
-
-  resources :images do
-    get :display, on: :member
-  end
-
-  resources :exports, only: :index
-
-  resources :locations
-
-  resources :keys
-
-  resources :locales
-
-  resources :translations
 
   devise_for :users
   resources :users
@@ -49,5 +50,5 @@ Rails.application.routes.draw do
 
   match '/is_alive' => 'root#is_alive', via: [:get]
 
-  root to: 'root#index'
+  root to: 'projects#index'
 end

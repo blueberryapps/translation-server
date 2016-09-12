@@ -1,4 +1,4 @@
-class KeysController < AdminController
+class KeysController < BaseProjectController
   before_action :set_key, only: [:show, :edit, :update, :destroy]
 
   # GET /keys
@@ -15,7 +15,7 @@ class KeysController < AdminController
 
   # GET /keys/new
   def new
-    @key = Key.new
+    @key = current_project.keys.build
     respond_with @key
   end
 
@@ -26,7 +26,7 @@ class KeysController < AdminController
 
   # POST /keys
   def create
-    @key = Key.new(key_params)
+    @key = current_project.keys.build(key_params)
     @key.save
     respond_with @key
   end
@@ -40,7 +40,7 @@ class KeysController < AdminController
   # DELETE /keys/1
   def destroy
     @key.destroy
-    respond_with @key, location: [:keys]
+    respond_with @key, location: [@key.project, :keys]
   end
 
   private
@@ -48,6 +48,8 @@ class KeysController < AdminController
   # Use callbacks to share common setup or constraints between actions.
   def set_key
     @key = Key.find(params[:id])
+    @project ||= @key.project
+    authorize(@project) if @project
   end
 
   # Only allow a trusted parameter "white list" through.
@@ -58,7 +60,7 @@ class KeysController < AdminController
   def search_params
     {
       query:    params[:query],
-      scope:    Key.alphabetical
+      scope:    current_project.keys.alphabetical
     }
   end
 end

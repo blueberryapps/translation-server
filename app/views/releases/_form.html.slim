@@ -1,8 +1,8 @@
-= simple_form_for(@release) do |f|
+= simple_form_for(form_project_path(@release)) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.association :locale, collection: policy_scope(Locale)
+    = f.association :locale, collection: (@release.project || current_project).locales
 
   .form-actions
     = f.button :submit

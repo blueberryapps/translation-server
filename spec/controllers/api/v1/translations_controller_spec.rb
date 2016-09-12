@@ -14,10 +14,10 @@ RSpec.describe API::V1::TranslationsController, type: :controller do
     }
   end
 
-  let(:api_user) { create :user, id: 5, api_key: 'XYZZYX' }
+  let(:project) { create :project, id: 5, api_token: 'XYZZYX' }
 
   before do
-    @request.env["HTTP_AUTHORIZATION"] = "Token token=#{api_user.api_key}"
+    @request.env["HTTP_AUTHORIZATION"] = "Token token=#{project.api_token}"
   end
 
   describe 'GET #index' do

@@ -16,7 +16,7 @@ module API
       def index
         return unless stale? etag: index_etag
 
-        @releases = Release.all
+        @releases = current_project.releases
 
         respond_with releases: @releases.map(&:to_list)
       end
@@ -30,14 +30,14 @@ module API
       private
 
       def index_etag
-        release = Release.unscope(:order).order(:updated_at).last
+        release = current_project.releases.unscope(:order).order(:updated_at).last
         updated_at = release ? release.updated_at : ''
         [updated_at]
       end
 
       def set_releases
         ids = params[:id].split(',')
-        @releases = Release.with_versions(ids)
+        @releases = Release.with_versions(ids, current_project)
 
         unless @releases.any?
           raise ActiveRecord::RecordNotFound,

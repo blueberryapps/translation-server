@@ -5,6 +5,8 @@ class Key < ActiveRecord::Base
   BOOL_REGEXP = /^(true|t|yes|y|1)$/i
   NEW_LINES_REGEXP = /[\r\n]+/
 
+  belongs_to :project
+
   has_many :highlights, dependent: :destroy
   has_many :images, through: :highlights
 
@@ -12,7 +14,7 @@ class Key < ActiveRecord::Base
   has_many :locales,   through: :translations
   has_many :locations, through: :images
 
-  validates :key, uniqueness: true,
+  validates :key, uniqueness: { scope: :project_id },
                   length: { minimum: 1 },
                   format: { with: /\A[a-zA-Z0-9\.\-_\/]+\z/ }
 
@@ -82,7 +84,7 @@ class Key < ActiveRecord::Base
   end
 
   def default_text
-    translations.where(locale: Locale.default).first.try(:text) || note
+    translations.where(locale: project.default_locale).first.try(:text) || note
   end
 
   private
@@ -92,9 +94,9 @@ class Key < ActiveRecord::Base
   end
 
   def validate_key_scopes
-    if self.class.where('key ilike ?', "#{key}.%").count > 0
+    if self.class.where(project_id: project_id).where('key ilike ?', "#{key}.%").count > 0
       errors.add(:key, :existing_childs)
-    elsif parent_key.present? && self.class.where(key: parent_key).count > 0
+    elsif parent_key.present? && self.class.where(project_id: project_id).where(key: parent_key).count > 0
       errors.add(:key, :existing_parent)
     end
   end

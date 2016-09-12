@@ -1,0 +1,8 @@
+h1 Transfer data from another instance of translation server
+
+= simple_form_for(@transfer, url: [:transfer], method: :post) do |f|
+  = f.input :url
+  = f.input :api_token
+  = f.input :locales
+  = f.input :project_name
+  = f.submit

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe API::V1::ChangesController, type: :controller do
 
-  let(:api_user) { create :user, id: 5, api_key: 'XYZZYX' }
+  let(:project) { create :project, id: 5, api_token: 'XYZZYX' }
 
   before do
     allow(Translation).to receive(:on_change)
@@ -21,7 +21,7 @@ RSpec.describe API::V1::ChangesController, type: :controller do
 
     context 'with authorization' do
       action do
-        get :index, token: api_user.api_key
+        get :index, token: project.api_token
       end
 
       it 'response 200' do

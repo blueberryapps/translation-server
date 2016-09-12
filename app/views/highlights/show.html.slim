@@ -1,8 +1,8 @@
 p#notice = notice
 
-= link_to 'Edit', edit_highlight_path(@highlight)
+= link_to 'Edit', [:edit, @highlight]
 '|
-= link_to 'Back', highlights_path
+= link_to 'Back', [@highlight.project, :highlights]
 .row
   .col-sm-6
     p
