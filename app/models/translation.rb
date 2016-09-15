@@ -85,6 +85,7 @@ class Translation < ActiveRecord::Base
   private
 
   def notify_translation_changed
-    self.class.connection.execute "NOTIFY translations, 'changed:#{self.class.dump_hash([self]).to_json}'"
+    text = self.class.dump_hash([self]).to_json
+    self.class.connection.execute "NOTIFY translations, 'changed:#{text}'" if text.bytes.size < 7000
   end
 end
