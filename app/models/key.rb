@@ -14,7 +14,8 @@ class Key < ActiveRecord::Base
 
   validates :key, uniqueness: true,
                   length: { minimum: 1 },
-                  format: { with: /\A[a-zA-Z0-9\.\-_\/]+\z/ }
+                  format: { with: /\A[^\.][a-zA-Z0-9\.\-_\/]+[^\.]\z/ }
+  validates :key, format: { without: /\.\./ }
 
   validate :validate_key_scopes
 

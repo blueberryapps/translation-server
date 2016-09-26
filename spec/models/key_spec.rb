@@ -46,6 +46,10 @@ RSpec.describe Key, type: :model do
       specify { expect(Key.new(key: 'foo}bar').valid?).to eq(false) }
       specify { expect(Key.new(key: 'foo]bar').valid?).to eq(false) }
       specify { expect(Key.new(key: 'foo[bar').valid?).to eq(false) }
+      specify { expect(Key.new(key: 'foo.').valid?).to eq(false) }
+      specify { expect(Key.new(key: '.').valid?).to eq(false) }
+      specify { expect(Key.new(key: '.foo').valid?).to eq(false) }
+      specify { expect(Key.new(key: 'foo..bar').valid?).to eq(false) }
     end
   end
 
