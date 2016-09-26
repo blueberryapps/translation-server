@@ -37,7 +37,7 @@ module API
 
       def set_releases
         ids = params[:id].split(',')
-        @releases = Release.where(version: ids).order(:version)
+        @releases = Release.with_versions(ids)
 
         unless @releases.any?
           raise ActiveRecord::RecordNotFound,

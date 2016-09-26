@@ -1,10 +1,24 @@
 class Release < ActiveRecord::Base
+  LATEST_VERSION = /_latest$/
   belongs_to :locale
 
   validates :locale, presence: true
 
   before_create     :dump_translations
   before_validation :ensure_version
+
+  def self.with_versions(versions)
+    versions.map do |version_text|
+      if LATEST_VERSION =~ version_text
+        locale_id = Locale.where(code: version_text.gsub(LATEST_VERSION, ''))
+          .first.try(:id)
+
+        self.where(locale_id: locale_id).order(created_at: :desc).first
+      else
+        self.where(version: version_text).first
+      end
+    end.select(&:present?)
+  end
 
   def to_list
     {
