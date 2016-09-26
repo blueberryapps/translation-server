@@ -19,7 +19,7 @@ module API
 
         text_v1 = Translation.create key: key1, locale: locale_cs, text: 'Super'
         Translation.create key: key2, locale: locale_cs, text: 'Translation'
-        Translation.create key: key1, locale: locale_en, text: 'Translated'
+        textv_en_v1 = Translation.create key: key1, locale: locale_en, text: 'Translated'
 
         @release1 = Release.create locale: locale_cs
 
@@ -28,6 +28,10 @@ module API
         @release2 = Release.create locale: locale_cs
 
         @release_en = Release.create locale: locale_en
+
+        textv_en_v1.update text: 'Latest release'
+
+        @release2_en = Release.create locale: locale_en
       end
 
       describe 'GET /api/v1/releases' do
@@ -37,7 +41,7 @@ module API
 
         it 'returns 200 status code' do
           expect(response.status).to eq(200)
-          expect(response.json.releases.size).to eq(3)
+          expect(response.json.releases.size).to eq(4)
           release = response.json.releases.first
           expect(release.locale).to  eq('cs')
           expect(release.version).to eq('cs_v001')
@@ -70,6 +74,14 @@ module API
             expect(response.json.cs.foo.bar).to eq('Released2')
             expect(response.json.cs.bar.foo).to eq('Translation')
             expect(response.json.en.foo.bar).to eq('Translated')
+          end
+        end
+
+        context 'latest release for locale' do
+          it 'returns valid json for version 2', action: false do
+            get "/api/v1/releases/#{@release2_en.locale.code}_latest", {}, headers
+            expect(response.status).to eq(200)
+            expect(response.json.en.foo.bar).to eq('Latest release')
           end
         end
       end
