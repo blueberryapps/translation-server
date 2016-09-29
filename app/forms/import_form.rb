@@ -11,6 +11,7 @@ class ImportForm
   attribute :text,      String, default: ''
   attribute :overwrite, Boolean, default: false
   attribute :available_locales, Array
+  attribute :project,   Project
 
   def info
     if @error
@@ -89,10 +90,10 @@ class ImportForm
 
     data.each do |locale, translations|
       valid_locale_code? locale
-      locale = Locale.resolve(code: locale)
+      locale = Locale.resolve(code: locale, project: project)
 
       dot_hash(translations).each do |key, translation|
-        key = Key.resolve({ key: key }, { data_type: data_type(translation) })
+        key = Key.resolve({ key: key, project: project }, { data_type: data_type(translation) })
 
         find_args   = { key: key, locale: locale }
         text        = convert_value(translation)

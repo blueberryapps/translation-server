@@ -1,6 +1,6 @@
 h1
   ' Listing keys
-  = link_to 'New Key', [:new, :key], class: 'btn btn-sm btn-primary'
+  = link_to 'New Key', [:new, current_project, :key], class: 'btn btn-sm btn-primary'
 
 = render 'search/basic'
 

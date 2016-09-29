@@ -5,14 +5,14 @@ module API
     describe 'Changes listener API Requests', type: :request do
       describe 'GET /api/v1/changes' do
 
-        let(:api_user) { create :user, id: 5, api_key: 'XYZZYX' }
+        let(:project) { create :project, id: 5, api_token: 'XYZZYX' }
 
         before do
           allow(Translation).to receive(:on_change)
         end
 
         action do
-          get '/api/v1/changes', { token: api_user.api_key }, {}
+          get '/api/v1/changes', { token: project.api_token }, {}
         end
 
         it 'returns stream of events' do

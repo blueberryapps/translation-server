@@ -6,7 +6,7 @@ module API
 
       def create
         location_path = URI.parse(params[:location]).path
-        location = Location.where(path: location_path).first_or_create
+        location = current_project.locations.where(path: location_path).first_or_create
 
         variant = 'desktop'
         params[:images].each do |data|
@@ -21,8 +21,8 @@ module API
         end
 
         params[:highlights].each do |data|
-          locale = Locale.where(code: parse_locale(data)).first_or_create
-          key    = Key.where(key: parse_key(data)).first_or_create
+          locale = current_project.locales.where(code: parse_locale(data)).first_or_create
+          key    = current_project.keys.where(key: parse_key(data)).first_or_create
 
           image_lookup = {
             name:     data[:image_name],

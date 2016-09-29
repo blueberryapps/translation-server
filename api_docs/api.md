@@ -1,3 +1,35 @@
+# HEAD /api/v1/releases/:version
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Params
+
+            {"id"=>"cs_v001"}
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "c02eb04887ab780ae5b6a9a0ce068d17"
+
+# HEAD /api/v1/releases
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "e3c3b8b657711f3a23476cfdc77b1aca"
+
 # GET /api/v1/releases
 
 + Request (application/x-www-form-urlencoded)
@@ -10,7 +42,7 @@
 
     + Headers
 
-            Etag: "b5ea6c1ef7432d3964548449cb98e823"
+            Etag: "e3c3b8b657711f3a23476cfdc77b1aca"
 
     + Body
 
@@ -19,22 +51,22 @@
                 {
                   "locale": "cs",
                   "version": "cs_v001",
-                  "created_at": "2016-09-26T07:59:27.381Z"
+                  "created_at": "2016-09-29T08:49:14.085Z"
                 },
                 {
                   "locale": "cs",
                   "version": "cs_v002",
-                  "created_at": "2016-09-26T07:59:27.399Z"
+                  "created_at": "2016-09-29T08:49:14.110Z"
                 },
                 {
                   "locale": "en",
                   "version": "en_v001",
-                  "created_at": "2016-09-26T07:59:27.406Z"
+                  "created_at": "2016-09-29T08:49:14.119Z"
                 },
                 {
                   "locale": "en",
                   "version": "en_v002",
-                  "created_at": "2016-09-26T07:59:27.416Z"
+                  "created_at": "2016-09-29T08:49:14.131Z"
                 }
               ]
             }
@@ -55,7 +87,7 @@
 
     + Headers
 
-            Etag: "b5ea6c1ef7432d3964548449cb98e823"
+            Etag: "e3c3b8b657711f3a23476cfdc77b1aca"
 
     + Body
 
@@ -83,7 +115,7 @@
 
     + Headers
 
-            Etag: "b5ea6c1ef7432d3964548449cb98e823"
+            Etag: "e3c3b8b657711f3a23476cfdc77b1aca"
 
     + Body
 
@@ -114,7 +146,7 @@
 
     + Headers
 
-            Etag: "b5ea6c1ef7432d3964548449cb98e823"
+            Etag: "e3c3b8b657711f3a23476cfdc77b1aca"
 
     + Body
 
@@ -145,7 +177,7 @@
 
     + Headers
 
-            Etag: "75601424c748ea674ff2a0c8d7cdfaaf"
+            Etag: "b26f2f95dfa1ad39fc7d26135d605362"
 
     + Body
 
@@ -165,20 +197,6 @@
               }
             }
 
-# HEAD /api/v1/releases
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "b5ea6c1ef7432d3964548449cb98e823"
-
 # GET /api/v1/releases/:version.yaml version 1
 
 + Request (application/x-www-form-urlencoded)
@@ -195,13 +213,13 @@
 
     + Headers
 
-            Etag: "23c083d162e249161eef9bd70b76f173"
+            Etag: "e3c3b8b657711f3a23476cfdc77b1aca"
 
     + Body
 
             # LOCALE:   cs
             # VERSION:  cs_v001
-            # RELEASED: 2016-09-26 07:59:28 UTC
+            # RELEASED: 2016-09-29 08:49:14 UTC
 
             cs:
               bar:
@@ -227,13 +245,13 @@
 
     + Headers
 
-            Etag: "23c083d162e249161eef9bd70b76f173"
+            Etag: "e3c3b8b657711f3a23476cfdc77b1aca"
 
     + Body
 
             # LOCALE:   cs
             # VERSION:  cs_v002
-            # RELEASED: 2016-09-26 07:59:28 UTC
+            # RELEASED: 2016-09-29 08:49:14 UTC
 
             cs:
               bar:
@@ -259,13 +277,13 @@
 
     + Headers
 
-            Etag: "0cf1f634ae7b1431628daf41ec38d10d"
+            Etag: "b26f2f95dfa1ad39fc7d26135d605362"
 
     + Body
 
             # LOCALE:   cs
             # VERSION:  cs_v002
-            # RELEASED: 2016-09-26 07:59:28 UTC
+            # RELEASED: 2016-09-29 08:49:14 UTC
 
             cs:
               bar:
@@ -275,7 +293,7 @@
 
             # LOCALE:   en
             # VERSION:  en_v001
-            # RELEASED: 2016-09-26 07:59:28 UTC
+            # RELEASED: 2016-09-29 08:49:14 UTC
 
             en:
               foo:
@@ -283,7 +301,72 @@
 
 
 
-# HEAD /api/v1/releases/:version
+# POST /api/v1/translations
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Body
+
+            {
+              "location": "/register",
+              "locale": "cs",
+              "translations": [
+                {
+                  "key": "cs.foo.bar",
+                  "text": "transalted text"
+                },
+                {
+                  "key": "cs.foo.foo",
+                  "text": "super text"
+                },
+                {
+                  "key": "cs.bar",
+                  "text": "foo text"
+                }
+              ]
+            }
+
+    + Params
+
+            {"location"=>"/register", "locale"=>"cs", "translations"=>[{"key"=>"cs.foo.bar", "text"=>"transalted text"}, {"key"=>"cs.foo.foo", "text"=>"super text"}, {"key"=>"cs.bar", "text"=>"foo text"}], "translation"=>{}}
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: W/"c51f8dbf79b64ff6b654896db0089041"
+
+    + Body
+
+            {
+              "message": "Created 3 translations",
+              "new_translations": [
+                {
+                  "locale": "cs",
+                  "key": "foo.bar",
+                  "text": "transalted text"
+                },
+                {
+                  "locale": "cs",
+                  "key": "foo.foo",
+                  "text": "super text"
+                },
+                {
+                  "locale": "cs",
+                  "key": "bar",
+                  "text": "foo text"
+                }
+              ],
+              "errors": [
+
+              ]
+            }
+
+# HEAD /api/v1/translations
 
 + Request (application/x-www-form-urlencoded)
 
@@ -291,13 +374,142 @@
 
             Authorization: Token token=XYZZYX
 
-    + Params
++ Response 200 (application/json)
 
-            {"id"=>"cs_v001"}
+    + Headers
+
+            Etag: "6666cd76f96956469e7be39d750cc7d9"
+
+# not authorized GET /api/v1/translations
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=UNKNOWN_TOKEN
+
++ Response 401 (application/json)
+
+        {
+          "errors": {
+            "token": "Bad credentials"
+          }
+        }
+
+# GET /api/v1/translations.json
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
 
 + Response 200 (application/json)
 
     + Headers
 
-            Etag: "23c083d162e249161eef9bd70b76f173"
+            Etag: "d17951e4350b8e9fb3d7153f0d964961"
+
+    + Body
+
+            {
+              "cs": {
+                "foo": {
+                  "bar": "cs translated text"
+                }
+              },
+              "en": {
+                "bar": [
+                  "A",
+                  "B"
+                ],
+                "foo": {
+                  "bar": "en translated text"
+                }
+              }
+            }
+
+# GET /api/v1/translations.yaml
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/x-yaml)
+
+    + Headers
+
+            Etag: "d17951e4350b8e9fb3d7153f0d964961"
+
+    + Body
+
+            ---
+            cs:
+              foo:
+                bar: cs translated text
+            en:
+              bar:
+              - A
+              - B
+              foo:
+                bar: en translated text
+
+
+
+# POST /api/v1/images
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Body
+
+            {
+              "location": "/foo/bar",
+              "locale": "cs",
+              "images": [
+                {
+                  "image": "XYZ",
+                  "name": "/foo/bar#modal"
+                }
+              ],
+              "highlights": [
+                {
+                  "image_name": "/foo/bar#modal",
+                  "key": "cs.foo.bar",
+                  "x": 10,
+                  "y": 20,
+                  "width": 30,
+                  "height": 40
+                }
+              ]
+            }
+
+    + Params
+
+            {"location"=>"/foo/bar", "locale"=>"cs", "images"=>[{"image"=>"XYZ", "name"=>"/foo/bar#modal"}], "highlights"=>[{"image_name"=>"/foo/bar#modal", "key"=>"cs.foo.bar", "x"=>10, "y"=>20, "width"=>30, "height"=>40}], "image"=>{}}
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: W/"49033dcf71a16ec23c41ac1974726b24"
+
+    + Body
+
+            {
+              "message": "Imported 1 images and 1 highlights"
+            }
+
+# GET /api/v1/changes
+
++ Request (application/x-www-form-urlencoded)
+
+        {"token"=>"XYZZYX"}
+
++ Response 200 (text/event-stream)
 

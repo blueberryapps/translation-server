@@ -9,34 +9,37 @@ module API
 
       def index
         return unless stale? etag: index_etag
+        cache_key = "#{current_project.id}-#{params[:format]}"
 
-        if translation_cache = TranslationCache.find_cache(kind: params[:format], etag: index_etag)
+        if translation_cache = TranslationCache.find_cache(kind: cache_key, etag: index_etag)
           response.headers['CustomCache'] = index_etag.to_json
           render status: 200, text: translation_cache.cache
         else
-          @output = Translation.dump_hash Translation.include_dependencies
+          @output = Translation.dump_hash current_project.translations.include_dependencies
 
-          TranslationCache.cache(kind: params[:format], etag: index_etag, cache: dump_cache(@output))
+          TranslationCache.cache(kind: cache_key, etag: index_etag, cache: dump_cache(@output))
 
           respond_with @output
         end
       end
 
       def create
-        locale = Locale.where(code: params[:locale]).first_or_create
+        locale = current_project.locales.where(code: params[:locale]).first_or_create
         errors = []
+        new_translations = []
         success = 0
 
         if params[:location]
-          location      = Location.where(path: params[:location]).first_or_create
+          location      = current_project.locations.where(path: params[:location]).first_or_create
           default_image = Image.where(location: location, name: location.path).first_or_create
         end
 
         params[:translations].each do |data|
-          key = Key.where(key: data[:key].split('.', 2).last)
+          key = current_project.keys.where(key: data[:key].split('.', 2).last)
                    .first_or_initialize(data_type: data[:data_type])
           if key.valid? && key.save
             unless Translation.where(locale: locale, key: key).first
+              new_translations << { locale: locale.code, key: key.key, text: data[:text] }
               Translation.create translation_params(data).merge(locale: locale, key: key)
             end
 
@@ -55,7 +58,11 @@ module API
         end
 
         render json: {
-          message: "Imported #{success} translations",
+          message: [
+            new_translations.size > 0 ? "Created #{new_translations.size} translations" : nil,
+            errors.size > 0 ? "Unable to create #{errors.size} translations (check errors)" : nil
+          ].select(&:present?).join('and'),
+          new_translations: new_translations,
           errors: errors
         }
       end
@@ -71,7 +78,7 @@ module API
       end
 
       def index_etag
-        translation = Translation.unscope(:order).order(:updated_at).last
+        translation = current_project.translations.unscope(:order).order(:updated_at).last
         updated_at = translation ? translation.updated_at : ''
         [updated_at]
       end

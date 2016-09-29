@@ -1,4 +1,4 @@
-= simple_form_for(translation, remote: true) do |f|
+= simple_form_for(form_project_path(translation), remote: true) do |f|
   = f.association :key, as: :hidden
   = f.association :locale, as: :hidden
   = f.input :text,

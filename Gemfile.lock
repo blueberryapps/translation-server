@@ -37,6 +37,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.4.0)
     airbrake (4.1.0)
       builder
       multi_json
@@ -95,6 +96,8 @@ GEM
       execjs
     coffee-script-source (1.9.1)
     colorize (0.7.5)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     daemons (1.1.9)
     database_cleaner (1.4.0)
     debug_inspector (0.0.2)
@@ -109,6 +112,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    domain_name (0.5.20160826)
+      unf (>= 0.0.5, < 1.0.0)
     dotenv (1.0.2)
     dotenv-rails (1.0.2)
       dotenv (= 1.0.2)
@@ -146,11 +151,14 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    hashdiff (0.3.0)
     hashie (3.4.0)
     highlight_js-rails (7.1.0)
       rails (>= 3.1.1)
     hike (1.2.3)
     hitimes (1.2.2)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -191,6 +199,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
+    netrc (0.11.0)
     newrelic_rpm (3.10.0.279)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -260,6 +269,10 @@ GEM
     redcarpet (3.2.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rest-client (2.0.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -281,6 +294,7 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
+    safe_yaml (1.0.4)
     sass (3.4.13)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -346,6 +360,9 @@ GEM
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
     virtus (1.0.4)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -353,6 +370,10 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.3)
       rack (>= 1.0)
+    webmock (2.1.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     websocket-driver (0.5.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -404,6 +425,7 @@ DEPENDENCIES
   rails_12factor
   redcarpet
   responders
+  rest-client
   rspec-rails (>= 3.1)
   sass-rails
   shoulda-matchers
@@ -413,6 +435,7 @@ DEPENDENCIES
   spring
   uglifier (>= 2.5.0)
   virtus
+  webmock
   yajl-ruby
   yandex-translator
 

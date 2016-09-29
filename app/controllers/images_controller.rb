@@ -1,9 +1,9 @@
-class ImagesController < AuthController
+class ImagesController < BaseProjectController
   before_action :set_image, only: [:show, :display, :edit, :update, :destroy]
 
   # GET /images
   def index
-    @images = Image.alphabetical.page(params[:page])
+    @images = current_project.images.alphabetical.page(params[:page])
     respond_with @images
   end
 
@@ -46,20 +46,17 @@ class ImagesController < AuthController
   # DELETE /images/1
   def destroy
     @image.destroy
-    respond_with @image, location: [:images]
+    respond_with @image, location: [@image.project, :images]
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_image
-      @image = Image.find(params[:id])
-    end
+  def set_image
+    @image = Image.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def image_params
-      params.require(:image).permit(
-        :location_id, :variant, :name,
-        :image, :image_file
-      )
-    end
+  def image_params
+    params.require(:image).permit(
+      :location_id, :variant, :name, :image, :image_file
+    )
+  end
 end

@@ -1,4 +1,4 @@
-=> link_to 'Back', [:keys]
+= link_to 'Back', [@key.project || current_project, :keys]
 h1
   ' Key:
   => @key.key
@@ -6,7 +6,7 @@ h1
 
 h3
   ' Translations
-  => link_to 'Create new translation', [:new, :translation, key_id: @key.id], class: 'btn btn-sm btn-primary'
+  => link_to 'Create new translation', [:new, @key.project, :translation, key_id: @key.id], class: 'btn btn-sm btn-primary'
 table.table
   thead
     tr

@@ -5,6 +5,7 @@ class Highlight < ActiveRecord::Base
   belongs_to :key
   belongs_to :locale
   belongs_to :location
+  has_one :project, through: :locale
 
   validates :key, :image, presence: true
 

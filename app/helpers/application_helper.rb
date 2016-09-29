@@ -10,10 +10,11 @@ module ApplicationHelper
 
   def build_key_path_url(key)
     [
+      :project,
       :browse,
-      :translates,
       {
         locale_code: locale.code,
+        project_id: current_project.id,
         key_path: key,
         edited_filter: @edited_filter
       }

@@ -19,9 +19,9 @@ table.table
         td = highlight.key
         td = highlight.image_tag
         td = link_to 'Show', highlight
-        td = link_to 'Edit', edit_highlight_path(highlight)
+        td = link_to 'Edit', [:edit, highlight]
         td = link_to 'Destroy', highlight, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
-= link_to 'New Highlight', new_highlight_path
+= link_to 'New Highlight', [:new, current_project, :highlight]

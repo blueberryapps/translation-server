@@ -1,4 +1,4 @@
-= simple_form_for(@import, url: [:imports]) do |f|
+= simple_form_for(@import, url: [current_project, :imports]) do |f|
 
   h3 Select file
   = f.input :file, label: false, as: :file

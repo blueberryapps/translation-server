@@ -8,8 +8,8 @@
     h1 Export YML
     p Download lates version of translations:
     ul
-      - Locale.alphabetical.each do |locale|
-        li = link_to locale, [:exports, locale: locale.id, format: :yml]
+      - current_project.locales.each do |locale|
+        li = link_to locale, [current_project, :exports, locale: locale.id, format: :yml]
 
 .row
   .col-xs-12

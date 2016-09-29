@@ -1,0 +1,9 @@
+= simple_form_for(@project) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :default_locale_id, collection: @project.locales
+
+  .form-actions
+    = f.button :submit

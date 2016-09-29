@@ -1,0 +1,50 @@
+p#notice = notice
+
+h1
+  ' Project:
+  = @project.name
+  =< link_to 'Edit', edit_project_path(@project), class: 'btn btn-primary'
+
+h2
+  ' Choose locale to translate:
+  =< link_to 'Add new locale', [:new, @project, :locale], class: 'btn btn-default btn-xs'
+
+.row
+  .col-sm-9
+    - @project.locales.each do |locale|
+      .col-sm-6
+        .panel.panel-default.panel-translation
+          .panel-heading
+            = link_to [@project, :translates, locale_code: locale.code],
+                      class: 'btn btn-primary btn-xs pull-right'
+              = "Go to #{locale.to_s.upcase} translations"
+            = link_to [@project, :translates, locale_code: locale.code]
+              = locale.to_s.upcase
+          .panel-body
+            dl.dl-horizontal
+              dt Translations
+              dd = locale.translations.count
+            dl.dl-horizontal
+              dt Releases
+              dd = locale.releases.count
+            - last_release = locale.releases.last
+            dl.dl-horizontal
+              dt Latest Release
+              dd
+                = last_release ? link_to(last_release.version, last_release) : '-'
+                =< link_to project_releases_path(@project, release: { locale_id: locale.id }),
+                          method: :post,
+                          data: { confirm: "Are you sure to create new release for: #{locale.to_s.upcase}" },
+                          class: 'btn btn-default btn-sm pull-right'
+                  = "Create new release"
+              dl.dl-horizontal
+              dt Latest Release at
+              dd = last_release ? localize(last_release.created_at) : '-'
+    - if @project.locales.empty?
+      .alert.alert-info
+        ' Sorry, but there is no locale to translate
+        = link_to [:new, @project, :locale], class: 'btn btn-primary'
+          ' Create new locale
+
+  .col-sm-3
+    = fa_icon 'language', class: 'big-icon'

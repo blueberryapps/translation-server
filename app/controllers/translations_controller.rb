@@ -1,9 +1,9 @@
-class TranslationsController < AuthController
+class TranslationsController < BaseProjectController
   before_action :set_translation, only: [:show, :edit, :update, :destroy]
 
   # GET /translations
   def index
-    @translations = Translation.alphabetical.page(params[:page])
+    @translations = current_project.translations.alphabetical.page(params[:page])
     respond_with @translations
   end
 
@@ -14,8 +14,8 @@ class TranslationsController < AuthController
 
   # GET /translations/new
   def new
+    @translation = current_project.translations.build(new_translation_params)
     @redirect_to = success_location
-    @translation = Translation.new(new_translation_params)
     respond_with @translation
   end
 
@@ -26,8 +26,9 @@ class TranslationsController < AuthController
 
   # POST /translations
   def create
-    @translation = Translation.new(translation_params)
+    @translation = current_project.translations.build(translation_params)
     @translation.save
+
     respond_with @translation, location: location_after_create
   end
 
@@ -56,7 +57,7 @@ class TranslationsController < AuthController
   end
 
   def success_location
-    request.referer ? request.referer : [:translations]
+    request.referer ? request.referer : [@translation.project, :translations]
   end
 
   def location_after_create

@@ -1,9 +1,9 @@
-class ReleasesController < AuthController
+class ReleasesController < BaseProjectController
   before_action :set_release!, only: [:show, :destroy]
 
   # GET /releases
   def index
-    @releases = policy_scope(Release).order(version: :desc).page(params[:page])
+    @releases = current_project.releases.order(version: :desc).page(params[:page])
     respond_with @releases
   end
 
@@ -14,14 +14,14 @@ class ReleasesController < AuthController
 
   # GET /releases/new
   def new
-    @release = Release.new
+    @release = current_project.releases.build
     respond_with @release
   end
 
   # POST /releases
   def create
-    @release = Release.new(release_params)
-    ReleasePolicy.new(current_user, @release).manage?
+    @release = current_project.releases.build(release_params)
+    authorize @release, :manage?
     @release.save
     respond_with @release,
                  location: redirect_to_root? ? '/' : @release
@@ -30,14 +30,15 @@ class ReleasesController < AuthController
   # DELETE /releases/1
   def destroy
     @release.destroy
-    respond_with @release, location: [:releases]
+    respond_with @release, location: [@release.project, :releases]
   end
 
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_release!
     @release = Release.find(params[:id])
-    ReleasePolicy.new(current_user, @release).manage?
+    authorize @release, :manage?
+    @project ||= @release.project
   end
 
   # Only allow a trusted parameter "white list" through.

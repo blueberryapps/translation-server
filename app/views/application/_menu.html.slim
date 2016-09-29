@@ -23,14 +23,23 @@
 
         .menu-holder
           ul.nav.navbar-nav.primary
-            li = link_to 'Releases', [:releases]
-            / li = link_to :locales, [:locales]
-            / li = link_to :locations, [:locations]
-            / li = link_to :images, [:images]
-            / li = link_to :highlights, [:highlights]
-            / li = link_to :translations, [:translations]
-            li = link_to 'Import', [:imports]
-            li = link_to 'Developer', [:developer]
-            - if current_user && current_user.admin?
-              li = link_to 'Translation Keys', [:keys]
+            li = link_to 'Projects', [:projects]
+            - if respond_to?(:current_project) && current_project && current_project.persisted?
+              li
+                = link_to current_project
+                  ' Project:
+                  b = current_project
+              li = link_to 'Releases', [current_project, :releases]
+              / li = link_to :locales, [current_project, :locales]
+              / li = link_to :locations, [current_project, :locations]
+              / li = link_to :images, [current_project, :images]
+              / li = link_to :highlights, [current_project, :highlights]
+              / li = link_to :translations, [current_project, :translations]
+              li = link_to 'Import', [current_project, :imports]
+              li = link_to 'Developer', [:developer]
+              - if current_user.admin?
+                li = link_to 'Translation Keys', [current_project, :keys]
+
+            - if current_user.admin?
               li = link_to 'Users', [:users]
+              li = link_to 'Transfer', [:transfer]

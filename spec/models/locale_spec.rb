@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Locale, type: :model do
+  it { should belong_to :project }
   it { should have_many :translations }
   it { should have_many :releases }
 

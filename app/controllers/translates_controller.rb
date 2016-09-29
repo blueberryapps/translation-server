@@ -1,9 +1,7 @@
-class TranslatesController < AuthController
+class TranslatesController < BaseProjectController
   helper_method :key_path
   helper_method :key_path_splitted
   helper_method :locale
-
-  before_action :authorize_user!
 
   def index
     if locale
@@ -11,8 +9,8 @@ class TranslatesController < AuthController
       @edited_filter = @search.edited_filter
       @keys   = @search.resolve.uniq
 
-      @hierarchy = Key.hierarchy(@search.resolve)
-      @locations = Location.alphabetical
+      @hierarchy = current_project.keys.hierarchy(@search.resolve)
+      @locations = current_project.locations.alphabetical
 
       if key_path
         @keys = @keys.with_key_path(key_path.gsub('/', '.'))
@@ -39,28 +37,20 @@ class TranslatesController < AuthController
   def locale
     return @locale if @locale
 
-    if params[:locale]
-      session[:locale_id] = params[:locale]
-    end
-
     if params[:locale_code]
-      return @locale = Locale.where(code: params[:locale_code]).first
+      session[:locale_code] = params[:locale_code]
     end
 
-    @locale = Locale.find(session[:locale_id] || Locale.first.id) rescue nil
+    @locale = current_project.locales.where(code: session[:locale_code]).first || current_project.locales.first
   end
 
   private
-
-  def authorize_user!
-    authorize locale, :manage?
-  end
 
   def search_params
     {
       location:      params[:location],
       query:         params[:query],
-      scope:         Key.alphabetical.with_locale(locale),
+      scope:         current_project.keys.alphabetical.with_locale(locale),
       edited_filter: params[:edited_filter].presence || 'all'
     }
   end

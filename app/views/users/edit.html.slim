@@ -1,6 +1,27 @@
-h1 Editing user
+h1 Editing user details
 
-== render 'form'
+= simple_form_for(@user) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :email
+    = f.input :password
+
+  .form-actions
+    = f.button :submit
+
+
+h1 Editing user assigment
+
+= simple_form_for(@user) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :role, collection: User::ROLES, include_blank: false
+    = f.input :project_ids, as: :check_boxes, collection: Project.all
+
+  .form-actions
+    = f.button :submit
 
 = link_to 'Show', @user
 '|

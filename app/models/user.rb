@@ -9,9 +9,16 @@ class User < ActiveRecord::Base
 
   validates :role, inclusion: ROLES
 
+  has_and_belongs_to_many :projects
+  has_many :locales, through: :projects
+
   scope :alphabetical,  -> { order :email }
 
   before_create :ensure_api_key
+
+  def projects
+    admin? ? Project.all : super
+  end
 
   def photo_url(size = 50)
     link = 'https://www.gravatar.com/avatar/%s?s=%s&d=wavatar'
