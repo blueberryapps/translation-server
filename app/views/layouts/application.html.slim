@@ -15,7 +15,7 @@ html
       - if ENV['DEPRECATED']
         h1 style='color:red; font-size: 50px'
           ' STOP RIGHT THERE, THIS INSTANCE IS MIGRATED TO
-          =<> link_to ENV['DEPRECATED']
+          =<> link_to ENV['DEPRECATED'], ENV['DEPRECATED']
           ' FOR ANY CHANGES PLS GO THERE
 
       = render 'application/flashes'
