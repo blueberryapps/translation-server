@@ -12,6 +12,12 @@ html
     = render 'application/menu'
 
     .container-fluid
+      - if ENV['DEPRECATED']
+        h1 style='color:red; font-size: 50px'
+          ' STOP RIGTH THERE, THIS INSTANCE IS MIGRATED TO
+          =<> link_to ENV['DEPRECATED']
+          ' FOR ANY CHANGES PLS GO THERE
+
       = render 'application/flashes'
       = yield
 
