@@ -37,7 +37,7 @@ module API
               name: image.name,
               variant: image.variant,
               image: image.image,
-              highlights: image.highlights.where(locale: locale).map { |highlight| dump_highlight(highlight) }
+              highlights: image.highlights.where(locale: locale).map { |highlight| dump_highlight(highlight) }.select(&:present?)
             }
           end
         end
@@ -51,6 +51,9 @@ module API
           height: highlight.height,
           key: highlight.key.key,
         }
+      rescue StandardError => e
+        Rails.logger.error "Unable to dump highlight: #{e.message}"
+        nil
       end
 
       def dump_releases(locale)
