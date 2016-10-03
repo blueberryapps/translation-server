@@ -28,9 +28,10 @@ class Translation < ActiveRecord::Base
   end
 
   def self.on_change(project)
+    connection.execute "LISTEN heartbeat"
     connection.execute "LISTEN translations_#{project.id}"
     loop do
-      connection.raw_connection.wait_for_notify(60) do |event, pid,  translation|
+      connection.raw_connection.wait_for_notify(60) do |event, pid, translation|
         yield translation
       end
     end
