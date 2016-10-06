@@ -27,7 +27,7 @@ h2
             dl.dl-horizontal
               dt Releases
               dd = locale.releases.count
-            - last_release = locale.releases.last
+            - last_release = locale.releases.only_list.last
             dl.dl-horizontal
               dt Latest Release
               dd

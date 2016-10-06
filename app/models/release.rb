@@ -3,6 +3,10 @@ class Release < ActiveRecord::Base
   belongs_to :locale
   has_one :project, through: :locale
 
+  scope :newest_first, -> { order created_at: :desc }
+  scope :only_list,
+        -> { select(:id, :locale_id, :version, :created_at, :updated_at) }
+
   validates :locale, presence: true
 
   before_create     :dump_translations

@@ -35,7 +35,7 @@ h1
               dt Releases
               dd
                 - project.locales.each do |locale|
-                  - if (release = locale.releases.last)
+                  - if (release = locale.releases.only_list.last)
                     = link_to release
                       b = release.version
                       small =< localize(release.created_at)
