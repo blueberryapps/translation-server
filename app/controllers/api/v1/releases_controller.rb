@@ -16,7 +16,7 @@ module API
       def index
         return unless stale? etag: index_etag
 
-        @releases = current_project.releases.newest_first.only_list
+        @releases = current_project.releases.newest_last.only_list
 
         respond_with releases: @releases.map(&:to_list)
       end
