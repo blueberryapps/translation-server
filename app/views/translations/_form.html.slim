@@ -3,8 +3,8 @@
   = hidden_field_tag :redirect_to, @redirect_to
 
   .form-inputs
-    = f.association :key
-    = f.association :locale
+    = f.association :key, collection: (translation.project || current_project).keys, include_blank: false
+    = f.association :locale, collection: (translation.project || current_project).locales, include_blank: false
     = f.input :text
 
   .form-actions

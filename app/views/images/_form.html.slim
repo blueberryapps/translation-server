@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.association :location
+    = f.association :location, collection: (@image.project || current_project).locations, include_blank: false
     = f.input       :variant
     = f.input       :name
     = f.input       :image_file, as: :file

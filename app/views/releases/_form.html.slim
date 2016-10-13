@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.association :locale, collection: (@release.project || current_project).locales
+    = f.association :locale, collection: (@release.project || current_project).locales, include_blank: false
 
   .form-actions
     = f.button :submit

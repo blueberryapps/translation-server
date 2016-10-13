@@ -2,8 +2,8 @@
   = f.error_notification
 
   .form-inputs
-    = f.association :image
-    = f.association :key
+    = f.association :image, collection: (@highlight.project || current_project).images
+    = f.association :key, collection: (@highlight.project || current_project).keys
 
   .form-actions
     = f.button :submit
