@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160912131153) do
+ActiveRecord::Schema.define(version: 20161020123559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20160912131153) do
   end
 
   add_index "keys", ["key", "id"], name: "index_keys_on_key_and_id", using: :btree
+  add_index "keys", ["key", "project_id"], name: "index_keys_on_key_and_project_id", unique: true, using: :btree
   add_index "keys", ["key"], name: "index_keys_on_key", using: :btree
 
   create_table "locales", force: :cascade do |t|
