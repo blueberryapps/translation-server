@@ -2,6 +2,7 @@ module API
   module V1
     class ApiController < ActionController::Base
 
+      before_action :block_restricted_ips, only: :create
       before_filter :authenticate
 
       respond_to :json, :yaml
@@ -20,6 +21,10 @@ module API
         end
       end
 
+      def block_restricted_ips
+        head :forbidden if RestrictedIp.contains?(original_ip)
+      end
+
       def current_project
         @project
       end
@@ -27,6 +32,10 @@ module API
       def record_not_found(expection)
         render json: { errors: 'Not Found', message: expection.message },
                status: :not_found
+      end
+
+      def original_ip
+        request.headers['Original-IP-Address'] || request.remote_ip
       end
 
       def render_unauthorized
