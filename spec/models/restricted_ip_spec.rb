@@ -29,4 +29,18 @@ RSpec.describe RestrictedIp, type: :model do
       specify { expect(subject.cidr_ip).to eq('192.168.1.1') }
     end
   end
+
+  describe '.contains? will return' do
+    before do
+      create :restricted_ip, ip: '192.168.1.0/24'
+    end
+
+    context 'true when ip is contained in restricted ips and ranges' do
+      specify { expect(RestrictedIp.contains?('192.168.1.1')).to be_truthy }
+    end
+
+    context 'false when ip isnt contained in restricted ips or ranges' do
+      specify { expect(RestrictedIp.contains?('192.168.99.1')).to be_falsey }
+    end
+  end
 end

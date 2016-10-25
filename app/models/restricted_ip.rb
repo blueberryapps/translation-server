@@ -16,7 +16,7 @@ class RestrictedIp < ActiveRecord::Base
   end
 
   def self.contains?(ip)
-    return true unless containing(ip).empty?
+    return true if containing(ip).any?
     false
   end
 end
