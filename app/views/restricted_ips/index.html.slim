@@ -1,0 +1,22 @@
+h1 Restricted ips and networks
+
+= render 'form'
+
+
+table.table
+  thead
+    tr
+      th IP / Network
+      th Added by
+      - if current_user.admin?
+        th
+
+  tbody
+    - @restricted_ips.each do |ip|
+      tr
+        td = ip.cidr_ip
+        td = ip.user.try(:email)
+        - if current_user.admin?
+          td = link_to 'Destroy', ip, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+= paginate @restricted_ips, theme: 'twitter-bootstrap-3'

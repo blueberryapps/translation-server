@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020123559) do
+ActiveRecord::Schema.define(version: 20161024155634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,15 @@ ActiveRecord::Schema.define(version: 20161020123559) do
 
   add_index "releases", ["locale_id"], name: "index_releases_on_locale_id", using: :btree
 
+  create_table "restricted_ips", force: :cascade do |t|
+    t.inet     "ip"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "restricted_ips", ["user_id"], name: "index_restricted_ips_on_user_id", using: :btree
+
   create_table "translation_caches", force: :cascade do |t|
     t.string "etag"
     t.text   "cache"
@@ -151,6 +160,7 @@ ActiveRecord::Schema.define(version: 20161020123559) do
   add_foreign_key "highlights", "keys"
   add_foreign_key "images", "locations"
   add_foreign_key "releases", "locales"
+  add_foreign_key "restricted_ips", "users"
   add_foreign_key "translations", "keys"
   add_foreign_key "translations", "locales"
 end

@@ -1,0 +1,8 @@
+= simple_form_for(@restricted_ip) do |f|
+  = f.error_notification
+
+  .form-inline
+    .form-inputs
+      = f.input :ip, as: :string, label: false, hint: 'Enter IP address or range in format (192.168.1.1 or 172.168.45.0/24)'
+    .form-actions
+      = f.button :submit, 'Add'

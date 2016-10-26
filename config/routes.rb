@@ -48,6 +48,8 @@ Rails.application.routes.draw do
 
   resource :developer
 
+  resources :restricted_ips, only: [:index, :create, :destroy]
+
   match '/is_alive' => 'root#is_alive', via: [:get]
 
   root to: 'projects#index'
