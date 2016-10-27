@@ -55,5 +55,15 @@ RSpec.describe Translation, type: :model do
           .to eq("<p class=\"hi\">\n  <b class=\"bye\">valid</b>\n</p>")
       end
     end
+
+    context 'escapes special characters when the text contains html elements' do
+      let(:text) { '<h1>Black & White</h1>' }
+      specify    { expect(subject.text).to eq('<h1>Black &amp; White</h1>') }
+    end
+
+    context 'doesnt escape special characters for plain text' do
+      let(:text) { 'Black & White' }
+      specify    { expect(subject.text).to eq('Black & White') }
+    end
   end
 end

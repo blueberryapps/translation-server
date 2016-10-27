@@ -41,8 +41,11 @@ class Translation < ActiveRecord::Base
 
   def text=(value)
     if key.try(:data_type) == 'string'
-      value = Nokogiri::HTML::DocumentFragment
-        .parse(value.to_s.gsub(/\r/, '')).to_xhtml(indent: 2)
+      value = value.to_s.gsub(/\r/, '')
+      if contains_html?(value)
+        value = Nokogiri::HTML::DocumentFragment
+                .parse(value).to_xhtml(indent: 2)
+      end
     end
     super
   end
@@ -86,5 +89,10 @@ class Translation < ActiveRecord::Base
     if locale.project && (text = Base64.encode64(self.class.dump_hash([self]).to_json)).bytes.size < 7000
       self.class.connection.execute "NOTIFY translations_#{locale.project.id}, 'changed:#{text}'"
     end
+  end
+
+  def contains_html?(string)
+    Nokogiri::HTML::DocumentFragment.parse(string.to_s.gsub(/\r/, ''))
+                                    .to_xhtml(indent: 2) =~ /<(.|\n)*?>/
   end
 end
