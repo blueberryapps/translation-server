@@ -20,6 +20,8 @@ module API
         rescue IOError
           Translation.connection.execute 'UNLISTEN *'
           # Client Disconnected
+        rescue ActionController::Live::ClientDisconnected
+          Rails.logger.info "Client disconnected from project #{current_project.id}"
         ensure
           sse.close
         end
