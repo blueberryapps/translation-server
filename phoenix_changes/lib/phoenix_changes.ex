@@ -11,7 +11,7 @@ defmodule PhoenixChanges do
       # Start the endpoint when the application starts
       supervisor(PhoenixChanges.Endpoint, []),
       # Start your own worker by calling: PhoenixChanges.Worker.start_link(arg1, arg2, arg3)
-      # worker(PhoenixChanges.Worker, [arg1, arg2, arg3]),
+      worker(ChangesListener, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

@@ -16,7 +16,7 @@ defmodule PhoenixChanges.Router do
   scope "/", PhoenixChanges do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", ChangesController, :index
   end
 
   # Other scopes may use custom stacks.

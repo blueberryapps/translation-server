@@ -12,16 +12,22 @@ module API
         sse = SSE.new(response.stream, retry: 30)
 
         begin
-          Translation.on_change(current_project) do |data|
-            action, data = data.split(':', 2)
-            # Base64.encode64('{}'') => "e30=\n"
-            sse.write(JSON.parse(Base64.decode64(data || "e30=\n")), event: "translations_#{action}")
+          Translation.on_change do |data|
+            action, data_token, data = data.split(':', 3)
+            puts action, data_token, data
+            if action == "heartbeat" || data_token == current_project.api_token
+              # Base64.encode64('{}'') => "e30=\n"
+              sse.write(JSON.parse(Base64.decode64(data || "e30=\n")), event: "translations_#{action}")
+            end
           end
         rescue IOError
           Translation.connection.execute 'UNLISTEN *'
           # Client Disconnected
         rescue ActionController::Live::ClientDisconnected
           Rails.logger.info "Client disconnected from project #{current_project.id}"
+        rescue StandardError => e
+          pp e.message
+          puts e.backtrace
         ensure
           sse.close
         end

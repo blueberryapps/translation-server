@@ -27,9 +27,9 @@ class Translation < ActiveRecord::Base
     end
   end
 
-  def self.on_change(project)
+  def self.on_change
     connection.execute "LISTEN heartbeat"
-    connection.execute "LISTEN translations_#{project.id}"
+    connection.execute "LISTEN translations"
     loop do
       connection.raw_connection.wait_for_notify(60) do |event, pid, translation|
         yield translation
@@ -87,7 +87,7 @@ class Translation < ActiveRecord::Base
 
   def notify_translation_changed
     if locale.project && (text = Base64.encode64(self.class.dump_hash([self]).to_json)).bytes.size < 7000
-      self.class.connection.execute "NOTIFY translations_#{locale.project.id}, 'changed:#{text}'"
+      self.class.connection.execute "NOTIFY translations, 'changed:#{locale.project.api_token}:#{text}'"
     end
   end
 
