@@ -14,7 +14,6 @@ module API
         begin
           Translation.on_change do |data|
             action, data_token, data = data.split(':', 3)
-            puts action, data_token, data
             if action == "heartbeat" || data_token == current_project.api_token
               # Base64.encode64('{}'') => "e30=\n"
               sse.write(JSON.parse(Base64.decode64(data || "e30=\n")), event: "translations_#{action}")
