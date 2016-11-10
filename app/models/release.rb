@@ -3,7 +3,7 @@ class Release < ActiveRecord::Base
   belongs_to :locale
   has_one :project, through: :locale
 
-  scope :newest_last, -> { order created_at: :asc }
+  scope :newest_last, -> { order version: :asc }
   scope :only_list,
         -> { select(:id, :locale_id, :version, :created_at, :updated_at) }
 
@@ -18,7 +18,7 @@ class Release < ActiveRecord::Base
         locale_id = current_project.locales.where(code: version_text.gsub(LATEST_VERSION, ''))
           .first.try(:id)
 
-        current_project.releases.where(locale_id: locale_id).order(created_at: :desc).first
+        current_project.releases.where(locale_id: locale_id).order(version: :desc).first
       else
         current_project.releases.where(version: version_text).first
       end
@@ -56,7 +56,7 @@ class Release < ActiveRecord::Base
   end
 
   def find_last_version
-    self.class.where(locale: locale).order(:created_at).last.try(:version)
+    self.class.where(locale: locale).order(:version).last.try(:version)
   end
 
   def next_version(previous_version)
