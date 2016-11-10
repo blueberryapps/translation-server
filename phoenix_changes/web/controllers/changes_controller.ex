@@ -5,26 +5,20 @@ defmodule PhoenixChanges.ChangesController do
     api_token = params["api_token"]
 
     if !api_token do
-      conn |> send_resp(401, Poison.encode!(%{error: "You need to set ?api_token=XXX in url"}))
+      send_resp(conn, 401, Poison.encode!(%{error: "You need to set ?api_token=XXX in url"}))
     else
-      conn = put_resp_header(conn, "content-type", "text/event-stream")
-      conn = send_chunked(conn, 200)
-      send_message(conn, "Listening on changes...")
-
-
       Phoenix.PubSub.subscribe(PhoenixChanges.PubSub, "heartbeat")
-      Phoenix.PubSub.subscribe(PhoenixChanges.PubSub, "changes")
-
-      data_updated(conn, api_token)
-
-      send_message(conn, "Bye now!")
+      conn
+        |> put_resp_header("content-type", "text/event-stream")
+        |> send_chunked(200)
+        |> send_message("Listening on changes...")
+        |> data_updated(api_token)
     end
   end
 
   defp data_updated(conn, api_token) do
     receive do
       {:translations_change, payload} ->
-        IO.puts "TOKENS #{payload[:api_token]} -> #{api_token}"
         if payload[:api_token] === api_token do
           IO.puts "Sending event translations_changed #{payload[:api_token]}"
           {:ok, conn} = chunk(conn, ["retry: 30", "event: translations_changed", "data: #{payload[:change]}", "\n"] |> Enum.join("\n"))
