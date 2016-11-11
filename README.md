@@ -1,4 +1,4 @@
-# Translation server
+# Translation server [![CircleCI](https://circleci.com/gh/blueberryapps/translation-server/tree/master.svg?style=svg&circle-token=3fe706efd5cdf10dd97c89e213d60859f18b3336)](https://circleci.com/gh/blueberryapps/translation-server/tree/master)
 
 Stores translations with location and screenshot.
 Enable users to easily edit translations and then any rails application can
