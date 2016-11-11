@@ -2,7 +2,7 @@ defmodule PhoenixChanges.ChangesController do
   use PhoenixChanges.Web, :controller
 
   def index(conn, params) do
-    api_token = params["api_token"]
+    api_token = params["api_token"] || params["token"]
 
     if !api_token do
       send_resp(conn, 401, Poison.encode!(%{error: "You need to set ?api_token=XXX in url"}))
