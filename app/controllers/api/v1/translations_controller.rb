@@ -29,23 +29,33 @@ module API
         new_translations = []
         success = 0
 
-        if params[:location]
+        if current_project.screenshots? && params[:location]
           location      = current_project.locations.where(path: params[:location]).first_or_create
           default_image = Image.where(location: location, name: location.path).first_or_create
         end
 
+        found_keys = current_project.keys.where(key: params[:translations].map{ |data| data[:key].split('.', 2).last })
+        grouped_keys = found_keys.group_by(&:key)
+        grouped_translations = current_project.translations.where(key: found_keys, locale: locale).group_by(&:key_id)
+
         params[:translations].each do |data|
-          key = current_project.keys.where(key: data[:key].split('.', 2).last)
-                   .first_or_initialize(data_type: data[:data_type])
-          if key.valid? && key.save
-            unless Translation.where(locale: locale, key: key).first
+          key_text = data[:key].split('.', 2).last
+          if grouped_keys[key_text] && grouped_keys[key_text].any?
+            key = grouped_keys[key_text].first
+          else
+            key = current_project.keys.build(key: key_text, data_type: data[:data_type])
+            key.valid? && key.save
+          end
+
+          if key.persisted?
+            if grouped_translations[key.id].blank? || grouped_translations[key.id].empty?
               new_translations << { locale: locale.code, key: key.key, text: data[:text] }
               Translation.create translation_params(data).merge(locale: locale, key: key)
             end
 
             success += 1
 
-            if default_image
+            if current_project.screenshots? && default_image
               Highlight.where(
                 image:  default_image,
                 key:    key,

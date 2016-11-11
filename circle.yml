@@ -1,0 +1,29 @@
+## Customize the test machine
+machine:
+
+  services:
+    - postgresql
+
+  # Version of ruby to use
+  ruby:
+    version:
+      2.2.0
+
+  # Add some environment variables
+  environment:
+    CIRCLE_ENV: test
+    TRAVIS: true
+    DATABASE_URL: postgres://ubuntu:@localhost:5432/circle_test
+
+## Customize database setup
+database:
+  override:
+    - bundle exec rake db:create db:schema:load
+
+test:
+  override:
+    - bundle exec rspec
+
+general:
+  artifacts:
+    - tmp/capybara

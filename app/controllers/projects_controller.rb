@@ -54,6 +54,6 @@ class ProjectsController < BaseProjectController
 
     # Only allow a trusted parameter "white list" through.
     def project_params
-      params.require(:project).permit(:name, :default_locale_id)
+      params.require(:project).permit(:name, :default_locale_id, :screenshots)
     end
 end

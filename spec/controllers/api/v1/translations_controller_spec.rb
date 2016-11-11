@@ -14,7 +14,7 @@ RSpec.describe API::V1::TranslationsController, type: :controller do
     }
   end
 
-  let(:project) { create :project, id: 5, api_token: 'XYZZYX' }
+  let(:project) { create :project, id: 5, api_token: 'XYZZYX', screenshots: true }
 
   before do
     @request.env["HTTP_AUTHORIZATION"] = "Token token=#{project.api_token}"
