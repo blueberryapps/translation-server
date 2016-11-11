@@ -24,8 +24,8 @@ aside
   = render 'breadcumb'
 
   - @keys.each do |key|
-    - translation = Translation.resolve(key: key, locale: locale)
-    - highlights = key.highlights.where(locale: locale)
+    - translation = key.translations.find{ |t| t.locale_id == locale.id } || Translation.resolve(key: key, locale: locale)
+    - highlights = key.highlights.select { |h| h.locale_id == locale.id }
     .panel.panel-default.panel-translation
       .panel-heading class="#{translation.edited ? '' : 'already-edited'}"
         span.label.label-primary = key.data_type
@@ -41,7 +41,6 @@ aside
             = fa_icon 'check'
           = link_to translation, method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: "Are you sure to delete transaltion: #{locale.code} -> #{key}?" }
             = fa_icon 'trash'
-
 
       .translation-wrapper.clearfix
         .tr-text
