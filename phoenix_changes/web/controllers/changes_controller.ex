@@ -5,14 +5,18 @@ defmodule PhoenixChanges.ChangesController do
     api_token = params["api_token"] || params["token"]
 
     if !api_token do
-      send_resp(conn, 401, Poison.encode!(%{error: "You need to set ?api_token=XXX in url"}))
+      conn |> send_resp(401, Poison.encode!(%{error: "You need to set ?api_token=XXX in url"}))
     else
+      conn = put_resp_header(conn, "content-type", "text/event-stream")
+      conn = send_chunked(conn, 200)
+      send_message(conn, "Listening on changes...")
+
       Phoenix.PubSub.subscribe(PhoenixChanges.PubSub, "heartbeat")
-      conn
-        |> put_resp_header("content-type", "text/event-stream")
-        |> send_chunked(200)
-        |> send_message("Listening on changes...")
-        |> data_updated(api_token)
+      Phoenix.PubSub.subscribe(PhoenixChanges.PubSub, "changes")
+
+      data_updated(conn, api_token)
+
+      send_message(conn, "Bye now!")
     end
   end
 
