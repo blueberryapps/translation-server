@@ -6,6 +6,7 @@
 .env
 # Ignore bundler config.
 /.bundle
+phoenix_changes/rel/
 
 .DS_Store
 <% if sqlite3? -%>

@@ -17,7 +17,7 @@ defmodule PhoenixChanges.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {PhoenixChanges, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :mime, :cowboy, :logger, :gettext, :postgrex]]
+     applications: [:boltun, :phoenix, :phoenix_pubsub, :phoenix_html, :cors_plug, :mime, :cowboy, :logger, :gettext, :postgrex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -35,6 +35,7 @@ defmodule PhoenixChanges.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:boltun, "~> 1.0.1"},
-     {:cors_plug, "~> 1.1"}]
+     {:cors_plug, "~> 1.1"},
+     {:exrm, "~> 1.0"}]
   end
 end

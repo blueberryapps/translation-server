@@ -30,7 +30,7 @@ defmodule PhoenixChanges.ChangesController do
       {:translations_heartbeat, payload} ->
         IO.puts "Sending event translations_heartbeat"
         {:ok, conn} = chunk(conn, ["retry: 30", "event: translations_heartbeat", "data: #{Poison.encode!(payload)}", "\n"] |> Enum.join("\n"))
-      _ ->
+      _ -> IO.puts "Received unknown message"
     end
     data_updated(conn, api_token)
   end
