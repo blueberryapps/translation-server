@@ -21,7 +21,11 @@ defmodule PhoenixChanges.Endpoint do
 
   plug Plug.RequestId
   plug Plug.Logger
-  plug Corsica, allow_credentials: true
+  plug Corsica, allow_credentials: true, allow_headers: [
+    "Authorization", "Content-Type", "Accept", "Origin",
+    "User-Agent", "DNT","Cache-Control", "X-Mx-ReqToken",
+    "Keep-Alive", "X-Requested-With", "If-Modified-Since",
+    "X-CSRF-Token"]
 
 
   plug Plug.Parsers,
