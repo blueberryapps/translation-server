@@ -21,7 +21,7 @@ defmodule PhoenixChanges.Endpoint do
 
   plug Plug.RequestId
   plug Plug.Logger
-  plug CORSPlug
+  plug CORSPlug, credentials: false
 
 
   plug Plug.Parsers,
