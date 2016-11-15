@@ -86,9 +86,9 @@ class Key < ActiveRecord::Base
 
   def default_text
     if translations.loaded?
-      translations.find{ |t| t.locale_id == project.default_locale_id } || note
+      translations.find{ |t| t.locale_id == project.default_locale_id }.try(:text) || note || ''
     else
-      translations.where(locale: project.default_locale).first.try(:text) || note
+      translations.where(locale: project.default_locale).first.try(:text) || note || ''
     end
   end
 
