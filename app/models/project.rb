@@ -19,7 +19,7 @@ class Project < ActiveRecord::Base
   end
 
   def to_param
-    "#{id}-#{ActiveSupport::Inflector.transliterate(name).downcase.strip.gsub(' ', '-')}"
+    "#{id}-#{ActiveSupport::Inflector.transliterate(name).parameterize}"
   end
 
   private
