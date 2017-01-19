@@ -1,0 +1,8 @@
+<% @releases.each do |release| %>
+# LOCALE:   <%= release.locale %>
+# VERSION:  <%= release.version %>
+# RELEASED: <%= release.created_at %>
+
+<%= release.yaml.split("\n")[1..-1].join("\n").html_safe %>
+
+<% end %>
