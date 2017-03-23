@@ -22,3 +22,5 @@ phoenix_changes/rel/
 coverage
 
 .DS_Store
+
+app/assets/javascripts/react.js
