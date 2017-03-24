@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
   include ApiResponse
   let(:user)     { create(:user) }
-  let!(:project) { create :project, id: 5, api_token: 'XYZZYX', users: [user] }
+  let!(:project) { create :project, id: 5, api_token: 'XYZZYX', users: [user]}
+  let!(:locale)  { create :locale, project: project, code: 'foo'}
   before         { sign_in user }
 
   let(:valid_attributes) {
@@ -13,6 +14,10 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
   let(:invalid_attributes) {
     { name: '' }
   }
+
+  before :each do
+    request.headers["accept"] = 'application/json'
+  end
 
   describe 'GET #index' do
     action do
@@ -30,6 +35,10 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
     it 'responses with data' do
       expect(api_response.projects.first.id).to eq(project.id)
     end
+
+    it 'responses with locales of project' do
+      expect(api_response.projects.first.locales.first.code).to eq('foo')
+    end 
   end
 
   describe 'GET #show' do
@@ -48,6 +57,11 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
 
       it 'responses with data' do
         expect(api_response.project.id).to eq(project.id)
+      end
+
+      it 'responses with locales of project' do
+        expect(api_response.project.locales.first.code).to eq('foo')
+        expect(api_response.project.locales.first.id).to eq(locale.id)
       end
     end
 

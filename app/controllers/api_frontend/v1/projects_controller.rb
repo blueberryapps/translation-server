@@ -5,13 +5,12 @@ module APIFrontend
 
       # GET /projects
       def index
-        @projects = policy_scope(Project)
-        render json: { projects: @projects }
+        respond_with policy_scope(Project), each_serializer: ProjectSerializer
       end
 
       # GET /projects/1
       def show
-        render json: { project: @project }
+        respond_with @project, serializer: ProjectSerializer
       end
 
       # POST /projects
@@ -19,7 +18,7 @@ module APIFrontend
         @project = current_user.projects.build(project_params)
 
         if @project.save
-          render status: 201, json: { project: @project }
+          respond_with @project, serializer: ProjectSerializer, json: @project, status: 201
         else
           render status: 400, json: { errors: @project.errors }
         end
@@ -28,7 +27,7 @@ module APIFrontend
       # PATCH/PUT /projects/1
       def update
         if @project.update(project_params)
-          render status: 200, json: { project: @project }
+          respond_with @project, serializer: ProjectSerializer, json: @project
         else
           render status: 400, json: { errors: @project.errors }
         end

@@ -14,6 +14,7 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 ENVied.require(*ENV['ENVIED_GROUPS'] || Rails.groups)
+ActiveModelSerializers.config.adapter = :json
 
 module TranslationServer
   class Application < Rails::Application

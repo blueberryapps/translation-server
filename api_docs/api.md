@@ -1,3 +1,81 @@
+# GET /api/v1/translations.yaml
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/x-yaml)
+
+    + Headers
+
+            Etag: "83878088749cbe739dabc98693f0478a"
+
+    + Body
+
+            ---
+            cs:
+              foo:
+                bar: cs translated text
+            en:
+              bar:
+              - A
+              - B
+              foo:
+                bar: en translated text
+
+
+
+# GET /api/v1/translations.json
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "83878088749cbe739dabc98693f0478a"
+
+    + Body
+
+            {
+              "cs": {
+                "foo": {
+                  "bar": "cs translated text"
+                }
+              },
+              "en": {
+                "bar": [
+                  "A",
+                  "B"
+                ],
+                "foo": {
+                  "bar": "en translated text"
+                }
+              }
+            }
+
+# not authorized GET /api/v1/translations
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=UNKNOWN_TOKEN
+
++ Response 401 (application/json)
+
+        {
+          "errors": {
+            "token": "Bad credentials"
+          }
+        }
+
 # POST /api/v1/translations
 
 + Request (application/json)
@@ -77,387 +155,6 @@
 
             Etag: "6666cd76f96956469e7be39d750cc7d9"
 
-# GET /api/v1/translations.yaml
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/x-yaml)
-
-    + Headers
-
-            Etag: "dbd3eac42f3960d856ebedc66f93808a"
-
-    + Body
-
-            ---
-            cs:
-              foo:
-                bar: cs translated text
-            en:
-              bar:
-              - A
-              - B
-              foo:
-                bar: en translated text
-
-
-
-# GET /api/v1/translations.json
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "b4aeaadea56349eb0530468c03fe3d18"
-
-    + Body
-
-            {
-              "cs": {
-                "foo": {
-                  "bar": "cs translated text"
-                }
-              },
-              "en": {
-                "bar": [
-                  "A",
-                  "B"
-                ],
-                "foo": {
-                  "bar": "en translated text"
-                }
-              }
-            }
-
-# not authorized GET /api/v1/translations
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=UNKNOWN_TOKEN
-
-+ Response 401 (application/json)
-
-        {
-          "errors": {
-            "token": "Bad credentials"
-          }
-        }
-
-# HEAD /api/v1/releases/:version
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-    + Params
-
-            {"id"=>"cs_v001"}
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "b4aeaadea56349eb0530468c03fe3d18"
-
-# HEAD /api/v1/releases
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "e04762e36b685ba49f93895e357c2519"
-
-# GET /api/v1/releases/:version.yaml dirrefent locales in one release
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-    + Params
-
-            {"id"=>"cs_v002,en_v001"}
-
-+ Response 200 (application/x-yaml)
-
-    + Headers
-
-            Etag: "036d5d979ed7f19b29dac239a7ba9c9f"
-
-    + Body
-
-            # LOCALE:   cs
-            # VERSION:  cs_v002
-            # RELEASED: 2016-11-11 11:09:15 UTC
-
-            cs:
-              bar:
-                foo: Translation
-              foo:
-                bar: Released2
-
-            # LOCALE:   en
-            # VERSION:  en_v001
-            # RELEASED: 2016-11-11 11:09:15 UTC
-
-            en:
-              foo:
-                bar: Translated
-
-
-
-# GET /api/v1/releases/:version.yaml version 2
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-    + Params
-
-            {"id"=>"cs_v002"}
-
-+ Response 200 (application/x-yaml)
-
-    + Headers
-
-            Etag: "e04762e36b685ba49f93895e357c2519"
-
-    + Body
-
-            # LOCALE:   cs
-            # VERSION:  cs_v002
-            # RELEASED: 2016-11-11 11:09:15 UTC
-
-            cs:
-              bar:
-                foo: Translation
-              foo:
-                bar: Released2
-
-
-
-# GET /api/v1/releases/:version.yaml version 1
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-    + Params
-
-            {"id"=>"cs_v001"}
-
-+ Response 200 (application/x-yaml)
-
-    + Headers
-
-            Etag: "e04762e36b685ba49f93895e357c2519"
-
-    + Body
-
-            # LOCALE:   cs
-            # VERSION:  cs_v001
-            # RELEASED: 2016-11-11 11:09:15 UTC
-
-            cs:
-              bar:
-                foo: Translation
-              foo:
-                bar: Super
-
-
-
-# GET /api/v1/releases/:version.json dirrefent locales in one release
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-    + Params
-
-            {"id"=>"cs_v002,en_v001"}
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "036d5d979ed7f19b29dac239a7ba9c9f"
-
-    + Body
-
-            {
-              "cs": {
-                "bar": {
-                  "foo": "Translation"
-                },
-                "foo": {
-                  "bar": "Released2"
-                }
-              },
-              "en": {
-                "foo": {
-                  "bar": "Translated"
-                }
-              }
-            }
-
-# GET /api/v1/releases/:version.json latest release for locale
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-    + Params
-
-            {"id"=>"en_latest"}
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "e04762e36b685ba49f93895e357c2519"
-
-    + Body
-
-            {
-              "en": {
-                "foo": {
-                  "bar": "Latest release"
-                }
-              }
-            }
-
-# GET /api/v1/releases/:version.json version 2
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-    + Params
-
-            {"id"=>"cs_v002"}
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "d11a739fec43e2af7017821b9a62fd7c"
-
-    + Body
-
-            {
-              "cs": {
-                "bar": {
-                  "foo": "Translation"
-                },
-                "foo": {
-                  "bar": "Released2"
-                }
-              }
-            }
-
-# GET /api/v1/releases/:version.json version 1
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-    + Params
-
-            {"id"=>"cs_v001"}
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "d11a739fec43e2af7017821b9a62fd7c"
-
-    + Body
-
-            {
-              "cs": {
-                "bar": {
-                  "foo": "Translation"
-                },
-                "foo": {
-                  "bar": "Super"
-                }
-              }
-            }
-
-# GET /api/v1/releases
-
-+ Request (application/x-www-form-urlencoded)
-
-    + Headers
-
-            Authorization: Token token=XYZZYX
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Etag: "d11a739fec43e2af7017821b9a62fd7c"
-
-    + Body
-
-            {
-              "releases": [
-                {
-                  "locale": "cs",
-                  "version": "cs_v001",
-                  "created_at": "2016-11-11T11:09:16.433Z"
-                },
-                {
-                  "locale": "cs",
-                  "version": "cs_v002",
-                  "created_at": "2016-11-11T11:09:16.458Z"
-                },
-                {
-                  "locale": "en",
-                  "version": "en_v001",
-                  "created_at": "2016-11-11T11:09:16.502Z"
-                },
-                {
-                  "locale": "en",
-                  "version": "en_v002",
-                  "created_at": "2016-11-11T11:09:16.516Z"
-                }
-              ]
-            }
-
 # POST /api/v1/images
 
 + Request (application/json)
@@ -512,4 +209,307 @@
         {"token"=>"XYZZYX"}
 
 + Response 200 (text/event-stream)
+
+# GET /api/v1/releases/:version.yaml dirrefent locales in one release
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Params
+
+            {"id"=>"cs_v002,en_v001"}
+
++ Response 200 (application/x-yaml)
+
+    + Headers
+
+            Etag: "7268a226089a632e01dc983d497003e6"
+
+    + Body
+
+            # LOCALE:   cs
+            # VERSION:  cs_v002
+            # RELEASED: 2017-03-28 10:25:10 UTC
+
+            cs:
+              bar:
+                foo: Translation
+              foo:
+                bar: Released2
+
+            # LOCALE:   en
+            # VERSION:  en_v001
+            # RELEASED: 2017-03-28 10:25:10 UTC
+
+            en:
+              foo:
+                bar: Translated
+
+
+
+# GET /api/v1/releases/:version.yaml version 2
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Params
+
+            {"id"=>"cs_v002"}
+
++ Response 200 (application/x-yaml)
+
+    + Headers
+
+            Etag: "74938dd1e997a52a6e1b76169fad24cd"
+
+    + Body
+
+            # LOCALE:   cs
+            # VERSION:  cs_v002
+            # RELEASED: 2017-03-28 10:25:11 UTC
+
+            cs:
+              bar:
+                foo: Translation
+              foo:
+                bar: Released2
+
+
+
+# GET /api/v1/releases/:version.yaml version 1
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Params
+
+            {"id"=>"cs_v001"}
+
++ Response 200 (application/x-yaml)
+
+    + Headers
+
+            Etag: "74938dd1e997a52a6e1b76169fad24cd"
+
+    + Body
+
+            # LOCALE:   cs
+            # VERSION:  cs_v001
+            # RELEASED: 2017-03-28 10:25:11 UTC
+
+            cs:
+              bar:
+                foo: Translation
+              foo:
+                bar: Super
+
+
+
+# GET /api/v1/releases/:version.json dirrefent locales in one release
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Params
+
+            {"id"=>"cs_v002,en_v001"}
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "f396e0cc2ed1a3859c5b46f30e3e4cad"
+
+    + Body
+
+            {
+              "cs": {
+                "bar": {
+                  "foo": "Translation"
+                },
+                "foo": {
+                  "bar": "Released2"
+                }
+              },
+              "en": {
+                "foo": {
+                  "bar": "Translated"
+                }
+              }
+            }
+
+# GET /api/v1/releases/:version.json version 2
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Params
+
+            {"id"=>"cs_v002"}
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "74938dd1e997a52a6e1b76169fad24cd"
+
+    + Body
+
+            {
+              "cs": {
+                "bar": {
+                  "foo": "Translation"
+                },
+                "foo": {
+                  "bar": "Released2"
+                }
+              }
+            }
+
+# GET /api/v1/releases/:version.json version 1
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Params
+
+            {"id"=>"cs_v001"}
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "74938dd1e997a52a6e1b76169fad24cd"
+
+    + Body
+
+            {
+              "cs": {
+                "bar": {
+                  "foo": "Translation"
+                },
+                "foo": {
+                  "bar": "Super"
+                }
+              }
+            }
+
+# GET /api/v1/releases/:version.json latest release for locale
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Params
+
+            {"id"=>"en_latest"}
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "74938dd1e997a52a6e1b76169fad24cd"
+
+    + Body
+
+            {
+              "en": {
+                "foo": {
+                  "bar": "Latest release"
+                }
+              }
+            }
+
+# GET /api/v1/releases
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "74938dd1e997a52a6e1b76169fad24cd"
+
+    + Body
+
+            {
+              "releases": [
+                {
+                  "locale": "cs",
+                  "version": "cs_v001",
+                  "created_at": "2017-03-28T10:25:11.891Z"
+                },
+                {
+                  "locale": "cs",
+                  "version": "cs_v002",
+                  "created_at": "2017-03-28T10:25:11.901Z"
+                },
+                {
+                  "locale": "en",
+                  "version": "en_v001",
+                  "created_at": "2017-03-28T10:25:11.908Z"
+                },
+                {
+                  "locale": "en",
+                  "version": "en_v002",
+                  "created_at": "2017-03-28T10:25:11.918Z"
+                }
+              ]
+            }
+
+# HEAD /api/v1/releases/:version
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
+    + Params
+
+            {"id"=>"cs_v001"}
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "74938dd1e997a52a6e1b76169fad24cd"
+
+# HEAD /api/v1/releases
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+
+            Authorization: Token token=XYZZYX
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Etag: "e630f3ccecbe279e0d93874ba1da90e0"
 

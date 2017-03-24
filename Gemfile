@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.2.0'
 
+gem 'active_model_serializers'
 gem 'airbrake'
 gem 'autoprefixer-rails'
 gem 'bootstrap-kaminari-views'
@@ -19,6 +20,7 @@ gem 'kaminari'
 gem 'pg'
 gem 'puma'
 gem 'pundit'
+gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 4.2.0'
 gem 'redcarpet'
 gem 'responders'
@@ -30,7 +32,6 @@ gem 'uglifier', '>= 2.5.0'
 gem 'virtus'
 gem 'yajl-ruby', require: 'yajl'
 gem 'yandex-translator'
-gem 'rack-cors', require: 'rack/cors'
 
 group :development do
   gem 'better_errors'
