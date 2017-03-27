@@ -11,7 +11,9 @@
     "npm": "3.9.X"
   },
   "scripts": {
-    "build": "gulp build"
+    "build": "gulp build",
+    "jest": "jest",
+    "ava": "ava"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -96,15 +98,20 @@
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
+    "roots": [
+      "<rootDir>/app/react"
+    ],
+    "testMatch": [
+      "**/__test__/**/*.react-test.js"
+    ],
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "app/react/browser/layouts/__test__/*.react-test.js"
+      "**/__test__/**/*.react-test.js"
     ]
   },
   "ava": {
     "files": [
-      "app/react/common/lib/device/__test__/*.spec.js",
-      "app/react/common/lib/store/__test__/*.spec.js"
+      "app/react/**/__test__/*.spec.js"
     ],
     "require": [
       "babel-register",
