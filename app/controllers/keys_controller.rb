@@ -40,7 +40,7 @@ class KeysController < BaseProjectController
   # DELETE /keys/1
   def destroy
     @key.destroy
-    respond_with @key, location: [@key.project, :keys]
+    respond_with @key, location: request.referer || [@key.project, :keys]
   end
 
   private
