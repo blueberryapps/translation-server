@@ -32,3 +32,13 @@ programming in style.
 # Clear database (without users)
 
 `rake clear_database`
+
+# JavaScript dev tools
+
+* `yarn eslint`: check code style rules
+* `yarn eslint -- --fix`: automatically fix eslint problems
+* `yarn ava`: run AVA tests one time
+* `yarn ava -- --watch`: runs AVA tests and watch for changes
+* `yarn jest`: run Jest tests one time
+* `yarn jest -- --watch`: run Jest tests and watch for changes
+* `yarn test`: run `eslint`, `Jest` & `AVA`

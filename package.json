@@ -13,9 +13,12 @@
   "scripts": {
     "build": "gulp build",
     "jest": "jest",
-    "ava": "ava"
+    "ava": "ava",
+    "eslint": "eslint app/react/**",
+    "test": "yarn eslint && yarn jest && yarn ava"
   },
   "devDependencies": {
+    "@ava/babel-preset-transform-test-files": "^3.0.0",
     "babel-eslint": "^7.1.1",
     "babel-jest": "^19.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -38,7 +41,8 @@
     "eslint-plugin-react": "^6.9.0",
     "jest": "^19.0.2",
     "jest-cli": "^19.0.2",
-    "react-addons-test-utils": "^15.4.2"
+    "react-addons-test-utils": "^15.4.2",
+    "sinon": "^2.1.0"
   },
   "dependencies": {
     "ava": "0.16.0",
@@ -114,8 +118,7 @@
       "app/react/**/__test__/*.spec.js"
     ],
     "require": [
-      "babel-register",
-      "babel-polyfill"
+      "babel-register"
     ],
     "babel": "inherit"
   }
