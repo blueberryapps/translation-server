@@ -31,7 +31,6 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.render_views
-
   config.include Devise::TestHelpers, type: :controller
 end
 

@@ -43,6 +43,12 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api_frontend, defaults: { format: :json } do
+    namespace :v1 do
+      resources :projects, only: [:show, :index, :create, :update, :destroy]
+    end
+  end
+
   devise_for :users
   resources :users
 
