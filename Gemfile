@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.0'
+ruby '2.4.0'
 
 gem 'airbrake'
 gem 'autoprefixer-rails'
@@ -19,7 +19,7 @@ gem 'kaminari'
 gem 'pg'
 gem 'puma'
 gem 'pundit'
-gem 'rails', '~> 4.2.0'
+gem 'rails', '~> 5.0.0'
 gem 'redcarpet'
 gem 'responders'
 gem 'rest-client'
@@ -31,6 +31,7 @@ gem 'virtus'
 gem 'yajl-ruby', require: 'yajl'
 gem 'yandex-translator'
 gem 'rack-cors', require: 'rack/cors'
+gem 'webpacker'
 
 group :development do
   gem 'better_errors'
