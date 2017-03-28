@@ -2,19 +2,19 @@ import test from 'ava';
 import injectDependencies from '../injectDependencies';
 import sinon from 'sinon';
 
-test('returns function', t => {
+test('returns function', (t) => {
   t.is(typeof injectDependencies({}), 'function');
 });
 
-test('returns function', t => {
+test('returns function', (t) => {
   t.is(typeof injectDependencies({})({}), 'function');
 });
 
-test('returns function', t => {
+test('returns function', (t) => {
   t.is(typeof injectDependencies({})({})(), 'function');
 });
 
-test('action is not a function', t => {
+test('action is not a function', (t) => {
   const action = 'action';
   const next = sinon.stub().returns('whatever');
   const dispatch = sinon.spy();
@@ -26,7 +26,7 @@ test('action is not a function', t => {
   t.false(getState.called);
 });
 
-test('action is a function', t => {
+test('action is a function', (t) => {
   const action = sinon.stub().returns('action');
   const next = sinon.spy();
   const dispatch = sinon.stub().returns('whatever');
@@ -38,7 +38,7 @@ test('action is a function', t => {
   t.true(action.calledWithExactly({ dispatch, getState }));
 });
 
-test('dependencies resolution: statics', t => {
+test('dependencies resolution: statics', (t) => {
   const action = sinon.spy();
   const next = sinon.spy();
   const dispatch = sinon.spy();
@@ -52,7 +52,7 @@ test('dependencies resolution: statics', t => {
   t.true(action.calledWithExactly({ staticA, staticB, dispatch, getState }));
 });
 
-test('dependencies resolution: dynamics', t => {
+test('dependencies resolution: dynamics', (t) => {
   const action = sinon.spy();
   const next = sinon.spy();
   const dispatch = sinon.spy();
@@ -69,7 +69,7 @@ test('dependencies resolution: dynamics', t => {
   t.true(dynamicB.calledWithExactly('whatever'));
 });
 
-test('dependencies resolution: withDispatch', t => {
+test('dependencies resolution: withDispatch', (t) => {
   const action = sinon.spy();
   const next = sinon.spy();
   const dispatch = sinon.spy();
@@ -84,7 +84,7 @@ test('dependencies resolution: withDispatch', t => {
   t.true(f.calledWithExactly(dispatch));
 });
 
-test('dependencies resolution: withStateAndDispatch', t => {
+test('dependencies resolution: withStateAndDispatch', (t) => {
   const action = sinon.spy();
   const next = sinon.spy();
   const dispatch = sinon.spy();

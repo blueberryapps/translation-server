@@ -2,11 +2,11 @@ import test from 'ava';
 import dispatchPromise from '../dispatchPromise';
 import Promise from 'bluebird';
 
-test('returns function', t => {
+test('returns function', (t) => {
   t.is(typeof dispatchPromise(), 'function');
 });
 
-test('returns result of the promise when there\'s no error', async t => {
+test('returns result of the promise when there\'s no error', async (t) => {
   const actionResult = {
     payload: 'whatever'
   };
@@ -19,7 +19,7 @@ test('returns result of the promise when there\'s no error', async t => {
   t.deepEqual(result, actionResult);
 });
 
-test('throws error when there\'s an error', async t => {
+test('throws error when there\'s an error', async (t) => {
   const actionResult = {
     payload: new Error('an error'),
     error: true

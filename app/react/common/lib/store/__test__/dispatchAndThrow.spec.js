@@ -2,11 +2,11 @@ import test from 'ava';
 import dispatchAndThrow from '../dispatchAndThrow';
 import sinon from 'sinon';
 
-test('returns function', t => {
+test('returns function', (t) => {
   t.is(typeof dispatchAndThrow(), 'function');
 });
 
-test('calls dispatch and throws an error', t => {
+test('calls dispatch and throws an error', (t) => {
   const action = 'action';
   const error = 'an error';
   const dispatch = sinon.spy();

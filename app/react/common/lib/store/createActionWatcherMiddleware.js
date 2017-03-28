@@ -11,8 +11,8 @@ export default function createActionWatcherMiddleware(dependencies, actionWatche
     .toJS();
 
   return function actionWatcherMiddleware({ dispatch, getState }) {
-    return next => action => {
-      watcherFns.forEach((watcher) => watcher({ ...flattenDeps, dispatch, action, getState }));
+    return next => (action) => {
+      watcherFns.forEach(watcher => watcher({ ...flattenDeps, dispatch, action, getState }));
       return next(action);
     };
   };
