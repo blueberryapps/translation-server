@@ -1,6 +1,7 @@
 import test from 'ava';
-import injectDependencies from '../injectDependencies';
 import sinon from 'sinon';
+
+import injectDependencies from '../injectDependencies';
 
 test('returns function', (t) => {
   t.is(typeof injectDependencies({}), 'function');

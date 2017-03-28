@@ -1,6 +1,7 @@
 import test from 'ava';
-import dispatchAndThrow from '../dispatchAndThrow';
 import sinon from 'sinon';
+
+import dispatchAndThrow from '../dispatchAndThrow';
 
 test('returns function', (t) => {
   t.is(typeof dispatchAndThrow(), 'function');

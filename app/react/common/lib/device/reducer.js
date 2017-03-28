@@ -1,5 +1,6 @@
-import * as actions from './actions';
 import { Record } from 'immutable';
+
+import * as actions from './actions';
 
 export const InitialState = Record({
   isMobile: false,

@@ -1,6 +1,7 @@
 import React from 'react';
-import Layout from '../ApplicationLayout.react';
 import renderer from 'react-test-renderer';
+
+import Layout from '../ApplicationLayout.react';
 
 it('renders correctly', () => {
   const tree = renderer.create(

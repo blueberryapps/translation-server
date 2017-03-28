@@ -1,6 +1,6 @@
 import test from 'ava';
 import { setPlatform, closeCompatibilityNotification } from '../actions';
-import { default as reducer, InitialState } from '../reducer';
+import reducer, { InitialState } from '../reducer';
 
 test('reviving: when called with empty state it returns initial state', (t) => {
   t.deepEqual(

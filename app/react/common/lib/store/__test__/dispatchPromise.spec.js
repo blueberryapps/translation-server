@@ -1,6 +1,7 @@
 import test from 'ava';
-import dispatchPromise from '../dispatchPromise';
 import Promise from 'bluebird';
+
+import dispatchPromise from '../dispatchPromise';
 
 test('returns function', (t) => {
   t.is(typeof dispatchPromise(), 'function');

@@ -1,1 +1,1 @@
-export default function runDefaultActions(dispatch) {}s;
+export default function runDefaultActions() {}

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { match, Router } from 'react-router';
-import App from './app/App.react';
+
 import configureStoreWithHistory from './configureStoreWithHistory';
 import createRoutes from './createRoutes';
 

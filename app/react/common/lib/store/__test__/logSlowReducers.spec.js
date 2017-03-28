@@ -1,6 +1,7 @@
 import test from 'ava';
-import logSlowReducers from '../logSlowReducers';
 import sinon from 'sinon';
+
+import logSlowReducers from '../logSlowReducers';
 
 const reducerFn = sinon.spy();
 
