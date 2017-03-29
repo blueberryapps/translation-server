@@ -14,8 +14,7 @@ function swallowError(error) {
 function build() {
   return browserify('./app/react/browser/main.js')
     .transform(babelify.configure({
-      optional: ['react'],
-      stage: 0
+      presets: ['react', 'es2015']
     }))
     .bundle()
     .on('error', swallowError)
@@ -31,8 +30,7 @@ function watch() {
     plugin: [watchify]
   });
   b.transform(babelify.configure({
-    optional: ['react'],
-    stage: 0
+    presets: ['react', 'es2015', 'stage-1', 'stage-2']
   }));
 
   function rebuild() {
