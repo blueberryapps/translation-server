@@ -1,6 +1,7 @@
 import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import { applyMiddleware, compose } from 'redux';
+
 import createActionWatcherMiddleware from './createActionWatcherMiddleware';
 import createStoreDependencyInjections from './createDependencyInjections';
 import injectDependencies from './injectDependencies';

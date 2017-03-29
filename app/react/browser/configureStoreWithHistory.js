@@ -2,6 +2,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 import withScroll from 'scroll-behavior';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux';
 import { useRouterHistory } from 'react-router';
+
 import configureCommonStore from '../common/configureStore';
 
 export default function configureStoreWithHistory() {

@@ -1,5 +1,6 @@
 import recycle from 'redux-recycle';
 import { combineReducers } from 'redux';
+
 import logSlowReducers from './logSlowReducers';
 // import { AUTHENTICATION_LOGOUT_SUCCESS } from '../../authentication/actions';
 
