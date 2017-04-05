@@ -7,7 +7,7 @@ class Image < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   belongs_to :location
-  has_many   :highlights
+  has_many   :highlights, dependent: :destroy
   has_one    :project, through: :location
 
   scope :alphabetical,  -> { order :id }

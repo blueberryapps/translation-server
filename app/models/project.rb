@@ -1,7 +1,7 @@
 class Project < ActiveRecord::Base
-  has_many :locales
-  has_many :locations
-  has_many :keys
+  has_many :locales, dependent: :destroy
+  has_many :locations, dependent: :destroy
+  has_many :keys, dependent: :destroy
   has_many :translations, through: :locales
   has_many :highlights, through: :locales
   has_many :releases, through: :locales
