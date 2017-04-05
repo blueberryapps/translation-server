@@ -20,4 +20,12 @@ class Locale < ActiveRecord::Base
   def to_s
     code
   end
+
+  def translation_count
+    translations.count
+  end
+
+  def translated_count
+    translations.already_edited.count
+  end
 end

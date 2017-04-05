@@ -4,7 +4,7 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
   include ApiResponse
   let(:user)     { create(:user) }
   let!(:project) { create :project, id: 5, api_token: 'XYZZYX', users: [user]}
-  let!(:locale)  { create :locale, project: project, code: 'foo'}
+  let!(:locale)  { create :locale, :with_translations, project: project, code: 'foo'}
   before         { sign_in user }
 
   let(:valid_attributes) {
@@ -38,7 +38,15 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
 
     it 'responses with locales of project' do
       expect(api_response.projects.first.locales.first.code).to eq('foo')
-    end 
+    end
+
+    it 'responses with locale translation count' do
+      expect(api_response.projects.first.locales.first.translation_count).to eq(2)
+    end
+
+    it 'responses with locale translated count' do
+      expect(api_response.projects.first.locales.first.translated_count).to eq(1)
+    end
   end
 
   describe 'GET #show' do
