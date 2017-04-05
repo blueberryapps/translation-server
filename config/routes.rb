@@ -49,6 +49,9 @@ Rails.application.routes.draw do
         resources :locales, only: [:show, :index, :create, :update, :destroy], shallow: true do
           resources :translations, only: [:show, :index, :create, :update, :destroy], shallow: true
         end
+        resources :keys, only: [:show, :index, :create, :update, :destroy], shallow: true do
+          resources :translations, only: [:show, :index, :create, :update, :destroy], shallow: true
+        end
       end
     end
   end

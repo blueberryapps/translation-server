@@ -95,7 +95,7 @@ class Key < ActiveRecord::Base
   private
 
   def parent_key
-    key.split('.')[0..-2].join('.')
+    "#{key}".split('.')[0..-2].join('.')
   end
 
   def validate_key_scopes
