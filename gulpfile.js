@@ -14,7 +14,7 @@ function swallowError(error) {
 function build() {
   return browserify('./app/react/browser/main.js')
     .transform(babelify.configure({
-      presets: ['react', 'es2015']
+      presets: ['react', 'es2015', 'stage-1', 'stage-2']
     }))
     .bundle()
     .on('error', swallowError)
@@ -30,7 +30,8 @@ function watch() {
     plugin: [watchify]
   });
   b.transform(babelify.configure({
-    presets: ['react', 'es2015', 'stage-1', 'stage-2']
+    presets: ['react', 'es2015', 'stage-1', 'stage-2'],
+    plugins: ['transform-decorators-legacy']
   }));
 
   function rebuild() {

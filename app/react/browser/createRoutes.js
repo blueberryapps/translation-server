@@ -3,6 +3,7 @@ import { IndexRoute, Route } from 'react-router';
 
 import App from './app/App.react';
 import Homepage from './homepage/Page.react';
+import Project from './projects/Page.react';
 
 export default function createRoutes() {
   const onChange = (prevState, nextState) => {
@@ -18,6 +19,7 @@ export default function createRoutes() {
   return (
     <Route component={App} onChange={onChange.bind(this)} path="/react">
       <IndexRoute component={Homepage} />
+      <Route component={Project} path="project" />
     </Route>
   );
 }

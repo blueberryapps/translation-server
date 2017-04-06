@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import Container from '../components/Container.react';
+
 export default class ApplicationLayout extends React.PureComponent {
 
   static propTypes = {
@@ -10,11 +12,17 @@ export default class ApplicationLayout extends React.PureComponent {
     const { children } = this.props;
 
     return (
-      <div>
-        <div style={{ overflowX: 'hidden' }}>
-          {children}
-        </div>
-      </div>
+      <Container style={styles.wrapper}>
+        {children}
+      </Container>
     );
   }
 }
+
+const styles = {
+  wrapper: {
+    maxWidth: '90%',
+    paddingLeft: 0,
+    paddingRight: 0
+  }
+};

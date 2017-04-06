@@ -13,7 +13,7 @@ export default function configureStore({ initialState, platformMiddleware } = {}
   const railsState = initialState;
   const newInitialState = {
     init: railsState
-  }
+  };
 
   // Combine all reducers and enhance them
   const reducers = createStoreReducers(appReducers);

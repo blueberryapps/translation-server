@@ -716,7 +716,7 @@ babel-plugin-transform-class-properties@^6.19.0, babel-plugin-transform-class-pr
     babel-runtime "^6.22.0"
     babel-template "^6.22.0"
 
-babel-plugin-transform-decorators-legacy@^1.3.4:
+babel-plugin-transform-decorators-legacy:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-decorators-legacy/-/babel-plugin-transform-decorators-legacy-1.3.4.tgz#741b58f6c5bce9e6027e0882d9c994f04f366925"
   dependencies:
@@ -5180,9 +5180,9 @@ onetime@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/onetime/-/onetime-1.1.0.tgz#a1f7838f8314c516f05ecefcbc4ccfe04b4ed789"
 
-onion-form:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/onion-form/-/onion-form-0.2.0.tgz#6b68c1d17b3e8ecb59bdc310a95948667dcfe5df"
+onion-form@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/onion-form/-/onion-form-0.2.1.tgz#cf93d97d89faf7bcc7906d83e220448a5165e39c"
 
 opn@4.0.2:
   version "4.0.2"

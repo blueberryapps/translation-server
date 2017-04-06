@@ -78,7 +78,7 @@
     "helmet": "^3.4.0",
     "history": "^2.1.2",
     "immutable": "^3.8.1",
-    "onion-form": "^0.2.0",
+    "onion-form": "0.2.1",
     "pretty-error": "^2.0.2",
     "radium": "^0.18.2",
     "react": "^15.4.2",

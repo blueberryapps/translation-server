@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { Provider } from 'react-redux';
 import { match, Router } from 'react-router';
+import { Provider } from 'react-redux';
+import { StyleRoot } from 'radium';
 
 import configureStoreWithHistory from './configureStoreWithHistory';
 import createRoutes from './createRoutes';
@@ -20,9 +21,11 @@ const location = `${pathname}${search}${hash}`;
 const renderApp = routes => (
   <AppContainer>
     <Provider store={store}>
-      <Router history={history}>
-        {routes}
-      </Router>
+      <StyleRoot>
+        <Router history={history}>
+          {routes}
+        </Router>
+      </StyleRoot>
     </Provider>
   </AppContainer>
 );

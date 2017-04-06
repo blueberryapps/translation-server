@@ -13,7 +13,7 @@ export default function createMiddlewares({ actionWatchers, initialState, define
     ...definedPlatformMiddleware,
     createActionWatcherMiddleware(actionDependencyInjection, actionWatchers),
     injectDependencies(actionDependencyInjection),
-    promiseMiddleware
+    promiseMiddleware()
   ];
 
   // Enable logger
