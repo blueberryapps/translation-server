@@ -60,10 +60,30 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
       it 'responses with second page' do
         get :index, project_id: project.id, size: 1, page: 2
 
-        pp api_response
-
         expect(api_response.fetch('keys').count).to eq(1)
         expect(api_response.fetch('keys').first.fetch('key')).to eq(project.keys.last.key)
+      end
+
+      it 'response should have pagination in meta for first page' do
+        get :index, project_id: project.id, size: 1, page: 1
+        pagination = api_response.meta.pagination
+
+        expect(pagination).to include(current_page: 1)
+        expect(pagination).to include(prev_page: nil)
+        expect(pagination).to include(next_page: 2)
+        expect(pagination).to include(total_pages: 2)
+        expect(pagination).to include(total_count: 2)
+      end
+
+      it 'response should have pagination in meta for second page' do
+        get :index, project_id: project.id, size: 1, page: 2
+        pagination = api_response.meta.pagination
+
+        expect(pagination).to include(current_page: 2)
+        expect(pagination).to include(prev_page: 1)
+        expect(pagination).to include(next_page: nil)
+        expect(pagination).to include(total_pages: 2)
+        expect(pagination).to include(total_count: 2)
       end
     end
   end

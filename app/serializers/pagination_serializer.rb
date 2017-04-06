@@ -1,19 +1,10 @@
-class PaginationSerializer < ActiveModel::Serializer::CollectionSerializer
+class PaginationSerializer
 
-  def initialize(object, options = {})
-    meta_key = options[:meta_key] || :meta
-    options[meta_key] ||= {}
-
-    options[meta_key][:pagination] = meta_pagination(object)
-
-    pp object
-
-    super
+  def self.meta(object)
+    { pagination: meta_pagination(object) }
   end
 
-  private
-
-  def meta_pagination(object)
+  def self.meta_pagination(object)
     if object.limit_value.present?
       {
         current_page: object.current_page,

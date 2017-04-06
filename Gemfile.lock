@@ -158,6 +158,9 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    has_scope (0.7.0)
+      actionpack (>= 4.1, < 5.1)
+      activesupport (>= 4.1, < 5.1)
     hashdiff (0.3.0)
     hashie (3.4.0)
     highlight_js-rails (7.1.0)
@@ -416,6 +419,7 @@ DEPENDENCIES
   flutie
   font-awesome-rails
   guard-rspec
+  has_scope
   hashie
   highlight_js-rails
   jquery-rails

@@ -1,41 +1,32 @@
 module APIFrontend
   module V1
     class KeysController < ApiController
-      DEFAULT_PER_PAGE = Kaminari.config.default_per_page
 
       before_action :set_key, only: [:show, :update, :destroy]
       before_action :set_project
-      before_action :set_locale
+
+      has_scope :page, default: 1
+      has_scope :per, as: :size, default: Kaminari.config.default_per_page
+
+      has_scope :with_locale, as: :locale_id, allow_blank: true
+      has_scope :with_key_path, as: :key_path, allow_blank: true
+      has_scope :with_query, as: :search, allow_blank: true
 
       def index
-        scope = @project.keys.alphabetical
+        scope = apply_scopes(@project.keys.alphabetical)
 
-        if @locale
-          scope = scope.with_locale(@locale)
-        end
-
-        page = params[:page].to_i || 1
-        size = params[:size].to_i || DEFAULT_PER_PAGE
-        scope = scope.page(page).per(size)
-
-        # if options = search_params[:options]
-        #   scope = scope.with_key_path(key_path) if key_path = options[:key_path]
-        #   scope = scope.with_locale(locale)     if locale = options[:with_locale]
-        #   scope = scope.with_query(query)       if query = options[:search]
-        # end
-
-        respond_with scope, serializer: PaginationSerializer
+        render json: scope, meta: PaginationSerializer.meta(scope)
       end
 
       def show
-        respond_with @key, serializer: KeySerializer
+        render json: @key
       end
 
       def create
         @key = @project.keys.build(key_params)
 
         if @key.save
-          respond_with @key, serializer: KeySerializer, json: @key, status: 201
+          render json: @key, status: 201
         else
           render status: 400, json: { errors: @key.errors }
         end
@@ -43,7 +34,7 @@ module APIFrontend
 
       def update
         if @key.update(key_params)
-          respond_with @key, serializer: KeySerializer, json: @key
+          render json: @key
         else
           render status: 400, json: { errors: @key.errors }
         end
@@ -55,12 +46,6 @@ module APIFrontend
       end
 
       private
-      def set_locale
-        if params[:locale_id]
-          @locale = @project.locales.find(params[:locale_id])
-        end
-      end
-
 
       # Use callbacks to share common setup or constraints between actions.
       def set_project
