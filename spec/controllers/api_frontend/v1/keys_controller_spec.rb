@@ -35,10 +35,9 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
         expect(response.content_type).to eq('application/json')
       end
 
-      # TODO fix or remove
-      # it 'responses with data' do
-      #   expect(api_response.fetch('keys')).to include(KeySerializer.new(key).to_json)
-      # end
+      it 'responses with data' do
+        expect(api_response.fetch('keys').map(&:id)).to include(key.id)
+      end
 
       it 'responses with keys of project' do
         expect(api_response.fetch('keys').first.fetch('key')).to eq(key.key)
@@ -47,19 +46,21 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
 
     context 'with searching' do
       it 'responses with paginated keys' do
-        get :index, project_id: project.id, search: {size: 1}
+        get :index, project_id: project.id, size: 1
 
         expect(api_response.fetch('keys').count).to eq(1)
       end
 
       it 'responses with default pagination' do
-        get :index, project_id: project.id, search: {}
+        get :index, project_id: project.id
 
         expect(api_response.fetch('keys').count).to eq(2)
       end
 
       it 'responses with second page' do
-        get :index, project_id: project.id, search: {size: 1, page: 2}
+        get :index, project_id: project.id, size: 1, page: 2
+
+        pp api_response
 
         expect(api_response.fetch('keys').count).to eq(1)
         expect(api_response.fetch('keys').first.fetch('key')).to eq(project.keys.last.key)

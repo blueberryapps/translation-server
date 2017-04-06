@@ -14,13 +14,17 @@ module APIFrontend
           scope = scope.with_locale(@locale)
         end
 
-        if search_params = params[:search]
-          page = search_params[:page].to_i || 1
-          size = search_params[:size].to_i || DEFAULT_PER_PAGE
-          scope = scope.page(page).per(size)
-        end
+        page = params[:page].to_i || 1
+        size = params[:size].to_i || DEFAULT_PER_PAGE
+        scope = scope.page(page).per(size)
 
-        respond_with scope, each_serializer: KeySerializer
+        # if options = search_params[:options]
+        #   scope = scope.with_key_path(key_path) if key_path = options[:key_path]
+        #   scope = scope.with_locale(locale)     if locale = options[:with_locale]
+        #   scope = scope.with_query(query)       if query = options[:search]
+        # end
+
+        respond_with scope, serializer: PaginationSerializer
       end
 
       def show
