@@ -22,24 +22,48 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
   end
 
   describe 'GET #index' do
-    action do
-      get :index, project_id: project.id
+    context 'without searching' do
+      action do
+        get :index, project_id: project.id
+      end
+
+      it 'response 200' do
+        expect(response.status).to eq(200)
+      end
+
+      it 'response content type' do
+        expect(response.content_type).to eq('application/json')
+      end
+
+      # TODO fix or remove
+      # it 'responses with data' do
+      #   expect(api_response.fetch('keys')).to include(KeySerializer.new(key).to_json)
+      # end
+
+      it 'responses with keys of project' do
+        expect(api_response.fetch('keys').first.fetch('key')).to eq(key.key)
+      end
     end
 
-    it 'response 200' do
-      expect(response.status).to eq(200)
-    end
+    context 'with searching' do
+      it 'responses with paginated keys' do
+        get :index, project_id: project.id, search: {size: 1}
 
-    it 'response content type' do
-      expect(response.content_type).to eq('application/json')
-    end
+        expect(api_response.fetch('keys').count).to eq(1)
+      end
 
-    it 'responses with data' do
-      expect(api_response.fetch('keys').first.id).to eq(key.id)
-    end
+      it 'responses with default pagination' do
+        get :index, project_id: project.id, search: {}
 
-    it 'responses with locales of project' do
-      expect(api_response.fetch('keys').first.fetch('key')).to eq(key.key)
+        expect(api_response.fetch('keys').count).to eq(2)
+      end
+
+      it 'responses with second page' do
+        get :index, project_id: project.id, search: {size: 1, page: 2}
+
+        expect(api_response.fetch('keys').count).to eq(1)
+        expect(api_response.fetch('keys').first.fetch('key')).to eq(project.keys.last.key)
+      end
     end
   end
 

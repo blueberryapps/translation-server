@@ -46,11 +46,10 @@ Rails.application.routes.draw do
   namespace :api_frontend, defaults: { format: :json } do
     namespace :v1 do
       resources :projects, only: [:show, :index, :create, :update, :destroy] do
+        resources :translations, only: [:show, :update, :destroy]
+        resources :keys, only: [:show, :index, :create, :update, :destroy], shallow: true
         resources :locales, only: [:show, :index, :create, :update, :destroy], shallow: true do
-          resources :translations, only: [:show, :index, :create, :update, :destroy], shallow: true
-        end
-        resources :keys, only: [:show, :index, :create, :update, :destroy], shallow: true do
-          resources :translations, only: [:show, :index, :create, :update, :destroy], shallow: true
+          resources :keys, only: [:index]
         end
       end
     end

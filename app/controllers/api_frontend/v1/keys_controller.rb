@@ -1,11 +1,26 @@
 module APIFrontend
   module V1
     class KeysController < ApiController
+      DEFAULT_PER_PAGE = Kaminari.config.default_per_page
+
       before_action :set_key, only: [:show, :update, :destroy]
       before_action :set_project
+      before_action :set_locale
 
       def index
-        respond_with @project.keys, each_serializer: KeySerializer
+        scope = @project.keys.alphabetical
+
+        if @locale
+          scope = scope.with_locale(@locale)
+        end
+
+        if search_params = params[:search]
+          page = search_params[:page].to_i || 1
+          size = search_params[:size].to_i || DEFAULT_PER_PAGE
+          scope = scope.page(page).per(size)
+        end
+
+        respond_with scope, each_serializer: KeySerializer
       end
 
       def show
@@ -36,6 +51,13 @@ module APIFrontend
       end
 
       private
+      def set_locale
+        if params[:locale_id]
+          @locale = @project.locales.find(params[:locale_id])
+        end
+      end
+
+
       # Use callbacks to share common setup or constraints between actions.
       def set_project
         @project = @key ? @key.project : Project.find(params[:project_id])
