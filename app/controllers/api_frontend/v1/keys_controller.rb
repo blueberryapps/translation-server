@@ -13,7 +13,7 @@ module APIFrontend
       has_scope :with_query, as: :search, allow_blank: true
 
       def index
-        scope = apply_scopes(@project.keys.alphabetical)
+        scope = apply_scopes(@project.keys.alphabetical.preload(:translations))
 
         render json: scope, meta: PaginationSerializer.meta(scope)
       end

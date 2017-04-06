@@ -6,16 +6,15 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
   let!(:project) { create :project, id: 5, api_token: 'XYZZYX', users: [user]}
   let!(:locale)  { create :locale, :with_translations, project: project }
   let!(:key)     { project.keys.first }
-  before         { sign_in user }
 
-  let(:valid_attributes) {
-    attributes_for :key
-  }
+  let!(:translation) do
+    key.translations.where(locale: locale).first
+  end
 
+  before { sign_in user }
 
-  let(:invalid_attributes) {
-    { key: '' }
-  }
+  let(:valid_attributes) { attributes_for :key }
+  let(:invalid_attributes) { { key: '' } }
 
   before :each do
     request.headers["accept"] = 'application/json'
@@ -41,6 +40,11 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
 
       it 'responses with keys of project' do
         expect(api_response.fetch('keys').first.fetch('key')).to eq(key.key)
+      end
+
+      it 'responses with translations in keys of project' do
+        expect(api_response.fetch('keys').first.translations.first.text)
+          .to eq(translation.text)
       end
     end
 
@@ -84,6 +88,23 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
         expect(pagination).to include(next_page: nil)
         expect(pagination).to include(total_pages: 2)
         expect(pagination).to include(total_count: 2)
+      end
+
+      context 'with locale scope' do
+        let!(:locale2) { create :locale, :with_translations, project: project }
+
+        before do
+          locale.translations.map(&:key).each do |locale1_key|
+            Translation.create locale: locale2, key: locale1_key, text: 'SECOND'
+          end
+        end
+
+        it 'responses with keys of one locale' do
+          get :index, project_id: project.id, locale_id: locale.id
+
+          expect(api_response.fetch('keys').map(&:id))
+            .to eq(locale.translations.map(&:key).map(&:id))
+        end
       end
     end
   end
