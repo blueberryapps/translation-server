@@ -33,6 +33,19 @@ class Key < ActiveRecord::Base
     joins(:translations).where 'lower(key) like ? or lower(translations.text) like ?', string, string
   end
 
+  def self.with_edited(edited = 'all')
+    case edited
+    when 'new' then with_edited_filter(false)
+    when 'edited' then with_edited_filter(true)
+
+    # Notice that I'm returning all for the nil/blank case,
+    # which in Rails 4 returns a relation (it previously returned the Array
+    # of items from the database).
+    # In Rails 3.2.x, you should use scoped there instead.
+    else all
+    end
+  end
+
   def self.with_edited_filter(edited)
     joins(:translations).where translations: { edited: edited }
   end

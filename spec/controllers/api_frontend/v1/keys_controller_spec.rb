@@ -109,6 +109,26 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
     end
   end
 
+  describe 'GET #hierarchy' do
+    context 'existing locale' do
+      action do
+        get :hierarchy, project_id: project.id
+      end
+
+      it 'response 200' do
+        expect(response.status).to eq(200)
+      end
+
+      it 'response content type' do
+        expect(response.content_type).to eq('application/json')
+      end
+
+      it 'responses with data' do
+        expect(api_response).to eq(project.keys.hierarchy(project.keys))
+      end
+    end
+  end
+
   describe 'GET #show' do
     context 'existing locale' do
       action do

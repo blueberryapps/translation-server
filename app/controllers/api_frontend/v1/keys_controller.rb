@@ -5,17 +5,23 @@ module APIFrontend
       before_action :set_key, only: [:show, :update, :destroy]
       before_action :set_project
 
-      has_scope :page, default: 1
-      has_scope :per, as: :size, default: Kaminari.config.default_per_page
+      has_scope :page, default: 1, only: :index
+      has_scope :per, as: :size, default: Kaminari.config.default_per_page, only: :index
 
       has_scope :with_locale, as: :locale_id, allow_blank: true
       has_scope :with_key_path, as: :key_path, allow_blank: true
+      has_scope :with_edited, as: :edited, default: 'all'
       has_scope :with_query, as: :search, allow_blank: true
 
       def index
         scope = apply_scopes(@project.keys.alphabetical.preload(:translations))
 
         render json: scope, meta: PaginationSerializer.meta(scope)
+      end
+
+      def hierarchy
+        scope = apply_scopes(@project.keys.alphabetical.preload(:translations))
+        render json: @project.keys.hierarchy(scope)
       end
 
       def show

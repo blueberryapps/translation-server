@@ -47,7 +47,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :projects, only: [:show, :index, :create, :update, :destroy] do
         resources :translations, only: [:show, :update, :destroy]
-        resources :keys, only: [:show, :index, :create, :update, :destroy], shallow: true
+
+        resources :keys, only: [:show, :index, :create, :update, :destroy], shallow: true do
+          get :hierarchy, on: :collection
+        end
+
         resources :locales, only: [:show, :index, :create, :update, :destroy], shallow: true do
           resources :keys, only: [:index]
         end
