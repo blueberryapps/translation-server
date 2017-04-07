@@ -5,9 +5,9 @@ class Locale < ActiveRecord::Base
 
   belongs_to :project
 
-  has_many :translations
-  has_many :releases
-  has_many :highlights
+  has_many :translations, dependent: :destroy
+  has_many :releases, dependent: :destroy
+  has_many :highlights, dependent: :destroy
 
   scope :alphabetical,  -> { order :code }
 

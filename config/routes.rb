@@ -45,7 +45,18 @@ Rails.application.routes.draw do
 
   namespace :api_frontend, defaults: { format: :json } do
     namespace :v1 do
-      resources :projects, only: [:show, :index, :create, :update, :destroy]
+      resources :translations, only: [:show, :update, :destroy]
+
+      resources :projects, only: [:show, :index, :create, :update, :destroy] do
+
+        resources :keys, only: [:show, :index, :create, :update, :destroy], shallow: true do
+          get :hierarchy, on: :collection
+        end
+
+        resources :locales, only: [:show, :index, :create, :update, :destroy], shallow: true do
+          resources :keys, only: [:index]
+        end
+      end
     end
   end
 
