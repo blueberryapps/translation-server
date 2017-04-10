@@ -12,14 +12,18 @@ export default function configureStore({ initialState, platformMiddleware } = {}
 
   const railsState = initialState;
   const newInitialState = {
-    init: railsState
+    init: railsState,
   };
 
   // Combine all reducers and enhance them
   const reducers = createStoreReducers(appReducers);
 
   // Create store middlewares
-  const middlewares = createMiddlewares({ actionWatchers, newInitialState, definedPlatformMiddleware });
+  const middlewares = createMiddlewares({
+    actionWatchers,
+    newInitialState,
+    definedPlatformMiddleware,
+  });
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line no-underscore-dangle
   // Create Store
   const store = createStore(reducers, newInitialState, composeEnhancers(middlewares));

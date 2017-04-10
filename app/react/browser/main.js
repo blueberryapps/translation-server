@@ -17,7 +17,6 @@ const createdRoutes = createRoutes(store.dispatch, store.getState);
 
 const { pathname, search, hash } = window.location;
 const location = `${pathname}${search}${hash}`;
-
 const renderApp = routes => (
   <AppContainer>
     <Provider store={store}>
@@ -30,6 +29,7 @@ const renderApp = routes => (
   </AppContainer>
 );
 
-match({ history, createdRoutes, location }, () => { // eslint-disable-line  no-unused-vars
+match({ history, createdRoutes, location }, () => {
+  // eslint-disable-line  no-unused-vars
   ReactDOM.render(renderApp(createdRoutes), document.getElementById('react-app'));
 });

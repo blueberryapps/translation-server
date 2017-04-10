@@ -6,19 +6,20 @@ import createActionWatcherMiddleware from './createActionWatcherMiddleware';
 import createStoreDependencyInjections from './createDependencyInjections';
 import injectDependencies from './injectDependencies';
 
-export default function createMiddlewares({ actionWatchers, initialState, definedPlatformMiddleware = [] }) {
+export default function createMiddlewares(
+  { actionWatchers, initialState, definedPlatformMiddleware = [] },
+) {
   const actionDependencyInjection = createStoreDependencyInjections({ initialState });
 
   const middlewares = [
+    promiseMiddleware(),
     ...definedPlatformMiddleware,
     createActionWatcherMiddleware(actionDependencyInjection, actionWatchers),
     injectDependencies(actionDependencyInjection),
-    promiseMiddleware()
   ];
 
   // Enable logger
-  const enableLogger =
-    process.env.DEVTOOLS &&
+  const enableLogger = process.env.DEVTOOLS &&
     !process.env.IS_TEST &&
     (process.env.IS_BROWSER || process.env.IS_REACT_NATIVE);
 
@@ -26,14 +27,13 @@ export default function createMiddlewares({ actionWatchers, initialState, define
     const logger = createLogger({
       collapsed: true,
       // Convert immutable to JSON.
-      stateTransformer: state => JSON.parse(JSON.stringify(state))
+      stateTransformer: state => JSON.parse(JSON.stringify(state)),
     });
     // Logger must be the last middleware in chain.
     middlewares.push(logger);
   }
 
-  const enableDevToolsExtension =
-    process.env.DEVTOOLS &&
+  const enableDevToolsExtension = process.env.DEVTOOLS &&
     !process.env.IS_TEST &&
     process.env.IS_BROWSER &&
     window.devToolsExtension;

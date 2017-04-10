@@ -2,22 +2,21 @@ import React, { PropTypes as RPT } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Header from '../app/Header.react';
-import Layout from '../layouts/ApplicationLayout.react';
-import Menubar from '../app/menu/Menubar.react';
-import VerticalMenu from '../app/menu/VerticalMenu.react';
+import Header from '../../app/Header.react';
+import Layout from '../../layouts/ApplicationLayout.react';
+import Menubar from '../../app/menu/Menubar.react';
+import VerticalMenu from '../../app/menu/VerticalMenu.react';
 
 @connect(
   ({ ui: reducer }) => ({
-    isVerticalMenuShown: reducer.get('isVerticalMenuShown')
+    isVerticalMenuShown: reducer.get('isVerticalMenuShown'),
   }),
-  dispatch => bindActionCreators({}, dispatch)
+  dispatch => bindActionCreators({}, dispatch),
 )
 export default class Project extends React.PureComponent {
-
   static propTypes = {
-    isVerticalMenuShown: RPT.bool.isRequired
-  }
+    isVerticalMenuShown: RPT.bool.isRequired,
+  };
 
   render() {
     const { isVerticalMenuShown } = this.props;
@@ -38,6 +37,6 @@ export default class Project extends React.PureComponent {
 const styles = {
   wrapper: {
     backgroundColor: '#F7F7F7',
-    height: '300px'
-  }
+    height: '300px',
+  },
 };

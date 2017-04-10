@@ -2,8 +2,9 @@ import React from 'react';
 import { IndexRoute, Route } from 'react-router';
 
 import App from './app/App.react';
-import Homepage from './homepage/Page.react';
-import Project from './projects/Page.react';
+import Homepage from './homepage';
+import Project from './projects/detail';
+import Locale from './locales/detail';
 
 export default function createRoutes() {
   const onChange = (prevState, nextState) => {
@@ -11,7 +12,7 @@ export default function createRoutes() {
       window.dataLayer.push({
         event: 'VirtualPageview',
         virtualPageURL: nextState.location.pathname,
-        virtualPageTitle: nextState.location.pathname
+        virtualPageTitle: nextState.location.pathname,
       });
     }
   };
@@ -19,7 +20,8 @@ export default function createRoutes() {
   return (
     <Route component={App} onChange={onChange.bind(this)} path="/react">
       <IndexRoute component={Homepage} />
-      <Route component={Project} path="project" />
+      <Route component={Project} path="project/:id" />
+      <Route component={Locale} path="locales/:id" />
     </Route>
   );
 }

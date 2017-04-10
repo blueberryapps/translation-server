@@ -1,4 +1,5 @@
 class ReactController < AuthController
+  protect_from_forgery with: :exception, only: :index
   layout 'react'
   def index
     @initial_state = {
@@ -9,5 +10,9 @@ class ReactController < AuthController
         photo: current_user.photo_url(20)
       }
     }
+  end
+
+  def script
+    send_file(Rails.root.join('app', 'assets', 'javascripts', 'react.js'))
   end
 end

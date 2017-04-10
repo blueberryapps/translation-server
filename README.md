@@ -4,6 +4,8 @@ Stores translations with location and screenshot.
 Enable users to easily edit translations and then any rails application can
 use them.
 
+* To start application use `bundle exec rails s`
+
 ## Architecture of service
 
 ![Data Model](./readme/data_model.png)
