@@ -45,6 +45,10 @@ Rails.application.routes.draw do
 
   namespace :api_frontend, defaults: { format: :json } do
     namespace :v1 do
+      get 'me' => 'users#show'
+      post 'login' => 'users#create'
+      delete 'logout' => 'users#destroy'
+
       resources :translations, only: [:show, :update, :destroy]
 
       resources :projects, only: [:show, :index, :create, :update, :destroy] do
