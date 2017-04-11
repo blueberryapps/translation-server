@@ -67,6 +67,9 @@ Rails.application.routes.draw do
 
   resources :restricted_ips, only: [:index, :create, :destroy]
 
+  match '/react_script.js' => 'react#script', via: :get, as: :react_script
+  match '/react' => 'react#index', via: :get
+  match '/react/*slug' => 'react#index', via: :get
   match '/is_alive' => 'root#is_alive', via: [:get]
 
   root to: 'projects#index'

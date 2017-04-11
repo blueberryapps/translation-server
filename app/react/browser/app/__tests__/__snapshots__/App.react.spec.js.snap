@@ -1,0 +1,5 @@
+exports[`test shallowly renders App 1`] = `
+<h1>
+  Haystack
+</h1>
+`;

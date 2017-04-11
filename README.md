@@ -4,6 +4,8 @@ Stores translations with location and screenshot.
 Enable users to easily edit translations and then any rails application can
 use them.
 
+* To start application use `bundle exec rails s`
+
 ## Architecture of service
 
 ![Data Model](./readme/data_model.png)
@@ -32,3 +34,13 @@ programming in style.
 # Clear database (without users)
 
 `rake clear_database`
+
+# JavaScript dev tools
+
+* `yarn eslint`: check code style rules
+* `yarn eslint -- --fix`: automatically fix eslint problems
+* `yarn ava`: run AVA tests one time
+* `yarn ava -- --watch`: runs AVA tests and watch for changes
+* `yarn jest`: run Jest tests one time
+* `yarn jest -- --watch`: run Jest tests and watch for changes
+* `yarn test`: run `eslint`, `Jest` & `AVA`

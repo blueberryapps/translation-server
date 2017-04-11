@@ -22,3 +22,12 @@ phoenix_changes/rel/
 coverage
 
 .DS_Store
+
+app/assets/javascripts/react.js
+
+# OSX
+.DS_Store
+
+# node.js
+node_modules/
+npm-debug.log
