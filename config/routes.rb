@@ -49,7 +49,9 @@ Rails.application.routes.draw do
       post 'login' => 'users#create'
       delete 'logout' => 'users#destroy'
 
-      resources :translations, only: [:show, :update, :destroy]
+      resources :translations, only: [:show, :update, :destroy] do
+        put 'locale/:locale/key/:key', on: :collection, action: :update
+      end
 
       resources :projects, only: [:show, :index, :create, :update, :destroy] do
 

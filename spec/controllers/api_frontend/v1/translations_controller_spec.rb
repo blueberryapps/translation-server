@@ -79,6 +79,26 @@ RSpec.describe APIFrontend::V1::TranslationsController, type: :controller do
     end
   end
 
+  describe 'PUT #update by key and locale' do
+    context 'valid response' do
+      action do
+        put :update, key: translation.key.key, locale: translation.locale.code, translation: { text: 'changed text' }, api_token: project.api_token
+      end
+
+      it 'response 200' do
+        expect(response.status).to eq(200)
+      end
+
+      it 'response content type' do
+        expect(response.content_type).to eq('application/json')
+      end
+
+      it 'responses with data' do
+        expect(api_response.translation.text).to eq('changed text')
+      end
+    end
+  end
+
   describe 'DELETE #destroy' do
     context 'valid response' do
       action do

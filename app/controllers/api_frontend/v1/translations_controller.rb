@@ -24,7 +24,14 @@ module APIFrontend
       private
 
       def set_translation
-        @translation = Translation.find(params[:id])
+        if params[:key] && params[:locale] && params[:api_token]
+          project = Project.find_by(api_token: params[:api_token])
+          key = project.keys.find_by(key: params[:key])
+          locale = project.locales.find_by(code: params[:locale])
+          @translation = Translation.find_by(key: key, locale: locale)
+        else
+          @translation = Translation.find(params[:id])
+        end
       end
 
       def set_project
