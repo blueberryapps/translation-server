@@ -26,7 +26,7 @@ export default class Project extends React.PureComponent {
           <Box col={2}>{this.props.defaultLocale}</Box>
           {this.props.locales.map(locale => (
             <Box key={locale.id} col={2}>
-              <Link to={`react/locales/${locale.id}`}>
+              <Link to={`/locales/${locale.id}`}>
                 <Locale {...locale} />
               </Link>
             </Box>

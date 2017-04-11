@@ -6,10 +6,10 @@ import { useRouterHistory } from 'react-router';
 import configureCommonStore from '../common/configureStore';
 
 export default function configureStoreWithHistory() {
-  const appHistory = withScroll(useRouterHistory(createBrowserHistory)());
+  const appHistory = withScroll(useRouterHistory(createBrowserHistory)({ basename: '/react' }));
   const store = configureCommonStore({
-    initialState:       window.__INITIAL_STATE__, // eslint-disable-line no-underscore-dangle
-    platformMiddleware: [routerMiddleware(appHistory)]
+    initialState: window.__INITIAL_STATE__, // eslint-disable-line no-underscore-dangle
+    platformMiddleware: [routerMiddleware(appHistory)],
   });
 
   const history = syncHistoryWithStore(appHistory, store);

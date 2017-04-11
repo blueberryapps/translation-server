@@ -18,7 +18,7 @@ export default function createRoutes() {
   };
 
   return (
-    <Route component={App} onChange={onChange.bind(this)} path="/react">
+    <Route component={App} onChange={onChange.bind(this)} path="/">
       <IndexRoute component={Homepage} />
       <Route component={Project} path="project/:id" />
       <Route component={Locale} path="locales/:id" />
