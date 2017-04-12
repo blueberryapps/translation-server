@@ -1,6 +1,6 @@
 import { Map, fromJS } from 'immutable';
 
-import * as actions from './actions';
+import { TOGGLE_HIERARCHY, RAISE_API_ERROR, HANDLE_API_ERROR } from './actions';
 
 const initialState = fromJS({
   isVerticalMenuShown: false,
@@ -11,15 +11,13 @@ export default function uiReducer(state = initialState, action) {
   if (!Map.isMap(state)) return fromJS(state);
 
   switch (action.type) {
-    case actions.UI_CHANGE: {
-      const { name, show } = action.payload;
+    case TOGGLE_HIERARCHY:
+      return state.set('isVerticalMenuShown', action.payload);
 
-      return state.set(`is${name}Shown`, show);
-    }
-    case actions.RAISE_API_ERROR:
+    case RAISE_API_ERROR:
       return state.set('error', action.payload);
 
-    case actions.HANDLE_API_ERROR:
+    case HANDLE_API_ERROR:
       return state.set('error', null);
 
   }

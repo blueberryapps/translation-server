@@ -34,10 +34,3 @@ export default class Projects extends React.PureComponent {
     );
   }
 }
-
-const styles = {
-  wrapper: {
-    backgroundColor: '#F7F7F7',
-    height: '300px',
-  },
-};

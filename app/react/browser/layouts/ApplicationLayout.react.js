@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-
+import Header from '../app/Header.react';
 import Container from '../components/Container.react';
 
 @connect(state => ({ error: state.ui.get('error') }))
@@ -17,6 +17,7 @@ export default class ApplicationLayout extends React.PureComponent {
     const { children, error } = this.props;
     return (
       <Container style={styles.wrapper} error={error}>
+        <Header />
         {children}
       </Container>
     );

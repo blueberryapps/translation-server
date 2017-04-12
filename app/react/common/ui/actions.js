@@ -1,14 +1,11 @@
-export const UI_CHANGE = 'UI_CHANGE';
+export const TOGGLE_HIERARCHY = 'TOGGLE_HIERARCHY';
 export const RAISE_API_ERROR = 'RAISE_API_ERROR';
 export const HANDLE_API_ERROR = 'HANDLE_API_ERROR';
 
-export function change(name, show) {
+export function toggleHierarchy(shouldShow) {
   return {
-    type: UI_CHANGE,
-    payload: {
-      name,
-      show,
-    },
+    type: TOGGLE_HIERARCHY,
+    payload: shouldShow,
   };
 }
 

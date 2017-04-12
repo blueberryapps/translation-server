@@ -54,7 +54,9 @@ Rails.application.routes.draw do
         end
 
         resources :locales, only: [:show, :index, :create, :update, :destroy], shallow: true do
-          resources :keys, only: [:index]
+          resources :keys, only: [:index] do
+            get :hierarchy, on: :collection
+          end
         end
       end
     end

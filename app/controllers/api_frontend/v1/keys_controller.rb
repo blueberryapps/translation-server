@@ -3,6 +3,7 @@ module APIFrontend
     class KeysController < ApiController
 
       before_action :set_key, only: [:show, :update, :destroy]
+      before_action :set_locale
       before_action :set_project
 
       has_scope :page, default: 1, only: :index
@@ -53,9 +54,13 @@ module APIFrontend
 
       private
 
+      def set_locale
+        @locale = params[:locale_id] ? Locale.find(params[:locale_id]) : nil
+      end
+
       # Use callbacks to share common setup or constraints between actions.
       def set_project
-        @project = @key ? @key.project : Project.find(params[:project_id])
+        @project = [@key, @locale].find(&:present?).try(:project) || Project.find(params[:project_id])
         authorize @project
       end
 

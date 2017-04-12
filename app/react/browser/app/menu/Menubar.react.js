@@ -3,41 +3,62 @@ import Radium from 'radium';
 import React, { PropTypes as RPT } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import Button from '../../components/Button.react';
-import { change } from '../../../common/ui/actions';
+import * as actions from '../../../common/ui/actions';
 import { colors } from '../../globals';
 
 @connect(
-  ({ ui: reducer }) => ({
-    isVerticalMenuShown: reducer.get('isVerticalMenuShown')
+  ({ ui }) => ({
+    isVerticalMenuShown: ui.get('isVerticalMenuShown'),
   }),
-  dispatch => bindActionCreators({ change }, dispatch)
+  dispatch => bindActionCreators(actions, dispatch),
 )
 @Radium
+@withRouter
 export default class Menubar extends React.PureComponent {
-
+  static defaultProps = {
+    translatedCount: 0,
+    totalCount: 0,
+  };
   static propTypes = {
-    change: RPT.func.isRequired,
-    isVerticalMenuShown: RPT.bool.isRequired
+    toggleHierarchy: RPT.func.isRequired,
+    isVerticalMenuShown: RPT.bool.isRequired,
+    translatedCount: RPT.number,
+    totalCount: RPT.number,
+  };
+
+  @autobind handleToggleHierarchy() {
+    const { isVerticalMenuShown, toggleHierarchy } = this.props;
+
+    toggleHierarchy(!isVerticalMenuShown);
   }
 
-  @autobind
-  handleClick() {
-    const { isVerticalMenuShown, change } = this.props;
+  handleShowUntranslated = () => {};
 
-    change('VerticalMenu', !isVerticalMenuShown);
-  }
+  handleShowAll = () => {};
 
   render() {
+    const { totalCount, translatedCount } = this.props;
     return (
       <div style={styles.wrapper}>
         <div style={styles.menuButton}>
-          <Button onClick={this.handleClick} style={styles.verticalMenu}>Navigate by key</Button>
+          <Button onClick={this.handleToggleHierarchy} style={styles.verticalMenu}>
+            Navigate by key
+          </Button>
         </div>
         <div style={styles.translationButtons}>
-          <Button style={[styles.translations, styles.untranslated]}>Untranslated</Button>
-          <Button style={styles.translations}>All</Button>
+          <Button
+            onClick={this.handleShowUntranslated}
+            style={[styles.translations, styles.untranslated]}
+          >
+            Untranslated {totalCount - translatedCount}
+          </Button>
+          <Button onClick={this.handleShowAll} style={styles.translations}>
+            All {totalCount}
+          </Button>
+
         </div>
       </div>
     );
@@ -52,22 +73,22 @@ const styles = {
 
   translationButtons: {
     textAlign: 'center',
-    width: '100%'
+    width: '100%',
   },
 
   menuButton: {
-    position: 'absolute'
+    position: 'absolute',
   },
 
   translations: {
     fontSize: '16px',
-    padding: '13px 32px'
+    padding: '13px 32px',
   },
 
   untranslated: {
     borderColor: `${colors.darkBlue}`,
     borderStyle: 'solid',
-    borderWidth: '0 1px 0 0'
+    borderWidth: '0 1px 0 0',
   },
 
   verticalMenu: {
@@ -77,7 +98,7 @@ const styles = {
     fontSize: '16px',
     padding: '13px 32px',
     ':active': {
-      backgroundColor: colors.darkBlue
-    }
-  }
+      backgroundColor: colors.darkBlue,
+    },
+  },
 };
