@@ -1,13 +1,13 @@
 export const FETCH_KEYS_PENDING = 'FETCH_KEYS_PENDING';
 export const FETCH_KEYS_FULFILLED = 'FETCH_KEYS_FULFILLED';
 
-export function fetchKeys({ params: { localeId }, location: { query: { page } } }) {
+export function fetchKeys({ params: { localeId }, location: { query: { page, edited } } }) {
   return ({ keysInterface }) => ({
     type: 'FETCH_KEYS',
     payload: {
       promise: keysInterface.getCollection({
         error: 'Keys failed to fecth',
-        query: { page },
+        query: { page, edited },
         prefix: `locales/${localeId}`,
       }),
     },

@@ -27,6 +27,8 @@ export default class Menubar extends React.PureComponent {
     isVerticalMenuShown: RPT.bool.isRequired,
     translatedCount: RPT.number,
     totalCount: RPT.number,
+    location: RPT.shape({ query: RPT.shape({}) }).isRequired,
+    router: RPT.shape({ push: RPT.func }).isRequired,
   };
 
   @autobind handleToggleHierarchy() {
@@ -35,12 +37,22 @@ export default class Menubar extends React.PureComponent {
     toggleHierarchy(!isVerticalMenuShown);
   }
 
-  handleShowUntranslated = () => {};
+  handleShowUntranslated = () => {
+    this.props.router.push({
+      ...this.props.location,
+      query: { ...this.props.location.query, edited: 'new' },
+    });
+  };
 
-  handleShowAll = () => {};
+  handleShowAll = () => {
+    this.props.router.push({
+      ...this.props.location,
+      query: { ...this.props.location.query, edited: 'all' },
+    });
+  };
 
   render() {
-    const { totalCount, translatedCount } = this.props;
+    const { totalCount, translatedCount, location: { query } } = this.props;
     return (
       <div style={styles.wrapper}>
         <div style={styles.menuButton}>
@@ -50,12 +62,17 @@ export default class Menubar extends React.PureComponent {
         </div>
         <div style={styles.translationButtons}>
           <Button
+            disabled={query.edited === 'new'}
             onClick={this.handleShowUntranslated}
             style={[styles.translations, styles.untranslated]}
           >
             Untranslated {totalCount - translatedCount}
           </Button>
-          <Button onClick={this.handleShowAll} style={styles.translations}>
+          <Button
+            onClick={this.handleShowAll}
+            style={styles.translations}
+            disabled={!query.edited || query.edited === 'all'}
+          >
             All {totalCount}
           </Button>
 

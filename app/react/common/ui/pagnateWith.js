@@ -12,10 +12,13 @@ export default function paginateWith(onPageChange) {
       };
       static propTypes = {
         onPageChange: RPT.func.isRequired,
-        query: RPT.shape({ page: RPT.string }),
+        query: RPT.shape({ page: RPT.string, edited: RPT.string }),
       };
       componentWillReceiveProps(nextProps) {
-        if (this.props.query.page !== nextProps.query.page) {
+        if (
+          this.props.query.page !== nextProps.query.page ||
+          this.props.query.edited !== nextProps.query.edited
+        ) {
           this.props.onPageChange(nextProps);
         }
       }

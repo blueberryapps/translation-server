@@ -32,7 +32,7 @@ export default class Translations extends PureComponent {
       totalCount,
       translatedCount,
       currentPage,
-      query: { page },
+      query,
       pagination,
       location,
     } = composeLocales(this.props);
@@ -42,7 +42,8 @@ export default class Translations extends PureComponent {
         <Menubar
           totalCount={totalCount}
           localeId={localeId}
-          page={page}
+          // query={query}
+          location={location}
           translatedCount={translatedCount}
         />
 
