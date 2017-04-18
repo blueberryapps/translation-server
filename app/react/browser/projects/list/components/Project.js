@@ -11,9 +11,16 @@ export default class Project extends React.PureComponent {
   static propTypes = {
     name: RPT.string.isRequired,
     defaultLocale: RPT.string,
+    id: RPT.number.isRequired,
     locales: RPT.arrayOf(RPT.object).isRequired,
   };
   render() {
+    const {
+      name,
+      defaultLocale,
+      locales,
+      id,
+    } = this.props;
     return (
       <div>
         <Flex>
@@ -22,11 +29,11 @@ export default class Project extends React.PureComponent {
           <Box col={6}>Translations</Box>
         </Flex>
         <Flex>
-          <Box col={4}>{this.props.name}</Box>
-          <Box col={2}>{this.props.defaultLocale}</Box>
-          {this.props.locales.map(locale => (
+          <Box col={4}>{name}</Box>
+          <Box col={2}>{defaultLocale}</Box>
+          {locales.map(locale => (
             <Box key={locale.id} col={2}>
-              <Link to={`/locales/${locale.id}`}>
+              <Link to={`project/${id}/locales/${locale.id}?page=1`}>
                 <Locale {...locale} />
               </Link>
             </Box>

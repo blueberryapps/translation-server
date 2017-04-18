@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import autobind from 'core-decorators/lib/autobind';
 import Radium from 'radium';
 import React, { PropTypes as RPT } from 'react';

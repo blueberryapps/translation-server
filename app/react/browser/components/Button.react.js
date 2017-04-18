@@ -42,12 +42,6 @@ export default class Button extends React.PureComponent {
     type: null
   };
 
-  renderDecorator() {
-    return (
-      <div style={styles.decorator} />
-    );
-  }
-
   render() {
     const {
       children,
@@ -80,7 +74,9 @@ export default class Button extends React.PureComponent {
         >
           {children}
         </button>
-        {decorated && this.renderDecorator()}
+        {decorated &&
+          <div style={styles.decorator} />
+        }
       </div>
     );
   }

@@ -2,7 +2,7 @@ import Radium from 'radium';
 import React, { PropTypes as RPT } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push as pushLocation } from 'react-router-redux';
 
 import Button from '../components/Button.react';
 import Image from '../components/Image.react';
@@ -10,31 +10,26 @@ import Menu from './menu/Menu.react';
 import Search from '../components/Search.react';
 import { colors, media } from '../globals';
 
-@connect(
-  () => ({}),
-  dispatch => bindActionCreators({ push }, dispatch)
-)
-
+@connect(() => ({}), dispatch => bindActionCreators({ push: pushLocation }, dispatch))
 @Radium
 export default class Header extends React.PureComponent {
-
   static propTypes = {
     menuShown: RPT.bool.isRequired,
     projectName: RPT.string,
     push: RPT.func.isRequired,
-    userName: RPT.string
-  }
+    userName: RPT.string,
+  };
 
   static defaultProps = {
     menuShown: true,
     projectName: 'Dev Project',
-    userName: 'Admin'
-  }
+    userName: 'Admin',
+  };
 
   handleClick() {
     const { push } = this.props;
 
-    push('/react');
+    push('/');
   }
 
   render() {
@@ -43,7 +38,11 @@ export default class Header extends React.PureComponent {
     return (
       <div style={styles.wrapper}>
         <header style={styles.header}>
-          <Image src={'/assets/backArrow.png'} style={styles.backButton} onClick={this.handleClick.bind(this)} />
+          <Image
+            src={'/assets/backArrow.png'}
+            style={styles.backButton}
+            onClick={this.handleClick.bind(this)}
+          />
           <span style={styles.projectName}>{projectName}</span>
           <span style={styles.text}>Translations</span>
           <Search />
@@ -63,16 +62,16 @@ const styles = {
     paddingLeft: 0,
     [media.l]: {
       paddingRight: '30px',
-      paddingLeft: '30px'
-    }
+      paddingLeft: '30px',
+    },
   },
 
   backButton: {
     marginRight: '15px',
     width: '10px',
     [media.l]: {
-      marginRight: '25px'
-    }
+      marginRight: '25px',
+    },
   },
 
   header: {
@@ -84,7 +83,7 @@ const styles = {
     position: 'relative',
     width: '100%',
     verticalAlign: 'middle',
-    zIndex: '100'
+    zIndex: '100',
   },
 
   menu: {
@@ -94,8 +93,8 @@ const styles = {
     paddingLeft: '10px',
     [media.l]: {
       fontSize: '20px',
-      paddingLeft: '30px'
-    }
+      paddingLeft: '30px',
+    },
   },
 
   projectName: {
@@ -106,7 +105,7 @@ const styles = {
     [media.l]: {
       fontSize: '20px',
       padding: '0 25px',
-    }
+    },
   },
 
   saveAllWrapper: {
@@ -117,13 +116,13 @@ const styles = {
     [media.l]: {
       marginLeft: '15%',
       marginRight: '30px',
-    }
+    },
   },
 
   saveAll: {
     backgroundColor: colors.green,
     fontSize: '1em',
-    padding: '7px 20px'
+    padding: '7px 20px',
   },
 
   text: {
@@ -131,7 +130,7 @@ const styles = {
     fontSize: '16px',
     verticalAlign: 'middle',
     [media.l]: {
-      fontSize: '20px'
-    }
-  }
+      fontSize: '20px',
+    },
+  },
 };

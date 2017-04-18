@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-
 import Container from '../components/Container.react';
 
 @connect(state => ({ error: state.ui.get('error') }))
