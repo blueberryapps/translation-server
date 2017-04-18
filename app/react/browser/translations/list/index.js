@@ -9,6 +9,7 @@ import Menubar from '../../app/menu/Menubar.react';
 import Paginator from '../../components/Paginator.react';
 import paginateWith from '../../../common/ui/pagnateWith';
 import { composeLocales } from '../helpers';
+import Header from '../../app/Header.react';
 
 @connect(
   state => ({
@@ -32,13 +33,14 @@ export default class Translations extends PureComponent {
       totalCount,
       translatedCount,
       currentPage,
-      query,
+      // query,
       pagination,
       location,
     } = composeLocales(this.props);
 
     return (
       <div>
+        <Header />
         <Menubar
           totalCount={totalCount}
           localeId={localeId}

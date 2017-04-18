@@ -3,7 +3,7 @@ import { IndexRoute, Route } from 'react-router';
 
 import App from './app/App.react';
 import Homepage from './homepage';
-import Project from './projects/detail';
+// import Project from './projects/detail';
 import Translation from './translations/list';
 
 export default function createRoutes() {

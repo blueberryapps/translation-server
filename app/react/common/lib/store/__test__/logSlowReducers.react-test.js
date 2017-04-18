@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import logSlowReducers from '../logSlowReducers';
 
 const reducerFn = jest.fn();

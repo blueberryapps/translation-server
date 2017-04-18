@@ -4,6 +4,28 @@ import Radium from 'radium';
 import handleEvent from './handleEvent';
 import { colors } from '../globals';
 
+const getSelectedValue = (value) => {
+  if (typeof value === 'boolean') {
+    return value.toString();
+  }
+
+  if (typeof value === 'number' && !isNaN(value)) {
+    return value;
+  }
+
+  return value || '';
+};
+
+const renderOption = (option) => {
+  const { text, value } = option;
+  const optionText = text || value;
+  return (
+    <option key={value} value={typeof value === 'boolean' ? value.toString() : value}>
+      {optionText}
+    </option>
+  );
+};
+
 @Radium
 export default class Select extends React.PureComponent {
 
@@ -43,28 +65,6 @@ export default class Select extends React.PureComponent {
     value: 'Value'
   }
 
-  getSelectedValue(value) {
-    if (typeof value === 'boolean') {
-      return value.toString();
-    }
-
-    if (typeof value === 'number' && !isNaN(value)) {
-      return value;
-    }
-
-    return value || '';
-  }
-
-  renderOption(option) {
-    const { text, value } = option;
-    const optionText = text || value;
-    return (
-      <option key={value} value={typeof value === 'boolean' ? value.toString() : value}>
-        {optionText}
-      </option>
-    );
-  }
-
   render() {
     const {
       children,
@@ -79,7 +79,7 @@ export default class Select extends React.PureComponent {
       style,
       value
     } = this.props;
-    const selectedValue = this.getSelectedValue(value);
+    const selectedValue = getSelectedValue(value);
 
     return (
       <div style={[styles.selectWrapper, selectSize && styles.selectWrapper.size[selectSize]]}>
@@ -99,7 +99,7 @@ export default class Select extends React.PureComponent {
           {!!placeholder &&
             <option disabled key="blank" value="">{placeholder}</option>
           }
-          {children || options.map(this.renderOption)}
+          {children || options.map(renderOption)}
         </select>
       </div>
     );

@@ -7,9 +7,9 @@ export default class Translation extends PureComponent {
     note: '',
   };
   static propTypes = {
-    id: RPT.number.isRequired,
+    // id: RPT.number.isRequired,
     translationKey: RPT.string.isRequired,
-    note: RPT.string,
+    // note: RPT.string,
     localeId: RPT.string.isRequired,
     translations: RPT.arrayOf(
       RPT.shape({

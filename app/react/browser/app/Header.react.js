@@ -2,7 +2,7 @@ import Radium from 'radium';
 import React, { PropTypes as RPT } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push as pushLocation } from 'react-router-redux';
 
 import Button from '../components/Button.react';
 import Image from '../components/Image.react';
@@ -10,7 +10,7 @@ import Menu from './menu/Menu.react';
 import Search from '../components/Search.react';
 import { colors, media } from '../globals';
 
-@connect(() => ({}), dispatch => bindActionCreators({ push }, dispatch))
+@connect(() => ({}), dispatch => bindActionCreators({ push: pushLocation }, dispatch))
 @Radium
 export default class Header extends React.PureComponent {
   static propTypes = {

@@ -1,8 +1,8 @@
-import React, { PureComponent, PropTypes as RPT } from 'react';
+import React, { PureComponent } from 'react';
 
 export default class TranslateInput extends PureComponent {
   render() {
     // TODO
-    <div />;
+    return <div />;
   }
 }

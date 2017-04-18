@@ -2,6 +2,18 @@ import React, { PropTypes as RPT, PureComponent } from 'react';
 import ReactPaginate from 'react-paginate';
 import { withRouter } from 'react-router';
 
+/*
+  ReactPaginate calls "onPageChange" even on mount of component.
+  This way this redundant call is avoided, as "onPageChange" is
+  undefined by the time of mounting.
+*/
+function handleChangePage({ selected: page }) {
+  this.props.router.push({
+    ...this.props.location,
+    query: { ...this.props.location.query, page: page + 1 },
+  });
+}
+
 @withRouter
 export default class Paginator extends PureComponent {
   static defaultProps = {
@@ -9,17 +21,18 @@ export default class Paginator extends PureComponent {
   };
   static propTypes = {
     location: RPT.shape({ query: { page: RPT.string } }).isRequired,
-    router: RPT.shape({ push: RPT.func }).isRequired,
     totalPages: RPT.number,
   };
 
-  handleChangePage = ({ selected: page }) => {
-    this.props.router.push({
-      ...this.props.location,
-      // page is +1 becouse ReactPaginate works with zero indexes
-      query: { ...this.props.location.query, page: page + 1 },
-    });
-  };
+  constructor(props) {
+    super(props);
+    this.handleChangePage = () => {};
+  }
+
+  componentDidMount() {
+    this.handleChangePage = handleChangePage.bind(this);
+  }
+
   render() {
     const { totalPages, location: { query: page } } = this.props;
     return (
