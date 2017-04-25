@@ -1,23 +1,11 @@
 import Radium from 'radium';
-import React, { PropTypes as RPT } from 'react';
+import React from 'react';
 
 import handleEvent from './handleEvent';
 import { colors } from '../globals';
 
 @Radium
 export default class TextField extends React.PureComponent {
-
-  static propTypes = {
-    name: RPT.string.isRequired,
-    onBlur: RPT.func.isRequired,
-    onChange: RPT.func.isRequired,
-    onFocus: RPT.func.isRequired,
-    placeholder: RPT.string,
-    style: React.PropTypes.shape({}),
-    type: RPT.string.isRequired,
-    value: RPT.string
-  };
-
   static defaultProps = {
     optional: null,
     type: 'text',
@@ -25,6 +13,17 @@ export default class TextField extends React.PureComponent {
     style: {},
     value: ''
   };
+
+  props: {
+    name: string,
+    onBlur: Function,
+    onChange: Function,
+    onFocus: Function,
+    placeholder?: string,
+    style?: Object | Array<Object>,
+    type: string,
+    value?: string
+  }
 
   render() {
     const { name, placeholder, value, type, style, onChange, onBlur, onFocus } = this.props;

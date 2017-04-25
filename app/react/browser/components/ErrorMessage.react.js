@@ -1,8 +1,8 @@
-import React, { PureComponent, PropTypes as RPT } from 'react';
+import React, { PureComponent } from 'react';
 
 export default class ErrorMessage extends PureComponent {
-  static propTypes = {
-    message: RPT.string.isRequired,
+  props: {
+    message: string,
   };
 
   render() {

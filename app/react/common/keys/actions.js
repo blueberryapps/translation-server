@@ -27,3 +27,14 @@ export function fetchHierarchy({ params: { localeId } }) {
     meta: { localeId },
   });
 }
+
+export function saveTranslation(id, value) {
+  return ({ keysInterface }) => ({
+    type: 'SAVE_TRANSLATION',
+    payload: {
+      promise: keysInterface.update(id, value, {
+        error: `Translation: ${id} wasn't saved succesfuly.`
+      })
+    }
+  });
+}

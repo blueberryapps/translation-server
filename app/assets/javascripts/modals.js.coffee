@@ -1,6 +1,6 @@
 if $('.highlight_modal').length
 
-  $('.highlight_modal').click (event) ->
+  $('.highlight_modal').click (event: Event) ->
     data   = $(this).data()
     modal  = $(data.target)
     modal.on 'show.bs.modal', ->

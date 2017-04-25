@@ -1,5 +1,6 @@
+/* @flow */
 import Radium from 'radium';
-import React, { PropTypes as RPT } from 'react';
+import React from 'react';
 
 import Image from '../components/Image.react';
 import Menu from './menu/Menu.react';
@@ -7,14 +8,12 @@ import { colors } from '../globals';
 
 @Radium
 export default class Header extends React.PureComponent {
-
-  static propTypes = {
-    userName: RPT.string
-  }
-
   static defaultProps = {
     projectName: 'Dev Project',
     userName: 'Admin'
+  }
+  props: {
+    userName: string
   }
 
   render() {

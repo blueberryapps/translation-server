@@ -1,5 +1,5 @@
 import Radium from 'radium';
-import React, { PropTypes as RPT } from 'react';
+import React from 'react';
 import { colors, media } from '../globals';
 
 export const BUTTON_KIND_PRIMARY = 'primary';
@@ -11,28 +11,6 @@ export const BUTTON_SIZE_LARGE = 'large';
 
 @Radium
 export default class Button extends React.PureComponent {
-
-  static propTypes = {
-    children: RPT.node.isRequired,
-    decorated: RPT.bool,
-    disabled: RPT.bool,
-    kind: RPT.oneOf([
-      BUTTON_KIND_PRIMARY,
-      BUTTON_KIND_SECONDARY,
-      BUTTON_KIND_GHOST_LIGHT,
-      BUTTON_KIND_GHOST_DARK
-    ]).isRequired,
-    size: RPT.oneOf([
-      BUTTON_SIZE_NORMAL,
-      BUTTON_SIZE_LARGE
-    ]).isRequired,
-    style: RPT.oneOfType([
-      RPT.arrayOf(RPT.object),
-      RPT.object
-    ]),
-    type: RPT.string
-  };
-
   static defaultProps = {
     decorated: false,
     disabled: false,
@@ -41,6 +19,17 @@ export default class Button extends React.PureComponent {
     style: {},
     type: null
   };
+
+  props: {
+    children: Node,
+    decorated?: boolean,
+    disabled?: boolean,
+    kind: string,
+    size: string,
+    style?: Object | Array<Object>,
+    type?: string
+  }
+
 
   render() {
     const {

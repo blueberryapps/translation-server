@@ -1,8 +1,6 @@
+/* @flow */
 import Radium from 'radium';
-import React, { PropTypes as RPT } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { push as pushLocation } from 'react-router-redux';
+import React from 'react';
 
 import Button from '../components/Button.react';
 import Image from '../components/Image.react';
@@ -10,21 +8,20 @@ import Menu from './menu/Menu.react';
 import Search from '../components/Search.react';
 import { colors, media } from '../globals';
 
-@connect(() => ({}), dispatch => bindActionCreators({ push: pushLocation }, dispatch))
 @Radium
 export default class Header extends React.PureComponent {
-  static propTypes = {
-    menuShown: RPT.bool.isRequired,
-    projectName: RPT.string,
-    push: RPT.func.isRequired,
-    userName: RPT.string,
-  };
-
   static defaultProps = {
     menuShown: true,
     projectName: 'Dev Project',
     userName: 'Admin',
   };
+
+  props: {
+    menuShown: boolean,
+    projectName:string,
+    push: Function,
+    userName: string,
+  }
 
   handleClick() {
     const { push } = this.props;

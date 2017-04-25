@@ -1,10 +1,9 @@
-import React, { PropTypes as RPT } from 'react';
+/* @flow */
+import React from 'react';
 import Layout from '../layouts/ApplicationLayout.react';
 
 export default class App extends React.PureComponent {
-  static propTypes = {
-    children: RPT.node.isRequired,
-  };
+  props: { children: Node }
 
   render() {
     const { children } = this.props;

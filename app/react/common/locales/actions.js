@@ -1,7 +1,7 @@
 export const FETCH_LOCALE_PENDING = 'FETCH_LOCALE_PENDING';
 export const FETCH_LOCALE_FULFILLED = 'FETCH_LOCALE_FULFILLED';
 
-export const fetchLocale = ({ params: { localeId }, query: { page } }) =>
+export const fetchLocale = ({ params: { localeId }, location: { query: { page } } }) =>
   ({ localesInterface }) => ({
     type: 'FETCH_LOCALE',
     payload: {

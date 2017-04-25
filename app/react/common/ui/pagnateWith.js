@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes as RPT } from 'react';
+import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -7,21 +7,20 @@ export default function paginateWith(onPageChange) {
     @connect(() => ({}), { onPageChange })
     @withRouter
     class PageWrapper extends PureComponent {
-      static defaultProps = {
-        query: {},
-      };
-      static propTypes = {
-        onPageChange: RPT.func.isRequired,
-        query: RPT.shape({ page: RPT.string, edited: RPT.string }),
-      };
       componentWillReceiveProps(nextProps) {
         if (
-          this.props.query.page !== nextProps.query.page ||
-          this.props.query.edited !== nextProps.query.edited
+          this.props.location.query.page !== nextProps.location.query.page ||
+          this.props.location.query.edited !== nextProps.location.query.edited
         ) {
           this.props.onPageChange(nextProps);
         }
       }
+
+      props: {
+        onPageChange: Function,
+        location: { query: { page: string, edited: string } }
+      }
+
       render() {
         return <Decorated {...this.props} />;
       }

@@ -1,8 +1,15 @@
+/* @flow */
+import type { Action } from '../../globalTypes';
+
 export const FETCH_PROJECTS_PENDING = 'FETCH_PROJECTS_PENDING';
 export const FETCH_PROJECTS_FULFILLED = 'FETCH_PROJECTS_FULFILLED';
 
-export function fetchProjects() {
-  return ({ projectsInterface }) => ({
+type Payload = {
+  promise: Promise<Object>
+};
+
+export function fetchProjects(): Function {
+  return ({ projectsInterface }): Action<Payload> => ({
     type: 'FETCH_PROJECTS',
     payload: {
       promise: projectsInterface.getCollection({

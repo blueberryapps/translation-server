@@ -13,8 +13,8 @@ export default function reducer(state = new InitialState(), action) {
 
     case FETCH_LOCALE_FULFILLED:
       return state
-        .setIn(['list', action.meta.localeId], action.payload.locale)
-        .set('pending', false);
+        .set('pending', false)
+        .setIn(['list', action.meta.localeId], action.payload.locale);
 
     default:
       return state;

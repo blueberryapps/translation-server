@@ -1,21 +1,20 @@
 import Radium from 'radium';
-import React, { PropTypes as RPT } from 'react';
+import React from 'react';
 
 @Radium
 export default class Label extends React.PureComponent {
-
-  static propTypes = {
-    children: RPT.node.isRequired,
-    inheritedStyle: RPT.oneOfType([RPT.array, RPT.object]),
-    name: RPT.string,
-    optional: RPT.string
-  }
-
   static defaultProps = {
     inheritedStyle: {},
     name: 'Label',
     optional: ''
   };
+
+  props: {
+    children: Node,
+    inheritedStyle: Array<Object> | Object,
+    name?: string,
+    optional?: string
+  }
 
   render() {
     const { children, inheritedStyle, name, optional } = this.props;

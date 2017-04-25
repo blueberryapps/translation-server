@@ -1,6 +1,7 @@
+/* @flow */
 import autobind from 'core-decorators/lib/autobind';
 import Radium from 'radium';
-import React, { PropTypes as RPT } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -22,14 +23,14 @@ export default class Menubar extends React.PureComponent {
     translatedCount: 0,
     totalCount: 0,
   };
-  static propTypes = {
-    toggleHierarchy: RPT.func.isRequired,
-    isVerticalMenuShown: RPT.bool.isRequired,
-    translatedCount: RPT.number,
-    totalCount: RPT.number,
-    location: RPT.shape({ query: RPT.shape({}) }).isRequired,
-    router: RPT.shape({ push: RPT.func }).isRequired,
-  };
+  props: {
+    toggleHierarchy: Function,
+    isVerticalMenuShown: boolean,
+    translatedCount: number,
+    totalCount: number,
+    location: { query: Object },
+    push: Function
+  }
 
   @autobind handleToggleHierarchy() {
     const { isVerticalMenuShown, toggleHierarchy } = this.props;
@@ -38,14 +39,14 @@ export default class Menubar extends React.PureComponent {
   }
 
   handleShowUntranslated = () => {
-    this.props.router.push({
+    this.props.push({
       ...this.props.location,
       query: { ...this.props.location.query, edited: 'new' },
     });
   };
 
   handleShowAll = () => {
-    this.props.router.push({
+    this.props.push({
       ...this.props.location,
       query: { ...this.props.location.query, edited: 'all' },
     });

@@ -1,18 +1,28 @@
 // @flow
-import { List, Record } from 'immutable';
 import { FETCH_PROJECTS_PENDING, FETCH_PROJECTS_FULFILLED } from './actions';
 
-const InitialState = Record({
-  list: List([]),
-  pending: false,
-});
+import type { ProjectStore } from '../storeTypes';
+import type { Action } from '../../globalTypes';
 
-export default function reducer(state = new InitialState(), action = {}) {
+const initialState: ProjectStore = {
+  list: [],
+  pending: false
+};
+
+export default function reducer(state: ProjectStore = initialState, action: Action<*>) {
   switch (action.type) {
     case FETCH_PROJECTS_PENDING:
-      return state.set('pending', true);
+      return {
+        ...state,
+        pending: true
+      };
+
     case FETCH_PROJECTS_FULFILLED:
-      return state.set('pending', false).set('list', List(action.payload.projects));
+      return {
+        ...state,
+        pending: false,
+        list: action.payload.projects
+      };
 
     default:
       return state;

@@ -1,4 +1,4 @@
-import React, { PropTypes as RPT } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -14,8 +14,8 @@ import VerticalMenu from '../../app/menu/VerticalMenu.react';
   dispatch => bindActionCreators({}, dispatch),
 )
 export default class Project extends React.PureComponent {
-  static propTypes = {
-    isVerticalMenuShown: RPT.bool.isRequired,
+  props: {
+    isVerticalMenuShown: boolean,
   };
 
   render() {

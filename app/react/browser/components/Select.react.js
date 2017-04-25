@@ -1,4 +1,4 @@
-import React, { PropTypes as RPT } from 'react';
+import React from 'react';
 import Radium from 'radium';
 
 import handleEvent from './handleEvent';
@@ -26,32 +26,14 @@ const renderOption = (option) => {
   );
 };
 
+type Option = {
+  value?: string | number,
+  text?: string,
+  tooltip?: string
+}
+
 @Radium
 export default class Select extends React.PureComponent {
-
-  static propTypes = {
-    children: RPT.arrayOf(RPT.node),
-    error: RPT.string,
-    name: RPT.string.isRequired,
-    onBlur: RPT.func.isRequired,
-    onChange: RPT.func.isRequired,
-    onFocus: RPT.func.isRequired,
-    options: RPT.arrayOf(
-      RPT.shape({
-        value: RPT.oneOfType([RPT.string, RPT.number]),
-        text: RPT.string,
-        tooltip: RPT.string,
-      })
-    ),
-    placeholder: RPT.string,
-    selectSize: RPT.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-    style: RPT.oneOfType([
-      RPT.arrayOf(RPT.object),
-      RPT.object
-    ]),
-    value: RPT.oneOfType([RPT.bool, RPT.string, RPT.number])
-  }
-
   static defaultProps = {
     children: null,
     error: null,
@@ -63,6 +45,20 @@ export default class Select extends React.PureComponent {
     selectSize: 1,
     style: {},
     value: 'Value'
+  }
+
+  props: {
+    children?: Node,
+    error?: string,
+    name: string,
+    onBlur: Function,
+    onChange: Function,
+    onFocus: Function,
+    options: Array<Option>,
+    placeholder: string,
+    selectSize: number,
+    style: Object | Array<Object>,
+    value: string | boolean | number,
   }
 
   render() {
