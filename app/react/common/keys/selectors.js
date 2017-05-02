@@ -7,12 +7,14 @@ const getTranslationsEntity = state =>
   state.entities.translations;
 
 // eslint-disable-next-line import/prefer-default-export
-export const getProjectsMerged = createSelector(
+export const getKeysMerged = createSelector(
   getMainEntity,
   getTranslationsEntity,
   (keys, translations) => keys.map(key => ({
     ...key,
-    locales: key.translations.map(id => translations[id])
+    translations: key.translations.reduce((acc, id) => ({
+      ...acc, [translations[id].localeId]: translations[id]
+    }), {}),
   }))
 );
 

@@ -13,7 +13,9 @@ import Paginator from '../../components/Paginator.react';
 import paginateWith from '../../../common/ui/pagnateWith';
 import Header from '../../app/Header.react';
 import createWaiter from '../../../common/ui/waiter';
-
+import { getKeysMerged } from '../../../common/keys/selectors';
+import { getLocalesMerged } from '../../../common/locales/selectors';
+import { getProjectsMerged } from '../../../common/projects/selectors';
 import type { TranslationsProps } from '../types';
 
 const preloader = <div>Preloading</div>;
@@ -21,15 +23,15 @@ const waiter = createWaiter(preloader);
 
 @preload([fetchKeys, fetchLocale, fetchProjects])
 @connect(
-  (state, { params: { localeId, projectId } }) => {
-    return {
-      // keys: state.keys.getIn(['locales', localeId, 'keys']),
-      // pagination: state.keys.getIn(['locales', localeId, 'pagination']),
-      // project: state.projects.list[projectId],
-      // locale: state.locales.getIn(['list', localeId]),
-      // isVerticalMenuShown: state.ui.get('isVerticalMenuShown'),
-    };
-  },
+  (state, { params: { localeId, projectId } }) => ({
+    pagination: state.keys.pagination,
+    keys: getKeysMerged(state.keys),
+    currentLocale: getLocalesMerged(state.locales)
+      .filter(l => l.id === +localeId)[0] || {},
+    isVerticalMenuShown: state.ui.isVerticalMenuShown,
+    project: getProjectsMerged(state.projects)
+      .filter(p => p.id === +projectId)[0]
+  }),
   { fetchLocale, push: pushLocation },
 )
 @waiter(({ keys, locales, projects }) => ([
@@ -39,45 +41,53 @@ const waiter = createWaiter(preloader);
 ]))
 @paginateWith(fetchKeys)
 export default class Translations extends PureComponent {
-  static defaultProps = {
-    locale: {},
-    pagination: {},
-    keys: [],
-    params: {}
-  };
+
   props: TranslationsProps
 
   render() {
+    const {
+      pagination,
+      location,
+      isVerticalMenuShown,
+      keys,
+      currentLocale,
+      project,
+      params: {
+        localeId
+      }
+    } = this.props;
+
     return (
       <div>
-        {/* <Header push={push} />
+        <Header push={this.props.push} />
         <Menubar
-          totalCount={translationCount}
-          translatedCount={translatedCount}
-          location={location}
-          push={push}
+          totalCount={currentLocale && currentLocale.translationCount}
+          translatedCount={currentLocale && currentLocale.translatedCount}
+          location={this.props.location}
+          push={this.props.push}
           isVerticalMenuShown={isVerticalMenuShown}
-          toggleHierarchy={toggleHierarchy}
+          toggleHierarchy={this.props.toggleHierarchy}
         />
         <div style={styles.wrapper}>
           {isVerticalMenuShown && <VerticalMenu />}
-          {keys.map(key => (
-              <Translation
-                saveTranslation={saveTranslation}
-                fillTranslation={fillTranslation}
 
-                {...key}
-              />
+          {keys.map(key => (
+            <Translation
+              saveTranslation={this.props.saveTranslation}
+              fillTranslation={this.props.fillTranslation}
+              translationKey={key.key}
+              page={location.query.page}
+              currentTranslation={key.translations[localeId]}
+              defaultTranslation={project && key.translations[project.defaultLocaleId]}
+              {...key}
+            />
           ))}
         </div>
-        {pagination && <Paginator {...pagination} location={location} />} */}
+        {pagination && <Paginator {...pagination} location={location} />}
       </div>
     );
   }
 }
-
-// unless this locale is default get defaultTranslation
-// fetch defaultLocale
 
 const styles = {
   wrapper: {

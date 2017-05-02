@@ -21,11 +21,15 @@ export default function reducer(state = initialState, action) {
           ...state.list,
           ...action.payload.result.keys
         ],
-        pedning: false,
+        pending: false,
         entities: {
           translations: {
             ...state.entities.translations,
             ...action.payload.entities.translations
+          },
+          keys: {
+            ...state.entities.keys,
+            ...action.payload.entities.keys
           }
         },
         pagination: action.payload.result.meta.pagination

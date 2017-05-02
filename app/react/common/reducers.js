@@ -7,7 +7,7 @@ import ui from './ui/reducer';
 import projects from './projects/reducer';
 import keys from './keys/reducer';
 import locales from './locales/reducer';
-import translations from './translations/reducer';
+import forms from './forms/reducer';
 
 import type { Action } from '../globalTypes';
 
@@ -29,7 +29,7 @@ const store: Store = {
   projects,
   keys,
   locales,
-  translations,
+  forms
 };
 
 export default store;
