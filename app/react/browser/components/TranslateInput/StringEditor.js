@@ -4,23 +4,19 @@ import React, { Component } from 'react';
 export default class StringEditor extends Component {
   props: {
     value: string,
-    currentValue: string,
+    defaultValue: string | null,
     onChange: Function,
-    id: number,
-    localeId: number
+    // id: number,
+    // localeId: number
   };
 
   handleValueChange = (event: Event) => {
     event.preventDefault();
-    this.props.onChange({
-      id: this.props.id,
-      localeId: this.props.localeId
-      /* $FlowFixMe */
-    }, event.target.value);
+    this.props.onChange(event.target.value);
   }
 
   render() {
-    const { value, currentValue } = this.props;
+    const { value, defaultValue } = this.props;
     return (
       <div>
         <div>
@@ -30,8 +26,8 @@ export default class StringEditor extends Component {
           <input
             type="text"
             onChange={this.handleValueChange}
-            defaultValue={value}
-            value={currentValue}
+            defaultValue={defaultValue}
+            value={value}
             placeholder="Insert your translation here"
           />
         </div>

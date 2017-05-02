@@ -1,23 +1,36 @@
-import { Record, Map } from 'immutable';
 import { FETCH_KEYS_PENDING, FETCH_KEYS_FULFILLED } from './actions';
 
-const InitialState = Record({
-  locales: Map({}),
+const initialState = {
+  list: [],
   pending: false,
-  pagination: Map({}),
-});
+  entities: {
+    translations: {}
+  },
+  pagination: {}
+};
 
-export default function reducer(state = new InitialState(), action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_KEYS_PENDING:
-      return state.set('pending', true);
-    case FETCH_KEYS_FULFILLED: {
-      const pagination = Map(action.payload.meta.pagination);
-      return state
-        .set('pending', false)
-        .setIn(['locales', action.meta.localeId], action.payload.keys)
-        .set('pagination', pagination);
-    }
+      return { ...state, pending: true };
+
+    case FETCH_KEYS_FULFILLED:
+      return {
+        ...state,
+        list: [
+          ...state.list,
+          ...action.payload.result.keys
+        ],
+        pedning: false,
+        entities: {
+          translations: {
+            ...state.entities.translations,
+            ...action.payload.entities.translations
+          }
+        },
+        pagination: action.payload.result.meta.pagination
+      };
+
     default:
       return state;
   }

@@ -14,7 +14,7 @@ export default class ArrayEditor extends Component {
   }
 
   props: {
-    onChange: Function
+    onChange: Function,
   }
 
   changeArraySize = (index: number) => (event: Event) => {
@@ -32,6 +32,10 @@ export default class ArrayEditor extends Component {
   }
 
   render() {
+    const {
+      onChange,
+    } = this.props;
+
     return (
       <div>
         <ul>

@@ -11,6 +11,7 @@ export default function createDependencyInjections() {
       localesInterface: createInterface('locales'),
       hierarchyInterface: createInterface('hierarchy'),
       keysInterface: createInterface('keys'),
+      translationsInterface: createInterface('translations')
     },
     // add api response
   };

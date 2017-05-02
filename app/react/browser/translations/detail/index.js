@@ -1,9 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { Flex, Box } from 'radium-flex';
 import TranslateInput from '../../components/TranslateInput';
-import { saveTranslation } from '../../../common/keys/actions';
 
 type TranslationType = {
   edited: boolean,
@@ -21,11 +19,10 @@ type TranslationProps = {
   dataType: string,
   translations: Array<TranslationType>,
   defaultLocaleId: string,
+  fillTranslation: Function,
+  values: Object
 };
 
-@connect(() => ({}), {
-  saveTranslation
-})
 export default class Translation extends PureComponent {
   static defaultProps = {
     note: '',
@@ -39,7 +36,9 @@ export default class Translation extends PureComponent {
       localeId,
       dataType,
       note,
-      defaultLocaleId
+      defaultLocaleId,
+      fillTranslation,
+      values
     } = this.props;
 
     return (
@@ -48,24 +47,22 @@ export default class Translation extends PureComponent {
           {translationKey}
         </Box>
         <Box>
-          {translations
-            .filter(trans => +trans.localeId === defaultLocaleId)
-            .map(translation => (
-              <p>{translation.text || 'No default translation for this key'}</p>
-            ))}
+          {/* DEFAULT TRANSLATION TEXT */}
         </Box>
         <Box col={12}>
-          {translations
+          {/* {translations
             .filter(trans => +trans.localeId === +localeId)
             .map(translation => (
               <TranslateInput
                 key={translation.id}
                 dataType={dataType}
                 note={note}
-                onSave={this.props.saveTranslation}
+                value={values.get(translation.id).value}
+                onChange={fillTranslation.bind(null, localeId, translation.id)}
+                onSave={this.props.saveTranslation.bind(null, localeId, translation.id)}
                 translation={translation}
               />
-            ))}
+            ))} */}
         </Box>
       </Flex>
     );

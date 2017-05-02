@@ -1,34 +1,36 @@
+/* @flow */
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import preload from 'redux-preload';
 import { Flex, Box } from 'radium-flex';
 import Project from './components/Project';
+import { getProjectsMerged } from '../../../common/projects/selectors';
 
 import * as actions from '../../../common/projects/actions';
 
-import type { ProjectT } from '../types';
+import type { ProjectType } from '../types';
 
 @preload(actions.fetchProjects)
 @connect(
   ({ projects }) => ({
-    projects,
+    projects: getProjectsMerged(projects)
   }),
   dispatch => bindActionCreators(actions, dispatch),
 )
 export default class Projects extends React.PureComponent {
   props: {
-    projects: {
-      list: Array<ProjectT> // eslint-disable-line react/no-unused-prop-types
-    }
+    projects: Array<ProjectType> // eslint-disable-line react/no-unused-prop-types
   }
 
   render() {
-    const { projects: { list } } = this.props;
+    const { projects } = this.props;
     return (
       <Flex>
         <Box col={12}>
-          {list.map(project => <Project key={project.id} {...project} />)}
+          {projects.map((project: ProjectType) =>
+            <Project key={project.id} {...project} />)
+          }
         </Box>
       </Flex>
     );

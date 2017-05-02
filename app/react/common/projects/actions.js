@@ -1,5 +1,6 @@
 /* @flow */
 import type { Action } from '../../globalTypes';
+import { projectSchema } from '../schemas';
 
 export const FETCH_PROJECTS_PENDING = 'FETCH_PROJECTS_PENDING';
 export const FETCH_PROJECTS_FULFILLED = 'FETCH_PROJECTS_FULFILLED';
@@ -14,6 +15,7 @@ export function fetchProjects(): Function {
     payload: {
       promise: projectsInterface.getCollection({
         error: 'Projects failed to fetch',
+        schema: { projects: [projectSchema] }
       }),
     },
   });

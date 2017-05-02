@@ -6,7 +6,11 @@ import type { Action } from '../../globalTypes';
 
 const initialState: ProjectStore = {
   list: [],
-  pending: false
+  pending: false,
+  entities: {
+    locales: {},
+    projects: {}
+  }
 };
 
 export default function reducer(state: ProjectStore = initialState, action: Action<*>) {
@@ -17,12 +21,15 @@ export default function reducer(state: ProjectStore = initialState, action: Acti
         pending: true
       };
 
-    case FETCH_PROJECTS_FULFILLED:
+    case FETCH_PROJECTS_FULFILLED: {
+      const { entities, result: { projects } } = action.payload;
       return {
         ...state,
         pending: false,
-        list: action.payload.projects
+        list: projects,
+        entities: { ...state.entities, ...entities }
       };
+    }
 
     default:
       return state;

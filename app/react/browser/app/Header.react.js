@@ -23,11 +23,7 @@ export default class Header extends React.PureComponent {
     userName: string,
   }
 
-  handleClick() {
-    const { push } = this.props;
-
-    push('/');
-  }
+  handleClick = () => this.props.push('/');
 
   render() {
     const { menuShown, projectName, userName } = this.props;
@@ -38,7 +34,7 @@ export default class Header extends React.PureComponent {
           <Image
             src={'/assets/backArrow.png'}
             style={styles.backButton}
-            onClick={this.handleClick.bind(this)}
+            onClick={this.handleClick}
           />
           <span style={styles.projectName}>{projectName}</span>
           <span style={styles.text}>Translations</span>

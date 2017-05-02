@@ -1,17 +1,21 @@
+import { keySchema } from '../schemas';
+
+const FETCH_KEYS = 'FETCH_KEYS';
 export const FETCH_KEYS_PENDING = 'FETCH_KEYS_PENDING';
 export const FETCH_KEYS_FULFILLED = 'FETCH_KEYS_FULFILLED';
 
 export function fetchKeys({ params: { localeId }, location: { query: { page, edited } } }) {
   return ({ keysInterface }) => ({
-    type: 'FETCH_KEYS',
+    type: FETCH_KEYS,
     payload: {
       promise: keysInterface.getCollection({
         error: 'Keys failed to fecth',
         query: { page, edited },
         prefix: `locales/${localeId}`,
-      }),
+        schema: { keys: [keySchema] }
+      })
     },
-    meta: { localeId, page },
+    meta: { localeId }
   });
 }
 
@@ -25,16 +29,5 @@ export function fetchHierarchy({ params: { localeId } }) {
       }),
     },
     meta: { localeId },
-  });
-}
-
-export function saveTranslation(id, value) {
-  return ({ keysInterface }) => ({
-    type: 'SAVE_TRANSLATION',
-    payload: {
-      promise: keysInterface.update(id, value, {
-        error: `Translation: ${id} wasn't saved succesfuly.`
-      })
-    }
   });
 }

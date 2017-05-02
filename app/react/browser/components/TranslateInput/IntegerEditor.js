@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 
 export default class IntegerEditor extends Component {
   props: {
-    value: string,
-    currentValue: string,
+    value: number,
+    defaultValue: number,
     onChange: Function,
     id: number,
     localeId: number
@@ -20,7 +20,7 @@ export default class IntegerEditor extends Component {
   }
 
   render() {
-    const { value, currentValue } = this.props;
+    const { value, defaultValue } = this.props;
     return (
       <div>
         <div>
@@ -30,8 +30,8 @@ export default class IntegerEditor extends Component {
           <input
             type="number"
             onChange={this.handleValueChange}
-            defaultValue={+value}
-            value={currentValue}
+            defaultValue={defaultValue}
+            value={value}
             placeholder="Insert your translation here"
           />
         </div>

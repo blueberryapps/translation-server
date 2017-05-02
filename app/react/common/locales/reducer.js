@@ -1,20 +1,36 @@
-import { Record, Map } from 'immutable';
 import { FETCH_LOCALE_PENDING, FETCH_LOCALE_FULFILLED } from './actions';
 
-const InitialState = new Record({
+const initialState = {
   pending: false,
-  list: new Map({}),
-});
+  list: [],
+  entities: {
+    locales: {}
+  }
+};
 
-export default function reducer(state = new InitialState(), action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_LOCALE_PENDING:
-      return state.set('pending', true);
+      return {
+        ...state,
+        pending: true
+      };
 
     case FETCH_LOCALE_FULFILLED:
-      return state
-        .set('pending', false)
-        .setIn(['list', action.meta.localeId], action.payload.locale);
+      return {
+        pending: false,
+        list: [
+          ...state.list,
+          action.payload.result.locale
+        ],
+        entities: {
+          ...state.entities,
+          locales: {
+            ...state.entities.locales,
+            ...action.payload.entities.locales
+          }
+        }
+      };
 
     default:
       return state;

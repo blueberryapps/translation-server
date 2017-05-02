@@ -1,4 +1,4 @@
-import { LocaleType } from '../locales/types'
+import { LocaleType } from '../locales/types';
 
 export type ProjectType = {
   defaultLocaleId: number,

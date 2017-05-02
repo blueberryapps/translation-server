@@ -12,7 +12,7 @@ export type TranslationsProps = {
   params: { localeId: string },
   toggleHierarchy: Function,
   location: { query: { edited: boolean} },
-  project: ProjectType
+  project: ProjectType,
 };
 
 export type TranslationType = {

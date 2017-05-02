@@ -7,15 +7,18 @@ import ui from './ui/reducer';
 import projects from './projects/reducer';
 import keys from './keys/reducer';
 import locales from './locales/reducer';
+import translations from './translations/reducer';
 
 import type { Action } from '../globalTypes';
 
 import type {
-  ProjectStore
+  ProjectStore,
+  TranslationStore
 } from './storeTypes';
 
 type Store = {
-  projects: (state: ProjectStore, action: Action<*>) => ProjectStore
+  projects: (state: ProjectStore, action: Action<*>) => ProjectStore,
+  translations: (state: TranslationStore, action: Action<*>) => TranslationStore
 };
 
 const store: Store = {
@@ -26,6 +29,7 @@ const store: Store = {
   projects,
   keys,
   locales,
+  translations,
 };
 
 export default store;

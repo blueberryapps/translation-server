@@ -29,7 +29,7 @@ export default class TranslateInput extends PureComponent {
   };
 
   handleSave = () => this.props
-    .onSave(this.props.translation.id, this.props.value);
+    .onSave(this.props.value);
 
   render() {
     const {
@@ -44,18 +44,17 @@ export default class TranslateInput extends PureComponent {
       },
     } = this.props;
     const Editor = EditorTypeRegistry[dataType];
-
     return (
       <div>
         <Editor
-          currentValue={value}
+          value={value}
           edited={edited}
           onChange={onChange}
-          value={text}
+          defaultValue={text}
           id={id}
           localeId={localeId}
         />
-        <button onClick={this.handleSave} />
+        <button onClick={this.handleSave}>Save</button>
       </div>
     );
   }
