@@ -1,21 +1,29 @@
 import { createSelector } from 'reselect';
+import { List, Map } from 'immutable';
 
-const getMainEntity = state =>
-  state.list.map(id => state.entities.keys[id]);
+// eslint-disable-next-line no-confusing-arrow
+const getMainEntity = ({ page, edited }) => ({ keys }) => {
+  const lists = keys.get('lists');
+  return !lists.isEmpty() && lists.getIn([edited, page]) ?
+            lists.getIn([edited, page]).map(id =>
+              keys.getIn(['entities', 'keys', `${id}`]))
+          : List();
+};
 
-const getTranslationsEntity = state =>
-  state.entities.translations;
+const getTranslationsEntity = ({ keys }) =>
+  keys.getIn(['entities', 'translations']);
 
 // eslint-disable-next-line import/prefer-default-export
-export const getKeysMerged = createSelector(
-  getMainEntity,
-  getTranslationsEntity,
-  (keys, translations) => keys.map(key => ({
-    ...key,
-    translations: key.translations.reduce((acc, id) => ({
-      ...acc, [translations[id].localeId]: translations[id]
-    }), {}),
-  }))
-);
+export const getKeysMerged = query =>
+  createSelector(
+    getMainEntity(query),
+    getTranslationsEntity,
+    (keys, translations) =>
+      keys.map(key =>
+        key.set('translations', key.get('translations').reduce((acc, id) =>
+          acc.set(translations.getIn([`${id}`, 'localeId']), translations.get(`${id}`)), new Map()),
+        ),
+      )
+  );
 
-// USAGE: getProjectsMerged(state.projects);
+// USAGE: getKeysMerged(page)(state.keys);

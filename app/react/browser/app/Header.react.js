@@ -1,14 +1,17 @@
 /* @flow */
 import Radium from 'radium';
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Button from '../components/Button.react';
 import Image from '../components/Image.react';
 import Menu from './menu/Menu.react';
 import Search from '../components/Search.react';
 import { colors, media } from '../globals';
+import { saveAllFields } from '../../common/forms/actions';
 
 @Radium
+@connect(null, { saveAllFields })
 export default class Header extends React.PureComponent {
   static defaultProps = {
     menuShown: true,
@@ -21,9 +24,13 @@ export default class Header extends React.PureComponent {
     projectName:string,
     push: Function,
     userName: string,
+    saveAllFields: Function,
+    page: string,
   }
 
   handleClick = () => this.props.push('/');
+
+  handleSaveAll = () => this.props.saveAllFields(this.props.page)
 
   render() {
     const { menuShown, projectName, userName } = this.props;
@@ -40,7 +47,7 @@ export default class Header extends React.PureComponent {
           <span style={styles.text}>Translations</span>
           <Search />
           <div style={styles.saveAllWrapper}>
-            <Button style={styles.saveAll}>Save all</Button>
+            <Button onClick={this.handleSaveAll} style={styles.saveAll}>Save all</Button>
           </div>
           <Menu style={styles.menu} menuShown={menuShown} user={userName} />
         </header>

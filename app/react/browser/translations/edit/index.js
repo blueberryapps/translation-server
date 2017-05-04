@@ -14,17 +14,24 @@ const matchEditor = {
 
 @connect((state, { page, translation: { id } }) => {
   const pages = state.forms.getIn(['translations', 'pages']);
-  // console.log('[agas]', pages)
+  // console.log('pre', id, !pages.isEmpty() && pages.get(page).toJS(), !pages.isEmpty() && pages.get(page) && pages.get(page).get(id))
   return {
     // eslint-disable-next-line
-    field: pages && pages.get(page) && pages.get(page).get(id).toJS() || {}
+    field: !pages.isEmpty() && pages.get(page) && pages.get(page).get(id) || new Map()
   };
 }, actions)
 export default class TranslationEditor extends Component {
   componentDidMount() {
     const { page, translation: { id, text } } = this.props;
-    this.props.initField(page, id, text);
+    const field = this.props.field.size ? this.props.field : { value: text, saved: true};
+
+    this.props.initField(page, id, field);
   }
+
+  // componentWillReceiveProps({ initField, translation: { page, id, text } }) {
+  //   // console.log('changing', this.props.translation.id !== id)
+  //   if (this.props.translation.id !== id) initField(page, id, text)
+  // }
 
   render() {
     const {
@@ -35,18 +42,19 @@ export default class TranslationEditor extends Component {
       changeField,
       saveField
     } = this.props;
-
+    // console.log('field', field)
     const Editor = matchEditor[dataType];
-
     return (
       <div>
         <Editor
           // identificator={id}
-          onSubmit={saveField.bind(null, page, id)}
-          onChange={changeField.bind(null, page, id)}
+          fieldInfo={{ page, fieldId: id }}
+          onSubmit={saveField}
+          onChange={changeField}
           onError
-          saved={field.saved}
-          value={field.value}
+          dataType={dataType}
+          saved={field.get('saved')}
+          value={field.get('value')}
         />
       </div>
     );

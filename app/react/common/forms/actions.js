@@ -2,40 +2,64 @@ export const CHANGE_FIELD = 'CHANGE_FIELD';
 export const SAVE_FIELD = 'SAVE_FIELD';
 export const SAVE_FIELD_FULFILLED = 'SAVE_FIELD_FULFILLED';
 export const SAVE_ALL_FIELDS = 'SAVE_ALL_FIELDS';
+export const SAVE_ALL_FIELDS_FULFILLED = 'SAVE_ALL_FIELDS_FULFILLED';
 export const INIT_FIELD = 'INIT_FIELD';
 
-export const changeField = (page, fieldId, value) => () => ({
+export const changeField = (value, { fieldId, page }) => () => ({
   type: CHANGE_FIELD,
   payload: {
+    value,
+  },
+  meta: {
     page,
     fieldId,
-    value
   },
 });
 
-export const initField = (page, fieldId, value) => () => ({
+export const initField = (page, fieldId, field) => () => ({
   type: INIT_FIELD,
   payload: {
+    field,
+  },
+  meta: {
     page,
     fieldId,
-    value
   },
 });
 
-export const saveField = (page, fieldId, text) => ({ translationsInterface }) => ({
+export const saveField = (text, { fieldId, page }) => ({
+  translationsInterface,
+}) => ({
   type: SAVE_FIELD,
   payload: {
-    promise: translationsInterface.update(fieldId, { text }),
+    promise: translationsInterface.update(fieldId, { text }, {
+      error: 'Translation failed to save'
+    }),
+  },
+  meta: {
     page,
-    fieldId
-  }
+    fieldId,
+  },
 });
 
-// export const saveAllFields = (page) => ({
-//   type: SAVE_ALL_FIELDS,
-//   payload: {
-//     promise: translationsInterface.update('', {}, {
-//       baseUrl: '/api_frontend/v1/translations'
-//     })
-//   }
-// })
+
+const stateToBody = translations => ({
+  translations: Object.keys(translations)
+    .filter(key => !translations[key].saved)
+    .map(key => ({
+      text: translations[key].value,
+      id: key,
+    })),
+});
+
+export const saveAllFields = page => ({ getState, translationsInterface }) => ({
+  type: SAVE_ALL_FIELDS,
+  payload: {
+    promise: translationsInterface.update(
+      null,
+      stateToBody(getState().forms.getIn(['translations', 'pages', page]).toJS()),
+      { error: 'Translations failed to save' },
+    ),
+  },
+  meta: { page }
+});

@@ -10,7 +10,7 @@ import Translation from '../detail';
 import VerticalMenu from '../../app/menu/VerticalMenu.react';
 import Menubar from '../../app/menu/Menubar.react';
 import Paginator from '../../components/Paginator.react';
-import paginateWith from '../../../common/ui/pagnateWith';
+import queryListener from '../../../common/ui/queryListener';
 import Header from '../../app/Header.react';
 import createWaiter from '../../../common/ui/waiter';
 import { getKeysMerged } from '../../../common/keys/selectors';
@@ -23,9 +23,9 @@ const waiter = createWaiter(preloader);
 
 @preload([fetchKeys, fetchLocale, fetchProjects])
 @connect(
-  (state, { params: { localeId, projectId } }) => ({
+  (state, { params: { localeId, projectId }, location: { query } }) => ({
     pagination: state.keys.pagination,
-    keys: getKeysMerged(state.keys),
+    keys: getKeysMerged(query)(state).toJS(),
     currentLocale: getLocalesMerged(state.locales)
       .filter(l => l.id === +localeId)[0] || {},
     isVerticalMenuShown: state.ui.isVerticalMenuShown,
@@ -39,7 +39,11 @@ const waiter = createWaiter(preloader);
   keys.pending,
   projects.pending
 ]))
-@paginateWith(fetchKeys)
+@queryListener((trigger, props) => {
+  if (trigger.indexOf('page') > -1 || trigger.indexOf('edited') > -1) return fetchKeys.bind(null, props);
+  return { type: 'QUERY_CHANGED', payload: { trigger, props } };
+})
+
 export default class Translations extends PureComponent {
 
   props: TranslationsProps
@@ -47,6 +51,7 @@ export default class Translations extends PureComponent {
   render() {
     const {
       pagination,
+      location: { query: { page } },
       location,
       isVerticalMenuShown,
       keys,
@@ -54,16 +59,16 @@ export default class Translations extends PureComponent {
       project,
       params: {
         localeId
-      }
+      },
     } = this.props;
 
     return (
       <div>
-        <Header push={this.props.push} />
+        <Header push={this.props.push} page={page} />
         <Menubar
           totalCount={currentLocale && currentLocale.translationCount}
           translatedCount={currentLocale && currentLocale.translatedCount}
-          location={this.props.location}
+          location={location}
           push={this.props.push}
           isVerticalMenuShown={isVerticalMenuShown}
           toggleHierarchy={this.props.toggleHierarchy}
@@ -76,7 +81,7 @@ export default class Translations extends PureComponent {
               saveTranslation={this.props.saveTranslation}
               fillTranslation={this.props.fillTranslation}
               translationKey={key.key}
-              page={location.query.page}
+              page={page}
               currentTranslation={key.translations[localeId]}
               defaultTranslation={project && key.translations[project.defaultLocaleId]}
               {...key}

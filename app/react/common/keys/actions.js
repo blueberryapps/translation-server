@@ -15,7 +15,7 @@ export function fetchKeys({ params: { localeId }, location: { query: { page, edi
         schema: { keys: [keySchema] }
       })
     },
-    meta: { localeId }
+    meta: { localeId, page, edited }
   });
 }
 
@@ -24,7 +24,7 @@ export function fetchHierarchy({ params: { localeId } }) {
     type: 'FETCH_HIERARCHY',
     payload: {
       promise: hierarchyInterface.getCollection({
-        error: 'Hierarchy failed to fecth',
+        error: 'Hierarchy failed to fetch',
         prefix: `locales/${localeId}/keys`,
       }),
     },
