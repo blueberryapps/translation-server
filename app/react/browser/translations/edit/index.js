@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SimpleEditor } from './editors';
+import { SimpleEditor, BooleanEditor, HTMLEditor } from './editors';
 import * as actions from '../../../common/forms/actions';
 
 const matchEditor = {
@@ -8,13 +8,13 @@ const matchEditor = {
   string: SimpleEditor,
   integer: SimpleEditor,
   array: SimpleEditor,
-  boolean: SimpleEditor,
+  boolean: BooleanEditor,
   symbol: SimpleEditor,
+  html: HTMLEditor
 };
 
 @connect((state, { page, translation: { id } }) => {
   const pages = state.forms.getIn(['translations', 'pages']);
-  // console.log('pre', id, !pages.isEmpty() && pages.get(page).toJS(), !pages.isEmpty() && pages.get(page) && pages.get(page).get(id))
   return {
     // eslint-disable-next-line
     field: !pages.isEmpty() && pages.get(page) && pages.get(page).get(id) || new Map()
@@ -28,11 +28,6 @@ export default class TranslationEditor extends Component {
     this.props.initField(page, id, field);
   }
 
-  // componentWillReceiveProps({ initField, translation: { page, id, text } }) {
-  //   // console.log('changing', this.props.translation.id !== id)
-  //   if (this.props.translation.id !== id) initField(page, id, text)
-  // }
-
   render() {
     const {
       field,
@@ -40,18 +35,20 @@ export default class TranslationEditor extends Component {
       translation: { text, id },
       page,
       changeField,
-      saveField
+      saveField,
+      registerPressKey,
+      pressedKeyCode
     } = this.props;
-    // console.log('field', field)
     const Editor = matchEditor[dataType];
     return (
       <div>
         <Editor
-          // identificator={id}
           fieldInfo={{ page, fieldId: id }}
           onSubmit={saveField}
           onChange={changeField}
           onError
+          registerPressKey={registerPressKey}
+          pressedKeyCode={pressedKeyCode}
           dataType={dataType}
           saved={field.get('saved')}
           value={field.get('value')}

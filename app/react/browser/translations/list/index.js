@@ -48,6 +48,15 @@ export default class Translations extends PureComponent {
 
   props: TranslationsProps
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      pressedKeyCode: null
+    };
+  }
+
+  registerPressKey = ({ keyCode }) => this.setState({ pressedKeyCode: keyCode })
+
   render() {
     const {
       pagination,
@@ -82,6 +91,8 @@ export default class Translations extends PureComponent {
               fillTranslation={this.props.fillTranslation}
               translationKey={key.key}
               page={page}
+              registerPressKey={this.registerPressKey}
+              pressedKeyCode={this.state.pressedKeyCode}
               currentTranslation={key.translations[localeId]}
               defaultTranslation={project && key.translations[project.defaultLocaleId]}
               {...key}

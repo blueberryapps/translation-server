@@ -34,6 +34,8 @@ export default class Translation extends PureComponent {
       currentTranslation,
       dataType,
       note,
+      registerPressKey,
+      pressedKeyCode,
       page,
     } = this.props;
 
@@ -54,6 +56,8 @@ export default class Translation extends PureComponent {
           <TranslationEditor
             translation={currentTranslation}
             dataType={dataType}
+            registerPressKey={registerPressKey}
+            pressedKeyCode={pressedKeyCode}
             page={page}
           />
         </Box>

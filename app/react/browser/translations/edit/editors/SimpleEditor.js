@@ -20,27 +20,32 @@ export default class SimpleEditor extends Component {
     this.props.onChange(e.target.value, this.props.fieldInfo);
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.onSubmit(this.props.value, this.props.fieldInfo);
+  handleBlur = (e) => {
+    if (this.props.pressedKeyCode === 9) this.handleSubmit();
+  }
+
+  handleSubmit = () => {
+    const { fieldInfo, value } = this.props;
+    // console.log('fiel', fieldInfo, value)
+    this.props.onSubmit(value, fieldInfo);
   }
 
   render() {
-    // console.log('I\'m editor =>', this.props.onChange);
-    const { value, dataType } = this.props;
 
+    const { value, dataType, saved } = this.props;
+
+    // console.log('ppp', saved)
     return (
       <div>
         <form>
           <input
             type={typeRegistry[dataType]}
             value={value}
+            onKeyDown={this.props.registerPressKey}
             onChange={this.handleChange}
+            onBlur={this.handleBlur}
           />
-          <button
-            onClick={this.handleSubmit}
-            style={{ backgroundColor: this.props.saved ? null : 'green' }}
-          >Save</button>
+          {!saved && <span>Unsaved</span>}
         </form>
       </div>
     );
