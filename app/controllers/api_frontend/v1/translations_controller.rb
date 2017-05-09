@@ -9,7 +9,7 @@ module APIFrontend
       end
 
       def update
-        if @translation.update(translation_params)
+        if @translation.update(translation_params.merge(edited: true))
           render json: @translation
         else
           render status: 400, json: { errors: @translation.errors }

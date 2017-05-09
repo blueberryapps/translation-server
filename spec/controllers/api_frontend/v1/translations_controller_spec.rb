@@ -8,10 +8,14 @@ RSpec.describe APIFrontend::V1::TranslationsController, type: :controller do
   let!(:key)     { project.keys.first }
 
   let!(:translation) do
-    key.translations.where(locale: locale).first
+    key
+      .translations
+      .where(locale: locale)
+      .first
+      .tap { |t| t.update(edited: false) }
   end
 
-  before         { sign_in user }
+  before { sign_in user }
 
   let(:valid_attributes) {
     attributes_for :translation
@@ -76,6 +80,10 @@ RSpec.describe APIFrontend::V1::TranslationsController, type: :controller do
       it 'responses with data' do
         expect(api_response.translation.text).to eq('changed text')
       end
+
+      it 'responses with edited status' do
+        expect(api_response.translation.edited).to eq(true)
+      end
     end
   end
 
@@ -95,6 +103,7 @@ RSpec.describe APIFrontend::V1::TranslationsController, type: :controller do
 
       it 'responses with data' do
         expect(api_response.translation.text).to eq('changed text')
+        expect(translation.reload.text).to eq('changed text')
       end
     end
   end
