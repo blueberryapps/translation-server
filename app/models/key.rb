@@ -1,7 +1,7 @@
 class Key < ActiveRecord::Base
   include Resolvable
 
-  DATA_TYPES = %w(string array integer float symbol boolean)
+  DATA_TYPES = %w(string html array integer float symbol boolean)
   BOOL_REGEXP = /^(true|t|yes|y|1)$/i
   NEW_LINES_REGEXP = /[\r\n]+/
 
