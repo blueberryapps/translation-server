@@ -1,3 +1,4 @@
+/* @flow */
 import React, { Component } from 'react';
 
 const typeRegistry = {
@@ -7,34 +8,41 @@ const typeRegistry = {
   float: 'number',
 };
 
+type PropTypes = {
+  onChange: Function,
+  onSubmit: Function,
+  registerPressKey: Function,
+  dataType: string,
+  saved: boolean,
+  fieldInfo: Object,
+  pressedKeyCode: number | null,
+  value: string,
+};
+
 export default class SimpleEditor extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      valid: true
-    };
-  }
+  input: HTMLInputElement
+  props: PropTypes
 
-  handleChange = (e) => {
+  handleChange = (e: Event) => {
     e.preventDefault();
-    this.props.onChange(e.target.value, this.props.fieldInfo);
+    if (this.input) {
+      this.props.onChange(this.input.value, this.props.fieldInfo);
+    }
   }
 
-  handleBlur = (e) => {
-    if (this.props.pressedKeyCode === 9) this.handleSubmit();
-  }
+  /* This needs to be done, because, onKey events are triggerd AFTER tab switches to another input */
+  handleBlur = () =>
+    (this.props.pressedKeyCode === 9) && this.handleSubmit();
+
 
   handleSubmit = () => {
     const { fieldInfo, value } = this.props;
-    // console.log('fiel', fieldInfo, value)
     this.props.onSubmit(value, fieldInfo);
   }
 
   render() {
-
     const { value, dataType, saved } = this.props;
 
-    // console.log('ppp', saved)
     return (
       <div>
         <form>
@@ -42,6 +50,7 @@ export default class SimpleEditor extends Component {
             type={typeRegistry[dataType]}
             value={value}
             onKeyDown={this.props.registerPressKey}
+            ref={(el) => { this.input = el; }}
             onChange={this.handleChange}
             onBlur={this.handleBlur}
           />

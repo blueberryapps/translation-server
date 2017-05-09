@@ -3,11 +3,11 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Flex, Box } from 'radium-flex';
 import Locale from './Locale';
-import { ProjectType } from '../../types';
-import { LocaleType } from '../../../locales/types';
+
+import type { ProjectEntityType } from '../../../../common/types/entityTypes';
 
 export default class Project extends React.PureComponent {
-  props: ProjectType
+  props: ProjectEntityType
 
   render() {
     const {
@@ -17,11 +17,10 @@ export default class Project extends React.PureComponent {
       defaultLocaleId
     } = this.props;
 
-    // Why doesn't JS have groupBy fn? :-(
-    const defaultLocale: LocaleType = locales
+    const defaultLocale = locales
       .filter(locale => locale.id === defaultLocaleId)[0];
 
-    const translationLocales: Array<LocaleType> = locales
+    const translationLocales = locales
       .filter(locale => locale.id !== defaultLocaleId);
 
     return (

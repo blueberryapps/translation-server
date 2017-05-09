@@ -1,7 +1,7 @@
 import Interfacer from 'interfacer';
 import CamelCase from 'camelcase-keys';
 import SnakeCase from 'to-snake-case';
-import { handleError } from './ui/actions';
+import { handleError } from '../common/ui/actions';
 
 function snakify(body) {
   if (Array.isArray(body)) return body.map(snakify);

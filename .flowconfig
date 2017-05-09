@@ -1,9 +1,12 @@
 [ignore]
 .*/node_modules/fbjs/*
 .*/node_modules/changelog/examples/*
+.*\/node_modules\/draft-js\/lib\/.*.js.flow.*
+
 [include]
 
 [libs]
+./app/react/common/types/declarations.js
 
 [options]
 esproposal.decorators=ignore

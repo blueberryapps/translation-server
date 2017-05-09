@@ -42,7 +42,8 @@
     "module": false,
     "process": false,
     "require": false,
-    "window": false
+    "window": false,
+    "RecordType": false,
   },
   "settings": {
     "import/ignore": [

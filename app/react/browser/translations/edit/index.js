@@ -1,7 +1,9 @@
+/* @flow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SimpleEditor, BooleanEditor, HTMLEditor } from './editors';
+import { SimpleEditor, BooleanEditor } from './editors';
 import * as actions from '../../../common/forms/actions';
+import toJS from '../../../utils/toJS';
 
 const matchEditor = {
   float: SimpleEditor,
@@ -10,36 +12,47 @@ const matchEditor = {
   array: SimpleEditor,
   boolean: BooleanEditor,
   symbol: SimpleEditor,
-  html: HTMLEditor
 };
 
-@connect((state, { page, translation: { id } }) => {
-  const pages = state.forms.getIn(['translations', 'pages']);
-  return {
-    // eslint-disable-next-line
-    field: !pages.isEmpty() && pages.get(page) && pages.get(page).get(id) || new Map()
-  };
-}, actions)
-export default class TranslationEditor extends Component {
-  componentDidMount() {
-    const { page, translation: { id, text } } = this.props;
-    const field = this.props.field.size ? this.props.field : { value: text, saved: true};
+type PropTypes = {
+  field: Object | void,
+  dataType: string,
+  translation: Object,
+  page: string,
+  pressedKeyCode: number | null,
+  registerPressKey: Function,
+  changeField: Function,
+  saveField: Function,
+  initField: Function
+};
 
-    this.props.initField(page, id, field);
+@toJS
+class TranslationEditor extends Component {
+  componentDidMount() {
+    const { page, translation: { id, text }, initField } = this.props;
+    const field = this.props.field
+      ? this.props.field
+      : { value: text, saved: true };
+
+    initField(page, id, field);
   }
+
+  props: PropTypes
 
   render() {
     const {
       field,
       dataType,
-      translation: { text, id },
+      translation: { id },
       page,
       changeField,
       saveField,
       registerPressKey,
       pressedKeyCode
     } = this.props;
+
     const Editor = matchEditor[dataType];
+
     return (
       <div>
         <Editor
@@ -50,10 +63,19 @@ export default class TranslationEditor extends Component {
           registerPressKey={registerPressKey}
           pressedKeyCode={pressedKeyCode}
           dataType={dataType}
-          saved={field.get('saved')}
-          value={field.get('value')}
+          saved={field && field.saved}
+          value={field && field.value}
         />
       </div>
     );
   }
 }
+
+// Flow-Type doesn't like decorators
+export default connect((state, { page, translation: { id } }) => {
+  const pages = state.forms.getIn(['translations', 'pages']);
+  return {
+    // eslint-disable-next-line
+    field: !pages.isEmpty() && pages.get(page) && pages.getIn([page, id])
+  };
+}, actions)(TranslationEditor);

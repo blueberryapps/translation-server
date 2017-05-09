@@ -1,36 +1,27 @@
+/* @flow */
+import { Record, Map, List } from 'immutable';
 import { FETCH_LOCALE_PENDING, FETCH_LOCALE_FULFILLED } from './actions';
+import type { LocaleStateType } from '../types/storeTypes';
+import type { Action } from '../types/generalTypes';
 
-const initialState = {
+const InitialState = Record({
   pending: false,
-  list: [],
-  entities: {
-    locales: {}
-  }
-};
+  list: List(),
+  entities: new Map({
+    locales: new Map()
+  })
+});
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state: LocaleStateType = new InitialState(), action: Action): LocaleStateType {
   switch (action.type) {
     case FETCH_LOCALE_PENDING:
-      return {
-        ...state,
-        pending: true
-      };
+      return state.set('pending', true);
 
     case FETCH_LOCALE_FULFILLED:
-      return {
-        pending: false,
-        list: [
-          ...state.list,
-          action.payload.result.locale
-        ],
-        entities: {
-          ...state.entities,
-          locales: {
-            ...state.entities.locales,
-            ...action.payload.entities.locales
-          }
-        }
-      };
+      return state
+        .set('pending', false)
+        .update('list', list => list.push(action.payload.result.locale))
+        .mergeIn(['entities', 'locales'], action.payload.entities.locales);
 
     default:
       return state;

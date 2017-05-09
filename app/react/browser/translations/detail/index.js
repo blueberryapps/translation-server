@@ -1,33 +1,27 @@
-// @flow
+/* @flow */
 import React, { PureComponent } from 'react';
 import { Flex, Box } from 'radium-flex';
 import TranslationEditor from '../edit';
 
-type TranslationType = {
-  edited: boolean,
-  id: number,
-  keyId: number,
-  localeId: number,
-  text: string,
-};
+import type { TranslationEntityType } from '../../../common/types/entityTypes';
 
-type TranslationProps = {
-  translationKey: string,
-  note?: string,
+type PropTypes = {
+  defaultTranslation: TranslationEntityType,
+  currentTranslation: TranslationEntityType,
   dataType: string,
-  defaultTranslation: TranslationType,
-  currentTranslation: TranslationType,
-  keyId: string,
-  localeId: number,
-  // fillTranslation: Function,
-  // saveTranslation: Function,
+  note?: string,
+  pressedKeyCode: number | null,
+  page: string,
+  translationKey: string,
+  registerPressKey: Function,
 };
 
 export default class Translation extends PureComponent {
   static defaultProps = {
     note: '',
   };
-  props: TranslationProps;
+  props: PropTypes;
+
   render() {
     const {
       defaultTranslation,
@@ -37,12 +31,13 @@ export default class Translation extends PureComponent {
       registerPressKey,
       pressedKeyCode,
       page,
+      translationKey
     } = this.props;
 
     return (
       <Flex>
         <Box col={12}>
-          {this.props.translationKey}
+          {translationKey}
         </Box>
         <Box>
           {note}

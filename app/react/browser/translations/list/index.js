@@ -1,25 +1,55 @@
 /* @flow */
+// Tools and Libraries
 import React, { PureComponent } from 'react';
 import preload from 'redux-preload';
 import { push as pushLocation } from 'react-router-redux';
 import { connect } from 'react-redux';
+import queryListener from '../../../utils/queryListener';
+import createWaiter from '../../../utils/waiter';
+import toJS from '../../../utils/toJS';
+
+// Actions
 import { fetchKeys } from '../../../common/keys/actions';
 import { fetchLocale } from '../../../common/locales/actions';
 import { fetchProjects } from '../../../common/projects/actions';
+
+// Components
 import Translation from '../detail';
 import VerticalMenu from '../../app/menu/VerticalMenu.react';
 import Menubar from '../../app/menu/Menubar.react';
 import Paginator from '../../components/Paginator.react';
-import queryListener from '../../../common/ui/queryListener';
 import Header from '../../app/Header.react';
-import createWaiter from '../../../common/ui/waiter';
+
+// Selectors
 import { getKeysMerged } from '../../../common/keys/selectors';
 import { getLocalesMerged } from '../../../common/locales/selectors';
 import { getProjectsMerged } from '../../../common/projects/selectors';
-import type { TranslationsProps } from '../types';
+
+// Types
+import type { TranslationParamsType, TranslationsLocationType } from '../../../common/types/locationTypes';
+import type { PaginationType } from '../../../common/types/generalTypes';
+import type { KeyEntityType, LocaleEntityType, ProjectEntityType } from '../../../common/types/entityTypes';
 
 const preloader = <div>Preloading</div>;
 const waiter = createWaiter(preloader);
+
+type PropTypes = {
+  pagination: PaginationType,
+  location: TranslationsLocationType,
+  isVerticalMenuShown: boolean,
+  keys: Array<KeyEntityType>,
+  currentLocale: LocaleEntityType,
+  project: ProjectEntityType,
+  params: TranslationParamsType,
+  push: Function,
+  saveTranslation: Function,
+  toggleHierarchy: Function,
+  fillTranslation: Function
+};
+
+type StateTypes = {
+  pressedKeyCode: number | null
+};
 
 @preload([fetchKeys, fetchLocale, fetchProjects])
 @connect(
@@ -27,10 +57,10 @@ const waiter = createWaiter(preloader);
     pagination: state.keys.pagination,
     keys: getKeysMerged(query)(state).toJS(),
     currentLocale: getLocalesMerged(state.locales)
-      .filter(l => l.id === +localeId)[0] || {},
-    isVerticalMenuShown: state.ui.isVerticalMenuShown,
+      .find(l => +l.get('id') === +localeId),
+    isVerticalMenuShown: state.ui.get('isVerticalMenuShown'),
     project: getProjectsMerged(state.projects)
-      .filter(p => p.id === +projectId)[0]
+      .find(p => +p.get('id') === +projectId)
   }),
   { fetchLocale, push: pushLocation },
 )
@@ -43,19 +73,21 @@ const waiter = createWaiter(preloader);
   if (trigger.indexOf('page') > -1 || trigger.indexOf('edited') > -1) return fetchKeys.bind(null, props);
   return { type: 'QUERY_CHANGED', payload: { trigger, props } };
 })
-
+@toJS
 export default class Translations extends PureComponent {
-
-  props: TranslationsProps
-
-  constructor(props) {
+  constructor(props: PropTypes) {
     super(props);
     this.state = {
       pressedKeyCode: null
     };
   }
 
-  registerPressKey = ({ keyCode }) => this.setState({ pressedKeyCode: keyCode })
+  state: StateTypes
+
+  props: PropTypes
+
+  registerPressKey = ({ keyCode }: KeyboardEvent) =>
+    this.setState({ pressedKeyCode: keyCode })
 
   render() {
     const {
@@ -69,11 +101,14 @@ export default class Translations extends PureComponent {
       params: {
         localeId
       },
+      push,
+      saveTranslation,
+      fillTranslation
     } = this.props;
 
     return (
       <div>
-        <Header push={this.props.push} page={page} />
+        <Header push={push} page={page} />
         <Menubar
           totalCount={currentLocale && currentLocale.translationCount}
           translatedCount={currentLocale && currentLocale.translatedCount}
@@ -83,23 +118,27 @@ export default class Translations extends PureComponent {
           toggleHierarchy={this.props.toggleHierarchy}
         />
         <div style={styles.wrapper}>
-          {isVerticalMenuShown && <VerticalMenu />}
+          {isVerticalMenuShown &&
+            <VerticalMenu />
+          }
 
           {keys.map(key => (
             <Translation
-              saveTranslation={this.props.saveTranslation}
-              fillTranslation={this.props.fillTranslation}
+              saveTranslation={saveTranslation}
+              fillTranslation={fillTranslation}
               translationKey={key.key}
               page={page}
               registerPressKey={this.registerPressKey}
               pressedKeyCode={this.state.pressedKeyCode}
-              currentTranslation={key.translations[localeId]}
+              currentTranslation={key.translations[+localeId]}
               defaultTranslation={project && key.translations[project.defaultLocaleId]}
               {...key}
             />
           ))}
         </div>
-        {pagination && <Paginator {...pagination} location={location} />}
+        {pagination &&
+          <Paginator {...pagination} location={location} />
+        }
       </div>
     );
   }

@@ -1,4 +1,3 @@
-/* @flow */
 import { reducer as onionForm } from 'onion-form';
 import { routerReducer as routing } from 'react-router-redux';
 
