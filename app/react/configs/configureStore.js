@@ -1,7 +1,7 @@
 import { createStore, compose } from 'redux';
 
 import actionWatchers from './actionWatchers';
-import appReducers from './reducers';
+import appReducers from '../reducers';
 import createMiddlewares from './lib/store/createMiddlewares';
 import createStoreReducers from './lib/store/createReducers';
 import runDefaultActions from './runDefaultActions';
@@ -32,7 +32,7 @@ export default function configureStore({ initialState, platformMiddleware } = {}
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers.
     module.hot.accept('./reducers', () => {
-      const nextAppReducer = require('./reducers'); // eslint-disable-line global-require
+      const nextAppReducer = require('../reducers'); // eslint-disable-line global-require
       store.replaceReducer(createStoreReducers(nextAppReducer));
     });
   }

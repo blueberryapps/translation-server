@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { Flex, Box } from 'radium-flex';
 import TranslationEditor from '../edit';
 
-import type { TranslationEntityType } from '../../../common/types/entityTypes';
+import type { TranslationEntityType } from '../../types/entityTypes';
 
 type PropTypes = {
   defaultTranslation: TranslationEntityType,

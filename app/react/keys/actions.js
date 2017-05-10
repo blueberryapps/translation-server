@@ -1,5 +1,5 @@
 /* @flow */
-import { keySchema } from '../schemas';
+import { keySchema } from '../configs/schemas';
 
 import type { Dependencies, Action } from '../types/generalTypes';
 

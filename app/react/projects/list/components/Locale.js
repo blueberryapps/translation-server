@@ -4,7 +4,7 @@ import { Flex, Box } from 'radium-flex';
 import locale from 'country-language';
 import { calculatePercents } from '../../helpers';
 
-import type { LocaleEntityType } from '../../../../common/types/entityTypes';
+import type { LocaleEntityType } from '../../../types/entityTypes';
 
 export default class Locale extends React.PureComponent {
   props: LocaleEntityType

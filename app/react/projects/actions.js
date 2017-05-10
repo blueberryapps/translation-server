@@ -1,5 +1,5 @@
 /* @flow */
-import { projectSchema } from '../schemas';
+import { projectSchema } from '../configs/schemas';
 import type { Action } from '../types/generalTypes';
 
 export const FETCH_PROJECTS_PENDING = 'FETCH_PROJECTS_PENDING';

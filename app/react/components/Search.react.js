@@ -5,7 +5,7 @@ import { Form } from 'onion-form';
 import Image from './Image.react';
 import { media } from '../globals';
 import { Searchbar, SearchSelect } from './fields';
-import { searchValidations as validations } from '../../common/search/validations';
+import { searchValidations as validations } from '../configs/search/validations';
 
 @Radium
 export default class Search extends React.PureComponent {

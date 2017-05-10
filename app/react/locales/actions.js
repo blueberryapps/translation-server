@@ -1,5 +1,5 @@
 // @flow
-import { localeSchema } from '../schemas';
+import { localeSchema } from '../configs/schemas';
 
 import type { Dependencies, Action } from '../types/generalTypes';
 

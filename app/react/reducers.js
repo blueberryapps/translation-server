@@ -2,7 +2,7 @@
 import { reducer as onionForm } from 'onion-form';
 import { routerReducer as routing } from 'react-router-redux';
 
-import device from './lib/device/reducer';
+import device from './device/reducer';
 import ui from './ui/reducer';
 import projects from './projects/reducer';
 import keys from './keys/reducer';
