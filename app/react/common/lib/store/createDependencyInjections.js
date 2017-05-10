@@ -1,6 +1,6 @@
 import dispatchAndThrow from './dispatchAndThrow';
 import dispatchPromise from './dispatchPromise';
-import createInterface from '../../interfacer';
+import createInterface from '../../../utils/interfacer';
 
 export default function createDependencyInjections() {
   return {
@@ -11,6 +11,7 @@ export default function createDependencyInjections() {
       localesInterface: createInterface('locales'),
       hierarchyInterface: createInterface('hierarchy'),
       keysInterface: createInterface('keys'),
+      translationsInterface: createInterface('translations')
     },
     // add api response
   };

@@ -1,24 +1,25 @@
+/* @flow */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import autobind from 'core-decorators/lib/autobind';
 import Radium from 'radium';
-import React, { PropTypes as RPT } from 'react';
+import React from 'react';
 
 import Image from '../../components/Image.react';
 import { colors } from '../../globals';
 
 @Radium
 export default class Menu extends React.PureComponent {
-  static propTypes = {
-    style: RPT.oneOfType([RPT.array, RPT.object]),
-    user: RPT.string.isRequired
-  }
-
   static defaultProps = {
     style: {}
   }
 
   state = {
     visibility: false
+  }
+
+  props: {
+    style: Object | Array<string>,
+    user: string,
   }
 
   @autobind
@@ -38,6 +39,7 @@ export default class Menu extends React.PureComponent {
           <Image style={styles.userIcon} src={'/assets/userIcon.png'} />
           {user}
         </span>
+        {/* $FlowFixMe */}
         <ul style={[styles.dropdownList, styles.dropdownVisibility[visibility]]}>
           <li style={styles.dropdownElement} key="oldVersion">Old version</li>
           <li style={styles.dropdownElement} key="signOut">Sign out</li>

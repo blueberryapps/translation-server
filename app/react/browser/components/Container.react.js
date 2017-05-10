@@ -1,5 +1,5 @@
 import Radium from 'radium';
-import React, { PropTypes as RPT } from 'react';
+import React from 'react';
 import ErrorMessage from './ErrorMessage.react';
 
 export const CONTAINER_NORMAL = 'normal';
@@ -9,18 +9,16 @@ export const CONTAINER_SLIM = 'slim';
 export default class Container extends React.PureComponent {
   static defaultProps = {
     error: null,
-  };
-  static propTypes = {
-    children: RPT.node.isRequired,
-    error: RPT.oneOfType([null, RPT.string]),
-    kind: RPT.oneOf([CONTAINER_NORMAL, CONTAINER_SLIM]),
-    style: RPT.oneOfType([RPT.arrayOf(RPT.object), RPT.object]),
-  };
-
-  static defaultProps = {
     kind: CONTAINER_NORMAL,
     style: {},
   };
+
+  props: {
+    children: Node,
+    error?: null | string,
+    kind?: string,
+    style?: Array<Object> | Object
+  }
 
   render() {
     const { children, kind, style, error } = this.props;

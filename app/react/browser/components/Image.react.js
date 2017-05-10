@@ -1,25 +1,22 @@
 import Radium from 'radium';
-import React, { PropTypes as RPT } from 'react';
+import React from 'react';
 
 @Radium
 export default class Image extends React.PureComponent {
-
-  static propTypes = {
-    alt: RPT.string,
-    children: RPT.node,
-    key: RPT.string,
-    src: RPT.string.isRequired,
-    style: RPT.oneOf([
-      RPT.arrayOf(RPT.object),
-      RPT.object
-    ])
-  }
 
   static defaultProps = {
     alt: 'Alt',
     children: null,
     key: 'image key',
     style: {}
+  }
+
+  props: {
+    alt?: string,
+    children?: Node,
+    key?: string,
+    src: string,
+    style: Object | Array<Object>
   }
 
   renderImage() {

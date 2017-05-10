@@ -1,3 +1,4 @@
+/* @flow */
 import { reducer as onionForm } from 'onion-form';
 import { routerReducer as routing } from 'react-router-redux';
 
@@ -6,8 +7,11 @@ import ui from './ui/reducer';
 import projects from './projects/reducer';
 import keys from './keys/reducer';
 import locales from './locales/reducer';
+import forms from './forms/reducer';
 
-const appReducers = {
+import type { StateType } from './types/storeTypes';
+
+const store: StateType = {
   device,
   onionForm,
   routing,
@@ -15,6 +19,7 @@ const appReducers = {
   projects,
   keys,
   locales,
+  forms
 };
 
-export default appReducers;
+export default store;

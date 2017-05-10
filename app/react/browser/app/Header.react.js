@@ -1,36 +1,35 @@
 import Radium from 'radium';
-import React, { PropTypes as RPT } from 'react';
-import { bindActionCreators } from 'redux';
+import React from 'react';
 import { connect } from 'react-redux';
-import { push as pushLocation } from 'react-router-redux';
 
 import Button from '../components/Button.react';
 import Image from '../components/Image.react';
 import Menu from './menu/Menu.react';
 import Search from '../components/Search.react';
 import { colors, media } from '../globals';
+import { saveAllFields } from '../../common/forms/actions';
 
-@connect(() => ({}), dispatch => bindActionCreators({ push: pushLocation }, dispatch))
 @Radium
+@connect(null, { saveAllFields })
 export default class Header extends React.PureComponent {
-  static propTypes = {
-    menuShown: RPT.bool.isRequired,
-    projectName: RPT.string,
-    push: RPT.func.isRequired,
-    userName: RPT.string,
-  };
-
   static defaultProps = {
     menuShown: true,
     projectName: 'Dev Project',
     userName: 'Admin',
   };
 
-  handleClick() {
-    const { push } = this.props;
-
-    push('/');
+  props: {
+    projectName: string,
+    userName: string,
+    page: string,
+    menuShown: boolean,
+    push: Function,
+    saveAllFields: Function,
   }
+
+  handleClick = () => this.props.push('/');
+
+  handleSaveAll = () => this.props.saveAllFields(this.props.page)
 
   render() {
     const { menuShown, projectName, userName } = this.props;
@@ -41,13 +40,13 @@ export default class Header extends React.PureComponent {
           <Image
             src={'/assets/backArrow.png'}
             style={styles.backButton}
-            onClick={this.handleClick.bind(this)}
+            onClick={this.handleClick}
           />
           <span style={styles.projectName}>{projectName}</span>
           <span style={styles.text}>Translations</span>
           <Search />
           <div style={styles.saveAllWrapper}>
-            <Button style={styles.saveAll}>Save all</Button>
+            <Button onClick={this.handleSaveAll} style={styles.saveAll}>Save all</Button>
           </div>
           <Menu style={styles.menu} menuShown={menuShown} user={userName} />
         </header>

@@ -281,10 +281,10 @@ var Push = function () {
   }, {
     key: "cancelRefEvent",
     value: function cancelRefEvent() {
-      if (!this.refEvent) {
+      if (!this.refevent: Event) {
         return;
       }
-      this.channel.off(this.refEvent);
+      this.channel.off(this.refevent: Event);
     }
   }, {
     key: "cancelTimeout",
@@ -350,7 +350,7 @@ var Channel = exports.Channel = function () {
     this.joinPush.receive("ok", function () {
       _this2.state = CHANNEL_STATES.joined;
       _this2.rejoinTimer.reset();
-      _this2.pushBuffer.forEach(function (pushEvent) {
+      _this2.pushBuffer.forEach(function (pushevent: Event) {
         return pushEvent.send();
       });
       _this2.pushBuffer = [];
@@ -422,7 +422,7 @@ var Channel = exports.Channel = function () {
     }
   }, {
     key: "off",
-    value: function off(event) {
+    value: function off(event: Event) {
       this.bindings = this.bindings.filter(function (bind) {
         return bind.event !== event;
       });
@@ -445,7 +445,7 @@ var Channel = exports.Channel = function () {
         pushEvent.send();
       } else {
         pushEvent.startTimeout();
-        this.pushBuffer.push(pushEvent);
+        this.pushBuffer.push(pushevent: Event);
       }
 
       return pushEvent;
@@ -538,7 +538,7 @@ var Channel = exports.Channel = function () {
       var leave = CHANNEL_EVENTS.leave;
       var join = CHANNEL_EVENTS.join;
 
-      if (ref && [close, error, leave, join].indexOf(event) >= 0 && ref !== this.joinRef()) {
+      if (ref && [close, error, leave, join].indexOf(event: Event) >= 0 && ref !== this.joinRef()) {
         return;
       }
       var handledPayload = this.onMessage(event, payload, ref);
@@ -702,11 +702,11 @@ var Socket = exports.Socket = function () {
       this.conn.onerror = function (error) {
         return _this5.onConnError(error);
       };
-      this.conn.onmessage = function (event) {
-        return _this5.onConnMessage(event);
+      this.conn.onmessage = function (event: Event) {
+        return _this5.onConnMessage(event: Event);
       };
-      this.conn.onclose = function (event) {
-        return _this5.onConnClose(event);
+      this.conn.onclose = function (event: Event) {
+        return _this5.onConnClose(event: Event);
       };
     }
 
@@ -765,13 +765,13 @@ var Socket = exports.Socket = function () {
     }
   }, {
     key: "onConnClose",
-    value: function onConnClose(event) {
-      this.log("transport", "close", event);
+    value: function onConnClose(event: Event) {
+      this.log("transport", "close", event: Event);
       this.triggerChanError();
       clearInterval(this.heartbeatTimer);
       this.reconnectTimer.scheduleTimeout();
       this.stateChangeCallbacks.close.forEach(function (callback) {
-        return callback(event);
+        return callback(event: Event);
       });
     }
   }, {

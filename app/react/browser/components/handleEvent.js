@@ -1,4 +1,4 @@
-export default function (name, eventHandler, event) {
+export default function (name, eventHandler, event: Event) {
   event.preventDefault();
   if (!eventHandler) return;
 

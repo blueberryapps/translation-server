@@ -51,6 +51,7 @@ Rails.application.routes.draw do
 
       resources :translations, only: [:show, :update, :destroy] do
         put 'locale/:locale/key/:key', on: :collection, action: :update
+        put '/', action: :update_many, on: :collection
       end
 
       resources :projects, only: [:show, :index, :create, :update, :destroy] do

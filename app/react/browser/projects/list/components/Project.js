@@ -1,26 +1,28 @@
-import React, { PropTypes as RPT } from 'react';
+/* @flow */
+import React from 'react';
 import { Link } from 'react-router';
 import { Flex, Box } from 'radium-flex';
 import Locale from './Locale';
 
-export default class Project extends React.PureComponent {
-  static defaultProps = {
-    defaultLocale: '',
-  };
+import type { ProjectEntityType } from '../../../../common/types/entityTypes';
 
-  static propTypes = {
-    name: RPT.string.isRequired,
-    defaultLocale: RPT.string,
-    id: RPT.number.isRequired,
-    locales: RPT.arrayOf(RPT.object).isRequired,
-  };
+export default class Project extends React.PureComponent {
+  props: ProjectEntityType
+
   render() {
     const {
       name,
-      defaultLocale,
       locales,
       id,
+      defaultLocaleId
     } = this.props;
+
+    const defaultLocale = locales
+      .filter(locale => locale.id === defaultLocaleId)[0];
+
+    const translationLocales = locales
+      .filter(locale => locale.id !== defaultLocaleId);
+
     return (
       <div>
         <Flex>
@@ -30,10 +32,14 @@ export default class Project extends React.PureComponent {
         </Flex>
         <Flex>
           <Box col={4}>{name}</Box>
-          <Box col={2}>{defaultLocale}</Box>
-          {locales.map(locale => (
+          <Box col={2}>
+            <Link to={`project/${id}/locales/${defaultLocale.id}?page=1&edited=new`}>
+              <Locale {...defaultLocale} />
+            </Link>
+          </Box>
+          {translationLocales.map(locale => (
             <Box key={locale.id} col={2}>
-              <Link to={`project/${id}/locales/${locale.id}?page=1`}>
+              <Link to={`project/${id}/locales/${locale.id}?page=1&edited=new`}>
                 <Locale {...locale} />
               </Link>
             </Box>

@@ -1,4 +1,4 @@
-import React, { PropTypes as RPT, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import ReactPaginate from 'react-paginate';
 import { withRouter } from 'react-router';
 
@@ -19,10 +19,6 @@ export default class Paginator extends PureComponent {
   static defaultProps = {
     totalPages: 1,
   };
-  static propTypes = {
-    location: RPT.shape({ query: { page: RPT.string } }).isRequired,
-    totalPages: RPT.number,
-  };
 
   constructor(props) {
     super(props);
@@ -31,6 +27,11 @@ export default class Paginator extends PureComponent {
 
   componentDidMount() {
     this.handleChangePage = handleChangePage.bind(this);
+  }
+
+  props: {
+    location: { query: { page: string } }, // eslint-disable-line react/no-unused-prop-types
+    totalPages?: number
   }
 
   render() {
