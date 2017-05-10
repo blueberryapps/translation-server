@@ -15,7 +15,7 @@ type PropTypes = {
   dataType: string,
   saved: boolean,
   fieldInfo: Object,
-  pressedKeyCode: number | null,
+  pressedKeyCode: ?number,
   value: string,
 };
 

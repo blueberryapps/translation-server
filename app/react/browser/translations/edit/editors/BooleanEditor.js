@@ -10,11 +10,9 @@ type PropTypes = {
 };
 
 export default class BooleanEditor extends Component {
-  setFalse = () => {
-    this.props.onChange('false', this.props.fieldInfo);
-  }
-  setTrue = () => {
-    this.props.onChange('true', this.props.fieldInfo);
+  toggleRadio = () => {
+    const { onChange, value } = this.props;
+    onChange(!value);
   }
 
   props: PropTypes
@@ -36,7 +34,7 @@ export default class BooleanEditor extends Component {
             name={`true-${fieldId}`}
             checked={value === 'true'}
             value={value === 'true'}
-            onChange={this.setTrue}
+            onChange={this.toggleRadio}
           />
           False:
           <input
@@ -44,7 +42,7 @@ export default class BooleanEditor extends Component {
             name={`false-${fieldId}`}
             checked={value === 'false'}
             value={value === 'false'}
-            onChange={this.setFalse}
+            onChange={this.toggleRadio}
           />
           <button
             onClick={this.handleSubmit}

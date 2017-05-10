@@ -15,11 +15,11 @@ const matchEditor = {
 };
 
 type PropTypes = {
-  field: Object | void,
+  field: ?Object,
   dataType: string,
   translation: Object,
   page: string,
-  pressedKeyCode: number | null,
+  pressedKeyCode: ?number,
   registerPressKey: Function,
   changeField: Function,
   saveField: Function,
@@ -29,12 +29,8 @@ type PropTypes = {
 @toJS
 class TranslationEditor extends Component {
   componentDidMount() {
-    const { page, translation: { id, text }, initField } = this.props;
-    const field = this.props.field
-      ? this.props.field
-      : { value: text, saved: true };
-
-    initField(page, id, field);
+    const { page, translation: { id }, initField } = this.props;
+    initField(page, id, this.props.field);
   }
 
   props: PropTypes
@@ -72,10 +68,10 @@ class TranslationEditor extends Component {
 }
 
 // Flow-Type doesn't like decorators
-export default connect((state, { page, translation: { id } }) => {
+export default connect((state, { page, translation: { id, text } }) => {
   const pages = state.forms.getIn(['translations', 'pages']);
   return {
     // eslint-disable-next-line
-    field: !pages.isEmpty() && pages.get(page) && pages.getIn([page, id])
+    field: !pages.isEmpty() && pages.get(page) && pages.getIn([page, id]) || { value: text, saved: true }
   };
 }, actions)(TranslationEditor);

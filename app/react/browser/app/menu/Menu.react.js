@@ -19,7 +19,7 @@ export default class Menu extends React.PureComponent {
 
   props: {
     style: Object | Array<string>,
-    user: string
+    user: string,
   }
 
   @autobind

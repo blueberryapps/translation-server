@@ -5,7 +5,7 @@ import preload from 'redux-preload';
 import { push as pushLocation } from 'react-router-redux';
 import { connect } from 'react-redux';
 import queryListener from '../../../utils/queryListener';
-import createWaiter from '../../../utils/waiter';
+import createWaitFor from '../../../utils/waitFor';
 import toJS from '../../../utils/toJS';
 
 // Actions
@@ -31,7 +31,7 @@ import type { PaginationType } from '../../../common/types/generalTypes';
 import type { KeyEntityType, LocaleEntityType, ProjectEntityType } from '../../../common/types/entityTypes';
 
 const preloader = <div>Preloading</div>;
-const waiter = createWaiter(preloader);
+const waitFor = createWaitFor(preloader);
 
 type PropTypes = {
   pagination: PaginationType,
@@ -48,7 +48,7 @@ type PropTypes = {
 };
 
 type StateTypes = {
-  pressedKeyCode: number | null
+  pressedKeyCode: ?number
 };
 
 @preload([fetchKeys, fetchLocale, fetchProjects])
@@ -64,7 +64,7 @@ type StateTypes = {
   }),
   { fetchLocale, push: pushLocation },
 )
-@waiter(({ keys, locales, projects }) => ([
+@waitFor(({ keys, locales, projects }) => ([
   locales.pending,
   keys.pending,
   projects.pending

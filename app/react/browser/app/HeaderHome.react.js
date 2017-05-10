@@ -13,7 +13,7 @@ export default class Header extends React.PureComponent {
     userName: 'Admin'
   }
   props: {
-    userName: string
+    userName: string,
   }
 
   render() {

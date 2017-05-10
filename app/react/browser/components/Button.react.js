@@ -1,5 +1,6 @@
 import Radium from 'radium';
 import React from 'react';
+import type { Children } from 'react';
 import { colors, media } from '../globals';
 
 export const BUTTON_KIND_PRIMARY = 'primary';
@@ -21,7 +22,7 @@ export default class Button extends React.PureComponent {
   };
 
   props: {
-    children: Node,
+    children: Children,
     decorated?: boolean,
     disabled?: boolean,
     kind: string,

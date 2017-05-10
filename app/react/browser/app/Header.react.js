@@ -19,12 +19,12 @@ export default class Header extends React.PureComponent {
   };
 
   props: {
-    menuShown: boolean,
-    projectName:string,
-    push: Function,
+    projectName: string,
     userName: string,
-    saveAllFields: Function,
     page: string,
+    menuShown: boolean,
+    push: Function,
+    saveAllFields: Function,
   }
 
   handleClick = () => this.props.push('/');

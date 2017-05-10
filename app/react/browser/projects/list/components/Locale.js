@@ -17,8 +17,7 @@ export default class Locale extends React.PureComponent {
         <Box col={12}>{language}</Box>
         <Box col={12}>{translatedCount} / {translationCount}</Box>
         <Box col={12}>
-          {`${calculatePercents(translatedCount, translationCount)}`}
-          %
+          {`${calculatePercents(translatedCount, translationCount)} %`}
         </Box>
       </Flex>
     );

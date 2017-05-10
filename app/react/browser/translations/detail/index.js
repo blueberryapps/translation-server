@@ -10,7 +10,7 @@ type PropTypes = {
   currentTranslation: TranslationEntityType,
   dataType: string,
   note?: string,
-  pressedKeyCode: number | null,
+  pressedKeyCode: ?number,
   page: string,
   translationKey: string,
   registerPressKey: Function,
