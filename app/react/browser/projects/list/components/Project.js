@@ -33,13 +33,13 @@ export default class Project extends React.PureComponent {
         <Flex>
           <Box col={4}>{name}</Box>
           <Box col={2}>
-            <Link to={`project/${id}/locales/${defaultLocale.id}?page=1`}>
+            <Link to={`project/${id}/locales/${defaultLocale.id}?page=1&edited=new`}>
               <Locale {...defaultLocale} />
             </Link>
           </Box>
           {translationLocales.map(locale => (
             <Box key={locale.id} col={2}>
-              <Link to={`project/${id}/locales/${locale.id}?page=1`}>
+              <Link to={`project/${id}/locales/${locale.id}?page=1&edited=new`}>
                 <Locale {...locale} />
               </Link>
             </Box>

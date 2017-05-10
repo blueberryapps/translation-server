@@ -53,9 +53,9 @@ type StateTypes = {
 
 @preload([fetchKeys, fetchLocale, fetchProjects])
 @connect(
-  (state, { params: { localeId, projectId }, location: { query } }) => ({
+  (state, { params, params: { localeId, projectId }, location: { query } }) => ({
     pagination: state.keys.pagination,
-    keys: getKeysMerged(query)(state).toJS(),
+    keys: getKeysMerged(query, params)(state).toJS(),
     currentLocale: getLocalesMerged(state.locales)
       .find(l => +l.get('id') === +localeId),
     isVerticalMenuShown: state.ui.get('isVerticalMenuShown'),
@@ -105,7 +105,6 @@ export default class Translations extends PureComponent {
       saveTranslation,
       fillTranslation
     } = this.props;
-
     return (
       <div>
         <Header push={push} page={page} />
@@ -113,7 +112,7 @@ export default class Translations extends PureComponent {
           totalCount={currentLocale && currentLocale.translationCount}
           translatedCount={currentLocale && currentLocale.translatedCount}
           location={location}
-          push={this.props.push}
+          push={push}
           isVerticalMenuShown={isVerticalMenuShown}
           toggleHierarchy={this.props.toggleHierarchy}
         />

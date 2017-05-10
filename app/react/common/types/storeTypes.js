@@ -1,6 +1,6 @@
 /* @flow */
 import type { List, Map } from 'immutable';
-import type { ID, PaginationType } from './generalTypes';
+import type { ID, PaginationType, Action } from './generalTypes';
 import type {
   LocaleEntityType,
   ProjectEntityType,
@@ -36,7 +36,7 @@ export type KeyStateType = RecordType<{
 }>
 
 export type StateType = {
-  locales: LocaleStateType,
-  projects: ProjectStateType,
-  keys: KeyStateType
+  locales: (state: LocaleStateType, action: Action) => LocaleStateType,
+  projects: (state: ProjectStateType, action: Action) => ProjectStateType,
+  keys: (state: KeyStateType, action: Action) => KeyStateType
 };
