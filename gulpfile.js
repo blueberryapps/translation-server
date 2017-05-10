@@ -13,7 +13,7 @@ function swallowError(error) {
 }
 
 function build() {
-  return browserify('./app/react/browser/main.js')
+  return browserify('./app/react/main.js')
     .transform(babelify.configure(babelrc))
     .bundle()
     .on('error', swallowError)
@@ -22,7 +22,7 @@ function build() {
 
 function watch() {
   const b = browserify({
-    entries: ['./app/react/browser/main.js'],
+    entries: ['./app/react/main.js'],
     cache: {}, // required for watchify
     packageCache: {}, // required for watchify
     debug: process.env.DEBUG,

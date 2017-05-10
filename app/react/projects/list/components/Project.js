@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { Flex, Box } from 'radium-flex';
 import Locale from './Locale';
 
-import type { ProjectEntityType } from '../../../../common/types/entityTypes';
+import type { ProjectEntityType } from '../../../types/entityTypes';
 
 export default class Project extends React.PureComponent {
   props: ProjectEntityType

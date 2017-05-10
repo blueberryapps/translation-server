@@ -3,7 +3,7 @@ import withScroll from 'scroll-behavior';
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux';
 import { useRouterHistory } from 'react-router';
 
-import configureCommonStore from '../common/configureStore';
+import configureCommonStore from './configs/configureStore';
 
 export default function configureStoreWithHistory() {
   const appHistory = withScroll(useRouterHistory(createBrowserHistory)({ basename: '/react' }));

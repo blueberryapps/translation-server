@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import Button from '../../components/Button.react';
-import * as actions from '../../../common/ui/actions';
+import * as actions from '../../ui/actions';
 import { colors } from '../../globals';
 
 @connect(

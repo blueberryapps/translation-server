@@ -4,14 +4,14 @@ import React, { PureComponent } from 'react';
 import preload from 'redux-preload';
 import { push as pushLocation } from 'react-router-redux';
 import { connect } from 'react-redux';
-import queryListener from '../../../utils/queryListener';
-import createWaitFor from '../../../utils/waitFor';
-import toJS from '../../../utils/toJS';
+import queryListener from '../../utils/queryListener';
+import createWaitFor from '../../utils/waitFor';
+import toJS from '../../utils/toJS';
 
 // Actions
-import { fetchKeys } from '../../../common/keys/actions';
-import { fetchLocale } from '../../../common/locales/actions';
-import { fetchProjects } from '../../../common/projects/actions';
+import { fetchKeys } from '../../keys/actions';
+import { fetchLocale } from '../../locales/actions';
+import { fetchProjects } from '../../projects/actions';
 
 // Components
 import Translation from '../detail';
@@ -21,14 +21,14 @@ import Paginator from '../../components/Paginator.react';
 import Header from '../../app/Header.react';
 
 // Selectors
-import { getKeysMerged } from '../../../common/keys/selectors';
-import { getLocalesMerged } from '../../../common/locales/selectors';
-import { getProjectsMerged } from '../../../common/projects/selectors';
+import { getKeysMerged } from '../../keys/selectors';
+import { getLocalesMerged } from '../../locales/selectors';
+import { getProjectsMerged } from '../../projects/selectors';
 
 // Types
-import type { TranslationParamsType, TranslationsLocationType } from '../../../common/types/locationTypes';
-import type { PaginationType } from '../../../common/types/generalTypes';
-import type { KeyEntityType, LocaleEntityType, ProjectEntityType } from '../../../common/types/entityTypes';
+import type { TranslationParamsType, TranslationsLocationType } from '../../types/locationTypes';
+import type { PaginationType } from '../../types/generalTypes';
+import type { KeyEntityType, LocaleEntityType, ProjectEntityType } from '../../types/entityTypes';
 
 const preloader = <div>Preloading</div>;
 const waitFor = createWaitFor(preloader);

@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SimpleEditor, BooleanEditor } from './editors';
-import * as actions from '../../../common/forms/actions';
-import toJS from '../../../utils/toJS';
+import * as actions from '../../forms/actions';
+import toJS from '../../utils/toJS';
 
 const matchEditor = {
   float: SimpleEditor,

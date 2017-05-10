@@ -6,7 +6,7 @@
 [include]
 
 [libs]
-./app/react/common/types/declarations.js
+./app/react/types/declarations.js
 
 [options]
 esproposal.decorators=ignore
