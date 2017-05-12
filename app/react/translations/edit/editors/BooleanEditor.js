@@ -25,7 +25,6 @@ export default class BooleanEditor extends Component {
 
   render() {
     const { value, saved, fieldInfo: { fieldId } } = this.props;
-    console.log('saved', saved)
     return (
       <div>
         <form>
