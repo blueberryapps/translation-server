@@ -7,6 +7,7 @@
   "rules": {
     // Soften some rules.
     "comma-dangle": 0, // Nobody cares about commas.
+    "no-underscore-dangle": 0,
     "default-case": 0, // Required default case is nonsense.
     "new-cap": [2, {"capIsNew": false, "newIsCap": true}], // For Record() etc.
     "no-floating-decimal": 0, // .5 is just fine.

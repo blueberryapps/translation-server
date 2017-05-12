@@ -1,7 +1,7 @@
 /* @flow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SimpleEditor, BooleanEditor } from './editors';
+import { SimpleEditor, BooleanEditor, HTMLEditor } from './editors';
 import * as actions from '../../forms/actions';
 import toJS from '../../utils/toJS';
 
@@ -12,10 +12,11 @@ const matchEditor = {
   array: SimpleEditor,
   boolean: BooleanEditor,
   symbol: SimpleEditor,
+  html: HTMLEditor
 };
 
 type PropTypes = {
-  field: ?Object,
+  field: Object,
   dataType: string,
   translation: Object,
   page: string,
@@ -55,13 +56,13 @@ class TranslationEditor extends Component {
           fieldInfo={{ page, fieldId: id }}
           onSubmit={saveField}
           onChange={changeField}
-          onError
           registerPressKey={registerPressKey}
           pressedKeyCode={pressedKeyCode}
           dataType={dataType}
-          saved={field && field.saved}
           value={field && field.value}
+          saved={field && field.saved}
         />
+        {!field.saved && <span>Unsaved</span>}
       </div>
     );
   }
@@ -71,7 +72,6 @@ class TranslationEditor extends Component {
 export default connect((state, { page, translation: { id, text } }) => {
   const pages = state.forms.getIn(['translations', 'pages']);
   return {
-    // eslint-disable-next-line
-    field: !pages.isEmpty() && pages.get(page) && pages.getIn([page, id]) || { value: text, saved: true }
+    field: pages.getIn([page, id]) || { value: text, saved: true }
   };
 }, actions)(TranslationEditor);
