@@ -5,6 +5,7 @@ Enable users to easily edit translations and then any rails application can
 use them.
 
 * To start application use `bundle exec rails s`
+* To start react application for development `gulp watch`
 
 ## Architecture of service
 
@@ -34,6 +35,14 @@ programming in style.
 # Clear database (without users)
 
 `rake clear_database`
+
+# Key Libraries used
+
+* [Interfacer](https://github.com/zepod/interfacer)
+* [Reselect](https://github.com/reactjs/reselect)
+* [Normalizr](https://github.com/paularmstrong/normalizr)
+* [Draft](https://github.com/facebook/draft-js)
+* [Flow](https://github.com/facebook/flow)
 
 # JavaScript dev tools
 
