@@ -11,8 +11,9 @@ type PropTypes = {
 
 export default class BooleanEditor extends Component {
   toggleRadio = () => {
-    const { onChange, value } = this.props;
-    onChange(!value);
+    const { onChange, value, fieldInfo } = this.props;
+    const newValue = value === 'true' ? 'false' : 'true';
+    onChange(newValue, fieldInfo);
   }
 
   props: PropTypes
@@ -24,7 +25,7 @@ export default class BooleanEditor extends Component {
 
   render() {
     const { value, saved, fieldInfo: { fieldId } } = this.props;
-
+    console.log('saved', saved)
     return (
       <div>
         <form>
