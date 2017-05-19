@@ -7,14 +7,14 @@ export type ID = string;
 export type Action = Object;
 
 export type ActionMetaType = {
-  edited?: boolean,
-  localeId?: number,
-  page?: number,
+  edited?: string,
+  localeId?: string,
+  page?: string,
 };
 
 export type ApiQueryType = {
-  page: number,
-  edited: boolean,
+  page: string,
+  edited: string,
 };
 
 export type ApiSchemaType = {
@@ -37,6 +37,12 @@ export type ApiAction = {
     | 'SAVE_ALL_FIELDS'
     | 'SAVE_FIELD',
   method: ApiMethodType,
+  interface:
+    | 'hierarchy'
+    | 'keys'
+    | 'locales'
+    | 'projects'
+    | 'translations',
   payload: {
     error: string,
     schema?: ApiSchemaType,
