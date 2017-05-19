@@ -1,9 +1,8 @@
 /* @flow */
 import { keySchema } from '../configs/schemas';
 
-import type { Dependencies, Action } from '../types/generalTypes';
+import type { ApiAction } from '../types/generalTypes';
 
-const FETCH_KEYS = 'FETCH_KEYS';
 export const FETCH_KEYS_PENDING = 'FETCH_KEYS_PENDING';
 export const FETCH_KEYS_FULFILLED = 'FETCH_KEYS_FULFILLED';
 
@@ -19,19 +18,19 @@ type FetchKeysParams = {
   }
 }
 
-export function fetchKeys({ params: { localeId }, location: { query: { page, edited } } }: FetchKeysParams) {
-  return ({ keysInterface }: Dependencies): Action => ({
-    type: FETCH_KEYS,
+export function fetchKeys({ params: { localeId }, location: { query: { page, edited } } }: FetchKeysParams): ApiAction {
+  return {
+    type: 'FETCH_KEYS',
+    method: 'getCollection',
+    interface: 'keys',
     payload: {
-      promise: keysInterface.getCollection({
-        error: 'Keys failed to fecth',
-        query: { page, edited },
-        prefix: `locales/${localeId}`,
-        schema: { keys: [keySchema] }
-      })
+      error: 'Keys failed to fetch',
+      query: { page, edited },
+      prefix: `locales/${localeId}`,
+      schema: { keys: [keySchema] }
     },
     meta: { localeId, page, edited }
-  });
+  };
 }
 
 type FetchHierarchyParams = {
@@ -40,15 +39,15 @@ type FetchHierarchyParams = {
   }
 }
 
-export function fetchHierarchy({ params: { localeId } }: FetchHierarchyParams) {
-  return ({ hierarchyInterface }: Dependencies): Action => ({
+export function fetchHierarchy({ params: { localeId } }: FetchHierarchyParams): ApiAction {
+  return {
     type: 'FETCH_HIERARCHY',
+    method: 'getCollection',
+    interface: 'hierarchy',
     payload: {
-      promise: hierarchyInterface.getCollection({
-        error: 'Hierarchy failed to fetch',
-        prefix: `locales/${localeId}/keys`,
-      }),
+      error: 'Hierarchy failed to fetch',
+      prefix: `locales/${localeId}/keys`,
     },
     meta: { localeId },
-  });
+  };
 }
