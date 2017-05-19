@@ -6,6 +6,49 @@ export type ID = string;
 
 export type Action = Object;
 
+export type ActionMetaType = {
+  edited?: boolean,
+  localeId?: number,
+  page?: number,
+};
+
+export type ApiQueryType = {
+  page: number,
+  edited: boolean,
+};
+
+export type ApiSchemaType = {
+  keys?: Array<any>,
+  locale?: any,
+  projects?: Array<any>,
+};
+
+export type ApiMethodType =
+  | 'get'
+  | 'getCollection'
+  | 'update';
+
+export type ApiAction = {
+  type:
+    | 'FETCH_HIERARCHY'
+    | 'FETCH_KEYS'
+    | 'FETCH_LOCALE'
+    | 'FETCH_PROJECTS'
+    | 'SAVE_ALL_FIELDS'
+    | 'SAVE_FIELD',
+  method: ApiMethodType,
+  payload: {
+    error: string,
+    schema?: ApiSchemaType,
+    query?: ApiQueryType,
+    schema?: ApiSchemaType,
+    prefix?: string,
+    fieldId?: ?number,
+    text?: ?string,
+  },
+  meta?: ActionMetaType,
+};
+
 export type Dependencies = {
   dispatch: (action: Action) => any,
   dispatchAndThrow: (action: Action, error: Error) => any,
@@ -25,3 +68,4 @@ export type PaginationType = {
   totalPages: number,
   totalCount: number
 }
+
