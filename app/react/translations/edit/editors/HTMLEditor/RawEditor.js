@@ -3,12 +3,14 @@ import React from 'react';
 import HTMLRenderer from '../../../detail/renderers/HTMLRenderer';
 import ToggleHTMLButton from './components/ToggleHTMLButton';
 
+import type { FieldInfo } from '../../index';
+
 type PropTypes = {
   onChange: Function,
   toggleRawEdit: Function,
   editAsRaw: boolean,
   value: string,
-  fieldInfo: Object
+  fieldInfo: FieldInfo
 }
 
 export default class RawEditor extends React.Component {

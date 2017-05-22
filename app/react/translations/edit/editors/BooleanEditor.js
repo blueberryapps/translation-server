@@ -1,12 +1,14 @@
 /* @flow */
 import React, { Component } from 'react';
 
+import type { FieldInfo } from '../index';
+
 type PropTypes = {
   onChange: Function,
   onSubmit: Function,
   value: string,
   saved: boolean,
-  fieldInfo: Object
+  fieldInfo: FieldInfo
 };
 
 export default class BooleanEditor extends Component {

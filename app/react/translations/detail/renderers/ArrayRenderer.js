@@ -6,7 +6,12 @@ type PropTypes = {
 }
 
 export default function ArrayRenderer({ value }: PropTypes) {
-  const parsedArray: Array<*> = JSON.parse(value);
+  let parsedArray;
+  try {
+    parsedArray = JSON.parse(value);
+  } catch (e) {
+    parsedArray = [];
+  }
   return (
     <div>
       {parsedArray.map(element =>

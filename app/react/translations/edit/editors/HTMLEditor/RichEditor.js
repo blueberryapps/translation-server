@@ -33,46 +33,39 @@ export default class RichEditor extends React.Component {
     );
     this.state = { editorState: EditorState.createWithContent(editorState) };
     this.focus = () => this.editor.focus();
-    this.handleKeyCommand = (command: string) => this._handleKeyCommand(command);
-    this.onTab = (e: Event) => this._onTab(e);
-    this.onChange = (newEditorState: EditorStateType) => this._handleChange(newEditorState);
-    this.toggleBlockType = (type: string) => this._toggleBlockType(type);
-    this.toggleInlineStyle = (style: string) => this._toggleInlineStyle(style);
   }
 
+  // eslint-disable-next-line react/sort-comp
+  editor: HTMLElement
+  focus: Function
   state: StateTypes
+  props: PropTypes
   onTab: Function
   onChange: Function
-  handleKeyCommand: Function
-  focus: Function
-  toggleInlineStyle: Function
-  toggleBlockType: Function
-  editor: HTMLElement
-  props: PropTypes
 
-  _handleKeyCommand(command: string) {
+  handleKeyCommand = (command: string) => {
     const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
-      this.onChange(newState);
+      this.handleChange(newState);
       return true;
     }
     return false;
   }
-  _onTab(e: Event) {
+  onTab = (e: Event) => {
     const maxDepth = 4;
-    this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
+    this.handleChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
   }
-  _toggleBlockType(blockType: string) {
-    this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+  toggleBlockType = (blockType: string) => {
+    this.handleChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
   }
-  _toggleInlineStyle(inlineStyle: string) {
-    this.onChange(
+  toggleInlineStyle = (inlineStyle: string) => {
+    this.handleChange(
       RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle),
     );
   }
 
-  _handleChange = (editorState: EditorStateType) => {
+  handleChange = (editorState: EditorStateType) => {
     this.setState({ editorState });
     const value = stateToHTML(editorState.getCurrentContent());
     this.props.onChange(value, this.props.fieldInfo);
@@ -111,7 +104,7 @@ export default class RichEditor extends React.Component {
             // customStyleMap={styleMap}
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
-            onChange={this.onChange}
+            onChange={this.handleChange}
             onTab={this.onTab}
             placeholder="Insert your translation"
             ref={(elem: HTMLElement) => { this.editor = elem; }}

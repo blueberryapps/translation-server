@@ -4,12 +4,13 @@ import React from 'react';
 import RawEditor from './RawEditor';
 import RichEditor from './RichEditor';
 
+import type { FieldInfo } from '../../index';
+
 type PropTypes = {
   onSubmit: Function,
-  // eslint-disable-next-line react/no-unused-prop-types
   onChange: Function,
   value: string,
-  fieldInfo: Object
+  fieldInfo: FieldInfo
 }
 
 type StateTypes = {
@@ -35,16 +36,19 @@ export default class HTMLEditor extends React.Component {
 
   render() {
     const { editAsRaw } = this.state;
+    const { onChange } = this.props;
     return (
       <div>
         {this.state.editAsRaw
           ? <RawEditor
             editAsRaw={editAsRaw}
+            onChange={onChange}
             toggleRawEdit={this.toggleRawEdit}
             {...this.props}
           />
           : <RichEditor
             editAsRaw={editAsRaw}
+            onChange={onChange}
             toggleRawEdit={this.toggleRawEdit}
             {...this.props}
           />}

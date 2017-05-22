@@ -5,6 +5,11 @@ import { SimpleEditor, BooleanEditor, HTMLEditor, ArrayEditor } from './editors'
 import * as actions from '../../forms/actions';
 import toJS from '../../utils/toJS';
 
+export type FieldInfo = {
+  page: string,
+  fieldId: number
+};
+
 const matchEditor = {
   float: SimpleEditor,
   string: SimpleEditor,

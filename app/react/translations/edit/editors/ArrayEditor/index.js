@@ -7,12 +7,14 @@ import ElementEditor from './ElementEditor';
 import type { InputEvent } from '../../../../types/generalTypes';
 import type { ArrayInfo } from './ElementEditor';
 
+import type { FieldInfo } from '../../index';
+
 type PropTypes = {
   onChange: Function,
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: Function,
   saved: boolean,
-  fieldInfo: Object,
+  fieldInfo: FieldInfo,
   value: Array<string>,
   // eslint-disable-next-line no-undef
   List: ReactClass<any>,
@@ -35,20 +37,20 @@ const parseArray = (propValue: any, propKey: string) => {
 export default class ArrayEditor extends React.PureComponent {
   props: PropTypes
 
-  _popArray = () => {
+  popArray = () => {
     const { onChange, fieldInfo, value }: PropTypes = this.props;
     const updatedArray = value.slice(0, value.length - 1);
 
     onChange(updatedArray, fieldInfo);
   }
-  _pushArray = () => {
+  pushArray = () => {
     const { onChange, fieldInfo, value }: PropTypes = this.props;
     const updatedArray: Array<string> = [...value, ''];
 
     onChange(updatedArray, fieldInfo);
   }
 
-  _updateArray = (index: number, newValue: string) => {
+  updateArray = (index: number, newValue: string) => {
     const { onChange, fieldInfo, value }: PropTypes = this.props;
     const updatedArray = value.map((el, i) => (i === index) ? newValue : el);
 
@@ -59,17 +61,17 @@ export default class ArrayEditor extends React.PureComponent {
     event.preventDefault();
     const newValue: string = event.currentTarget.value;
 
-    this._updateArray(index, newValue);
+    this.updateArray(index, newValue);
   }
 
   handleKeyDown = (event: InputEvent, { index, length }: ArrayInfo) => {
     const isEmpty: boolean = event.currentTarget && !event.currentTarget.value;
     const isLast: boolean = index === length - 1;
     if (event.keyCode === 13) {
-      this._pushArray();
+      this.pushArray();
     }
     if (event.keyCode === 8 && isLast && isEmpty) {
-      this._popArray();
+      this.popArray();
     }
   }
 

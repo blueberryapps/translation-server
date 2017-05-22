@@ -1,6 +1,8 @@
 /* @flow */
 import React, { Component } from 'react';
 
+import type { FieldInfo } from '../index';
+
 const typeRegistry = {
   string: 'text',
   symbol: 'text',
@@ -13,7 +15,7 @@ type PropTypes = {
   onSubmit: Function,
   registerPressKey: Function,
   dataType: string,
-  fieldInfo: Object,
+  fieldInfo: FieldInfo,
   pressedKeyCode: ?number,
   value: string,
 };

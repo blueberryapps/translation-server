@@ -34,23 +34,23 @@ export default function generateListOf(Element: ReactClass<any>) {
 
 
       componentWillMount = () =>
-        this._initializeValues(this.props.value)
+        this.initializeValues(this.props.value)
 
       componentWillReceiveProps = (nextProps: PropTypes) => {
         const lengthChanged: boolean = nextProps.value.length !== this.props.value.length;
         if (lengthChanged) {
-          this._initializeValues(nextProps.value);
+          this.initializeValues(nextProps.value);
         } else {
-          this._updateValues(nextProps.value);
+          this.updateValues(nextProps.value);
         }
       }
 
-      _initializeValues = (value: Array<string>) => {
-        this._updateValues(value, () =>
-          this._createList(value));
+      initializeValues = (value: Array<string>) => {
+        this.updateValues(value, () =>
+          this.createList(value));
       }
 
-      _updateValues = (value: Array<string>, cb?: Function) => {
+      updateValues = (value: Array<string>, cb?: Function) => {
         const elements = value.reduce((acc: Object, el: string, i: number) => ({
           ...acc,
           [i]: el
@@ -58,16 +58,15 @@ export default function generateListOf(Element: ReactClass<any>) {
         this.setState({ elements }, cb);
       }
 
-      _createList = (value: Array<string>) => {
+      createList = (value: Array<string>) => {
         const length: number = value.length;
         const list = (props: ListProps) => (
           <ul>
             {value.map((el: string, i: number): Element => (
-              <li>
+              <li key={`${i * 4}4`}>
                 <Element
                   index={i}
                   length={length}
-                  key={`${i * 4}4`}
                   value={this.state.elements[i]}
                   {...props}
                 />
