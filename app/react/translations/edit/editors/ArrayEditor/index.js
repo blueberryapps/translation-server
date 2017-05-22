@@ -4,17 +4,21 @@ import mapProps from './mapProps';
 import generateListOf from './generateListOf';
 import ElementEditor from './ElementEditor';
 
+import type { InputEvent } from '../../../../types/generalTypes';
+import type { ArrayInfo } from './ElementEditor';
+
 type PropTypes = {
   onChange: Function,
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: Function,
   saved: boolean,
   fieldInfo: Object,
-  value: string,
-  List: Element,
+  value: Array<string>,
+  // eslint-disable-next-line no-undef
+  List: ReactClass<any>,
 };
 
-const parseArray = (propValue, propKey) => {
+const parseArray = (propValue: any, propKey: string) => {
   switch (propKey) {
     case 'value': return JSON.parse(propValue);
     case 'onChange': return (value, fieldId) =>
@@ -29,39 +33,38 @@ const parseArray = (propValue, propKey) => {
 @mapProps(parseArray)
 @generateListOf(ElementEditor)
 export default class ArrayEditor extends React.PureComponent {
-
   props: PropTypes
 
   _popArray = () => {
-    const { onChange, fieldInfo, value } = this.props;
+    const { onChange, fieldInfo, value }: PropTypes = this.props;
     const updatedArray = value.slice(0, value.length - 1);
 
     onChange(updatedArray, fieldInfo);
   }
-  _pushArray = () => { // 1
-    const { onChange, fieldInfo, value } = this.props;
-    const updatedArray = [...value, ''];
+  _pushArray = () => {
+    const { onChange, fieldInfo, value }: PropTypes = this.props;
+    const updatedArray: Array<string> = [...value, ''];
 
     onChange(updatedArray, fieldInfo);
   }
 
-  _updateArray = (index, newValue) => {
-    const { onChange, fieldInfo, value } = this.props;
+  _updateArray = (index: number, newValue: string) => {
+    const { onChange, fieldInfo, value }: PropTypes = this.props;
     const updatedArray = value.map((el, i) => (i === index) ? newValue : el);
 
     onChange(updatedArray, fieldInfo);
   }
 
-  handleChange = (event, { index }) => {
+  handleChange = (event: InputEvent, { index }: ArrayInfo) => {
     event.preventDefault();
-    const newValue = event.target.value;
+    const newValue: string = event.currentTarget.value;
 
     this._updateArray(index, newValue);
   }
 
-  handleKeyDown = (event, { index, length }) => {
-    const isEmpty = event.target && !event.target.value;
-    const isLast = index === length - 1;
+  handleKeyDown = (event: InputEvent, { index, length }: ArrayInfo) => {
+    const isEmpty: boolean = event.currentTarget && !event.currentTarget.value;
+    const isLast: boolean = index === length - 1;
     if (event.keyCode === 13) {
       this._pushArray();
     }
@@ -76,7 +79,7 @@ export default class ArrayEditor extends React.PureComponent {
   }
 
   render() {
-    const { saved, List } = this.props;
+    const { saved, List }: PropTypes = this.props;
     return (
       <div>
         {List && <List
@@ -85,7 +88,10 @@ export default class ArrayEditor extends React.PureComponent {
         />}
         <button
           onClick={this.handleSubmit}
-          style={saved ? styles.default : styles.edited}
+          style={saved
+            ? styles.default
+            : styles.edited
+          }
         >
           Save
         </button>

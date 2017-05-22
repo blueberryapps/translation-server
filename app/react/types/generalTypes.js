@@ -25,3 +25,9 @@ export type PaginationType = {
   totalPages: number,
   totalCount: number
 }
+
+export type InputEvent =
+  Event & {
+    currentTarget: HTMLInputElement,
+    keyCode: number
+  };

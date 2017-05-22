@@ -1,6 +1,7 @@
+/* @flow */
 import React from 'react';
 
-type ArrayInfo = {
+export type ArrayInfo = {
   index: number,
   length: number
 }
@@ -15,32 +16,32 @@ type PropTypes = {
 };
 
 export default class ElementEditor extends React.Component {
+  constructor(props: PropTypes) {
+    super(props);
+    this.arrayInfo = {
+      index: props.index,
+      length: props.length,
+    };
+  }
 
   componentDidMount = () => this.input.focus();
 
+  arrayInfo: ArrayInfo
+  input: HTMLInputElement
   props: PropTypes
 
-  handleChange = (arrayInfo: ArrayInfo, event: Event) =>
-    this.props.onChange(arrayInfo, event);
-  handleKeyDown = (arrayInfo: ArrayInfo, event: Event) =>
-    this.props.onKeyDown(arrayInfo, event);
+  handleChange = (event: Event) =>
+    this.props.onChange(event, this.arrayInfo);
+  handleKeyDown = (event: Event) =>
+    this.props.onKeyDown(event, this.arrayInfo);
 
 
-  render() {
-    const arrayInfo: ArrayInfo = {
-      index: this.props.index,
-      length: this.props.length,
-    };
-
-    return (
-      <input
-        value={this.props.value}
-        ref={(element: HTMLElement): void => { this.input = element; }}
-        onChange={e => this.handleChange(e, arrayInfo)}
-        onKeyDown={e => this.handleKeyDown(e, arrayInfo)}
-      />
-    );
-  }
-
-
+  render = () => (
+    <input
+      value={this.props.value}
+      ref={(element: HTMLInputElement): void => { this.input = element; }}
+      onChange={this.handleChange}
+      onKeyDown={this.handleKeyDown}
+    />
+  );
 }
