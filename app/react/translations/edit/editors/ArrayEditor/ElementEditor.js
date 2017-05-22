@@ -16,6 +16,8 @@ type PropTypes = {
 
 export default class ElementEditor extends React.Component {
 
+  componentDidMount = () => this.input.focus();
+
   props: PropTypes
 
   handleChange = (arrayInfo: ArrayInfo, event: Event) =>
