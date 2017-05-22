@@ -57,7 +57,7 @@ export const saveAllFields = page => ({ getState, translationsInterface }) => ({
   payload: {
     promise: translationsInterface.update(
       null,
-      stateToBody(getState().forms.getIn(['translations', 'pages', page]).toJS()),
+      stateToBody(getState().forms.translations.getIn(['pages', page]).toJS()),
       { error: 'Translations failed to save' },
     ),
   },
