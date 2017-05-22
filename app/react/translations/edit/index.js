@@ -1,7 +1,7 @@
 /* @flow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SimpleEditor, BooleanEditor, HTMLEditor } from './editors';
+import { SimpleEditor, BooleanEditor, HTMLEditor, ArrayEditor } from './editors';
 import * as actions from '../../forms/actions';
 import toJS from '../../utils/toJS';
 
@@ -9,7 +9,7 @@ const matchEditor = {
   float: SimpleEditor,
   string: SimpleEditor,
   integer: SimpleEditor,
-  array: SimpleEditor,
+  array: ArrayEditor,
   boolean: BooleanEditor,
   symbol: SimpleEditor,
   html: HTMLEditor

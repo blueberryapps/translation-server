@@ -11,6 +11,7 @@
     "default-case": 0, // Required default case is nonsense.
     "new-cap": [2, {"capIsNew": false, "newIsCap": true}], // For Record() etc.
     "no-floating-decimal": 0, // .5 is just fine.
+    "no-confusing-arrow": 0, // they ain't that confusing
     "no-shadow": 2, // Shadowing is a nice language feature, but it can kick
     // eslint-plugin-import
     "import/no-unresolved": [2, {"commonjs": true}],
