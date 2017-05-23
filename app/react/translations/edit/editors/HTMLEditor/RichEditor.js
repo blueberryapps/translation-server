@@ -43,7 +43,7 @@ export default class RichEditor extends React.Component {
   onTab: Function
   onChange: Function
 
-  handleKeyCommand = (command: string) => {
+  handleKeyCommand = (command: string): boolean => {
     const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -52,28 +52,28 @@ export default class RichEditor extends React.Component {
     }
     return false;
   }
-  onTab = (e: Event) => {
+  onTab = (e: Event): void => {
     const maxDepth = 4;
     this.handleChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
   }
-  toggleBlockType = (blockType: string) => {
+  toggleBlockType = (blockType: string): void => {
     this.handleChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
   }
-  toggleInlineStyle = (inlineStyle: string) => {
+  toggleInlineStyle = (inlineStyle: string): void => {
     this.handleChange(
       RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle),
     );
   }
 
-  handleChange = (editorState: EditorStateType) => {
+  handleChange = (editorState: EditorStateType): void => {
     this.setState({ editorState });
     const value = stateToHTML(editorState.getCurrentContent());
     this.props.onChange(value, this.props.fieldInfo);
   };
 
   render() {
-    const { editorState } = this.state;
-    const { editAsRaw, toggleRawEdit } = this.props;
+    const { editorState }: StateTypes = this.state;
+    const { editAsRaw, toggleRawEdit }: PropTypes = this.props;
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
     let className = 'RichEditor-editor';

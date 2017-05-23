@@ -7,7 +7,7 @@ import Image from '../components/Image.react';
 import Menu from './menu/Menu.react';
 import Search from '../components/Search.react';
 import { colors, media } from '../globals';
-import { saveAllFields } from '../forms/actions';
+import { saveAllFields } from '../forms/translations/actions';
 
 @connect(null, { saveAllFields })
 @Radium
