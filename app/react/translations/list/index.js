@@ -19,6 +19,7 @@ import VerticalMenu from '../../app/menu/VerticalMenu.react';
 import Menubar from '../../app/menu/Menubar.react';
 import Paginator from '../../components/Paginator.react';
 import Header from '../../app/Header.react';
+import Breadcrumbs from '../../hierarchy/Breadcrumbs';
 
 // Selectors
 import { getKeysMerged } from '../../keys/selectors';
@@ -41,6 +42,7 @@ type PropTypes = {
   currentLocale: LocaleEntityType,
   project: ProjectEntityType,
   params: TranslationParamsType,
+  breadcrumbPath: Array<string>,
   push: Function,
   saveTranslation: Function,
   toggleHierarchy: Function,
@@ -60,7 +62,8 @@ type StateTypes = {
       .find(l => +l.get('id') === +localeId),
     isVerticalMenuShown: state.ui.get('isVerticalMenuShown'),
     project: getProjectsMerged(state.projects)
-      .find(p => +p.get('id') === +projectId)
+      .find(p => +p.get('id') === +projectId),
+    path: state.hierarchy.breadcrumbPath
   }),
   { fetchLocale, push: pushLocation },
 )
@@ -103,8 +106,10 @@ export default class Translations extends PureComponent {
       },
       push,
       saveTranslation,
-      fillTranslation
+      fillTranslation,
+      path
     } = this.props;
+    console.log('paaa', path);
     return (
       <div>
         <Header push={push} location={location} page={page} />
@@ -117,6 +122,10 @@ export default class Translations extends PureComponent {
           toggleHierarchy={this.props.toggleHierarchy}
         />
         <div style={styles.wrapper}>
+          <Breadcrumbs
+            path={path}
+            location={location}
+          />
           {isVerticalMenuShown &&
             <VerticalMenu
               location={{
@@ -125,7 +134,6 @@ export default class Translations extends PureComponent {
               }}
             />
           }
-
           {keys.map(key => (
             <Translation
               saveTranslation={saveTranslation}

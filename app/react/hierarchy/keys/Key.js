@@ -1,27 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router';
+import LabelLink from './LabelLink';
 
 type PropTypes = {
+  dispatch: Function,
   label: string,
   location: Location,
   childrenKeys: Array<Object>,
   style: Object,
-  createStyles: (level: number) => Object
+  createStyles: (level: number) => Object,
+  path: Array<string>,
+  setPath: Function
 };
 
-export default function Key({ label, childrenKeys, location, style, createStyles }: PropTypes) {
+export default function Key({ dispatch, label, childrenKeys, location, style, createStyles, path, setPath }: PropTypes) {
+  const currentPath = [...path, label];
   return (
     <div style={style} >
-      <Link to={{ ...location, search: `?search=${label}` }}>
-        {label}
-      </Link>
+      <LabelLink
+        path={currentPath}
+        location={location}
+        label={label}
+      />
       <div>
         {childrenKeys.map(key => (
           <Key
+            dispatch={dispatch}
             key={key.label}
+            setPath={setPath}
             style={createStyles(key.level)}
             createStyles={createStyles}
             label={key.label}
+            path={currentPath}
             location={location}
             childrenKeys={key.childrenKeys}
           />
@@ -30,3 +39,7 @@ export default function Key({ label, childrenKeys, location, style, createStyles
     </div>
   );
 }
+
+Key.defaultProps = {
+  path: []
+};

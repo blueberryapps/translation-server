@@ -18,8 +18,10 @@ const transformHierarchy = (structure: Object, level: number = 0): Array<Object>
     }));
 
 type PropTypes = {
+  dispatch: Function,
   hierarchy: Array<Object>,
-  location: Location
+  location: Location,
+  setPath: Function
 };
 
 @preload([fetchHierarchy])
@@ -31,12 +33,15 @@ export default class HierarchyKeys extends React.Component {
   props: PropTypes
 
   render() {
-    const { hierarchy, location } = this.props;
+    const { dispatch, hierarchy, location, setPath } = this.props;
+
     return (
       <div>
         {hierarchy.map(key => (
           <Key
+            dispatch={dispatch}
             key={key.label}
+            setPath={setPath}
             style={createStyles(key.level)}
             createStyles={createStyles}
             location={location}
