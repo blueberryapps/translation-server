@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SimpleEditor, BooleanEditor } from './editors';
-import * as actions from '../../forms/actions';
+import * as actions from '../../forms/translations/actions';
 import toJS from '../../utils/toJS';
 
 const matchEditor = {
@@ -69,7 +69,7 @@ class TranslationEditor extends Component {
 
 // Flow-Type doesn't like decorators
 export default connect((state, { page, translation: { id, text } }) => {
-  const pages = state.forms.getIn(['translations', 'pages']);
+  const pages = state.forms.translations.get('pages');
   return {
     // eslint-disable-next-line
     field: !pages.isEmpty() && pages.get(page) && pages.getIn([page, id]) || { value: text, saved: true }
