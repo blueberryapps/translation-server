@@ -1,6 +1,8 @@
 /* @flow */
 import React, { Component } from 'react';
 
+import type { FieldInfo } from '../index';
+
 const typeRegistry = {
   string: 'text',
   symbol: 'text',
@@ -13,8 +15,7 @@ type PropTypes = {
   onSubmit: Function,
   registerPressKey: Function,
   dataType: string,
-  saved: boolean,
-  fieldInfo: Object,
+  fieldInfo: FieldInfo,
   pressedKeyCode: ?number,
   value: string,
 };
@@ -41,7 +42,7 @@ export default class SimpleEditor extends Component {
   }
 
   render() {
-    const { value, dataType, saved } = this.props;
+    const { value, dataType } = this.props;
 
     return (
       <div>
@@ -54,7 +55,6 @@ export default class SimpleEditor extends Component {
             onChange={this.handleChange}
             onBlur={this.handleBlur}
           />
-          {!saved && <span>Unsaved</span>}
         </form>
       </div>
     );

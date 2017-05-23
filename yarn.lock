@@ -2226,6 +2226,10 @@ domhandler@^2.3.0:
   dependencies:
     domelementtype "1"
 
+dompurify@^0.8.9:
+  version "0.8.9"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-0.8.9.tgz#fcec021f917b51f42a78af71d7875a7ba514fd64"
+
 domutils@1.1:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/domutils/-/domutils-1.1.6.tgz#bddc3de099b9a2efacc51c623f28f416ecc57485"
@@ -2242,6 +2246,16 @@ domutils@1.5.1, domutils@^1.5.1:
 dont-sniff-mimetype@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dont-sniff-mimetype/-/dont-sniff-mimetype-1.0.0.tgz#5932890dc9f4e2f19e5eb02a20026e5e5efc8f58"
+
+draft-js-export-html@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/draft-js-export-html/-/draft-js-export-html-0.5.4.tgz#e24927da3efe6f3df17f1d7606a9dc6141dbf72d"
+  dependencies:
+    draft-js-utils "^0.1.5"
+
+draft-js-utils@^0.1.5:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/draft-js-utils/-/draft-js-utils-0.1.7.tgz#e2b6927ca620edf1855a4bfc1cf1d21080a70f16"
 
 draft-js@^0.10.0:
   version "0.10.0"

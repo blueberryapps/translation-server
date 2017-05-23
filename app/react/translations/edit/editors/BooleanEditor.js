@@ -1,18 +1,21 @@
 /* @flow */
 import React, { Component } from 'react';
 
+import type { FieldInfo } from '../index';
+
 type PropTypes = {
   onChange: Function,
   onSubmit: Function,
   value: string,
   saved: boolean,
-  fieldInfo: Object
+  fieldInfo: FieldInfo
 };
 
 export default class BooleanEditor extends Component {
   toggleRadio = () => {
-    const { onChange, value } = this.props;
-    onChange(!value);
+    const { onChange, value, fieldInfo } = this.props;
+    const newValue = value === 'true' ? 'false' : 'true';
+    onChange(newValue, fieldInfo);
   }
 
   props: PropTypes
@@ -24,7 +27,6 @@ export default class BooleanEditor extends Component {
 
   render() {
     const { value, saved, fieldInfo: { fieldId } } = this.props;
-
     return (
       <div>
         <form>

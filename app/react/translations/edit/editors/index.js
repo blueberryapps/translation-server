@@ -1,11 +1,11 @@
 import SimpleEditor from './SimpleEditor';
 import BooleanEditor from './BooleanEditor';
-// import ArrayEditor from './ArrayEditor';
-// import HTMLEditor from './HTMLEditor';
+import HTMLEditor from './HTMLEditor';
+import ArrayEditor from './ArrayEditor';
 
 export {
   SimpleEditor,
   BooleanEditor,
-  // ArrayEditor,
-  // HTMLEditor
+  ArrayEditor,
+  HTMLEditor
 };

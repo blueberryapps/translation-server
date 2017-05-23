@@ -1,9 +1,23 @@
 /* @flow */
 import React, { PureComponent } from 'react';
-import { Flex, Box } from 'radium-flex';
 import TranslationEditor from '../edit';
 
 import type { TranslationEntityType } from '../../types/entityTypes';
+
+import SimpleRenderer from './renderers/SimpleRenderer';
+import HTMLRenderer from './renderers/HTMLRenderer';
+import ArrayRenderer from './renderers/ArrayRenderer';
+import BooleanRenderer from './renderers/BooleanRenderer';
+
+const typeRegistry = {
+  html: HTMLRenderer,
+  array: ArrayRenderer,
+  boolean: BooleanRenderer,
+  string: SimpleRenderer,
+  symbol: SimpleRenderer,
+  integer: SimpleRenderer,
+  float: SimpleRenderer,
+};
 
 type PropTypes = {
   defaultTranslation: TranslationEntityType,
@@ -33,21 +47,25 @@ export default class Translation extends PureComponent {
       page,
       translationKey
     } = this.props;
+    const shouldRenderDefaultTranslation = defaultTranslation && (defaultTranslation.id !== currentTranslation.id);
+
+    const DefaultTranslation = typeRegistry[dataType];
 
     return (
-      <Flex>
-        <Box col={12}>
+      <div>
+        <div>
           {translationKey}
-        </Box>
-        <Box>
+        </div>
+        <div>
           {note}
-        </Box>
-        <Box>
-          {defaultTranslation
-            ? defaultTranslation.text
-            : 'No default translation'}
-        </Box>
-        <Box col={12}>
+        </div>
+        {shouldRenderDefaultTranslation && (
+          // this subcompontent exists to make styling easier later
+          <DefaultTranslation
+            value={defaultTranslation.text}
+          />
+        )}
+        <div>
           <TranslationEditor
             translation={currentTranslation}
             dataType={dataType}
@@ -55,8 +73,8 @@ export default class Translation extends PureComponent {
             pressedKeyCode={pressedKeyCode}
             page={page}
           />
-        </Box>
-      </Flex>
+        </div>
+      </div>
     );
   }
 }

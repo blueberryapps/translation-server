@@ -22,7 +22,6 @@ export default class Project extends React.PureComponent {
 
     const translationLocales = locales
       .filter(locale => locale.id !== defaultLocaleId);
-
     return (
       <div>
         <Flex>
@@ -33,9 +32,9 @@ export default class Project extends React.PureComponent {
         <Flex>
           <Box col={4}>{name}</Box>
           <Box col={2}>
-            <Link to={`project/${id}/locales/${defaultLocale.id}?page=1&edited=new`}>
+            {defaultLocale && <Link to={`project/${id}/locales/${defaultLocale.id}?page=1&edited=new`}>
               <Locale {...defaultLocale} />
-            </Link>
+            </Link>}
           </Box>
           {translationLocales.map(locale => (
             <Box key={locale.id} col={2}>
