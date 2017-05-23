@@ -48,14 +48,14 @@ type PropTypes = {
 };
 
 type StateTypes = {
-  pressedKeyCode: ?number
+  pressedKeyCode?: number
 };
 
 @preload([fetchKeys, fetchLocale, fetchProjects])
 @connect(
   (state, { params, params: { localeId, projectId }, location: { query } }) => ({
     pagination: state.keys.pagination,
-    keys: getKeysMerged(query, params)(state).toJS(),
+    keys: getKeysMerged(query, params)(state),
     currentLocale: getLocalesMerged(state.locales)
       .find(l => +l.get('id') === +localeId),
     isVerticalMenuShown: state.ui.get('isVerticalMenuShown'),
@@ -70,7 +70,7 @@ type StateTypes = {
   projects.pending
 ]))
 @queryListener((trigger, props) => {
-  if (trigger.indexOf('page') > -1 || trigger.indexOf('edited') > -1) return fetchKeys.bind(null, props);
+  if (trigger.indexOf('page') > -1 || trigger.indexOf('edited') > -1 || trigger.indexOf('search') > -1) return fetchKeys.bind(null, props);
   return { type: 'QUERY_CHANGED', payload: { trigger, props } };
 })
 @toJS
@@ -107,7 +107,7 @@ export default class Translations extends PureComponent {
     } = this.props;
     return (
       <div>
-        <Header push={push} page={page} />
+        <Header push={push} location={location} page={page} />
         <Menubar
           totalCount={currentLocale && currentLocale.translationCount}
           translatedCount={currentLocale && currentLocale.translatedCount}
@@ -118,7 +118,12 @@ export default class Translations extends PureComponent {
         />
         <div style={styles.wrapper}>
           {isVerticalMenuShown &&
-            <VerticalMenu />
+            <VerticalMenu
+              location={{
+                ...location,
+                params: { localeId },
+              }}
+            />
           }
 
           {keys.map(key => (

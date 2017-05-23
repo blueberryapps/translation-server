@@ -7,16 +7,25 @@ import { media } from '../globals';
 import { Searchbar, SearchSelect } from './fields';
 import { searchValidations as validations } from '../configs/search/validations';
 
+type SearchProps = {
+  search: string,
+  onChange: Function
+};
+
 @Radium
 export default class Search extends React.PureComponent {
+  props: SearchProps
+
   render() {
+    const { onChange, search } = this.props;
+
     return (
       <div style={styles.search}>
         <Form
           name="searchForm"
           validations={validations}
         >
-          <Searchbar label="Search through translations" style={styles.searchbar} />
+          <Searchbar defaultValue={search} onChange={onChange} label="Search through translations" style={styles.searchbar} />
           <SearchSelect style={styles.searchSelect} selectSize={3} />
           <Image src={'/assets/searchButton.png'} style={styles.searchButton} />
         </Form>

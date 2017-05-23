@@ -8,6 +8,7 @@ import projects from './projects/reducer';
 import keys from './keys/reducer';
 import locales from './locales/reducer';
 import forms from './forms/reducer';
+import hierarchy from './hierarchy/reducer';
 
 import type { StateType } from './types/storeTypes';
 
@@ -19,7 +20,8 @@ const store: StateType = {
   projects,
   keys,
   locales,
-  forms
+  forms,
+  hierarchy
 };
 
 export default store;

@@ -23,7 +23,7 @@ export default function reducer(state: KeyStateType = new InitialState(), action
       return state
         .set('pending', false)
         .set('pagination', action.payload.result.meta.pagination)
-        .setIn(['lists', action.meta.localeId, action.meta.edited, action.meta.page], List(action.payload.result.keys))
+        .setIn(['lists', action.meta.localeId, action.meta.edited, action.meta.search || '', action.meta.page], List(action.payload.result.keys))
         .mergeIn(['entities', 'translations'], action.payload.entities.translations)
         .mergeIn(['entities', 'keys'], action.payload.entities.keys);
 

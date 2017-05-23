@@ -2,10 +2,11 @@ import { createSelector } from 'reselect';
 import { List, Map } from 'immutable';
 
 // eslint-disable-next-line no-confusing-arrow
-const getMainEntity = ({ page, edited }, { localeId }) => ({ keys }) => {
+const getMainEntity = ({ search, page, edited }, { localeId }) => ({ keys }) => {
   const lists = keys.get('lists');
-  return !lists.isEmpty() && lists.getIn([localeId, edited, page]) ?
-            lists.getIn([localeId, edited, page]).map(id =>
+  const statePath = [localeId, edited, search || '', page];
+  return !lists.isEmpty() && lists.hasIn(statePath) ?
+            lists.getIn(statePath).map(id =>
               keys.getIn(['entities', 'keys', `${id}`]))
           : List();
 };

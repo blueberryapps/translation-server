@@ -9,8 +9,8 @@ import Search from '../components/Search.react';
 import { colors, media } from '../globals';
 import { saveAllFields } from '../forms/actions';
 
-@Radium
 @connect(null, { saveAllFields })
+@Radium
 export default class Header extends React.PureComponent {
   static defaultProps = {
     menuShown: true,
@@ -21,6 +21,7 @@ export default class Header extends React.PureComponent {
   props: {
     projectName: string,
     userName: string,
+    location: { query: Object },
     page: string,
     menuShown: boolean,
     push: Function,
@@ -31,8 +32,15 @@ export default class Header extends React.PureComponent {
 
   handleSaveAll = () => this.props.saveAllFields(this.props.page)
 
+  handleSearchChange = ({ value }) => {
+    this.props.push({
+      ...this.props.location,
+      query: { ...this.props.location.query, page: 1, search: value },
+    });
+  };
+
   render() {
-    const { menuShown, projectName, userName } = this.props;
+    const { menuShown, projectName, userName, location } = this.props;
 
     return (
       <div style={styles.wrapper}>
@@ -44,7 +52,7 @@ export default class Header extends React.PureComponent {
           />
           <span style={styles.projectName}>{projectName}</span>
           <span style={styles.text}>Translations</span>
-          <Search />
+          <Search onChange={this.handleSearchChange} search={location.query.search || ''} />
           <div style={styles.saveAllWrapper}>
             <Button onClick={this.handleSaveAll} style={styles.saveAll}>Save all</Button>
           </div>

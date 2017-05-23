@@ -5287,9 +5287,9 @@ onetime@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/onetime/-/onetime-1.1.0.tgz#a1f7838f8314c516f05ecefcbc4ccfe04b4ed789"
 
-onion-form@0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/onion-form/-/onion-form-0.2.1.tgz#cf93d97d89faf7bcc7906d83e220448a5165e39c"
+onion-form@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/onion-form/-/onion-form-0.2.6.tgz#3b92058f3527fd8ad0da5ef30a5996f736162cad"
 
 opn@4.0.2:
   version "4.0.2"
