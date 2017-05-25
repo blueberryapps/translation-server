@@ -5,7 +5,7 @@ type PropTypes = {
   value: string
 }
 
-export default function ArrayRenderer({ value }: PropTypes) {
+export default function ArrayRenderer({ value }: PropTypes): React$Element<*> {
   let parsedArray;
   try {
     parsedArray = JSON.parse(value);
@@ -14,8 +14,10 @@ export default function ArrayRenderer({ value }: PropTypes) {
   }
   return (
     <div>
-      {parsedArray.map(element =>
-        <div>{`${element}`}</div>
+      {parsedArray.map((element, i) =>
+        <div key={`${element}${i * 3}`}>
+          {`${element}`}
+        </div>
       )}
     </div>
   );

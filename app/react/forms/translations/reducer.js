@@ -7,9 +7,7 @@ import {
 } from './actions';
 
 const InitialState = new Record({
-  translations: new Map({
-    pages: new Map(),
-  }),
+  pages: new Map(),
 });
 
 export default function reducer(state = new InitialState(), action) {
@@ -18,7 +16,7 @@ export default function reducer(state = new InitialState(), action) {
       const { payload: { value }, meta: { page, fieldId } } = action;
 
       return state.setIn(
-        ['translations', 'pages', page, fieldId],
+        ['pages', page, fieldId],
         new Map({
           value,
           saved: false,
@@ -29,20 +27,20 @@ export default function reducer(state = new InitialState(), action) {
     case INIT_FIELD: {
       const { meta: { page, fieldId }, payload: { field } } = action;
 
-      return state.setIn(['translations', 'pages', page, fieldId], new Map(field));
+      return state.setIn(['pages', page, fieldId], new Map(field));
     }
 
     case SAVE_FIELD_FULFILLED: {
       const { meta: { page, fieldId } } = action;
       return state.setIn(
-        ['translations', 'pages', page, fieldId, 'saved'],
+        ['pages', page, fieldId, 'saved'],
         true,
       );
     }
 
     case SAVE_ALL_FIELDS_FULFILLED: {
       const { meta: { page } } = action;
-      const pagePath = ['translations', 'pages', page];
+      const pagePath = ['pages', page];
       const fields = state.getIn(pagePath);
 
       return state.setIn(

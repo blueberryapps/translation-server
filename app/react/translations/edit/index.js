@@ -75,7 +75,7 @@ class TranslationEditor extends Component {
 
 // Flow-Type doesn't like decorators
 export default connect((state, { page, translation: { id, text } }) => {
-  const pages = state.forms.getIn(['translations', 'pages']);
+  const pages = state.forms.translations.get('pages');
   return {
     field: pages.getIn([page, id]) || { value: text, saved: true }
   };
