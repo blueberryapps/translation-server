@@ -25,7 +25,12 @@ export default class Search extends React.PureComponent {
           name="searchForm"
           validations={validations}
         >
-          <Searchbar defaultValue={search} onChange={onChange} label="Search through translations" style={styles.searchbar} />
+          <Searchbar
+            defaultValue={search}
+            onChange={onChange}
+            label="Search through translations"
+            style={styles.searchbar}
+          />
           <SearchSelect style={styles.searchSelect} selectSize={3} />
           <Image src={'/assets/searchButton.png'} style={styles.searchButton} />
         </Form>

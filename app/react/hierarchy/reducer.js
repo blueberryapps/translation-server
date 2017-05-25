@@ -1,9 +1,12 @@
-
+// @flow
 import {
   FETCH_HIERARCHY_PENDING,
   FETCH_HIERARCHY_FULFILLED,
   SET_BREADCRUMB_PATH
 } from './actions';
+
+import type { HierarchyStateType } from '../types/storeTypes';
+import type { Action } from '../types/generalTypes';
 
 const initialState = {
   breadcrumbPath: [],
@@ -11,7 +14,7 @@ const initialState = {
   pending: false
 };
 
-export default function reducer(state = initialState, action = {}) {
+export default function reducer(state: HierarchyStateType = initialState, action: Action = {}): HierarchyStateType {
   switch (action.type) {
     case SET_BREADCRUMB_PATH:
       return {

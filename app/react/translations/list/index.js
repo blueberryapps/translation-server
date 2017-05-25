@@ -43,6 +43,7 @@ type PropTypes = {
   project: ProjectEntityType,
   params: TranslationParamsType,
   breadcrumbPath: Array<string>,
+  path: Array<string>,
   push: Function,
   saveTranslation: Function,
   toggleHierarchy: Function,
@@ -50,7 +51,7 @@ type PropTypes = {
 };
 
 type StateTypes = {
-  pressedKeyCode?: number
+  pressedKeyCode: ?number
 };
 
 @preload([fetchKeys, fetchLocale, fetchProjects])
@@ -109,7 +110,7 @@ export default class Translations extends PureComponent {
       fillTranslation,
       path
     } = this.props;
-    console.log('paaa', path);
+
     return (
       <div>
         <Header push={push} location={location} page={page} />

@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import HeaderHome from '../app/HeaderHome.react';
 import Projects from '../projects/list';

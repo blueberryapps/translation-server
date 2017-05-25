@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import preload from 'redux-preload';
 import { connect } from 'react-redux';
@@ -20,20 +21,23 @@ const transformHierarchy = (structure: Object, level: number = 0): Array<Object>
 type PropTypes = {
   dispatch: Function,
   hierarchy: Array<Object>,
-  location: Location,
+  // eslint-disable-next-line
+  location: { query: Object },
+  path: Array<string>,
   setPath: Function
 };
 
 @preload([fetchHierarchy])
 @waitFor(({ hierarchy }) => ([hierarchy.pending]))
 @connect(({ hierarchy }) => ({
-  hierarchy: transformHierarchy(hierarchy.hierarchy)
+  hierarchy: transformHierarchy(hierarchy.hierarchy),
+  path: hierarchy.breadcrumbPath
 }))
 export default class HierarchyKeys extends React.Component {
   props: PropTypes
 
   render() {
-    const { dispatch, hierarchy, location, setPath } = this.props;
+    const { dispatch, hierarchy, location, setPath, path } = this.props;
 
     return (
       <div>
@@ -42,6 +46,7 @@ export default class HierarchyKeys extends React.Component {
             dispatch={dispatch}
             key={key.label}
             setPath={setPath}
+            path={path}
             style={createStyles(key.level)}
             createStyles={createStyles}
             location={location}

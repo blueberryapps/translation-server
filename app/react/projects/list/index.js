@@ -19,7 +19,7 @@ import type { ProjectEntityType } from '../../types/entityTypes';
   dispatch => bindActionCreators(actions, dispatch),
 )
 @toJS
-export default class Projects extends React.PureComponent {
+class Projects extends React.PureComponent {
   props: {
     projects: Array<ProjectEntityType>
   }
@@ -38,3 +38,8 @@ export default class Projects extends React.PureComponent {
     );
   }
 }
+
+export default connect(({ projects }) => ({
+  projects: getProjectsMerged(projects)
+}),
+dispatch => bindActionCreators(actions, dispatch))(Projects);

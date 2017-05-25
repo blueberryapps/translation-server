@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
@@ -6,7 +7,10 @@ import { setBreadcrumbPath } from '../actions';
 
 
 type PropTypes = {
-  location: Location,
+  location: {
+    // eslint-disable-next-line
+    query: Object
+  },
   path: Array<string>,
   label: string,
 
@@ -14,17 +18,15 @@ type PropTypes = {
   setFormFieldProperty: Function
 };
 
-@connect(() => ({}), {
-  setFormFieldProperty: actions.setFormFieldProperty,
-  setPath: setBreadcrumbPath
-})
-export default class LabelLink extends React.Component {
-  constructor(props) {
+
+class LabelLink extends React.Component {
+  constructor(props: PropTypes) {
     super(props);
     this.newSearch = props.path.join('.');
   }
 
   props: PropTypes
+  newSearch: string
 
   handleSearch = () => {
     const { setFormFieldProperty, setPath, path } = this.props;
@@ -52,3 +54,8 @@ export default class LabelLink extends React.Component {
     );
   }
 }
+
+export default connect(() => ({}), {
+  setFormFieldProperty: actions.setFormFieldProperty,
+  setPath: setBreadcrumbPath
+})(LabelLink);

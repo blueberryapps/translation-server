@@ -1,10 +1,12 @@
+// @flow
 import React from 'react';
 import LabelLink from './LabelLink';
 
 type PropTypes = {
   dispatch: Function,
   label: string,
-  location: Location,
+  // eslint-disable-next-line
+  location: { query: Object },
   childrenKeys: Array<Object>,
   style: Object,
   createStyles: (level: number) => Object,

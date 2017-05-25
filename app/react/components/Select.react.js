@@ -6,7 +6,7 @@ import { colors } from '../globals';
 
 const getSelectedValue = (value) => {
   if (typeof value === 'boolean') {
-    return value.toString();
+    return `${value}`;
   }
 
   if (typeof value === 'number' && !isNaN(value)) {
@@ -20,7 +20,7 @@ const renderOption = (option) => {
   const { text, value } = option;
   const optionText = text || value;
   return (
-    <option key={value} value={typeof value === 'boolean' ? value.toString() : value}>
+    <option key={value} value={typeof value === 'boolean' ? `${value}` : value}>
       {optionText}
     </option>
   );

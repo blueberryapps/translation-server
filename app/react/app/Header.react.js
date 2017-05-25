@@ -21,7 +21,7 @@ export default class Header extends React.PureComponent {
   props: {
     projectName: string,
     userName: string,
-    location: { query: Object },
+    location: Location,
     page: string,
     menuShown: boolean,
     push: Function,

@@ -35,8 +35,15 @@ export type KeyStateType = RecordType<{
   pagination: PaginationType,
 }>
 
+export type HierarchyStateType = {
+  breadcrumbPath: Array<string>,
+  hierarchy: Object,
+  pending: boolean
+}
+
 export type StateType = {
   locales: (state: LocaleStateType, action: Action) => LocaleStateType,
   projects: (state: ProjectStateType, action: Action) => ProjectStateType,
-  keys: (state: KeyStateType, action: Action) => KeyStateType
+  keys: (state: KeyStateType, action: Action) => KeyStateType,
+  hierarchy: (state: HierarchyStateType, action: Action) => HierarchyStateType
 };

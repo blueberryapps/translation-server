@@ -1,9 +1,10 @@
+// @flow
 import React from 'react';
 import LabelLink from './keys/LabelLink';
 
 type PropTypes = {
   path: Array<string>,
-  location: Location
+  location: Object
 };
 
 const Separator = (<span> &gt; </span>);

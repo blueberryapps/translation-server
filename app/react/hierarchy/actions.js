@@ -1,3 +1,4 @@
+// @flow
 import type { Dependencies, Action } from '../types/generalTypes';
 
 export const FETCH_HIERARCHY = 'FETCH_HIERARCHY';
@@ -7,8 +8,10 @@ export const FETCH_HIERARCHY_FULFILLED = 'FETCH_HIERARCHY_FULFILLED';
 export const SET_BREADCRUMB_PATH = 'SET_BREADCRUMB_PATH';
 
 type FetchHierarchyParams = {
-  params: {
-    localeId: string
+  location: {
+    params: {
+      localeId: string
+    }
   }
 }
 

@@ -11,7 +11,7 @@ type FetchKeysParams = {
   params: {
     localeId: string
   },
-  location: {
+  location: Location & {
     query: {
       page: string,
       edited: string,
