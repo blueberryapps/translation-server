@@ -19,6 +19,7 @@ import VerticalMenu from '../../app/menu/VerticalMenu.react';
 import Menubar from '../../app/menu/Menubar.react';
 import Paginator from '../../components/Paginator.react';
 import Header from '../../app/Header.react';
+import Breadcrumbs from '../../hierarchy/Breadcrumbs';
 
 // Selectors
 import { getKeysMerged } from '../../keys/selectors';
@@ -32,7 +33,11 @@ import type { KeyEntityType, LocaleEntityType, ProjectEntityType } from '../../t
 
 const preloader = <div>Preloading</div>;
 const waitFor = createWaitFor(preloader);
-
+const shouldFetchKeys = trigger => (
+  trigger.indexOf('page') > -1
+  || trigger.indexOf('edited') > -1
+  || trigger.indexOf('search') > -1
+);
 type PropTypes = {
   pagination: PaginationType,
   location: TranslationsLocationType,
@@ -41,6 +46,8 @@ type PropTypes = {
   currentLocale: LocaleEntityType,
   project: ProjectEntityType,
   params: TranslationParamsType,
+  breadcrumbPath: Array<string>,
+  path: Array<string>,
   push: Function,
   saveTranslation: Function,
   toggleHierarchy: Function,
@@ -55,12 +62,13 @@ type StateTypes = {
 @connect(
   (state, { params, params: { localeId, projectId }, location: { query } }) => ({
     pagination: state.keys.pagination,
-    keys: getKeysMerged(query, params)(state).toJS(),
+    keys: getKeysMerged(query, params)(state),
     currentLocale: getLocalesMerged(state.locales)
       .find(l => +l.get('id') === +localeId),
     isVerticalMenuShown: state.ui.get('isVerticalMenuShown'),
     project: getProjectsMerged(state.projects)
-      .find(p => +p.get('id') === +projectId)
+      .find(p => +p.get('id') === +projectId),
+    path: state.hierarchy.breadcrumbPath
   }),
   { fetchLocale, push: pushLocation },
 )
@@ -70,7 +78,7 @@ type StateTypes = {
   projects.pending
 ]))
 @queryListener((trigger, props) => {
-  if (trigger.indexOf('page') > -1 || trigger.indexOf('edited') > -1) return fetchKeys.bind(null, props);
+  if (shouldFetchKeys(trigger)) return fetchKeys.bind(null, props);
   return { type: 'QUERY_CHANGED', payload: { trigger, props } };
 })
 @toJS
@@ -103,11 +111,13 @@ export default class Translations extends PureComponent {
       },
       push,
       saveTranslation,
-      fillTranslation
+      fillTranslation,
+      path
     } = this.props;
+
     return (
       <div>
-        <Header push={push} page={page} />
+        <Header push={push} location={location} page={page} />
         <Menubar
           totalCount={currentLocale && currentLocale.translationCount}
           translatedCount={currentLocale && currentLocale.translatedCount}
@@ -117,10 +127,18 @@ export default class Translations extends PureComponent {
           toggleHierarchy={this.props.toggleHierarchy}
         />
         <div style={styles.wrapper}>
+          <Breadcrumbs
+            path={path}
+            location={location}
+          />
           {isVerticalMenuShown &&
-            <VerticalMenu />
+            <VerticalMenu
+              location={{
+                ...location,
+                params: { localeId },
+              }}
+            />
           }
-
           {keys.map(key => (
             <Translation
               saveTranslation={saveTranslation}

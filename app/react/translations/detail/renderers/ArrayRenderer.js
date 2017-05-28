@@ -5,6 +5,7 @@ type PropTypes = {
   value: string
 }
 
+// eslint-disable-next-line no-undef
 export default function ArrayRenderer({ value }: PropTypes): React$Element<*> {
   let parsedArray;
   try {

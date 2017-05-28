@@ -6,6 +6,7 @@ use them.
 
 * To start application use `bundle exec rails s`
 * To start react application for development `gulp watch`
+* React application is on `/app` route
 
 ## Architecture of service
 

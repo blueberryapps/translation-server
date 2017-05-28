@@ -19,13 +19,20 @@ export default function reducer(state: KeyStateType = new InitialState(), action
     case FETCH_KEYS_PENDING:
       return state.set('pending', true);
 
-    case FETCH_KEYS_FULFILLED:
+    case FETCH_KEYS_FULFILLED: {
+      const {
+        meta: { edited, search = '', localeId, page },
+        payload: { result: { meta, keys }, entities }
+      } = action;
+
       return state
         .set('pending', false)
-        .set('pagination', action.payload.result.meta.pagination)
-        .setIn(['lists', action.meta.localeId, action.meta.edited, action.meta.page], List(action.payload.result.keys))
-        .mergeIn(['entities', 'translations'], action.payload.entities.translations)
-        .mergeIn(['entities', 'keys'], action.payload.entities.keys);
+        .set('pagination', meta.pagination)
+        .setIn(['lists', localeId, edited, search, page], List(keys))
+        .mergeIn(['entities', 'translations'], entities.translations)
+        .mergeIn(['entities', 'keys'], entities.keys);
+    }
+
 
     default:
       return state;

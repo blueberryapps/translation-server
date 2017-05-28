@@ -88,7 +88,7 @@
     "immutable": "^3.8.1",
     "interfacer": "^0.1.3",
     "normalizr": "^3.2.2",
-    "onion-form": "0.2.1",
+    "onion-form": "^0.2.6",
     "pretty-error": "^2.0.2",
     "radium": "^0.18.2",
     "radium-flex": "^1.1.0",

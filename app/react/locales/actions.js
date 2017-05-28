@@ -10,7 +10,7 @@ type FetchParams = {
   params: {
     localeId: number
   },
-  location: {
+  location: Location & {
     query: {
       page: string
     }

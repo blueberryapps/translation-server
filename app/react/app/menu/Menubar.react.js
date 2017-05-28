@@ -28,7 +28,9 @@ export default class Menubar extends React.PureComponent {
     isVerticalMenuShown: boolean,
     translatedCount: number,
     totalCount: number,
-    location: { query: Object },
+    location: {
+      query: Object
+    },
     push: Function
   }
 

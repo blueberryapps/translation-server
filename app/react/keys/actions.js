@@ -11,44 +11,26 @@ type FetchKeysParams = {
   params: {
     localeId: string
   },
-  location: {
+  location: Location & {
     query: {
       page: string,
-      edited: string
+      edited: string,
+      search: string
     }
   }
 }
 
-export function fetchKeys({ params: { localeId }, location: { query: { page, edited } } }: FetchKeysParams) {
+export function fetchKeys({ params: { localeId }, location: { query } }: FetchKeysParams) {
   return ({ keysInterface }: Dependencies): Action => ({
     type: FETCH_KEYS,
     payload: {
       promise: keysInterface.getCollection({
         error: 'Keys failed to fecth',
-        query: { page, edited },
+        query,
         prefix: `locales/${localeId}`,
         schema: { keys: [keySchema] }
       })
     },
-    meta: { localeId, page, edited }
-  });
-}
-
-type FetchHierarchyParams = {
-  params: {
-    localeId: string
-  }
-}
-
-export function fetchHierarchy({ params: { localeId } }: FetchHierarchyParams) {
-  return ({ hierarchyInterface }: Dependencies): Action => ({
-    type: 'FETCH_HIERARCHY',
-    payload: {
-      promise: hierarchyInterface.getCollection({
-        error: 'Hierarchy failed to fetch',
-        prefix: `locales/${localeId}/keys`,
-      }),
-    },
-    meta: { localeId },
+    meta: { localeId, ...query }
   });
 }
