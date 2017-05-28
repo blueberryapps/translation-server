@@ -20,17 +20,17 @@ type FetchKeysParams = {
   }
 }
 
-export function fetchKeys({ params: { localeId }, location: { query: { page, edited, search } } }: FetchKeysParams) {
+export function fetchKeys({ params: { localeId }, location: { query } }: FetchKeysParams) {
   return ({ keysInterface }: Dependencies): Action => ({
     type: FETCH_KEYS,
     payload: {
       promise: keysInterface.getCollection({
         error: 'Keys failed to fecth',
-        query: { page, edited, search },
+        query,
         prefix: `locales/${localeId}`,
         schema: { keys: [keySchema] }
       })
     },
-    meta: { localeId, page, edited, search }
+    meta: { localeId, ...query }
   });
 }

@@ -10,3 +10,7 @@ export type TranslationParamsType = {
   localeId: string,
   projectId: string
 }
+
+export type LocationWithQuery = {
+  query: Object
+}

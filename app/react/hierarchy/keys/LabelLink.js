@@ -5,12 +5,10 @@ import { connect } from 'react-redux';
 import { actions } from 'onion-form';
 import { setBreadcrumbPath } from '../actions';
 
+import type { LocationWithQuery } from '../../types/locationTypes';
 
 type PropTypes = {
-  location: {
-    // eslint-disable-next-line
-    query: Object
-  },
+  location: LocationWithQuery,
   path: Array<string>,
   label: string,
 

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SimpleEditor, BooleanEditor, HTMLEditor, ArrayEditor } from './editors';
-import * as actions from '../../forms/actions';
+import * as actions from '../../forms/translations/actions';
 import toJS from '../../utils/toJS';
 
 export type FieldInfo = {

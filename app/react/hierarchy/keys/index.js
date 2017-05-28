@@ -7,22 +7,31 @@ import createWaitFor from '../../utils/waitFor';
 import { fetchHierarchy } from '../actions';
 import Key from './Key';
 
+import type { LocationWithQuery } from '../../types/locationTypes';
+
 const preloader = <div>Preloading</div>;
 const waitFor = createWaitFor(preloader);
+const maxLevel = 10;
 
-const transformHierarchy = (structure: Object, level: number = 0): Array<Object> =>
-  Object.keys(structure)
+const transformHierarchy = (structure: Object, level: number = 0): Array<Object> => {
+  if (level > maxLevel) {
+    // eslint-disable-next-line no-console
+    console.warn('Provided hierarchy object was to deep. Either provide different object or increase "maxLevel" variable');
+    return [];
+  }
+  return Object.keys(structure)
     .map(key => ({
       level,
       label: key,
       childrenKeys: transformHierarchy(structure[key], level + 1)
     }));
+};
 
 type PropTypes = {
   dispatch: Function,
   hierarchy: Array<Object>,
   // eslint-disable-next-line
-  location: { query: Object },
+  location: LocationWithQuery,
   path: Array<string>,
   setPath: Function
 };

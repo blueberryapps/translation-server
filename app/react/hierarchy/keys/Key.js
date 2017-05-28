@@ -2,11 +2,13 @@
 import React from 'react';
 import LabelLink from './LabelLink';
 
+import type { LocationWithQuery } from '../../types/locationTypes';
+
 type PropTypes = {
   dispatch: Function,
   label: string,
   // eslint-disable-next-line
-  location: { query: Object },
+  location: LocationWithQuery,
   childrenKeys: Array<Object>,
   style: Object,
   createStyles: (level: number) => Object,
@@ -14,7 +16,16 @@ type PropTypes = {
   setPath: Function
 };
 
-export default function Key({ dispatch, label, childrenKeys, location, style, createStyles, path, setPath }: PropTypes) {
+export default function Key({
+  dispatch,
+  label,
+  childrenKeys,
+  location,
+  style,
+  createStyles,
+  path,
+  setPath
+}: PropTypes) {
   const currentPath = [...path, label];
   return (
     <div style={style} >

@@ -33,7 +33,11 @@ import type { KeyEntityType, LocaleEntityType, ProjectEntityType } from '../../t
 
 const preloader = <div>Preloading</div>;
 const waitFor = createWaitFor(preloader);
-
+const shouldFetchKeys = trigger => (
+  trigger.indexOf('page') > -1
+  || trigger.indexOf('edited') > -1
+  || trigger.indexOf('search') > -1
+);
 type PropTypes = {
   pagination: PaginationType,
   location: TranslationsLocationType,
@@ -74,7 +78,7 @@ type StateTypes = {
   projects.pending
 ]))
 @queryListener((trigger, props) => {
-  if (trigger.indexOf('page') > -1 || trigger.indexOf('edited') > -1 || trigger.indexOf('search') > -1) return fetchKeys.bind(null, props);
+  if (shouldFetchKeys(trigger)) return fetchKeys.bind(null, props);
   return { type: 'QUERY_CHANGED', payload: { trigger, props } };
 })
 @toJS

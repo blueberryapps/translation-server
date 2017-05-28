@@ -20,7 +20,7 @@ const renderOption = (option) => {
   const { text, value } = option;
   const optionText = text || value;
   return (
-    <option key={value} value={typeof value === 'boolean' ? `${value}` : value}>
+    <option key={value} value={`${value}`}>
       {optionText}
     </option>
   );

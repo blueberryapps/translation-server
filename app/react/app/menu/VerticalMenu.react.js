@@ -1,9 +1,16 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import type { Router } from 'react-router';
 import HierarchyKeys from '../../hierarchy/keys';
 
-@withRouter
-export default class VerticalMenu extends React.PureComponent {
+
+type PropTypes = {
+  router: Router,
+  location: Object
+};
+
+class VerticalMenu extends React.PureComponent {
+  props: PropTypes
   render() {
     return (
       <div style={styles.wrapper}>
@@ -23,3 +30,5 @@ const styles = {
     width: '300px'
   }
 };
+
+export default withRouter()(VerticalMenu);
