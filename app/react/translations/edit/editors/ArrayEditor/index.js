@@ -22,7 +22,8 @@ type PropTypes = {
 
 const parseArray = (propValue: any, propKey: string) => {
   switch (propKey) {
-    case 'value': return JSON.parse(propValue);
+    case 'value':
+      return propValue && JSON.parse(propValue);
     case 'onChange': return (value, fieldId) =>
       propValue(JSON.stringify(value), fieldId);
     case 'onSubmit': return (value, fieldId) =>
