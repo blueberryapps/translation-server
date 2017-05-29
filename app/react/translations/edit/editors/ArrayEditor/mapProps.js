@@ -12,6 +12,8 @@ export default function mapProps(cb: Function) {
         try {
           result = cb(props[key], key, index, props);
         } catch (e) {
+          // eslint-disable-next-line no-console
+          console.error(`Prop ${key} in "mapProps" of ${Wrapped} failed, due to ${e}`);
           result = props[key];
         }
         return result;

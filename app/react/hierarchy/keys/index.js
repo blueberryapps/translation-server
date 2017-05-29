@@ -46,7 +46,7 @@ export default class HierarchyKeys extends React.Component {
   props: PropTypes
 
   render() {
-    const { dispatch, hierarchy, location, setPath, path } = this.props;
+    const { dispatch, hierarchy, location, setPath, path }: PropTypes = this.props;
 
     return (
       <div>

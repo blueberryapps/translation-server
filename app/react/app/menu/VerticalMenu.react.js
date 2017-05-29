@@ -31,4 +31,4 @@ const styles = {
   }
 };
 
-export default withRouter()(VerticalMenu);
+export default withRouter(VerticalMenu);

@@ -7,7 +7,7 @@ import ui from './ui/reducer';
 import projects from './projects/reducer';
 import keys from './keys/reducer';
 import locales from './locales/reducer';
-import forms from './forms/translations/reducer';
+import forms from './forms/reducers';
 import hierarchy from './hierarchy/reducer';
 
 import type { StateType } from './types/storeTypes';
