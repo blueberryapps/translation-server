@@ -82,6 +82,7 @@
     "draft-js-export-html": "^0.5.4",
     "express": "^4.14.0",
     "flow": "^0.2.3",
+    "flow-bin": "^0.47.0",
     "global": "^4.3.1",
     "helmet": "^3.4.0",
     "history": "^2.1.2",

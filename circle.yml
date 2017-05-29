@@ -15,6 +15,9 @@ machine:
     TRAVIS: true
     DATABASE_URL: postgres://ubuntu:@localhost:5432/circle_test
 
+dependencies:
+  override: npm install -g flow-bin
+
 ## Customize database setup
 database:
   override:
@@ -23,6 +26,8 @@ database:
 test:
   override:
     - bundle exec rspec
+    - flow
+    - yarn eslint
 
 general:
   artifacts:
