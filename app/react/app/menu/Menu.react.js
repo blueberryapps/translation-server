@@ -24,10 +24,15 @@ export default class Menu extends React.PureComponent {
 
   @autobind
   handleClick() {
-    const { visibility } = this.state;
-
-    this.setState({ visibility: !visibility });
+    this.setState({ visibility: !this.state.visibility });
   }
+
+  handleSignOut = () => {
+    fetch('/users/sign_out', { method: 'DELETE' });
+    window.location.href = '/users/sign_in';
+  }
+
+  redicertToOldVersion = () => { window.location.href = '/'; }
 
   render() {
     const { user, style } = this.props;
@@ -41,8 +46,20 @@ export default class Menu extends React.PureComponent {
         </span>
         {/* $FlowFixMe */}
         <ul style={[styles.dropdownList, styles.dropdownVisibility[visibility]]}>
-          <li style={styles.dropdownElement} key="oldVersion">Old version</li>
-          <li style={styles.dropdownElement} key="signOut">Sign out</li>
+          <li
+            style={styles.dropdownElement}
+            key="oldVersion"
+            onClick={this.redicertToOldVersion}
+          >
+            Old version
+          </li>
+          <li
+            style={styles.dropdownElement}
+            key="signOut"
+            onClick={this.handleSignOut}
+          >
+            Sign out
+          </li>
         </ul>
       </div>
     );
