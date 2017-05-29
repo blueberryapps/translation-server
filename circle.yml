@@ -23,6 +23,8 @@ database:
 test:
   override:
     - bundle exec rspec
+    - yarn flow
+    - yarn eslint
 
 general:
   artifacts:

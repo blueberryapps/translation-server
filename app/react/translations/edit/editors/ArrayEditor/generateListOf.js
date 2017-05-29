@@ -15,7 +15,8 @@ type ListProps = {
 type StateTypes = {
   // eslint-disable-next-line no-undef
   list: ReactClass<any> | null,
-  elements: Object
+  elements: Object,
+  shouldFocus: boolean
 }
 // eslint-disable-next-line no-undef
 export default function generateListOf(Element: ReactClass<any>) {

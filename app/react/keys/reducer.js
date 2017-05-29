@@ -5,7 +5,7 @@ import type { KeyStateType } from '../types/storeTypes';
 import type { Action } from '../types/generalTypes';
 
 const InitialState = Record({
-  lists: new Map({}),
+  lists: new Map(),
   pending: false,
   entities: new Map({
     translations: new Map(),
