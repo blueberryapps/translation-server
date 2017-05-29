@@ -28,11 +28,16 @@ export default class Menu extends React.PureComponent {
   }
 
   handleSignOut = () => {
-    fetch('/users/sign_out', { method: 'DELETE' });
-    window.location.href = '/users/sign_in';
+    fetch('/api_frontend/v1/logout', {
+      method: 'DELETE', credentials: 'same-origin'
+    }).then(() => {
+      window.location.href = '/users/sign_in';
+    });
   }
 
-  redicertToOldVersion = () => { window.location.href = '/'; }
+  redicertToOldVersion = () => {
+    window.location.href = '/';
+  }
 
   render() {
     const { user, style } = this.props;
