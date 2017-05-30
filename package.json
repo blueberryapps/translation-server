@@ -93,7 +93,6 @@
     "pretty-error": "^2.0.2",
     "radium": "^0.18.2",
     "radium-flex": "^1.1.0",
-    "radium-styled-component": "^0.2.2",
     "react": "^15.4.2",
     "react-addons-perf": "^15.4.2",
     "react-dom": "^15.4.2",
