@@ -39,11 +39,11 @@ programming in style.
 
 # Key Libraries used
 
-* [Interfacer](https://github.com/zepod/interfacer)
-* [Reselect](https://github.com/reactjs/reselect)
-* [Normalizr](https://github.com/paularmstrong/normalizr)
-* [Draft](https://github.com/facebook/draft-js)
-* [Flow](https://github.com/facebook/flow)
+* [Interfacer](https://github.com/zepod/interfacer) - REST API client
+* [Reselect](https://github.com/reactjs/reselect) - `State => Props` helper with memoization
+* [Normalizr](https://github.com/paularmstrong/normalizr) - Normalizes fetched data for store
+* [Draft](https://github.com/facebook/draft-js) - Rich html editor
+* [Flow](https://github.com/facebook/flow) - Static Type checker
 
 # JavaScript dev tools
 
