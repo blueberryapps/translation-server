@@ -145,6 +145,7 @@ export default class Translations extends PureComponent {
               fillTranslation={fillTranslation}
               translationKey={key.key}
               page={page}
+              location={location}
               registerPressKey={this.registerPressKey}
               pressedKeyCode={this.state.pressedKeyCode}
               currentTranslation={key.translations[+localeId]}

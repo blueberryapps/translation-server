@@ -3,11 +3,13 @@ import React, { PureComponent } from 'react';
 import TranslationEditor from '../edit';
 
 import type { TranslationEntityType } from '../../types/entityTypes';
+import type { LocationWithQuery } from '../../types/locationTypes';
 
 import SimpleRenderer from './renderers/SimpleRenderer';
 import HTMLRenderer from './renderers/HTMLRenderer';
 import ArrayRenderer from './renderers/ArrayRenderer';
 import BooleanRenderer from './renderers/BooleanRenderer';
+import KeyRenderer from './renderers/KeyRenderer';
 
 const typeRegistry = {
   html: HTMLRenderer,
@@ -24,6 +26,7 @@ type PropTypes = {
   currentTranslation: TranslationEntityType,
   dataType: string,
   note?: string,
+  location: LocationWithQuery,
   pressedKeyCode: ?number,
   page: string,
   translationKey: string,
@@ -45,7 +48,8 @@ export default class Translation extends PureComponent {
       registerPressKey,
       pressedKeyCode,
       page,
-      translationKey
+      translationKey,
+      location
     } = this.props;
     const shouldRenderDefaultTranslation = defaultTranslation && (defaultTranslation.id !== currentTranslation.id);
 
@@ -54,7 +58,10 @@ export default class Translation extends PureComponent {
     return (
       <div>
         <div>
-          {translationKey}
+          <KeyRenderer
+            translationKey={translationKey}
+            location={location}
+          />
         </div>
         <div>
           {note}
