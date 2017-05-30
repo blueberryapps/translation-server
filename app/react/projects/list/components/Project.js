@@ -4,7 +4,6 @@ import { Flex, Box } from 'radium-flex';
 import Locale from './Locale.react';
 import { media } from '../../../globals';
 
-
 import type { ProjectEntityType } from '../../../types/entityTypes';
 
 export default class Project extends React.PureComponent {

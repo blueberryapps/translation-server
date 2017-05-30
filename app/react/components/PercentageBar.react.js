@@ -2,7 +2,7 @@ import Radium from 'radium';
 import React from 'react';
 import { colors, media } from '../globals';
 
-const PercateBar = ({ number }) => (
+const PercateBar = ({ number }: { number: Number }) => (
   <div style={styles.wrapper}>
     <div style={styles.number}>{number} %</div>
     <div style={styles.barWrapper}>
@@ -10,14 +10,6 @@ const PercateBar = ({ number }) => (
     </div>
   </div>
 );
-
-PercateBar.defaultProps = {
-  number: 0
-};
-
-PercateBar.propTypes = {
-  number: Number
-};
 
 export default Radium(PercateBar);
 

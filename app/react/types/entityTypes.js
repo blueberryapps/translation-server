@@ -4,6 +4,7 @@ import type { ID } from './generalTypes';
 
 export type LocaleEntityType = {
   id: ID,
+  projectID: ID,
   code: string,
   translationCount: number,
   translatedCount: number
