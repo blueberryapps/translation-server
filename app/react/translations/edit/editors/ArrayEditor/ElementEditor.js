@@ -10,6 +10,7 @@ type PropTypes = {
   value: string,
   index: number,
   length: number,
+  shouldFocus: boolean,
   // eslint-disable-next-line react/no-unused-prop-types
   onChange: Function,
   onKeyDown: Function,
@@ -24,7 +25,9 @@ export default class ElementEditor extends React.Component {
     };
   }
 
-  componentDidMount = () => this.input.focus();
+  componentDidMount = () => {
+    if (this.props.shouldFocus) this.input.focus();
+  }
 
   arrayInfo: ArrayInfo
   input: HTMLInputElement

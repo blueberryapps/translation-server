@@ -3,12 +3,14 @@
 import autobind from 'core-decorators/lib/autobind';
 import Radium from 'radium';
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Image from '../../components/Image.react';
 import { colors } from '../../globals';
+import { signOut } from '../actions';
 
 @Radium
-export default class Menu extends React.PureComponent {
+class Menu extends React.PureComponent {
   static defaultProps = {
     style: {}
   }
@@ -20,13 +22,16 @@ export default class Menu extends React.PureComponent {
   props: {
     style: Object | Array<string>,
     user: string,
+    signOut: () => Promise<*>
   }
 
   @autobind
   handleClick() {
-    const { visibility } = this.state;
+    this.setState({ visibility: !this.state.visibility });
+  }
 
-    this.setState({ visibility: !visibility });
+  redirectToOldVersion = () => {
+    window.location.href = '/';
   }
 
   render() {
@@ -41,13 +46,27 @@ export default class Menu extends React.PureComponent {
         </span>
         {/* $FlowFixMe */}
         <ul style={[styles.dropdownList, styles.dropdownVisibility[visibility]]}>
-          <li style={styles.dropdownElement} key="oldVersion">Old version</li>
-          <li style={styles.dropdownElement} key="signOut">Sign out</li>
+          <li
+            style={styles.dropdownElement}
+            key="oldVersion"
+            onClick={this.redirectToOldVersion}
+          >
+            Old version
+          </li>
+          <li
+            style={styles.dropdownElement}
+            key="signOut"
+            onClick={this.props.signOut}
+          >
+            Sign out
+          </li>
         </ul>
       </div>
     );
   }
 }
+
+export default connect(() => ({}), { signOut })(Menu);
 
 const styles = {
   dropdown: {

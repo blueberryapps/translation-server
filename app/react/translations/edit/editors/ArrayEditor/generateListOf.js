@@ -15,7 +15,8 @@ type ListProps = {
 type StateTypes = {
   // eslint-disable-next-line no-undef
   list: ReactClass<any> | null,
-  elements: Object
+  elements: Object,
+  shouldFocus: boolean
 }
 // eslint-disable-next-line no-undef
 export default function generateListOf(Element: ReactClass<any>) {
@@ -27,18 +28,19 @@ export default function generateListOf(Element: ReactClass<any>) {
         this.state = {
           list: null,
           elements: {},
+          shouldFocus: false
         };
       }
       props: PropTypes
       state: StateTypes
 
 
-      componentWillMount = () =>
-        this.initializeValues(this.props.value)
+      componentWillMount = () => this.initializeValues(this.props.value);
 
       componentWillReceiveProps = (nextProps: PropTypes) => {
         const lengthChanged: boolean = nextProps.value.length !== this.props.value.length;
         if (lengthChanged) {
+          this.setState({ shouldFocus: true });
           this.initializeValues(nextProps.value);
         } else {
           this.updateValues(nextProps.value);
@@ -60,12 +62,14 @@ export default function generateListOf(Element: ReactClass<any>) {
 
       createList = (value: Array<string>) => {
         const length: number = value.length;
+        const { shouldFocus } = this.state;
         const list = (props: ListProps) => (
           <ul>
             {value.map((el: string, i: number): Element => (
               <li key={`${i * 4}4`}>
                 <Element
                   index={i}
+                  shouldFocus={shouldFocus}
                   length={length}
                   value={this.state.elements[i]}
                   {...props}

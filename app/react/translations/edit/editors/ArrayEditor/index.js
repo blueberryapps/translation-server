@@ -72,6 +72,7 @@ export default class ArrayEditor extends React.PureComponent {
       this.pushArray();
     }
     if (event.keyCode === 8 && isLast && isEmpty) {
+      event.preventDefault();
       this.popArray();
     }
   }
