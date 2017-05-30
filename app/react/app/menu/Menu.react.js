@@ -3,12 +3,14 @@
 import autobind from 'core-decorators/lib/autobind';
 import Radium from 'radium';
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Image from '../../components/Image.react';
 import { colors } from '../../globals';
+import { signOut } from '../actions';
 
 @Radium
-export default class Menu extends React.PureComponent {
+class Menu extends React.PureComponent {
   static defaultProps = {
     style: {}
   }
@@ -20,6 +22,7 @@ export default class Menu extends React.PureComponent {
   props: {
     style: Object | Array<string>,
     user: string,
+    signOut: () => Promise<*>
   }
 
   @autobind
@@ -27,15 +30,7 @@ export default class Menu extends React.PureComponent {
     this.setState({ visibility: !this.state.visibility });
   }
 
-  handleSignOut = () => {
-    fetch('/api_frontend/v1/logout', {
-      method: 'DELETE', credentials: 'same-origin'
-    }).then(() => {
-      window.location.href = '/users/sign_in';
-    });
-  }
-
-  redicertToOldVersion = () => {
+  redirectToOldVersion = () => {
     window.location.href = '/';
   }
 
@@ -54,14 +49,14 @@ export default class Menu extends React.PureComponent {
           <li
             style={styles.dropdownElement}
             key="oldVersion"
-            onClick={this.redicertToOldVersion}
+            onClick={this.redirectToOldVersion}
           >
             Old version
           </li>
           <li
             style={styles.dropdownElement}
             key="signOut"
-            onClick={this.handleSignOut}
+            onClick={this.props.signOut}
           >
             Sign out
           </li>
@@ -70,6 +65,8 @@ export default class Menu extends React.PureComponent {
     );
   }
 }
+
+export default connect(() => ({}), { signOut })(Menu);
 
 const styles = {
   dropdown: {
