@@ -2,7 +2,6 @@
 import {
   FETCH_HIERARCHY_PENDING,
   FETCH_HIERARCHY_FULFILLED,
-  SWITCH_CURRENT_HIERARCHY,
   SET_BREADCRUMB_PATH
 } from './actions';
 
@@ -12,7 +11,6 @@ import type { Action } from '../types/generalTypes';
 const initialState = {
   breadcrumbPath: [],
   hierarchy: {},
-  currentHierarchy: {},
   pending: false
 };
 
@@ -36,9 +34,6 @@ export default function reducer(state: HierarchyStateType = initialState, action
         currentHierarchy: action.payload,
         pending: false
       };
-
-    case SWITCH_CURRENT_HIERARCHY:
-      return state;
 
     default:
       return state;

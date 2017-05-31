@@ -36,10 +36,3 @@ export function setBreadcrumbPath(path: Array<string>) {
     payload: path
   };
 }
-
-export function switchCurrentHierarchy(hierarchy: Object): Action {
-  return {
-    type: SWITCH_CURRENT_HIERARCHY,
-    payload: hierarchy
-  };
-}
