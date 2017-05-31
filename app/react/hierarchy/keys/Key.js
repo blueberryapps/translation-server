@@ -64,8 +64,10 @@ export default class Key extends React.Component {
     return (
       <div style={style}>
         <button onClick={this.toggle}>
-          {/* Very high tech solution. I'm available to talk about this on TED or Techcrunch. */}
-          {collapsed ? 'V' : '>'}
+          {collapsed
+            ? <span>&#9654;</span>
+            : <span>&#9660;</span>
+          }
         </button>
 
         <LabelLink
