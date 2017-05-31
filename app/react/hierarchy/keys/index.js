@@ -45,6 +45,9 @@ type PropTypes = {
 export default class HierarchyKeys extends React.Component {
   props: PropTypes
 
+  isCollapsed = ({ label, level }, globalPath) =>
+    !!globalPath.length && globalPath[level] !== label;
+
   render() {
     const { dispatch, hierarchy, location, setPath, path }: PropTypes = this.props;
 
@@ -55,7 +58,9 @@ export default class HierarchyKeys extends React.Component {
             dispatch={dispatch}
             key={key.label}
             setPath={setPath}
-            path={path}
+            globalPath={path}
+            collapsed={this.isCollapsed(key, path)}
+            isCollapsed={this.isCollapsed}
             style={createStyles(key.level)}
             createStyles={createStyles}
             location={location}
