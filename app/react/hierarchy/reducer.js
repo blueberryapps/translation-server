@@ -31,6 +31,7 @@ export default function reducer(state: HierarchyStateType = initialState, action
       return {
         ...state,
         hierarchy: action.payload,
+        currentHierarchy: action.payload,
         pending: false
       };
 
