@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       end
 
       resources :projects, only: [:show, :index, :create, :update, :destroy] do
+        resources :releases, only: [:create, :index, :show, :destroy]
 
         resources :keys, only: [:show, :index, :create, :update, :destroy], shallow: true do
           get :hierarchy, on: :collection
