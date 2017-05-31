@@ -41,6 +41,17 @@ Rails.application.routes.draw do
       match 'translations', to: 'translations#index_head', via: [:head]
       match 'transfer/:locale_codes', to: 'transfer#index', via: [:get]
     end
+
+    namespace :v2 do
+      resources :images,       only: :create
+      resources :translations, only: [:index, :create]
+      resources :releases,     only: [:index, :show]
+      resources :changes,      only: :index
+      match 'releases',     to: 'releases#index_head',     via: [:head]
+      match 'releases/:id', to: 'releases#show_head',      via: [:head]
+      match 'translations', to: 'translations#index_head', via: [:head]
+      match 'transfer/:locale_codes', to: 'transfer#index', via: [:get]
+    end
   end
 
   namespace :api_frontend, defaults: { format: :json } do
