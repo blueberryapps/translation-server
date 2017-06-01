@@ -1,7 +1,7 @@
 module APIFrontend
   module V1
     class ProjectsController < ApiController
-      before_action :set_project, only: [:show, :update, :destroy]
+      before_action :set_project, only: [:show, :update, :not_approved, :destroy]
 
       # GET /projects
       def index
@@ -22,6 +22,12 @@ module APIFrontend
         else
           render status: 400, json: { errors: @project.errors }
         end
+      end
+
+      def not_approved
+        locale = @project.locales.find(params[:locale_id])
+        translations = locale.translations.not_approved
+        respond_with translations, each_serializer: TranslationSerializer
       end
 
       # PATCH/PUT /projects/1

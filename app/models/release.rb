@@ -1,9 +1,11 @@
 class Release < ActiveRecord::Base
   LATEST_VERSION = /_latest$/
   belongs_to :locale
+  belongs_to :user
   has_one :project, through: :locale
 
   scope :newest_last, -> { order version: :asc }
+  scope :newest_first, -> { order version: :desc }
   scope :only_list,
         -> { select(:id, :locale_id, :version, :created_at, :updated_at) }
 
@@ -11,6 +13,10 @@ class Release < ActiveRecord::Base
 
   before_create     :dump_translations
   before_validation :ensure_version
+
+  def self.with_locale(locale)
+    where locale: locale
+  end
 
   def self.with_versions(versions, current_project)
     versions.map do |version_text|
@@ -46,7 +52,8 @@ class Release < ActiveRecord::Base
   def dump_translations
     self.yaml ||= YAML.dump(
       Translation.dump_hash(
-        Translation.with_locale(locale).include_dependencies
+        Translation.with_locale(locale).include_dependencies,
+        true
       )
     )
   end
