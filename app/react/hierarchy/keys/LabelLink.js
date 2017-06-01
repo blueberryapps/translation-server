@@ -26,7 +26,8 @@ class LabelLink extends React.Component {
   props: PropTypes
   newSearch: string
 
-  handleSearch = () => {
+  handleSearch = (event) => {
+    event.preventDefault();
     const { setFormFieldProperty, setPath, path } = this.props;
     setFormFieldProperty('searchForm', 'SearchField', 'value', this.newSearch);
     setPath(path);
