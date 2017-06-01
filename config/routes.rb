@@ -57,6 +57,8 @@ Rails.application.routes.draw do
       resources :projects, only: [:show, :index, :create, :update, :destroy] do
         resources :releases, only: [:create, :index, :show, :destroy]
 
+        get 'locale/:locale_id/not_approved', on: :member, action: :not_approved
+
         resources :keys, only: [:show, :index, :create, :update, :destroy], shallow: true do
           get :hierarchy, on: :collection
         end

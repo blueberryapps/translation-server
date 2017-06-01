@@ -18,7 +18,6 @@ module APIFrontend
 
       def update_many
         translations = translations_params.map do |tp|
-          pp tp
           if translation = Translation.where(id: tp[:id]).first
             authorize translation.key.project
 

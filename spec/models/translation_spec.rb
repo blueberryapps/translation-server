@@ -4,6 +4,47 @@ RSpec.describe Translation, type: :model do
   it { should belong_to :locale }
   it { should have_one :project }
   it { should belong_to :key }
+  it { should belong_to :user }
+
+  describe '.not_approved' do
+    let(:project) { create :project }
+    let(:locale) { create :locale, project: project }
+    let(:key) { create :key, project: project }
+    let(:key2) {create :key, project: project }
+    let!(:approved) { create :translation, locale: locale, project: project, key: key, text: 'A', original_text: 'A' }
+    let!(:not_approved) { create :translation, locale: locale, project: project, key: key2, text: 'A', original_text: 'B' }
+
+    it 'should return only not_approved translations' do
+      expect(locale.translations.not_approved).to eq([not_approved])
+    end
+  end
+
+  describe '.approve!' do
+    let(:project) { create :project }
+    let(:locale) { create :locale, project: project }
+    let(:key) { create :key, project: project }
+    let(:key2) { create :key, project: project }
+    let(:user) { create :user }
+    let!(:approved) { create :translation, locale: locale, project: project, key: key, text: 'A', original_text: 'A' }
+    let!(:not_approved) { create :translation, locale: locale, project: project, key: key2, text: 'A', original_text: 'B' }
+
+    it 'should approve translation' do
+      expect(locale.translations.not_approved).to eq([not_approved])
+      Translation.approve!([not_approved], user)
+      expect(locale.translations.not_approved).to eq([])
+    end
+
+    it 'approve should update original text' do
+      Translation.approve!([not_approved], user)
+      expect(not_approved.reload.original_text).to eq(not_approved.reload.text)
+    end
+
+    it 'approve should add user to translation' do
+      expect(not_approved.reload.user).to be_nil
+      Translation.approve!([not_approved], user)
+      expect(not_approved.reload.user).to eq(user)
+    end
+  end
 
   describe '#text=' do
     let(:data_type) { 'string' }
