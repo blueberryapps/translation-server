@@ -1,7 +1,6 @@
 import {
   FETCH_NOT_APPROVED_HIERARCHY_PENDING,
   FETCH_NOT_APPROVED_HIERARCHY_FULFILLED,
-  TOGGLE_APPROVE_KEY
 } from './actions';
 import type { Action } from '../types/generalTypes';
 
@@ -9,7 +8,6 @@ import type { Action } from '../types/generalTypes';
 const initialState = {
   translations: {},
   hierarchies: {},
-  releases: {},
   pending: false
 };
 
@@ -39,24 +37,6 @@ export default function reducer(state = initialState, action: Action) {
           }
         },
         pending: false
-      };
-    }
-    case TOGGLE_APPROVE_KEY: {
-      const { meta: { localeId, projectId }, payload: { keyId } } = action;
-      const oldKeySet = state.releases[projectId][localeId];
-      const newKeySet = (oldKeySet.indexOf(keyId) > -1)
-        ? oldKeySet.filter(key => key !== keyId)
-        : [...oldKeySet, keyId];
-
-      return {
-        ...state,
-        releases: {
-          ...state.releases,
-          [projectId]: {
-            ...state.releases[projectId],
-            [localeId]: newKeySet
-          }
-        }
       };
     }
 
