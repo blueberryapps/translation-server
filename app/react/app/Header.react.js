@@ -18,6 +18,15 @@ export default class Header extends React.PureComponent {
     userName: 'Admin',
   };
 
+  constructor(props) {
+    super(props);
+    this.state = { timeout: null };
+  }
+
+  state: {
+    timeout: ?number
+  }
+
   props: {
     projectName: string,
     userName: string,
@@ -39,6 +48,13 @@ export default class Header extends React.PureComponent {
     });
   };
 
+  handleDebounceSearch = (...arg) => {
+    if (this.state.timeout) clearTimeout(this.state.timeout);
+
+    const search = this.handleSearchChange.bind(null, ...arg);
+    this.setState({ timeout: setTimeout(search, 500) });
+  }
+
   render() {
     const { menuShown, projectName, userName, location } = this.props;
 
@@ -52,7 +68,7 @@ export default class Header extends React.PureComponent {
           />
           <span style={styles.projectName}>{projectName}</span>
           <span style={styles.text}>Translations</span>
-          <Search onChange={this.handleSearchChange} search={location.query.search || ''} />
+          <Search onChange={this.handleDebounceSearch} search={location.query.search || ''} />
           <div style={styles.saveAllWrapper}>
             <Button onClick={this.handleSaveAll} style={styles.saveAll}>Save all</Button>
           </div>
