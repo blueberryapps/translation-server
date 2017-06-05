@@ -43,12 +43,3 @@ export function createRelease({ localeId, projectId }) {
     }
   });
 }
-
-/* State actions */
-export function toggleApproveKey(keyId, params) {
-  return ({
-    type: TOGGLE_APPROVE_KEY,
-    payload: { keyId },
-    meta: params
-  });
-}

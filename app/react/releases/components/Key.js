@@ -1,26 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { ID } from '../../types/generalTypes';
+import type { ID } from '../../types/generalTypes';
+
+import { initField } from '../../forms/releases/actions';
 
 type PropTypes = {
   toggle: Function,
   params: Object,
-  id: ID,
   status: boolean,
   label: string,
-  childrenKeys: Array<Object>
+  childrenKeys: Array<Object>,
+  checked: boolean
 };
 
-@connect((state, { params: { localeId, projectId }, id }) => ({
-  status: state.releases[projectId] && state.releases[projectId][localeId][id]
-}))
+@connect(() => ({}), { initField })
 export default class Key extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: props.checked
+    };
+  }
   props: PropTypes
 
-  handleToggle = () => {
-    const { toggle, id, params } = this.props;
-    return toggle(id, params);
+  componentWillReceiveProps(nextProps) {
+    if (this.props.checked !== nextProps.checked) {
+      this.setState({ checked: nextProps.checked });
+    }
   }
 
   render() {
@@ -30,7 +37,7 @@ export default class Key extends React.Component {
         <input
           onChange={this.handleToggle}
           type="checkbox"
-          value={status}
+          value={this.state.checked}
         />
         <span>
           {label}
@@ -39,7 +46,9 @@ export default class Key extends React.Component {
           <div>
             {childrenKeys.map(child => (
               <Key
-                id={child.id}
+                ids={child.ids}
+                key={child.label}
+                checked={this.state.checked}
                 params={params}
                 toggle={toggle}
                 childrenKeys={child.childrenKeys}
