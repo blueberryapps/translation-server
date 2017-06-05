@@ -14,23 +14,22 @@ type PropTypes = {
 
 @preload(fetchPrerelease)
 @connect((state, { params: { projectId, localeId } }) => ({
-  hierarchy: state.releases.hierarchies[projectId] && transform(state.releases.hierarchies[projectId][localeId], state.releases.translations[projectId][localeId]),
+  hierarchy: state.releases.hierarchies[projectId] && transform(state.releases.hierarchies[projectId][localeId]),
 }), { toggle: toggleApproveKey })
 export default class Releases extends React.Component {
   props: PropTypes
   render() {
     const { toggle, hierarchy } = this.props;
-    console.log('hierarchy', hierarchy);
+
     return (
       <div>
         {hierarchy &&
           hierarchy.map(key => (
             <Key
-              label={key.label}
               key={key.label}
-              ids={key.ids}
-              childrenKeys={key.childrenKeys}
-              toggle={toggle}
+              createStyles={createStyles}
+              styles={createStyles()}
+              {...key}
             />
           ))
         }
@@ -38,3 +37,7 @@ export default class Releases extends React.Component {
     );
   }
 }
+
+const createStyles = (level = 0) => ({
+  marginLeft: level * 10
+});

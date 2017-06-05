@@ -1,28 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import type { ID } from '../../types/generalTypes';
-
 import { initField } from '../../forms/releases/actions';
 
 type PropTypes = {
-  toggle: Function,
-  params: Object,
-  status: boolean,
+  level: number,
   label: string,
+  path: Array<string>,
+  createStyles: Function,
+  styles: Object,
+  resetParents: Function,
   childrenKeys: Array<Object>,
-  checked: boolean
+  checked: ?boolean
 };
 
 @connect(() => ({}), { initField })
 export default class Key extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      checked: props.checked
-    };
+    this.state = { checked: props.checked };
   }
-  props: PropTypes
 
   componentWillReceiveProps(nextProps) {
     if (this.props.checked !== nextProps.checked) {
@@ -30,33 +27,47 @@ export default class Key extends React.Component {
     }
   }
 
+  props: PropTypes
+
+  handleToggle = () => {
+    const { resetParents } = this.props;
+    if (this.state.checked && resetParents) resetParents();
+    this.setState({ checked: !this.state.checked });
+  }
+
+  resetParents = () => {
+    const { resetParents } = this.props;
+
+    if (resetParents) resetParents();
+    this.setState({ checked: false });
+  }
+
   render() {
-    const { status, label, childrenKeys, params, toggle } = this.props;
+    console.log('and thus we render state', this.state);
     return (
-      <div>
+      <div style={this.props.styles}>
         <input
           onChange={this.handleToggle}
           type="checkbox"
-          value={this.state.checked}
+          checked={this.state.checked}
         />
         <span>
-          {label}
+          {this.props.label}
         </span>
-        {!!childrenKeys.length && (
+        {
           <div>
-            {childrenKeys.map(child => (
+            {this.props.childrenKeys.map(key => (
               <Key
-                ids={child.ids}
-                key={child.label}
                 checked={this.state.checked}
-                params={params}
-                toggle={toggle}
-                childrenKeys={child.childrenKeys}
-                label={child.label}
+                key={key.label}
+                resetParents={this.resetParents}
+                createStyles={this.props.createStyles}
+                styles={this.props.createStyles(key.level)}
+                {...key}
               />
             ))}
           </div>
-        )}
+        }
       </div>
     );
   }
