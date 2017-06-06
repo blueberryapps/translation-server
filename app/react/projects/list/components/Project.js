@@ -1,6 +1,5 @@
 /* @flow */
 import React from 'react';
-import { Link } from 'react-router';
 import { Flex, Box } from 'radium-flex';
 import Locale from './Locale';
 
@@ -31,17 +30,11 @@ export default class Project extends React.PureComponent {
         </Flex>
         <Flex>
           <Box col={4}>{name}</Box>
-          <Box col={2}>
-            {defaultLocale && <Link to={`project/${id}/translations/locales/${defaultLocale.id}?page=1&edited=all`}>
-              <Locale {...defaultLocale} />
-            </Link>}
-          </Box>
+          {defaultLocale &&
+            <Locale {...defaultLocale} projectId={id} />
+          }
           {translationLocales.map(locale => (
-            <Box key={locale.id} col={2}>
-              <Link to={`project/${id}/translations/locales/${locale.id}?page=1&edited=all`}>
-                <Locale {...locale} />
-              </Link>
-            </Box>
+            <Locale {...locale} key={locale.id} projectId={id} />
           ))}
         </Flex>
       </div>
