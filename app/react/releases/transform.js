@@ -6,12 +6,16 @@ const transformHierarchy = (structure: Object, level: number = 0, path = []): Ar
     return [];
   }
   return Object.keys(structure)
-    .map(key => ({
-      level,
-      label: key,
-      path: [...path, key],
-      childrenKeys: transformHierarchy(structure[key], level + 1, [...path, key])
-    }));
+    .map((key) => {
+      const childrenKeys = transformHierarchy(structure[key], level + 1, [...path, key]);
+      return {
+        level,
+        label: key,
+        isEndNode: !childrenKeys.length,
+        path: [...path, key],
+        childrenKeys
+      };
+    });
 };
 
 export default transformHierarchy;
