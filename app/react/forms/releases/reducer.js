@@ -1,23 +1,37 @@
 import {
-  TOGGLE_FIELD
+  TOGGLE_FIELD,
+  INIT_FIELD
 } from './actions';
 
 import type { Action } from '../../types/generalTypes';
 
 export default function reducer(state = {}, action: Action) {
   switch (action.type) {
-    case TOGGLE_FIELD: {
-      const { meta: { localeId, projectId }, payload: { ids } } = action;
-      const oldKeySet = state.releases[projectId][localeId];
-      const newKeySet = (oldKeySet.indexOf(id) > -1)
-        ? oldKeySet.filter(key => key !== id)
-        : [...oldKeySet, id];
-
+    case INIT_FIELD: {
+      const { payload: { key }, meta: { projectId, localeId } } = action;
+      const otherKeys = state[projectId]
+        ? state[projectId][localeId] : {};
       return {
         ...state,
         [projectId]: {
           ...state[projectId],
-          [localeId]: newKeySet
+          [localeId]: {
+            ...otherKeys,
+            [key]: false
+          }
+        }
+      };
+    }
+    case TOGGLE_FIELD: {
+      const { payload: { key }, meta: { projectId, localeId } } = action;
+      return {
+        ...state,
+        [projectId]: {
+          ...state[projectId],
+          [localeId]: {
+            ...state[projectId][localeId],
+            [key]: !state[projectId][localeId][key]
+          }
         }
       };
     }

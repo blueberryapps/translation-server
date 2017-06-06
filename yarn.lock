@@ -3786,9 +3786,9 @@ insert-module-globals@^7.0.0:
     through2 "^2.0.0"
     xtend "^4.0.0"
 
-interfacer@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/interfacer/-/interfacer-0.1.3.tgz#1f9230a0e788f0b6aa1137f2fbf8357a4f361557"
+interfacer@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/interfacer/-/interfacer-0.1.4.tgz#8ef0265274ebd37ba54b5f0a2e46b3d738b5f876"
   dependencies:
     bluebird "^3.5.0"
     isomorphic-fetch "^2.2.1"
@@ -5651,11 +5651,11 @@ q@^1.1.2:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.0.tgz#dd01bac9d06d30e6f219aecb8253ee9ebdc308f1"
 
-qs@6.2.0:
+qs@6.2.0, qs@^6.1.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.0.tgz#3b7848c03c2dece69a9522b0fae8c4126d745f3b"
 
-qs@^6.1.0, qs@~6.4.0:
+qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 

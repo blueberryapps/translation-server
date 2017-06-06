@@ -17,6 +17,19 @@ const flatMethod = res => res.json().then(data => ({
   hierarchy: data.hierarchy
 }));
 
+const getIds = (state: Object, { localeId, projectId }: Object): Array<string> => {
+  const releaseObject = state.forms.releases[projectId][localeId];
+  const translationsObject = state.releases.translations[projectId][localeId];
+  const keys = Object.keys(releaseObject)
+    .filter(key => releaseObject[key]);
+
+  return Object.keys(translationsObject)
+    .map(key => translationsObject[key])
+    .filter(translation =>
+      keys.indexOf(translation.key) > -1)
+    .map(t => t.id);
+};
+
 /* Network actions */
 export function fetchPrerelease({ params }) {
   return ({ genericInterface }: Dependencies): Action => ({
@@ -32,13 +45,16 @@ export function fetchPrerelease({ params }) {
   });
 }
 
-export function createRelease({ localeId, projectId }) {
-  return ({ releasesInterface }: Dependencies, getState): Action => ({
+export function createRelease(params) {
+  return ({ releasesInterface, getState }: Dependencies): Action => ({
     type: CREATE_RELEASE,
     payload: {
       promise: releasesInterface.create({
-        release: { localeId },
-        translationIds: getState().releases[projectId][localeId]
+        release: { localeId: +params.localeId },
+        translationIds: getIds(getState(), params)
+      }, {
+        error: 'Release failed to create due to network error.',
+        prefix: `projects/${params.projectId}/`
       })
     }
   });

@@ -1,10 +1,17 @@
-const TOGGLE_KEY = 'TOGGLE_KEY';
+export const TOGGLE_FIELD = 'TOGGLE_FIELD';
+export const INIT_FIELD = 'INIT_FIELD';
 
-// eslint-disable-next-line import/prefer-default-export
-export function toggleApproveKey(keyId, params) {
+export function toggleField(keyPath, params) {
   return ({
-    type: TOGGLE_KEY,
-    payload: { keyId },
+    type: TOGGLE_FIELD,
+    payload: { key: keyPath.join('.') },
+    meta: params
+  });
+}
+export function initField(keyPath, params) {
+  return ({
+    type: INIT_FIELD,
+    payload: { key: keyPath.join('.') },
     meta: params
   });
 }

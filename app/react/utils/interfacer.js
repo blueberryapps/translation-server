@@ -4,15 +4,18 @@ import SnakeCase from 'to-snake-case';
 import { handleError } from '../ui/actions';
 
 function snakify(body) {
+  console.log('my boy', body);
   if (Array.isArray(body)) return body.map(snakify);
 
   if (body instanceof Object) {
     const originalKeys = Object.keys(body);
+    console.log('is object', originalKeys);
+
     return originalKeys
       .map(SnakeCase)
       .reduce((acc, key, i) => ({
         ...acc,
-        [key]: body[originalKeys[i]]
+        [key]: snakify(body[originalKeys[i]])
       }), {});
   }
 

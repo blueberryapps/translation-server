@@ -1,29 +1,34 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import { initField } from '../../forms/releases/actions';
 
 type PropTypes = {
-  level: number,
+  // level: number,
   label: string,
   path: Array<string>,
+  isEndNode: boolean,
   createStyles: Function,
   styles: Object,
   resetParents: Function,
   childrenKeys: Array<Object>,
-  checked: ?boolean
+  checked: ?boolean,
+  initField: Function,
+  toggleField: Function,
+  params: Object
 };
 
-@connect(() => ({}), { initField })
 export default class Key extends React.Component {
   constructor(props) {
     super(props);
     this.state = { checked: props.checked };
+    if (props.isEndNode)
+      props.initField(props.path, props.params);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillUpdate(nextProps, nextState) {
     if (this.props.checked !== nextProps.checked) {
-      this.setState({ checked: nextProps.checked });
+      this.setState({ checked: !!nextProps.checked });
+    }
+    if (this.state.checked !== nextState.checked && nextProps.isEndNode) {
+      this.props.toggleField(nextProps.path, nextProps.params);
     }
   }
 
@@ -43,25 +48,30 @@ export default class Key extends React.Component {
   }
 
   render() {
-    console.log('and thus we render state', this.state);
+    const { initField, toggleField, label, createStyles, styles, params } = this.props;
+    const { checked } = this.state;
+
     return (
-      <div style={this.props.styles}>
+      <div style={styles}>
         <input
           onChange={this.handleToggle}
           type="checkbox"
-          checked={this.state.checked}
+          checked={checked}
         />
         <span>
-          {this.props.label}
+          {label}
         </span>
         {
           <div>
             {this.props.childrenKeys.map(key => (
               <Key
-                checked={this.state.checked}
+                checked={checked}
                 key={key.label}
+                params={params}
+                initField={initField}
+                toggleField={toggleField}
                 resetParents={this.resetParents}
-                createStyles={this.props.createStyles}
+                createStyles={createStyles}
                 styles={this.props.createStyles(key.level)}
                 {...key}
               />
