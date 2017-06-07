@@ -6,10 +6,13 @@ import locale from 'country-language';
 
 import { calculatePercents } from '../../helpers';
 
+import type { ID } from '../../../types/generalTypes';
 import type { LocaleEntityType } from '../../../types/entityTypes';
 
 export default class Locale extends React.PureComponent {
-  props: LocaleEntityType
+  props: LocaleEntityType & {
+    projectId: ID
+  }
 
   render() {
     const { projectId, code, translationCount, translatedCount, id } = this.props;

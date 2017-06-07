@@ -3,19 +3,19 @@ import React from 'react';
 import LabelLink from './LabelLink';
 
 import type { LocationWithQuery } from '../../types/locationTypes';
+import type { KeyNode } from '../../types/generalTypes';
 
-type PropTypes = {
+
+type PropTypes = KeyNode & {
   dispatch: Function,
-  label: string,
   // eslint-disable-next-line
   location: LocationWithQuery,
-  childrenKeys: Array<Object>,
   style: Object,
   collapsed: boolean,
   createStyles: (level: number) => Object,
   path: Array<string>,
   setPath: Function,
-  isCollapsed: (Array<string>, Array<string>) => boolean,
+  isCollapsed: (key: KeyNode, path: Array<string>) => boolean,
   globalPath: Array<string>
 };
 
@@ -35,7 +35,7 @@ export default class Key extends React.Component {
 
   state: StateTypes
 
-  componentWillReceiveProps = ({ collapsed }) => {
+  componentWillReceiveProps = ({ collapsed }: PropTypes) => {
     if (collapsed !== this.state.collapsed) this.setState({ collapsed });
   }
 
@@ -77,7 +77,7 @@ export default class Key extends React.Component {
         />
         {!collapsed && (
           <div>
-            {childrenKeys.map(key => (
+            {childrenKeys.map((key: KeyNode) => (
               <Key
                 dispatch={dispatch}
                 key={key.label}
@@ -86,11 +86,12 @@ export default class Key extends React.Component {
                 collapsed={isCollapsed(key, globalPath)}
                 style={createStyles(key.level)}
                 createStyles={createStyles}
-                label={key.label}
+                // label={key.label}
                 globalPath={globalPath}
                 path={currentPath}
+                {...key}
                 location={location}
-                childrenKeys={key.childrenKeys}
+                // childrenKeys={key.childrenKeys}
               />
             ))}
           </div>

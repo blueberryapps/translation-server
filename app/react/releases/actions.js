@@ -1,5 +1,6 @@
 import CamelCase from 'camelcase-keys';
 
+import type { StateType } from '../types/storeTypes';
 import type { Dependencies, Action } from '../types/generalTypes';
 
 export const FETCH_NOT_APPROVED_HIERARCHY = 'FETCH_NOT_APPROVED_HIERARCHY';
@@ -12,12 +13,13 @@ export const CREATE_RELEASE_FULFILLED = 'CREATE_RELEASE_FULFILLED';
 
 export const TOGGLE_APPROVE_KEY = 'TOGGLE_APPROVE_KEY';
 
+
 const flatMethod = res => res.json().then(data => ({
   translations: CamelCase(data.translations, { deep: true }),
   hierarchy: data.hierarchy
 }));
 
-const getIds = (state: Object, { localeId, projectId }: Object): Array<string> => {
+const getIds = (state: StateType, { localeId, projectId }: Object): Array<string> => {
   const releaseObject = state.forms.releases[projectId][localeId];
   const translationsObject = state.releases.translations[projectId][localeId];
   const keys = Object.keys(releaseObject)
