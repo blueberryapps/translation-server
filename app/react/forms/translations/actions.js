@@ -1,12 +1,12 @@
-export const CHANGE_FIELD = 'CHANGE_FIELD';
-export const SAVE_FIELD = 'SAVE_FIELD';
-export const SAVE_FIELD_FULFILLED = 'SAVE_FIELD_FULFILLED';
-export const SAVE_ALL_FIELDS = 'SAVE_ALL_FIELDS';
-export const SAVE_ALL_FIELDS_FULFILLED = 'SAVE_ALL_FIELDS_FULFILLED';
-export const INIT_FIELD = 'INIT_FIELD';
+export const CHANGE_TRANSLATION_FIELD = 'CHANGE_TRANSLATION_FIELD';
+export const SAVE_TRANSLATION_FIELD = 'SAVE_TRANSLATION_FIELD';
+export const SAVE_TRANSLATION_FIELD_FULFILLED = 'SAVE_TRANSLATION_FIELD_FULFILLED';
+export const SAVE_ALL_TRANSLATION_FIELDS = 'SAVE_ALL_TRANSLATION_FIELDS';
+export const SAVE_ALL_TRANSLATION_FIELDS_FULFILLED = 'SAVE_ALL_TRANSLATION_FIELDS_FULFILLED';
+export const INIT_TRANSLATION_FIELD = 'INIT_TRANSLATION_FIELD';
 
 export const changeField = (value, { fieldId, page }) => () => ({
-  type: CHANGE_FIELD,
+  type: CHANGE_TRANSLATION_FIELD,
   payload: {
     value,
   },
@@ -17,7 +17,7 @@ export const changeField = (value, { fieldId, page }) => () => ({
 });
 
 export const initField = (page, fieldId, field) => () => ({
-  type: INIT_FIELD,
+  type: INIT_TRANSLATION_FIELD,
   payload: {
     field,
   },
@@ -30,7 +30,7 @@ export const initField = (page, fieldId, field) => () => ({
 export const saveField = (text, { fieldId, page }) => ({
   translationsInterface,
 }) => ({
-  type: SAVE_FIELD,
+  type: SAVE_TRANSLATION_FIELD,
   payload: {
     promise: translationsInterface.update(fieldId, { text }, {
       error: 'Translation failed to save'
@@ -53,7 +53,7 @@ const stateToBody = translations => ({
 });
 
 export const saveAllFields = page => ({ getState, translationsInterface }) => ({
-  type: SAVE_ALL_FIELDS,
+  type: SAVE_ALL_TRANSLATION_FIELDS,
   payload: {
     promise: translationsInterface.update(
       null,

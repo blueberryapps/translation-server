@@ -19,8 +19,11 @@ export default class Key extends React.Component {
   constructor(props) {
     super(props);
     this.state = { checked: props.checked };
-    if (props.isEndNode)
-      props.initField(props.path, props.params);
+  }
+
+  componentWillMount() {
+    const { isEndNode, initField, path, params } = this.props;
+    if (isEndNode) initField(path, params);
   }
 
   componentWillUpdate(nextProps, nextState) {

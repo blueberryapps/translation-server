@@ -1,13 +1,13 @@
 import {
-  TOGGLE_FIELD,
-  INIT_FIELD
+  TOGGLE_RELEASE_FIELD,
+  INIT_RELEASE_FIELD
 } from './actions';
 
 import type { Action } from '../../types/generalTypes';
 
 export default function reducer(state = {}, action: Action) {
   switch (action.type) {
-    case INIT_FIELD: {
+    case INIT_RELEASE_FIELD: {
       const { payload: { key }, meta: { projectId, localeId } } = action;
       const otherKeys = state[projectId]
         ? state[projectId][localeId] : {};
@@ -22,7 +22,7 @@ export default function reducer(state = {}, action: Action) {
         }
       };
     }
-    case TOGGLE_FIELD: {
+    case TOGGLE_RELEASE_FIELD: {
       const { payload: { key }, meta: { projectId, localeId } } = action;
       return {
         ...state,
