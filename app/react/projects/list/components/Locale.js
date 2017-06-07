@@ -25,10 +25,10 @@ export default class Locale extends React.PureComponent {
             </Box>
           </Flex>
         </Link>
-        {!!translatedCount.length && !!translationCount.length &&
+        {!!+translatedCount && !!+translationCount &&
           <Link to={`project/${projectId}/releases/locales/${id}`}>
-          Release
-        </Link>}
+            Release
+          </Link>}
       </Box>
     );
   }

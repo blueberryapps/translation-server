@@ -1,9 +1,9 @@
 import { Record, Map } from 'immutable';
 import {
-  CHANGE_FIELD,
-  SAVE_FIELD_FULFILLED,
-  SAVE_ALL_FIELDS_FULFILLED,
-  INIT_FIELD,
+  CHANGE_TRANSLATION_FIELD,
+  SAVE_TRANSLATION_FIELD_FULFILLED,
+  SAVE_ALL_TRANSLATION_FIELDS_FULFILLED,
+  INIT_TRANSLATION_FIELD,
 } from './actions';
 
 const InitialState = new Record({
@@ -12,7 +12,7 @@ const InitialState = new Record({
 
 export default function reducer(state = new InitialState(), action) {
   switch (action.type) {
-    case CHANGE_FIELD: {
+    case CHANGE_TRANSLATION_FIELD: {
       const { payload: { value }, meta: { page, fieldId } } = action;
 
       return state.setIn(
@@ -24,13 +24,13 @@ export default function reducer(state = new InitialState(), action) {
       );
     }
 
-    case INIT_FIELD: {
+    case INIT_TRANSLATION_FIELD: {
       const { meta: { page, fieldId }, payload: { field } } = action;
 
       return state.setIn(['pages', page, fieldId], new Map(field));
     }
 
-    case SAVE_FIELD_FULFILLED: {
+    case SAVE_TRANSLATION_FIELD_FULFILLED: {
       const { meta: { page, fieldId } } = action;
       return state.setIn(
         ['pages', page, fieldId, 'saved'],
@@ -38,7 +38,7 @@ export default function reducer(state = new InitialState(), action) {
       );
     }
 
-    case SAVE_ALL_FIELDS_FULFILLED: {
+    case SAVE_ALL_TRANSLATION_FIELDS_FULFILLED: {
       const { meta: { page } } = action;
       const pagePath = ['pages', page];
       const fields = state.getIn(pagePath);
