@@ -18,7 +18,7 @@ type FetchParams = {
 }
 
 export const fetchLocale = ({ params: { localeId }, location: { query: { page } } }: FetchParams) =>
-  ({ localesInterface }: Dependencies): Action => ({
+  ({ interfacer: { localesInterface } }: Dependencies): Action => ({
     type: 'FETCH_LOCALE',
     payload: {
       promise: localesInterface.get(localeId, {

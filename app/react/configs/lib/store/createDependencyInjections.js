@@ -7,13 +7,15 @@ export default function createDependencyInjections() {
     withDispatch: {
       dispatchAndThrow,
       dispatchPromise,
-      genericInterface: createInterface(''),
-      projectsInterface: createInterface('projects'),
-      localesInterface: createInterface('locales'),
-      hierarchyInterface: createInterface('hierarchy'),
-      keysInterface: createInterface('keys'),
-      translationsInterface: createInterface('translations'),
-      releasesInterface: createInterface('releases')
+      interfacer: {
+        genericInterface: createInterface(''),
+        projectsInterface: createInterface('projects'),
+        localesInterface: createInterface('locales'),
+        hierarchyInterface: createInterface('hierarchy'),
+        keysInterface: createInterface('keys'),
+        translationsInterface: createInterface('translations'),
+        releasesInterface: createInterface('releases')
+      }
     },
     // add api response
   };
