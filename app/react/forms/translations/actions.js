@@ -28,7 +28,7 @@ export const initField = (page, fieldId, field) => () => ({
 });
 
 export const saveField = (text, { fieldId, page }) => ({
-  translationsInterface,
+  interfacer: { translationsInterface },
 }) => ({
   type: SAVE_TRANSLATION_FIELD,
   payload: {
@@ -52,7 +52,7 @@ const stateToBody = translations => ({
     })),
 });
 
-export const saveAllFields = page => ({ getState, translationsInterface }) => ({
+export const saveAllFields = page => ({ getState, interfacer: { translationsInterface } }) => ({
   type: SAVE_ALL_TRANSLATION_FIELDS,
   payload: {
     promise: translationsInterface.update(
