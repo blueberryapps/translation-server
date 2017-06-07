@@ -8,19 +8,20 @@ import { fetchHierarchy } from '../actions';
 import Key from './Key';
 
 import type { LocationWithQuery } from '../../types/locationTypes';
+import type { KeyNode } from '../../types/generalTypes';
 
 const preloader = <div>Preloading</div>;
 const waitFor = createWaitFor(preloader);
 const maxLevel = 10;
 
-const transformHierarchy = (structure: Object, level: number = 0): Array<Object> => {
+const transformHierarchy = (structure: Object, level: number = 0): Array<KeyNode> => {
   if (level > maxLevel) {
     // eslint-disable-next-line no-console
     console.warn('Provided hierarchy object was to deep. Either provide different object or increase "maxLevel" variable');
     return [];
   }
   return Object.keys(structure)
-    .map(key => ({
+    .map((key: string): KeyNode => ({
       level,
       label: key,
       childrenKeys: transformHierarchy(structure[key], level + 1)
@@ -29,7 +30,7 @@ const transformHierarchy = (structure: Object, level: number = 0): Array<Object>
 
 type PropTypes = {
   dispatch: Function,
-  hierarchy: Array<Object>,
+  hierarchy: Array<KeyNode>,
   // eslint-disable-next-line
   location: LocationWithQuery,
   path: Array<string>,
@@ -45,7 +46,7 @@ type PropTypes = {
 export default class HierarchyKeys extends React.Component {
   props: PropTypes
 
-  isCollapsed = ({ label, level }, globalPath) =>
+  isCollapsed = ({ label, level }: KeyNode, globalPath: Array<string>): boolean =>
     !!globalPath.length && globalPath[level] !== label;
 
   render() {
@@ -53,7 +54,7 @@ export default class HierarchyKeys extends React.Component {
 
     return (
       <div>
-        {hierarchy.map(key => (
+        {hierarchy.map((key: KeyNode) => (
           <Key
             dispatch={dispatch}
             key={key.label}
@@ -64,8 +65,7 @@ export default class HierarchyKeys extends React.Component {
             style={createStyles(key.level)}
             createStyles={createStyles}
             location={location}
-            label={key.label}
-            childrenKeys={key.childrenKeys}
+            {...key}
           />
         ))}
       </div>
@@ -73,6 +73,6 @@ export default class HierarchyKeys extends React.Component {
   }
 }
 
-const createStyles = level => ({
+const createStyles = (level: number): Object => ({
   marginLeft: level * 10
 });

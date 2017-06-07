@@ -31,3 +31,9 @@ export type InputEvent =
     currentTarget: HTMLInputElement,
     keyCode: number
   };
+
+export type KeyNode = {
+  level: number,
+  label: string,
+  childrenKeys: Array<KeyNode>
+}
