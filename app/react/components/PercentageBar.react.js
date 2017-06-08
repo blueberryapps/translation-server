@@ -2,7 +2,7 @@ import Radium from 'radium';
 import React from 'react';
 import { colors, media } from '../globals';
 
-const PercateBar = ({ number }: { number: Number }) => (
+const PercateBar = ({ number }: { number: number }) => (
   <div style={styles.wrapper}>
     <div style={styles.number}>{number} %</div>
     <div style={styles.barWrapper}>
