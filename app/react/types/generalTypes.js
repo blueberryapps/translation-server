@@ -11,15 +11,13 @@ export type Dependencies = {
   dispatchAndThrow: (action: Action, error: Error) => any,
   dispatchPromise: (action: Action) => any,
   getState: () => StateType,
-  interfacer: {
-    hierarchyInterface: Interface,
-    keysInterface: Interface,
-    localesInterface: Interface,
-    projectsInterface: Interface,
-    translationsInterface: Interface,
-    releasesInterface: Interface,
-    genericInterface: Interface
-  }
+  hierarchyInterface: Interface,
+  keysInterface: Interface,
+  localesInterface: Interface,
+  projectsInterface: Interface,
+  translationsInterface: Interface,
+  releasesInterface: Interface,
+  genericInterface: Interface
 };
 
 export type PaginationType = {

@@ -34,7 +34,7 @@ const getIds = (state: StateType, { localeId, projectId }: Object): Array<string
 
 /* Network actions */
 export function fetchPrerelease({ params }) {
-  return ({ interfacer: { genericInterface } }: Dependencies): Action => ({
+  return ({ genericInterface }: Dependencies): Action => ({
     type: FETCH_NOT_APPROVED_HIERARCHY,
     payload: {
       promise: genericInterface.getCollection({
@@ -48,7 +48,7 @@ export function fetchPrerelease({ params }) {
 }
 
 export function createRelease(params) {
-  return ({ interfacer: { releasesInterface }, getState }: Dependencies): Action => ({
+  return ({ releasesInterface, getState }: Dependencies): Action => ({
     type: CREATE_RELEASE,
     payload: {
       promise: releasesInterface.create({

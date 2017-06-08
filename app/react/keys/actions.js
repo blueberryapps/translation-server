@@ -21,7 +21,7 @@ type FetchKeysParams = {
 }
 
 export function fetchKeys({ params: { localeId }, location: { query } }: FetchKeysParams) {
-  return ({ interfacer: { keysInterface } }: Dependencies): Action => ({
+  return ({ keysInterface }: Dependencies): Action => ({
     type: FETCH_KEYS,
     payload: {
       promise: keysInterface.getCollection({
