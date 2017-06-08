@@ -16,7 +16,7 @@ type FetchHierarchyParams = {
 }
 
 export function fetchHierarchy({ location: { params: { localeId } } }: FetchHierarchyParams) {
-  return ({ interfacer: { hierarchyInterface } }: Dependencies): Action => ({
+  return ({ hierarchyInterface }: Dependencies): Action => ({
     type: FETCH_HIERARCHY,
     payload: {
       promise: hierarchyInterface.getCollection({
