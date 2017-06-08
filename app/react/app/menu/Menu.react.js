@@ -40,7 +40,7 @@ class Menu extends React.PureComponent {
 
     return (
       <div style={[styles.dropdown, style]}>
-        <span onClick={this.handleClick}>
+        <span onClick={this.handleClick} style={styles.user}>
           <Image style={styles.userIcon} src={'/assets/userIcon.png'} />
           {user}
         </span>
@@ -73,7 +73,6 @@ const styles = {
     position: 'relative',
     display: 'inline-block',
   },
-
   dropdownVisibility: {
     true: {
       display: 'block'
@@ -82,7 +81,10 @@ const styles = {
       display: 'none'
     }
   },
-
+  user: {
+    display: 'flex',
+    alignItems: 'center'
+  },
   dropdownList: {
     boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
     left: '-45px',
@@ -94,14 +96,12 @@ const styles = {
     zIndex: 1,
     width: '140px'
   },
-
   dropdownElement: {
     padding: '10px 0px',
     ':hover': {
       backgroundColor: colors.lightGrey,
     }
   },
-
   userIcon: {
     marginRight: '10px'
   }

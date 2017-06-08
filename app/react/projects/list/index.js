@@ -28,16 +28,26 @@ class Projects extends React.PureComponent {
     const { projects } = this.props;
 
     return (
-      <Flex>
-        <Box col={12}>
-          {projects.map(project =>
-            <Project key={project.id} {...project} />)
-          }
-        </Box>
-      </Flex>
+      <div>
+        <Flex style={styles.columns}>
+          <Box col={4} xs={6} ms={6} sm={3} md={4} lg={4}>Project</Box>
+          <Box col={4} xs={6} ms={6} sm={3} md={2} lg={2}>Original</Box>
+          <Box col={4} xs={0} ms={0} sm={6} md={6} lg={6}>Translations</Box>
+        </Flex>
+        {projects.map(project =>
+          <Project key={project.id} {...project} />)
+        }
+      </div>
     );
   }
 }
+
+const styles = {
+  columns: {
+    fontSize: '13px',
+    fontWeight: 400
+  }
+};
 
 export default connect(({ projects }) => ({
   projects: getProjectsMerged(projects)

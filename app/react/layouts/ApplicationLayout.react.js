@@ -1,8 +1,11 @@
+import Radium from 'radium';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Container from '../components/Container.react';
+import { colors } from '../globals';
 
 @connect(state => ({ error: state.ui.get('error') }))
+@Radium
 export default class ApplicationLayout extends React.PureComponent {
   static defaultProps = {
     error: null,
@@ -15,17 +18,20 @@ export default class ApplicationLayout extends React.PureComponent {
   render() {
     const { children, error } = this.props;
     return (
-      <Container style={styles.wrapper} error={error}>
-        {children}
-      </Container>
+      <div style={styles.wrapper}>
+        <Container error={error}>
+          {children}
+        </Container>
+      </div>
     );
   }
 }
 
 const styles = {
   wrapper: {
-    maxWidth: '90%',
-    paddingLeft: 0,
-    paddingRight: 0,
-  },
+    paddingTop: '100px',
+    backgroundColor: colors.backgroundGrey,
+    minHeight: '100vh',
+    overflow: 'hidden'
+  }
 };

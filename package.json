@@ -58,6 +58,7 @@
     "morgan": "^1.7.0",
     "react-addons-test-utils": "^15.4.2",
     "react-dev-utils": "^0.4.2",
+    "react-svg-icon-generator": "^0.3.4",
     "source-map-support": "^0.4.9",
     "uglifyify": "^3.0.1",
     "url-loader": "^0.5.8",
