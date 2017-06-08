@@ -8,7 +8,6 @@ export default class Homepage extends React.PureComponent {
     return (
       <div>
         <HeaderHome />
-        Homepages
         <Projects />
       </div>
     );
