@@ -52,19 +52,16 @@ export default class Translation extends PureComponent {
       location
     } = this.props;
     const shouldRenderDefaultTranslation = defaultTranslation && (defaultTranslation.id !== currentTranslation.id);
-
     const DefaultTranslation = typeRegistry[dataType];
 
     return (
-      <div>
+      <div style={styles.wrapper}>
+        <KeyRenderer
+          translationKey={translationKey}
+          location={location}
+        />
         <div>
-          <KeyRenderer
-            translationKey={translationKey}
-            location={location}
-          />
-        </div>
-        <div>
-          {note}
+          {note}Note here
         </div>
         {shouldRenderDefaultTranslation && (
           // this subcompontent exists to make styling easier later
@@ -72,16 +69,20 @@ export default class Translation extends PureComponent {
             value={defaultTranslation.text}
           />
         )}
-        <div>
-          <TranslationEditor
-            translation={currentTranslation}
-            dataType={dataType}
-            registerPressKey={registerPressKey}
-            pressedKeyCode={pressedKeyCode}
-            page={page}
-          />
-        </div>
+        <TranslationEditor
+          translation={currentTranslation}
+          dataType={dataType}
+          registerPressKey={registerPressKey}
+          pressedKeyCode={pressedKeyCode}
+          page={page}
+        />
       </div>
     );
   }
 }
+
+const styles = {
+  wrapper: {
+    boxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
+  }
+};

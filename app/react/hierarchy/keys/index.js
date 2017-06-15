@@ -61,8 +61,6 @@ export default class HierarchyKeys extends React.Component {
             globalPath={path}
             collapsed={this.isCollapsed(key, path)}
             isCollapsed={this.isCollapsed}
-            style={createStyles(key.level)}
-            createStyles={createStyles}
             location={location}
             label={key.label}
             childrenKeys={key.childrenKeys}
@@ -72,7 +70,3 @@ export default class HierarchyKeys extends React.Component {
     );
   }
 }
-
-const createStyles = level => ({
-  marginLeft: level * 20
-});

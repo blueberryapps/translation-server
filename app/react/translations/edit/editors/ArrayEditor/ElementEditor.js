@@ -45,6 +45,14 @@ export default class ElementEditor extends React.Component {
       ref={(element: HTMLInputElement): void => { this.input = element; }}
       onChange={this.handleChange}
       onKeyDown={this.handleKeyDown}
+      style={styles.input}
     />
   );
 }
+
+const styles = {
+  input: {
+    flex: '1 1 auto',
+    border: 'none'
+  }
+};

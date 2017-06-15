@@ -59,9 +59,8 @@ const styles = {
   link: {
     color: colors.primary,
     textDecoration: 'underline',
-    display: 'block',
-    fontSize: '16px',
-    marginBottom: '10px'
+    display: 'inline-block',
+    fontSize: '16px'
   }
 };
 

@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 
 import type { FieldInfo } from '../index';
+import EditorWrapper from './EditorWrapper';
 
 const typeRegistry = {
   string: 'text',
@@ -45,7 +46,7 @@ export default class SimpleEditor extends Component {
     const { value, dataType } = this.props;
 
     return (
-      <div>
+      <EditorWrapper>
         <form>
           <input
             type={typeRegistry[dataType]}
@@ -56,7 +57,7 @@ export default class SimpleEditor extends Component {
             onBlur={this.handleBlur}
           />
         </form>
-      </div>
+      </EditorWrapper>
     );
   }
 }

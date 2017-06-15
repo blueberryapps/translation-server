@@ -1,4 +1,5 @@
 // @flow
+import Radium from 'radium';
 import React from 'react';
 import LabelLink from './LabelLink';
 
@@ -10,9 +11,7 @@ type PropTypes = {
   // eslint-disable-next-line
   location: LocationWithQuery,
   childrenKeys: Array<Object>,
-  style: Object,
   collapsed: boolean,
-  createStyles: (level: number) => Object,
   path: Array<string>,
   setPath: Function,
   isCollapsed: (Array<string>, Array<string>) => boolean,
@@ -23,6 +22,7 @@ type StateTypes = {
   collapsed: boolean
 };
 
+@Radium
 export default class Key extends React.Component {
   static defaultProps = {
     path: []
@@ -52,8 +52,6 @@ export default class Key extends React.Component {
       label,
       childrenKeys,
       location,
-      style,
-      createStyles,
       path,
       setPath,
       globalPath,
@@ -62,7 +60,7 @@ export default class Key extends React.Component {
     const currentPath = [...path, label];
 
     return (
-      <div style={style}>
+      <div style={styles.wrapper}>
         {/*
         <button onClick={this.toggle}>
           {collapsed
@@ -76,7 +74,7 @@ export default class Key extends React.Component {
           location={location}
           label={label}
         />
-        {!collapsed && (
+        {!collapsed &&
           <div>
             {childrenKeys.map(key => (
               <Key
@@ -85,8 +83,6 @@ export default class Key extends React.Component {
                 setPath={setPath}
                 isCollapsed={isCollapsed}
                 collapsed={isCollapsed(key, globalPath)}
-                style={createStyles(key.level)}
-                createStyles={createStyles}
                 label={key.label}
                 globalPath={globalPath}
                 path={currentPath}
@@ -95,8 +91,15 @@ export default class Key extends React.Component {
               />
             ))}
           </div>
-        )}
+        }
       </div>
     );
   }
 }
+
+const styles = {
+  wrapper: {
+    marginTop: '10px',
+    marginLeft: '20px'
+  }
+};

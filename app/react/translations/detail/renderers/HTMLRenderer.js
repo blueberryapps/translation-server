@@ -1,6 +1,7 @@
 /* @flow */
 import React from 'react';
 import DOMPurify from 'dompurify';
+import RendererWrapper from './RendererWrapper';
 
 type PropTypes = {
   value: string
@@ -8,7 +9,8 @@ type PropTypes = {
 
 export default function HTMLRenderer({ value }: PropTypes) {
   return (
-    // eslint-disable-next-line react/no-danger
-    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(value) }} />
+    <RendererWrapper>
+      <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(value) }} />
+    </RendererWrapper>
   );
 }

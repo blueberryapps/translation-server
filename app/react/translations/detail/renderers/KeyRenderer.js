@@ -13,7 +13,7 @@ type PropTypes = {
 export default function KeyRenderer({ translationKey, location }: PropTypes) {
   const labels = translationKey.split('.');
   return (
-    <div>
+    <div style={styles.wrapper}>
       {labels.map((label, i) => (
         <span key={labels.slice(0, i + 1)}>
           {i ? '.' : null}
@@ -26,3 +26,12 @@ export default function KeyRenderer({ translationKey, location }: PropTypes) {
       ))}
     </div>);
 }
+
+const styles = {
+  wrapper: {
+    padding: '25px 13px',
+    minHeight: '40px',
+    display: 'flex',
+    alignItems: 'center'
+  }
+};

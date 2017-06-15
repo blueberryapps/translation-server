@@ -1,25 +1,62 @@
 /* @flow */
-import React from 'react';
+import Radium from 'radium';
+import React, { PureComponent } from 'react';
+import RendererWrapper from './RendererWrapper';
+import { colors } from '../../../globals';
 
 type PropTypes = {
-  value: string
+  value: string,
+  selectedValue: number
 }
 
-// eslint-disable-next-line no-undef
-export default function ArrayRenderer({ value }: PropTypes): React$Element<*> {
-  let parsedArray;
-  try {
-    parsedArray = JSON.parse(value);
-  } catch (e) {
-    parsedArray = [];
+@Radium
+export default class Translation extends PureComponent {
+
+  props: PropTypes;
+
+  render() {
+    const { value, selectedValue } = this.props;
+
+    let parsedArray;
+    try {
+      parsedArray = JSON.parse(value);
+    } catch (e) {
+      parsedArray = [];
+    }
+    return (
+      <RendererWrapper>
+        {parsedArray.map((element, i) =>
+          <div key={`${element}${i * 3}`} style={styles.wrapper}>
+            <span style={[styles.circle, selectedValue === i && styles.selected]}>{i + 1}</span> {element}
+          </div>
+        )}
+      </RendererWrapper>
+    );
   }
-  return (
-    <div>
-      {parsedArray.map((element, i) =>
-        <div key={`${element}${i * 3}`}>
-          {`${element}`}
-        </div>
-      )}
-    </div>
-  );
 }
+
+const styles = {
+  wrapper: {
+    fontSize: '16px',
+    display: 'flex',
+    marginRight: '18px',
+    alignItems: 'center'
+  },
+  circle: {
+    display: 'flex',
+    flex: '0 0 auto',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '25px',
+    height: '25px',
+    borderRadius: '50%',
+    marginRight: '5px',
+    color: colors.white,
+    backgroundColor: colors.inputBorder,
+    fontWeight: 900,
+    transition: 'background-color .2s'
+  },
+  selected: {
+    backgroundColor: colors.primary
+  }
+};

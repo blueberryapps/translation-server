@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Button from '../components/Button.react';
+import Container from '../components/Container.react';
 import Image from '../components/Image.react';
 import Menu from './menu/Menu.react';
 import Search from '../components/Search.react';
@@ -59,8 +60,8 @@ export default class Header extends React.PureComponent {
     const { menuShown, projectName, userName, location } = this.props;
 
     return (
-      <div style={styles.wrapper}>
-        <header style={styles.header}>
+      <header style={styles.header}>
+        <Container style={styles.container}>
           <Image
             src={'/assets/backArrow.png'}
             style={styles.backButton}
@@ -73,22 +74,13 @@ export default class Header extends React.PureComponent {
             <Button onClick={this.handleSaveAll} style={styles.saveAll}>Save all</Button>
           </div>
           <Menu style={styles.menu} menuShown={menuShown} user={userName} />
-        </header>
-      </div>
+        </Container>
+      </header>
     );
   }
 }
 
 const styles = {
-  wrapper: {
-    paddingRight: 0,
-    paddingLeft: 0,
-    [media.l]: {
-      paddingRight: '30px',
-      paddingLeft: '30px',
-    },
-  },
-
   backButton: {
     marginRight: '15px',
     width: '10px',
@@ -96,22 +88,21 @@ const styles = {
       marginRight: '25px',
     },
   },
-
   header: {
     alignSelf: 'auto',
     flex: '0 0 auto',
-    height: '50px',
-    order: '0',
-    padding: '10px 0px',
-    position: 'relative',
+    order: 0,
+    position: 'fixed',
+    left: 0,
+    right: 0,
+    top: 0,
+    backgroundColor: colors.white,
+    boxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
     width: '100%',
-    verticalAlign: 'middle',
-    zIndex: '100',
+    zIndex: '100'
   },
-
   menu: {
     borderLeft: `1px solid ${colors.inputBorder}`,
-    display: 'inline',
     fontSize: '16px',
     paddingLeft: '10px',
     [media.l]: {
@@ -119,7 +110,14 @@ const styles = {
       paddingLeft: '30px',
     },
   },
-
+  container: {
+    maxWidth: '90%',
+    display: 'flex',
+    height: '50px',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'auto',
+  },
   projectName: {
     borderLeft: `1px solid ${colors.inputBorder}`,
     fontSize: '15px',
@@ -130,9 +128,7 @@ const styles = {
       padding: '0 25px',
     },
   },
-
   saveAllWrapper: {
-    display: 'inline',
     marginRight: '30px',
     marginLeft: 0,
     verticalAlign: 'middle',
@@ -141,13 +137,11 @@ const styles = {
       marginRight: '30px',
     },
   },
-
   saveAll: {
     backgroundColor: colors.green,
     fontSize: '1em',
     padding: '7px 20px',
   },
-
   text: {
     display: 'inline-block',
     fontSize: '16px',

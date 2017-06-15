@@ -1,6 +1,9 @@
 /* @flow */
 import React from 'react';
 
+import EditorWrapper from '../EditorWrapper';
+import { colors } from '../../../../globals';
+
 type PropTypes = {
   value: Array<string>
 }
@@ -34,7 +37,6 @@ export default function generateListOf(Element: ReactClass<any>) {
       props: PropTypes
       state: StateTypes
 
-
       componentWillMount = () => this.initializeValues(this.props.value);
 
       componentWillReceiveProps = (nextProps: PropTypes) => {
@@ -64,18 +66,21 @@ export default function generateListOf(Element: ReactClass<any>) {
         const length: number = value.length;
         const { shouldFocus } = this.state;
         const list = (props: ListProps) => (
-          <ul>
-            {value.map((el: string, i: number): Element => (
-              <li key={`${i * 4}4`}>
-                <Element
-                  index={i}
-                  shouldFocus={shouldFocus}
-                  length={length}
-                  value={this.state.elements[i]}
-                  {...props}
-                />
-              </li>))}
-          </ul>
+          <EditorWrapper>
+            <ul style={styles.list}>
+              {value.map((el: string, i: number): Element => (
+                <li key={`${i * 4}4`} style={styles.item}>
+                  <span style={styles.circle}>{i + 1}</span>
+                  <Element
+                    index={i}
+                    shouldFocus={shouldFocus}
+                    length={length}
+                    value={this.state.elements[i]}
+                    {...props}
+                  />
+                </li>))}
+            </ul>
+          </EditorWrapper>
         );
         this.setState({ list });
       }
@@ -90,3 +95,31 @@ export default function generateListOf(Element: ReactClass<any>) {
       }
     };
 }
+
+const styles = {
+  list: {
+    listStyle: 'none',
+    paddingLeft: 0,
+  },
+  item: {
+    display: 'flex',
+    margin: '10px 0'
+  },
+  circle: {
+    display: 'flex',
+    flex: '0 0 auto',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '25px',
+    height: '25px',
+    borderRadius: '50%',
+    marginRight: '5px',
+    fontWeight: 900,
+    color: colors.white,
+    backgroundColor: colors.inputBorder,
+    transition: 'background-color .2s'
+  },
+  selected: {
+    backgroundColor: colors.primary
+  }
+};

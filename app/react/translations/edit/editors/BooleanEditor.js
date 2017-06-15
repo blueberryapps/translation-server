@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 
 import type { FieldInfo } from '../index';
+import EditorWrapper from './EditorWrapper';
 
 type PropTypes = {
   onChange: Function,
@@ -28,7 +29,7 @@ export default class BooleanEditor extends Component {
   render() {
     const { value, saved, fieldInfo: { fieldId } } = this.props;
     return (
-      <div>
+      <EditorWrapper>
         <form>
           True:
           <input
@@ -51,7 +52,7 @@ export default class BooleanEditor extends Component {
             style={saved ? styles.default : styles.edited}
           >Save</button>
         </form>
-      </div>
+      </EditorWrapper>
     );
   }
 }
