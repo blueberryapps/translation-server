@@ -74,5 +74,5 @@ export default class HierarchyKeys extends React.Component {
 }
 
 const createStyles = level => ({
-  marginLeft: level * 10
+  marginLeft: level * 20
 });

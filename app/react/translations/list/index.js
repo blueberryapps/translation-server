@@ -131,28 +131,29 @@ export default class Translations extends PureComponent {
             path={path}
             location={location}
           />
-          {isVerticalMenuShown &&
-            <VerticalMenu
-              location={{
-                ...location,
-                params: { localeId },
-              }}
-            />
-          }
-          {keys.map(key => (
-            <Translation
-              saveTranslation={saveTranslation}
-              fillTranslation={fillTranslation}
-              translationKey={key.key}
-              page={page}
-              location={location}
-              registerPressKey={this.registerPressKey}
-              pressedKeyCode={this.state.pressedKeyCode}
-              currentTranslation={key.translations[+localeId]}
-              defaultTranslation={project && key.translations[project.defaultLocaleId]}
-              {...key}
-            />
-          ))}
+          <VerticalMenu
+            location={{
+              ...location,
+              params: { localeId },
+            }}
+            isShown={isVerticalMenuShown}
+          />
+          <div style={styles.translations}>
+            {keys.map(key => (
+              <Translation
+                saveTranslation={saveTranslation}
+                fillTranslation={fillTranslation}
+                translationKey={key.key}
+                page={page}
+                location={location}
+                registerPressKey={this.registerPressKey}
+                pressedKeyCode={this.state.pressedKeyCode}
+                currentTranslation={key.translations[+localeId]}
+                defaultTranslation={project && key.translations[project.defaultLocaleId]}
+                {...key}
+              />
+            ))}
+          </div>
         </div>
         {pagination &&
           <Paginator {...pagination} location={location} />
@@ -165,6 +166,10 @@ export default class Translations extends PureComponent {
 const styles = {
   wrapper: {
     backgroundColor: '#F7F7F7',
-    height: '300px',
+    display: 'flex'
   },
+  translations: {
+    flex: '1 1 auto',
+    padding: '40px 100px',
+  }
 };

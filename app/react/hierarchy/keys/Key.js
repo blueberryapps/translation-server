@@ -63,12 +63,13 @@ export default class Key extends React.Component {
 
     return (
       <div style={style}>
+        {/*
         <button onClick={this.toggle}>
           {collapsed
             ? <span>&#9654;</span>
             : <span>&#9660;</span>
           }
-        </button>
+        </button> */}
 
         <LabelLink
           path={currentPath}
