@@ -1,65 +1,58 @@
 /* @flow */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import type { FieldInfo } from '../index';
+import Checkbox from '../../../components/Checkbox.react';
 import EditorWrapper from './EditorWrapper';
+import EditorSave from './EditorSave';
 
 type PropTypes = {
   onChange: Function,
   onSubmit: Function,
   value: string,
   saved: boolean,
+  registerPressKey: Function,
+  pressedKeyCode: ?number,
   fieldInfo: FieldInfo
 };
 
-export default class BooleanEditor extends Component {
-  toggleRadio = () => {
-    const { onChange, value, fieldInfo } = this.props;
-    const newValue = value === 'true' ? 'false' : 'true';
+export default class BooleanEditor extends PureComponent {
+  onCheckboxChange = (newValue) => {
+    const { onChange, fieldInfo } = this.props;
     onChange(newValue, fieldInfo);
   }
 
   props: PropTypes
 
+  handleBlur = () => {
+    if (this.props.pressedKeyCode === 9) {
+      this.props.registerPressKey({ keyCode: null });
+      return this.handleSubmit();
+    }
+    return null;
+  }
+
   handleSubmit = (e: Event) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     this.props.onSubmit(this.props.value, this.props.fieldInfo);
   }
 
   render() {
     const { value, saved, fieldInfo: { fieldId } } = this.props;
+
     return (
-      <EditorWrapper>
-        <form>
-          True:
-          <input
-            type="radio"
-            name={`true-${fieldId}`}
-            checked={value === 'true'}
-            value={value === 'true'}
-            onChange={this.toggleRadio}
+      <div>
+        <EditorWrapper>
+          <Checkbox
+            name={fieldId}
+            value={value}
+            onChange={this.onCheckboxChange}
+            onKeyDown={this.props.registerPressKey}
+            onBlur={this.handleBlur}
           />
-          False:
-          <input
-            type="radio"
-            name={`false-${fieldId}`}
-            checked={value === 'false'}
-            value={value === 'false'}
-            onChange={this.toggleRadio}
-          />
-          <button
-            onClick={this.handleSubmit}
-            style={saved ? styles.default : styles.edited}
-          >Save</button>
-        </form>
-      </EditorWrapper>
+        </EditorWrapper>
+        <EditorSave onClick={this.handleSubmit} saved={saved} />
+      </div>
     );
   }
 }
-
-const styles = {
-  default: {},
-  edited: {
-    backgroundColor: 'green'
-  }
-};

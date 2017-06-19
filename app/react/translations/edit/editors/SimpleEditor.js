@@ -1,8 +1,10 @@
 /* @flow */
-import React, { Component } from 'react';
+import Radium from 'radium';
+import React, { PureComponent } from 'react';
+import EditorSave from './EditorSave';
+import EditorWrapper from './EditorWrapper';
 
 import type { FieldInfo } from '../index';
-import EditorWrapper from './EditorWrapper';
 
 const typeRegistry = {
   string: 'text',
@@ -18,10 +20,12 @@ type PropTypes = {
   dataType: string,
   fieldInfo: FieldInfo,
   pressedKeyCode: ?number,
+  saved: boolean,
   value: string,
 };
 
-export default class SimpleEditor extends Component {
+@Radium
+export default class SimpleEditor extends PureComponent {
   input: HTMLInputElement
   props: PropTypes
 
@@ -43,11 +47,11 @@ export default class SimpleEditor extends Component {
   }
 
   render() {
-    const { value, dataType } = this.props;
+    const { value, dataType, saved } = this.props;
 
     return (
-      <EditorWrapper>
-        <form>
+      <div>
+        <EditorWrapper>
           <input
             type={typeRegistry[dataType]}
             value={value}
@@ -55,9 +59,21 @@ export default class SimpleEditor extends Component {
             ref={(el) => { this.input = el; }}
             onChange={this.handleChange}
             onBlur={this.handleBlur}
+            style={styles.input}
           />
-        </form>
-      </EditorWrapper>
+        </EditorWrapper>
+        <EditorSave onClick={this.handleSubmit} saved={saved} />
+      </div>
     );
   }
 }
+
+const styles = {
+  input: {
+    padding: '5px 0',
+    border: 'none',
+    ':focus': {
+      outline: 'none'
+    }
+  }
+};

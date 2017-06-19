@@ -7,6 +7,7 @@ import React, {PureComponent as Component} from 'react';
 
 const iconList = [
   'edit',
+  'save',
 ]
 
 
@@ -17,6 +18,7 @@ class Icon extends Component {
     height: React.PropTypes.number,
     kind: React.PropTypes.oneOf([
       'edit',
+      'save',
     ]).isRequired,
     onClick: React.PropTypes.func,
     preview: React.PropTypes.bool,
@@ -77,6 +79,7 @@ class Icon extends Component {
     switch (kind) {
       default: return null;
       case ('edit'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 16 17"><path d="M1.08 14.63a.99.99 0 0 0 1.3 1.3L6 14.4 2.6 11zM15.7 3.74L13.26 1.3a.99.99 0 0 0-1.4 0L3.5 9.64l3.85 3.86 8.36-8.36a.99.99 0 0 0 0-1.4z"/></svg>);
+      case ('save'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 308.34 264.47"><title>save</title><path d="M166 81.38V31.13H64.28v66.11h167V31.13h-17.81v50.25zm142.31-35v218.09H0V0h253.08zm-57.87 94h-199v93h199zM77.09 167.43c0-3.05 2.85-5.49 6.4-5.49h45.07c3.47-.58 6.83 1.36 7.51 4.34s-1.59 5.86-5.06 6.44a7.45 7.45 0 0 1-2.45 0H83.49c-3.49 0-6.28-2.34-6.4-5.29zm0 21.56c0-3.05 2.85-5.49 6.4-5.49h64.28c3.47-.58 6.83 1.36 7.51 4.34s-1.59 5.86-5.06 6.44a7.45 7.45 0 0 1-2.45 0H83.49c-3.49 0-6.28-2.33-6.4-5.28zm85.39 3.66a5.17 5.17 0 0 1-1.9-3.66 5.62 5.62 0 0 1 1.9-4.07 7.42 7.42 0 0 1 9 0 6 6 0 0 1 1.9 4.07 4.8 4.8 0 0 1-1.9 3.66 7.05 7.05 0 0 1-9 0z"/></svg>);
       }
   }
 }

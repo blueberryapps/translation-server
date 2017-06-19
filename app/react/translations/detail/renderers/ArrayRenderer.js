@@ -6,7 +6,7 @@ import { colors } from '../../../globals';
 
 type PropTypes = {
   value: string,
-  selectedValue: number
+  selectedInput: number
 }
 
 @Radium
@@ -15,7 +15,7 @@ export default class Translation extends PureComponent {
   props: PropTypes;
 
   render() {
-    const { value, selectedValue } = this.props;
+    const { value, selectedInput } = this.props;
 
     let parsedArray;
     try {
@@ -27,7 +27,7 @@ export default class Translation extends PureComponent {
       <RendererWrapper>
         {parsedArray.map((element, i) =>
           <div key={`${element}${i * 3}`} style={styles.wrapper}>
-            <span style={[styles.circle, selectedValue === i && styles.selected]}>{i + 1}</span> {element}
+            <span style={[styles.circle, selectedInput === i && styles.selected]}>{i + 1}</span> {element}
           </div>
         )}
       </RendererWrapper>

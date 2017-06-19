@@ -1,5 +1,5 @@
 /* @flow */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { SimpleEditor, BooleanEditor, HTMLEditor, ArrayEditor } from './editors';
 import * as actions from '../../forms/translations/actions';
@@ -23,9 +23,11 @@ const matchEditor = {
 type PropTypes = {
   field: Object,
   dataType: string,
+  handleChangeSelectedInput: Function,
   translation: Object,
   page: string,
   pressedKeyCode: ?number,
+  selectedInput: number,
   registerPressKey: Function,
   changeField: Function,
   saveField: Function,
@@ -33,7 +35,7 @@ type PropTypes = {
 };
 
 @toJS
-class TranslationEditor extends Component {
+class TranslationEditor extends PureComponent {
   componentDidMount() {
     const { page, translation: { id }, initField } = this.props;
     initField(page, id, this.props.field);
@@ -45,10 +47,12 @@ class TranslationEditor extends Component {
     const {
       field,
       dataType,
+      handleChangeSelectedInput,
       translation: { id },
       page,
       changeField,
       saveField,
+      selectedInput,
       registerPressKey,
       pressedKeyCode
     } = this.props;
@@ -61,13 +65,14 @@ class TranslationEditor extends Component {
           fieldInfo={{ page, fieldId: id }}
           onSubmit={saveField}
           onChange={changeField}
+          selectedInput={selectedInput}
+          handleChangeSelectedInput={handleChangeSelectedInput}
           registerPressKey={registerPressKey}
           pressedKeyCode={pressedKeyCode}
           dataType={dataType}
           value={field && field.value}
           saved={field && field.saved}
         />
-        {!field.saved && <span>Unsaved</span>}
       </div>
     );
   }

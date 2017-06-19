@@ -2,6 +2,7 @@
 import React from 'react';
 import mapProps from './mapProps';
 import generateListOf from './generateListOf';
+import EditorSave from '../EditorSave';
 import ElementEditor from './ElementEditor';
 
 import type { InputEvent } from '../../../../types/generalTypes';
@@ -11,6 +12,8 @@ import type { FieldInfo } from '../../index';
 
 type PropTypes = {
   onChange: Function,
+  handleChangeSelectedInput: Function,
+  selectedInput: number,
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: Function,
   saved: boolean,
@@ -75,38 +78,28 @@ export default class ArrayEditor extends React.PureComponent {
       event.preventDefault();
       this.popArray();
     }
+    if (event.keyCode === 9 && isLast) {
+      this.handleSubmit();
+    }
   }
 
   handleSubmit = (e: Event) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     this.props.onSubmit(this.props.value, this.props.fieldInfo);
   }
 
   render() {
-    const { saved, List }: PropTypes = this.props;
+    const { saved, List, selectedInput, handleChangeSelectedInput }: PropTypes = this.props;
     return (
       <div>
         {List && <List
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
+          selectedInput={selectedInput}
+          handleChangeSelectedInput={handleChangeSelectedInput}
         />}
-        <button
-          onClick={this.handleSubmit}
-          style={saved
-            ? styles.default
-            : styles.edited
-          }
-        >
-          Save
-        </button>
+        <EditorSave onClick={this.handleSubmit} saved={saved} />
       </div>
     );
   }
 }
-
-const styles = {
-  default: {},
-  edited: {
-    backgroundColor: 'green'
-  }
-};

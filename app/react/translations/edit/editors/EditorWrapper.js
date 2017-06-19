@@ -1,12 +1,12 @@
 /* @flow */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { colors } from '../../../globals';
 
 type PropTypes = {
   children: Node
 };
 
-export default class EditorWrapper extends Component {
+export default class EditorWrapper extends PureComponent {
   props: PropTypes;
 
   render() {
@@ -22,6 +22,7 @@ export default class EditorWrapper extends Component {
 const styles = {
   wrapper: {
     padding: '25px',
+    fontSize: '16px',
     backgroundColor: colors.white
   }
 };

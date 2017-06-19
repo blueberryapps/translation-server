@@ -99,7 +99,7 @@ const styles = {
     backgroundColor: colors.white,
     boxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
     width: '100%',
-    zIndex: '100'
+    zIndex: 100
   },
   menu: {
     borderLeft: `1px solid ${colors.inputBorder}`,

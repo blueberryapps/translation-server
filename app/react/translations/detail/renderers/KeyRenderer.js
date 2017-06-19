@@ -29,8 +29,9 @@ export default function KeyRenderer({ translationKey, location }: PropTypes) {
 
 const styles = {
   wrapper: {
-    padding: '25px 13px',
+    padding: '10px 25px',
     minHeight: '40px',
+    bboxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
     display: 'flex',
     alignItems: 'center'
   }

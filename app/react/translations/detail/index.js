@@ -37,7 +37,16 @@ export default class Translation extends PureComponent {
   static defaultProps = {
     note: '',
   };
+
+  state = {
+    selectedInput: null
+  };
+
   props: PropTypes;
+
+  handleChangeSelectedInput = (index) => {
+    this.setState({ selectedInput: index });
+  }
 
   render() {
     const {
@@ -51,6 +60,7 @@ export default class Translation extends PureComponent {
       translationKey,
       location
     } = this.props;
+    const { selectedInput } = this.state;
     const shouldRenderDefaultTranslation = defaultTranslation && (defaultTranslation.id !== currentTranslation.id);
     const DefaultTranslation = typeRegistry[dataType];
 
@@ -60,21 +70,26 @@ export default class Translation extends PureComponent {
           translationKey={translationKey}
           location={location}
         />
-        <div>
-          {note}Note here
-        </div>
+        {note &&
+          <div style={styles.note}>
+            {note}
+          </div>
+        }
         {shouldRenderDefaultTranslation && (
           // this subcompontent exists to make styling easier later
           <DefaultTranslation
             value={defaultTranslation.text}
+            selectedInput={selectedInput}
           />
         )}
         <TranslationEditor
-          translation={currentTranslation}
           dataType={dataType}
-          registerPressKey={registerPressKey}
-          pressedKeyCode={pressedKeyCode}
+          handleChangeSelectedInput={this.handleChangeSelectedInput}
           page={page}
+          pressedKeyCode={pressedKeyCode}
+          registerPressKey={registerPressKey}
+          selectedInput={selectedInput}
+          translation={currentTranslation}
         />
       </div>
     );
@@ -83,6 +98,11 @@ export default class Translation extends PureComponent {
 
 const styles = {
   wrapper: {
+    boxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
+    marginBottom: '50px'
+  },
+  note: {
+    padding: '10px 25px',
     boxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
   }
 };

@@ -19,6 +19,6 @@ const styles = {
     padding: '25px',
     display: 'flex',
     alignItems: 'center',
-    boxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
+    boxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)'
   }
 };
