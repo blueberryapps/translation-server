@@ -22,15 +22,16 @@ const typeRegistry = {
 };
 
 type PropTypes = {
-  defaultTranslation: TranslationEntityType,
   currentTranslation: TranslationEntityType,
   dataType: string,
-  note?: string,
+  defaultTranslation: TranslationEntityType,
+  edited: string,
   location: LocationWithQuery,
-  tabPressed: ?boolean,
+  note?: string,
   page: string,
-  translationKey: string,
   registerTabPress: Function,
+  tabPressed: ?boolean,
+  translationKey: string,
 };
 
 export default class Translation extends PureComponent {
@@ -42,12 +43,6 @@ export default class Translation extends PureComponent {
     selectedInput: null
   };
 
-  shouldComponentUpdate = (nextProps) => {
-    if (nextProps.tabPressed === this.props.tabPressed) return false;
-
-    return true;
-  }
-
   props: PropTypes;
 
   handleChangeSelectedInput = (index) => {
@@ -56,19 +51,21 @@ export default class Translation extends PureComponent {
 
   render() {
     const {
-      defaultTranslation,
       currentTranslation,
       dataType,
+      defaultTranslation,
+      edited,
+      location,
       note,
+      page,
       registerTabPress,
       tabPressed,
-      page,
-      translationKey,
-      location
+      translationKey
     } = this.props;
     const { selectedInput } = this.state;
     const shouldRenderDefaultTranslation = defaultTranslation && (defaultTranslation.id !== currentTranslation.id);
     const DefaultTranslation = typeRegistry[dataType];
+    const newTranslation = edited === 'new';
 
     return (
       <div style={styles.wrapper}>
@@ -96,6 +93,7 @@ export default class Translation extends PureComponent {
           registerTabPress={registerTabPress}
           selectedInput={selectedInput}
           translation={currentTranslation}
+          newTranslation={newTranslation}
         />
       </div>
     );

@@ -6,6 +6,7 @@ import { colors } from '../globals';
 type PropTypes = {
   onChange: ?Function,
   onChange:? Function | boolean,
+  handleFocus: Function,
   onBlur: Function,
   onKeyDown: Function,
   name: string,
@@ -18,10 +19,11 @@ export default class Checkbox extends PureComponent {
   props: PropTypes
 
   toggleCheckbox = () => {
-    const { onChange, value } = this.props;
+    const { onChange, handleFocus, value } = this.props;
     const newValue = value === 'true' ? 'false' : 'true';
     this.checkbox.focus();
     onChange(newValue);
+    handleFocus();
   }
 
   render() {

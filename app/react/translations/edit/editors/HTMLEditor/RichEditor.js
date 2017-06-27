@@ -16,6 +16,8 @@ type PropTypes = {
   toggleRawEdit: Function,
   handleSubmit: Function,
   value: string,
+  handleBlur: Function,
+  handleFocus: Function,
   editAsRaw: boolean,
   fieldInfo: Object
 }
@@ -82,7 +84,7 @@ export default class RichEditor extends React.Component {
         showURLInput: true,
         urlValue: url,
       }, () => {
-        setTimeout(() => this.refs.url.focus(), 0);
+        setTimeout(() => this.url.focus(), 0);
       });
     }
   }
@@ -105,7 +107,7 @@ export default class RichEditor extends React.Component {
       showURLInput: false,
       urlValue: '',
     }, () => {
-      setTimeout(() => this.refs.editor.focus(), 0);
+      setTimeout(() => this.editor.focus(), 0);
     });
   }
 
@@ -125,6 +127,10 @@ export default class RichEditor extends React.Component {
       this.confirmLink(e);
     }
   }
+
+  handleBlur = () => this.props.handleBlur();
+
+  handleFocus = () => this.props.handleFocus();
 
   onTab = (e: Event): void => {
     const maxDepth = 4;
@@ -152,7 +158,7 @@ export default class RichEditor extends React.Component {
     this.props.onChange(value, this.props.fieldInfo);
   };
 
-  focus = () => this.refs.editor.focus();
+  focus = () => this.editor.focus();
 
   render() {
     const { editorState }: StateTypes = this.state;
@@ -179,9 +185,11 @@ export default class RichEditor extends React.Component {
           <div style={styles.urlInputContainer}>
             <input
               onChange={this.onURLChange}
-              ref="url"
+              ref={(elem: HTMLElement) => { this.url = elem; }}
               style={styles.urlInput}
               type="text"
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
               value={this.state.urlValue}
               onKeyDown={this.onLinkInputKeyDown}
             />
@@ -217,8 +225,10 @@ export default class RichEditor extends React.Component {
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.handleChange}
             onTab={this.onTab}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
             placeholder="Insert your translation"
-            ref="editor"
+            ref={(elem: HTMLElement) => { this.editor = elem; }}
             spellCheck
           />
         </div>

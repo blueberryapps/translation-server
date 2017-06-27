@@ -10,6 +10,10 @@ type PropTypes = {
 type ListProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   onChange: Function,
+  saved: boolean,
+  focused: boolean,
+  handleFocus: Function,
+  handleBlur: Function,
   selectedInput: number,
   handleChangeSelectedInput: Function,
   // eslint-disable-next-line react/no-unused-prop-types
@@ -65,7 +69,7 @@ export default function generateListOf(Element: ReactClass<any>) {
 
       createList = (value: Array<string>) => {
         const length: number = value.length;
-        const { selectedInput, handleChangeSelectedInput } = this.props;
+        const { selectedInput, handleChangeSelectedInput, saved, focused, handleFocus, handleBlur } = this.props;
         const { shouldFocus } = this.state;
         const list = (props: ListProps) => (
           <EditorWrapper>
@@ -76,6 +80,10 @@ export default function generateListOf(Element: ReactClass<any>) {
                     index={i}
                     shouldFocus={shouldFocus}
                     length={length}
+                    handleFocus={handleFocus}
+                    handleBlur={handleBlur}
+                    focused={focused}
+                    saved={saved}
                     selectedInput={selectedInput}
                     handleChangeSelectedInput={handleChangeSelectedInput}
                     value={this.state.elements[i]}

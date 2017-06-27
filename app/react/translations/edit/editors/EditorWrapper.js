@@ -22,6 +22,7 @@ export default class EditorWrapper extends PureComponent {
 const styles = {
   wrapper: {
     padding: '25px',
+    position: 'relative',
     fontSize: '16px',
     backgroundColor: colors.white
   }

@@ -5,6 +5,7 @@ import EditorSave from './EditorSave';
 import EditorWrapper from './EditorWrapper';
 
 import type { FieldInfo } from '../index';
+import UnsavedLabel from './UnsavedLabel';
 
 const typeRegistry = {
   string: 'text',
@@ -22,12 +23,17 @@ type PropTypes = {
   tabPressed: ?boolean,
   saved: boolean,
   value: string,
+  handleBlur: Function,
+  handleFocus: Function,
+  focused: boolean,
+  newTranslation: boolean
 };
 
 @Radium
 export default class SimpleEditor extends PureComponent {
   input: HTMLInputElement
   props: PropTypes
+
 
   handleChange = (e: Event) => {
     e.preventDefault();
@@ -37,7 +43,12 @@ export default class SimpleEditor extends PureComponent {
   }
 
   /* This needs to be done, because, onKey events are triggerd AFTER tab switches to another input */
-  handleBlur = () => this.props.tabPressed && this.handleSubmit();
+  handleBlur = () => {
+    if (this.props.tabPressed) this.handleSubmit();
+    this.props.handleBlur();
+  }
+
+  handleFocus = () => this.props.handleFocus();
 
   handleSubmit = () => {
     const { fieldInfo, value } = this.props;
@@ -45,7 +56,8 @@ export default class SimpleEditor extends PureComponent {
   }
 
   render() {
-    const { value, dataType, saved } = this.props;
+    const { focused, value, dataType, saved, newTranslation } = this.props;
+    const placeholderDisplayed = !value || newTranslation;
 
     return (
       <div>
@@ -56,11 +68,14 @@ export default class SimpleEditor extends PureComponent {
             onKeyDown={this.props.registerTabPress}
             ref={(el) => { this.input = el; }}
             onChange={this.handleChange}
+            onFocus={this.handleFocus}
             onBlur={this.handleBlur}
             style={styles.input}
+            placeholder={placeholderDisplayed && 'Translate into Czech here'}
           />
+          <UnsavedLabel focused={focused} saved={saved} />
         </EditorWrapper>
-        <EditorSave onClick={this.handleSubmit} saved={saved} />
+        <EditorSave onClick={this.handleSubmit} saved={saved} focused={focused} />
       </div>
     );
   }

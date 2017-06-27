@@ -11,6 +11,8 @@ type PropTypes = {
   onChange: Function,
   toggleRawEdit: Function,
   editAsRaw: boolean,
+  handleBlur: Function,
+  handleFocus: Function,
   registerTabPress: Function,
   handleSubmit: Function,
   tabPressed: ?boolean,
@@ -23,9 +25,12 @@ export default class RawEditor extends React.Component {
 
   props: PropTypes
 
-  handleBlur = () =>
-    this.props.tabPressed && this.props.handleSubmit();
+  handleBlur = () => {
+    if (this.props.tabPressed) this.props.handleSubmit();
+    this.props.handleBlur();
+  }
 
+  handleFocus = () => this.props.handleFocus();
 
   // eslint-disable-next-line react/no-unused-prop-types
   handleChange = ({ target }: { target: HTMLInputElement }) =>
@@ -47,6 +52,7 @@ export default class RawEditor extends React.Component {
           value={value}
           onKeyDown={registerTabPress}
           onBlur={this.handleBlur}
+          onFocus={this.handleFocus}
           onChange={this.handleChange}
           style={styles.textarea}
         />

@@ -7,6 +7,7 @@ import ElementEditor from './ElementEditor';
 
 import type { InputEvent } from '../../../../types/generalTypes';
 import type { ArrayInfo } from './ElementEditor';
+import UnsavedLabel from '../UnsavedLabel';
 
 import type { FieldInfo } from '../../index';
 
@@ -17,6 +18,9 @@ type PropTypes = {
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: Function,
   saved: boolean,
+  focused: boolean,
+  handleBlur: Function,
+  handleFocus: Function,
   fieldInfo: FieldInfo,
   value: Array<string>,
   // eslint-disable-next-line no-undef
@@ -89,17 +93,33 @@ export default class ArrayEditor extends React.PureComponent {
   }
 
   render() {
-    const { saved, List, selectedInput, handleChangeSelectedInput }: PropTypes = this.props;
+    const { handleBlur, handleFocus, focused, saved, List, selectedInput, handleChangeSelectedInput }: PropTypes = this.props;
+
     return (
       <div>
-        {List && <List
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-          selectedInput={selectedInput}
-          handleChangeSelectedInput={handleChangeSelectedInput}
-        />}
-        <EditorSave onClick={this.handleSubmit} saved={saved} />
+        <div style={styles.wrapper}>
+          {List &&
+            <List
+              onChange={this.handleChange}
+              onKeyDown={this.handleKeyDown}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              selectedInput={selectedInput}
+              saved={saved}
+              focused={focused}
+              handleChangeSelectedInput={handleChangeSelectedInput}
+            />
+          }
+          <UnsavedLabel focused={focused} saved={saved} />
+        </div>
+        <EditorSave onClick={this.handleSubmit} saved={saved} focused={focused} />
       </div>
     );
   }
 }
+
+const styles = {
+  wrapper: {
+    position: 'relative'
+  }
+};

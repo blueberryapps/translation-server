@@ -97,11 +97,12 @@ export default class Translations extends PureComponent {
   }
 
   keyMapper = (key) => {
-    const { location: { query: { page } }, params: { localeId }, project } = this.props;
+    const { location: { query: { edited, page } }, params: { localeId }, project } = this.props;
 
     return (
       <Translation
         translationKey={key.key}
+        edited={edited}
         page={page}
         key={key.id}
         location={location}
@@ -128,7 +129,6 @@ export default class Translations extends PureComponent {
       push,
       path
     } = this.props;
-
     return (
       <div>
         <Header push={push} location={location} page={page} />

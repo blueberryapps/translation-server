@@ -5,14 +5,13 @@ type PropTypes = {
   children: Node
 }
 
-// eslint-disable-next-line no-undef
-export default function RendererWrapper({ children }: PropTypes) {
-  return (
-    <div style={styles.wrapper}>
-      {children}
-    </div>
-  );
-}
+const RendererWrapper = ({ children }: PropTypes) => (
+  <div style={styles.wrapper}>
+    {children}
+  </div>
+);
+
+export default RendererWrapper;
 
 const styles = {
   wrapper: {

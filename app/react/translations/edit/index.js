@@ -25,6 +25,7 @@ type PropTypes = {
   dataType: string,
   handleChangeSelectedInput: Function,
   translation: Object,
+  newTranslation: boolean,
   page: string,
   tabPressed: ?boolean,
   selectedInput: number,
@@ -36,12 +37,20 @@ type PropTypes = {
 
 @toJS
 class TranslationEditor extends PureComponent {
+  state = {
+    focused: false
+  }
+
   componentDidMount() {
     const { page, translation: { id }, initField } = this.props;
     initField(page, id, this.props.field);
   }
 
   props: PropTypes
+
+  handleBlur = () => this.setState({ focused: false });
+
+  handleFocus = () => this.setState({ focused: true });
 
   render() {
     const {
@@ -54,9 +63,10 @@ class TranslationEditor extends PureComponent {
       saveField,
       selectedInput,
       registerTabPress,
-      tabPressed
+      tabPressed,
+      newTranslation
     } = this.props;
-
+    const { focused } = this.state;
     const Editor = matchEditor[dataType];
 
     return (
@@ -65,11 +75,15 @@ class TranslationEditor extends PureComponent {
           fieldInfo={{ page, fieldId: id }}
           onSubmit={saveField}
           onChange={changeField}
+          focused={focused}
           selectedInput={selectedInput}
+          handleBlur={this.handleBlur}
+          handleFocus={this.handleFocus}
           handleChangeSelectedInput={handleChangeSelectedInput}
           registerTabPress={registerTabPress}
           tabPressed={tabPressed}
           dataType={dataType}
+          newTranslation={newTranslation}
           value={field && field.value}
           saved={field && field.saved}
         />

@@ -14,6 +14,8 @@ type PropTypes = {
   selectedInput: number,
   handleChangeSelectedInput: Function,
   length: number,
+  handleFocus: Function,
+  handleBlur: Function,
   shouldFocus: boolean,
   // eslint-disable-next-line react/no-unused-prop-types
   onChange: Function,
@@ -40,13 +42,19 @@ export default class ElementEditor extends React.Component {
 
   handleChange = (event: Event) =>
     this.props.onChange(event, this.arrayInfo);
+
   handleKeyDown = (event: Event) =>
     this.props.onKeyDown(event, this.arrayInfo);
+
   handleOnFocusIn = () => {
+    this.props.handleFocus();
     this.props.handleChangeSelectedInput(this.props.index);
   }
-  handleOnBlur = () =>
+
+  handleOnBlur = () => {
+    this.props.handleBlur();
     this.props.handleChangeSelectedInput(null);
+  }
 
   render() {
     const { index, selectedInput } = this.props;

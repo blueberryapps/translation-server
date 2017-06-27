@@ -5,6 +5,7 @@ import EditorSave from '../EditorSave';
 import EditorWrapper from '../EditorWrapper';
 import RawEditor from './RawEditor';
 import RichEditor from './RichEditor';
+import UnsavedLabel from '../UnsavedLabel';
 
 import type { FieldInfo } from '../../index';
 
@@ -12,6 +13,9 @@ type PropTypes = {
   onSubmit: Function,
   onChange: Function,
   value: string,
+  focused: boolean,
+  handleBlur: Function,
+  handleFocus: Function,
   saved: boolean,
   registerTabPress: Function,
   tabPressed: ?boolean,
@@ -41,7 +45,7 @@ export default class HTMLEditor extends React.Component {
 
   render() {
     const { editAsRaw } = this.state;
-    const { onChange, saved, registerTabPress, tabPressed } = this.props;
+    const { focused, handleBlur, handleFocus, onChange, saved, registerTabPress, tabPressed } = this.props;
 
     return (
       <div>
@@ -52,6 +56,8 @@ export default class HTMLEditor extends React.Component {
               onChange={onChange}
               toggleRawEdit={this.toggleRawEdit}
               registerTabPress={registerTabPress}
+              handleBlur={handleBlur}
+              handleFocus={handleFocus}
               tabPressed={tabPressed}
               handleSubmit={this.handleSubmit}
               {...this.props}
@@ -60,11 +66,14 @@ export default class HTMLEditor extends React.Component {
               editAsRaw={editAsRaw}
               onChange={onChange}
               handleSubmit={this.handleSubmit}
+              handleBlur={handleBlur}
+              handleFocus={handleFocus}
               toggleRawEdit={this.toggleRawEdit}
               {...this.props}
             />}
+          <UnsavedLabel focused={focused} saved={saved} />
         </EditorWrapper>
-        <EditorSave onClick={this.handleSubmit} saved={saved} />
+        <EditorSave onClick={this.handleSubmit} saved={saved} focused={focused} />
       </div>
     );
   }

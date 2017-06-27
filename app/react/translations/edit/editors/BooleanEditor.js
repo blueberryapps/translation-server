@@ -5,12 +5,16 @@ import type { FieldInfo } from '../index';
 import Checkbox from '../../../components/Checkbox.react';
 import EditorWrapper from './EditorWrapper';
 import EditorSave from './EditorSave';
+import UnsavedLabel from './UnsavedLabel';
 
 type PropTypes = {
   onChange: Function,
   onSubmit: Function,
   value: string,
   saved: boolean,
+  focused: boolean,
+  handleBlur: Function,
+  handleFocus: Function,
   registerTabPress: Function,
   tabPressed: ?boolean,
   fieldInfo: FieldInfo
@@ -29,7 +33,10 @@ export default class BooleanEditor extends PureComponent {
       this.handleSubmit();
       this.props.registerTabPress({ keyCode: null });
     }
+    this.props.handleBlur();
   }
+
+  handleFocus = () => this.props.handleFocus()
 
   handleSubmit = (e: Event) => {
     if (e) e.preventDefault();
@@ -37,7 +44,7 @@ export default class BooleanEditor extends PureComponent {
   }
 
   render() {
-    const { value, saved, fieldInfo: { fieldId } } = this.props;
+    const { focused, value, saved, fieldInfo: { fieldId } } = this.props;
 
     return (
       <div>
@@ -46,11 +53,13 @@ export default class BooleanEditor extends PureComponent {
             name={fieldId}
             value={value}
             onChange={this.onCheckboxChange}
+            handleFocus={this.handleFocus}
             onKeyDown={this.props.registerTabPress}
             onBlur={this.handleBlur}
           />
+          <UnsavedLabel focused={focused} saved={saved} />
         </EditorWrapper>
-        <EditorSave onClick={this.handleSubmit} saved={saved} />
+        <EditorSave onClick={this.handleSubmit} saved={saved} focused={focused} />
       </div>
     );
   }

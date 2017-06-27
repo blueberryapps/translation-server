@@ -6,6 +6,7 @@ import { colors } from '../../../globals';
 
 type PropTypes = {
   onClick: Function,
+  focused: boolean,
   saved: boolean
 };
 
@@ -15,10 +16,10 @@ export default class EditorSave extends PureComponent {
 
 
   render() {
-    const { onClick, saved } = this.props;
+    const { focused, onClick, saved } = this.props;
 
     return (
-      <div style={[styles.base, !saved && styles.editted]}>
+      <div style={[styles.base, focused && !saved && styles.editted]}>
         <div style={styles.innerWrapper}>
           <span>Press <strong>TAB</strong> to <strong>save</strong> and continue</span>
           <button onClick={onClick} style={styles.button}>
@@ -37,7 +38,7 @@ const styles = {
     backgroundColor: colors.white,
     overflow: 'hidden',
     padding: '0px 25px',
-    transition: 'height .2s'
+    transition: 'height .2s ease .1s'
   },
   innerWrapper: {
     display: 'flex',
