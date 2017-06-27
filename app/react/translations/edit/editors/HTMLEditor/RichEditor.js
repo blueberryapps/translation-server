@@ -1,16 +1,20 @@
 /* @flow */
 import React from 'react';
-import { Editor, EditorState, RichUtils, ContentState, convertFromHTML } from 'draft-js';
+import { Editor, EditorState, RichUtils, ContentState, convertFromHTML, CompositeDecorator } from 'draft-js';
 import type { EditorState as EditorStateType } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 
 import BlockStyleControls from './components/BlockStyleControls';
 import InlineStyleControls from './components/InlineStyleControls';
+import LinkEntity from './LinkEntity';
+import StylingControls from './components/StylingControls';
 import ToggleHTMLButton from './components/ToggleHTMLButton';
+import { colors } from '../../../../globals';
 
 type PropTypes = {
   onChange: Function,
   toggleRawEdit: Function,
+  handleSubmit: Function,
   value: string,
   editAsRaw: boolean,
   fieldInfo: Object
@@ -20,18 +24,22 @@ type StateTypes = {
   editorState: EditorStateType
 }
 
-const getBlockStyle = block =>
-  (block.getType() === 'blockquote') && 'RichEditor-blockquote';
-
 export default class RichEditor extends React.Component {
   constructor(props: PropTypes) {
     super(props);
     const markup = convertFromHTML(props.value);
+    const decorator = new CompositeDecorator([
+      {
+        strategy: findLinkEntities,
+        component: LinkEntity,
+      },
+    ]);
+
     const editorState: EditorStateType = ContentState.createFromBlockArray(
       markup.contentBlocks,
       markup.entityMap
     );
-    this.state = { editorState: EditorState.createWithContent(editorState) };
+    this.state = { editorState: EditorState.createWithContent(editorState, decorator), urlValue: '' };
     this.focus = () => this.editor.focus();
   }
 
@@ -52,13 +60,86 @@ export default class RichEditor extends React.Component {
     }
     return false;
   }
+
+  promptForLink = (e: Event): void => {
+    e.preventDefault();
+    const { editorState } = this.state;
+    const selection = editorState.getSelection();
+    if (!selection.isCollapsed()) {
+      const contentState = editorState.getCurrentContent();
+      const startKey = editorState.getSelection().getStartKey();
+      const startOffset = editorState.getSelection().getStartOffset();
+      const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
+      const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
+
+      let url = '';
+      if (linkKey) {
+        const linkInstance = contentState.getEntity(linkKey);
+        url = linkInstance.getData().url;
+      }
+
+      this.setState({
+        showURLInput: true,
+        urlValue: url,
+      }, () => {
+        setTimeout(() => this.refs.url.focus(), 0);
+      });
+    }
+  }
+
+  onURLChange = (e: Event): void => this.setState({ urlValue: e.target.value });
+
+  confirmLink = (e: Event): void => {
+    e.preventDefault();
+    const { editorState, urlValue } = this.state;
+    const contentState = editorState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity('LINK', 'MUTABLE', { url: urlValue });
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
+    this.setState({
+      editorState: RichUtils.toggleLink(
+       newEditorState,
+       newEditorState.getSelection(),
+       entityKey
+      ),
+      showURLInput: false,
+      urlValue: '',
+    }, () => {
+      setTimeout(() => this.refs.editor.focus(), 0);
+    });
+  }
+
+  removeLink = (e) => {
+    e.preventDefault();
+    const { editorState } = this.state;
+    const selection = editorState.getSelection();
+    if (!selection.isCollapsed()) {
+      this.setState({
+        editorState: RichUtils.toggleLink(editorState, selection, null),
+      });
+    }
+  }
+
+  onLinkInputKeyDown = (e) => {
+    if (e.which === 13) {
+      this.confirmLink(e);
+    }
+  }
+
   onTab = (e: Event): void => {
     const maxDepth = 4;
+    this.props.handleSubmit();
     this.handleChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
   }
+
   toggleBlockType = (blockType: string): void => {
     this.handleChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
   }
+
+  toggleStylingType = (blockType: string): void => {
+    this.handleChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+  }
+
   toggleInlineStyle = (inlineStyle: string): void => {
     this.handleChange(
       RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle),
@@ -70,6 +151,8 @@ export default class RichEditor extends React.Component {
     const value = stateToHTML(editorState.getCurrentContent());
     this.props.onChange(value, this.props.fieldInfo);
   };
+
+  focus = () => this.refs.editor.focus();
 
   render() {
     const { editorState }: StateTypes = this.state;
@@ -85,21 +168,49 @@ export default class RichEditor extends React.Component {
     }
     return (
       <div className="RichEditor-root">
-        <ToggleHTMLButton
-          editAsRaw={editAsRaw}
-          toggleRawEdit={toggleRawEdit}
-        />
-        <BlockStyleControls
-          editorState={editorState}
-          onToggle={this.toggleBlockType}
-        />
-        <InlineStyleControls
-          editorState={editorState}
-          onToggle={this.toggleInlineStyle}
-        />
+        <button onMouseDown={this.promptForLink}>
+            Add Link
+        </button>
+        <button onMouseDown={this.removeLink}>
+            Remove
+        </button>
+        {this.state.showURLInput &&
+        <div style={styles.urlInputContainer}>
+          <div style={styles.urlInputContainer}>
+            <input
+              onChange={this.onURLChange}
+              ref="url"
+              style={styles.urlInput}
+              type="text"
+              value={this.state.urlValue}
+              onKeyDown={this.onLinkInputKeyDown}
+            />
+            <button onMouseDown={this.confirmLink}>
+              Confirm
+            </button>
+          </div>
+        </div>
+        }
+        <div style={styles.controls}>
+          <BlockStyleControls
+            editorState={editorState}
+            onToggle={this.toggleBlockType}
+          />
+          <InlineStyleControls
+            editorState={editorState}
+            onToggle={this.toggleInlineStyle}
+          />
+          <StylingControls
+            editorState={editorState}
+            onToggle={this.toggleStylingType}
+          />
+          <ToggleHTMLButton
+            editAsRaw={editAsRaw}
+            toggleRawEdit={toggleRawEdit}
+          />
+        </div>
         <div className={className}>
           <Editor
-            blockStyleFn={getBlockStyle}
             onClick={this.focus}
             // customStyleMap={styleMap}
             editorState={editorState}
@@ -107,7 +218,7 @@ export default class RichEditor extends React.Component {
             onChange={this.handleChange}
             onTab={this.onTab}
             placeholder="Insert your translation"
-            ref={(elem: HTMLElement) => { this.editor = elem; }}
+            ref="editor"
             spellCheck
           />
         </div>
@@ -115,3 +226,25 @@ export default class RichEditor extends React.Component {
     );
   }
 }
+
+function findLinkEntities(contentBlock, callback, contentState) {
+  contentBlock.findEntityRanges(
+    (character) => {
+      const entityKey = character.getEntity();
+      return (
+        entityKey !== null &&
+        contentState.getEntity(entityKey).getType() === 'LINK'
+      );
+    },
+    callback
+  );
+}
+
+const styles = {
+  controls: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingBottom: '25px',
+    borderBottom: `1px solid ${colors.inputBorder}`
+  }
+};

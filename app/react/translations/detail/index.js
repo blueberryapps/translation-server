@@ -27,10 +27,10 @@ type PropTypes = {
   dataType: string,
   note?: string,
   location: LocationWithQuery,
-  pressedKeyCode: ?number,
+  tabPressed: ?boolean,
   page: string,
   translationKey: string,
-  registerPressKey: Function,
+  registerTabPress: Function,
 };
 
 export default class Translation extends PureComponent {
@@ -41,6 +41,12 @@ export default class Translation extends PureComponent {
   state = {
     selectedInput: null
   };
+
+  shouldComponentUpdate = (nextProps) => {
+    if (nextProps.tabPressed === this.props.tabPressed) return false;
+
+    return true;
+  }
 
   props: PropTypes;
 
@@ -54,8 +60,8 @@ export default class Translation extends PureComponent {
       currentTranslation,
       dataType,
       note,
-      registerPressKey,
-      pressedKeyCode,
+      registerTabPress,
+      tabPressed,
       page,
       translationKey,
       location
@@ -86,8 +92,8 @@ export default class Translation extends PureComponent {
           dataType={dataType}
           handleChangeSelectedInput={this.handleChangeSelectedInput}
           page={page}
-          pressedKeyCode={pressedKeyCode}
-          registerPressKey={registerPressKey}
+          tabPressed={tabPressed}
+          registerTabPress={registerTabPress}
           selectedInput={selectedInput}
           translation={currentTranslation}
         />

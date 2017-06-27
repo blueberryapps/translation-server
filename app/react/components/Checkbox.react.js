@@ -5,6 +5,7 @@ import { colors } from '../globals';
 
 type PropTypes = {
   onChange: ?Function,
+  onChange:? Function | boolean,
   onBlur: Function,
   onKeyDown: Function,
   name: string,

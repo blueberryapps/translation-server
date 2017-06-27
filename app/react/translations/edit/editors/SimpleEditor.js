@@ -16,10 +16,10 @@ const typeRegistry = {
 type PropTypes = {
   onChange: Function,
   onSubmit: Function,
-  registerPressKey: Function,
+  registerTabPress: Function,
   dataType: string,
   fieldInfo: FieldInfo,
-  pressedKeyCode: ?number,
+  tabPressed: ?boolean,
   saved: boolean,
   value: string,
 };
@@ -37,9 +37,7 @@ export default class SimpleEditor extends PureComponent {
   }
 
   /* This needs to be done, because, onKey events are triggerd AFTER tab switches to another input */
-  handleBlur = () =>
-    (this.props.pressedKeyCode === 9) && this.handleSubmit();
-
+  handleBlur = () => this.props.tabPressed && this.handleSubmit();
 
   handleSubmit = () => {
     const { fieldInfo, value } = this.props;
@@ -55,7 +53,7 @@ export default class SimpleEditor extends PureComponent {
           <input
             type={typeRegistry[dataType]}
             value={value}
-            onKeyDown={this.props.registerPressKey}
+            onKeyDown={this.props.registerTabPress}
             ref={(el) => { this.input = el; }}
             onChange={this.handleChange}
             onBlur={this.handleBlur}
@@ -71,6 +69,7 @@ export default class SimpleEditor extends PureComponent {
 const styles = {
   input: {
     padding: '5px 0',
+    width: '100%',
     border: 'none',
     ':focus': {
       outline: 'none'

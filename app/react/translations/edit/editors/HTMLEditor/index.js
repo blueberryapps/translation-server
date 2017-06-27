@@ -1,6 +1,8 @@
 /* @flow */
 import React from 'react';
 
+import EditorSave from '../EditorSave';
+import EditorWrapper from '../EditorWrapper';
 import RawEditor from './RawEditor';
 import RichEditor from './RichEditor';
 
@@ -10,6 +12,9 @@ type PropTypes = {
   onSubmit: Function,
   onChange: Function,
   value: string,
+  saved: boolean,
+  registerTabPress: Function,
+  tabPressed: ?boolean,
   fieldInfo: FieldInfo
 }
 
@@ -26,8 +31,8 @@ export default class HTMLEditor extends React.Component {
   state: StateTypes
   props: PropTypes
 
-  handleSubmit = (event: Event) => {
-    event.preventDefault();
+  handleSubmit = (e: Event) => {
+    if (e) e.preventDefault();
     this.props.onSubmit(this.props.value, this.props.fieldInfo);
   }
 
@@ -36,25 +41,30 @@ export default class HTMLEditor extends React.Component {
 
   render() {
     const { editAsRaw } = this.state;
-    const { onChange } = this.props;
+    const { onChange, saved, registerTabPress, tabPressed } = this.props;
+
     return (
       <div>
-        {this.state.editAsRaw
-          ? <RawEditor
-            editAsRaw={editAsRaw}
-            onChange={onChange}
-            toggleRawEdit={this.toggleRawEdit}
-            {...this.props}
-          />
-          : <RichEditor
-            editAsRaw={editAsRaw}
-            onChange={onChange}
-            toggleRawEdit={this.toggleRawEdit}
-            {...this.props}
-          />}
-        <button onClick={this.handleSubmit}>
-          Save
-        </button>
+        <EditorWrapper>
+          {this.state.editAsRaw
+            ? <RawEditor
+              editAsRaw={editAsRaw}
+              onChange={onChange}
+              toggleRawEdit={this.toggleRawEdit}
+              registerTabPress={registerTabPress}
+              tabPressed={tabPressed}
+              handleSubmit={this.handleSubmit}
+              {...this.props}
+            />
+            : <RichEditor
+              editAsRaw={editAsRaw}
+              onChange={onChange}
+              handleSubmit={this.handleSubmit}
+              toggleRawEdit={this.toggleRawEdit}
+              {...this.props}
+            />}
+        </EditorWrapper>
+        <EditorSave onClick={this.handleSubmit} saved={saved} />
       </div>
     );
   }

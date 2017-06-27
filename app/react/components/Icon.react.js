@@ -7,7 +7,9 @@ import React, {PureComponent as Component} from 'react';
 
 const iconList = [
   'edit',
+  'ordered-list',
   'save',
+  'unordered-list',
 ]
 
 
@@ -18,7 +20,9 @@ class Icon extends Component {
     height: React.PropTypes.number,
     kind: React.PropTypes.oneOf([
       'edit',
+      'ordered-list',
       'save',
+      'unordered-list',
     ]).isRequired,
     onClick: React.PropTypes.func,
     preview: React.PropTypes.bool,
@@ -79,7 +83,9 @@ class Icon extends Component {
     switch (kind) {
       default: return null;
       case ('edit'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 16 17"><path d="M1.08 14.63a.99.99 0 0 0 1.3 1.3L6 14.4 2.6 11zM15.7 3.74L13.26 1.3a.99.99 0 0 0-1.4 0L3.5 9.64l3.85 3.86 8.36-8.36a.99.99 0 0 0 0-1.4z"/></svg>);
+      case ('ordered-list'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 18 16"><path d="M2.04 6.87a.38.38 0 0 1 .33-.18c.16 0 .28.05.35.14.08.09.12.21.12.36 0 .11-.04.24-.11.38-.08.15-.22.31-.38.5L1.05 9.4v.57h2.77v-.64h-1.5l-.01-.04.54-.58c.35-.38.6-.66.73-.86.13-.19.2-.41.2-.66 0-.37-.13-.67-.38-.88a1.52 1.52 0 0 0-1.03-.32c-.41 0-.74.13-1 .38-.25.25-.37.56-.36.93h.91a.8.8 0 0 1 .12-.44zm-.1-3.6h-.9V4h2.79v-.73h-.9V0L1.05.28v.66h.9zm1.27 10.64c.19-.08.34-.2.45-.35a.81.81 0 0 0 .17-.5.99.99 0 0 0-.4-.83c-.25-.2-.6-.3-1.03-.3-.38 0-.7.1-.96.3a.9.9 0 0 0-.38.78v.03h.91c0-.16.05-.21.14-.28.1-.07.2-.11.32-.11.15 0 .27.04.35.12.08.09.12.19.12.31 0 .16-.04.3-.13.38a.53.53 0 0 1-.39.14h-.43v.65h.43c.19 0 .33.05.43.14.1.09.16.23.16.42 0 .14-.05.26-.15.35a.56.56 0 0 1-.4.14.56.56 0 0 1-.36-.15.4.4 0 0 1-.15-.34h-.9l-.01.04c0 .37.13.66.4.85.3.2.62.3 1 .3.43 0 .8-.1 1.07-.3a1 1 0 0 0 .42-.86.9.9 0 0 0-.18-.57 1.08 1.08 0 0 0-.5-.36zM18 15v-3H6v3zm0-6V7H6v2zm0-5V1H6v3z"/></svg>);
       case ('save'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 308.34 264.47"><title>save</title><path d="M166 81.38V31.13H64.28v66.11h167V31.13h-17.81v50.25zm142.31-35v218.09H0V0h253.08zm-57.87 94h-199v93h199zM77.09 167.43c0-3.05 2.85-5.49 6.4-5.49h45.07c3.47-.58 6.83 1.36 7.51 4.34s-1.59 5.86-5.06 6.44a7.45 7.45 0 0 1-2.45 0H83.49c-3.49 0-6.28-2.34-6.4-5.29zm0 21.56c0-3.05 2.85-5.49 6.4-5.49h64.28c3.47-.58 6.83 1.36 7.51 4.34s-1.59 5.86-5.06 6.44a7.45 7.45 0 0 1-2.45 0H83.49c-3.49 0-6.28-2.33-6.4-5.28zm85.39 3.66a5.17 5.17 0 0 1-1.9-3.66 5.62 5.62 0 0 1 1.9-4.07 7.42 7.42 0 0 1 9 0 6 6 0 0 1 1.9 4.07 4.8 4.8 0 0 1-1.9 3.66 7.05 7.05 0 0 1-9 0z"/></svg>);
+      case ('unordered-list'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 17 14"><path d="M4 14v-3h13v3zm0-6V6h13v2zm0-5V0h13v3zm-2.5 8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0-6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0-5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>);
       }
   }
 }

@@ -26,9 +26,9 @@ type PropTypes = {
   handleChangeSelectedInput: Function,
   translation: Object,
   page: string,
-  pressedKeyCode: ?number,
+  tabPressed: ?boolean,
   selectedInput: number,
-  registerPressKey: Function,
+  registerTabPress: Function,
   changeField: Function,
   saveField: Function,
   initField: Function
@@ -53,8 +53,8 @@ class TranslationEditor extends PureComponent {
       changeField,
       saveField,
       selectedInput,
-      registerPressKey,
-      pressedKeyCode
+      registerTabPress,
+      tabPressed
     } = this.props;
 
     const Editor = matchEditor[dataType];
@@ -67,8 +67,8 @@ class TranslationEditor extends PureComponent {
           onChange={changeField}
           selectedInput={selectedInput}
           handleChangeSelectedInput={handleChangeSelectedInput}
-          registerPressKey={registerPressKey}
-          pressedKeyCode={pressedKeyCode}
+          registerTabPress={registerTabPress}
+          tabPressed={tabPressed}
           dataType={dataType}
           value={field && field.value}
           saved={field && field.saved}

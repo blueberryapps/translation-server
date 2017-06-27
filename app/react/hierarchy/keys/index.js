@@ -11,21 +11,6 @@ import type { LocationWithQuery } from '../../types/locationTypes';
 
 const preloader = <div>Preloading</div>;
 const waitFor = createWaitFor(preloader);
-const maxLevel = 10;
-
-const transformHierarchy = (structure: Object, level: number = 0): Array<Object> => {
-  if (level > maxLevel) {
-    // eslint-disable-next-line no-console
-    console.warn('Provided hierarchy object was to deep. Either provide different object or increase "maxLevel" variable');
-    return [];
-  }
-  return Object.keys(structure)
-    .map(key => ({
-      level,
-      label: key,
-      childrenKeys: transformHierarchy(structure[key], level + 1)
-    }));
-};
 
 type PropTypes = {
   dispatch: Function,
@@ -39,14 +24,18 @@ type PropTypes = {
 @preload([fetchHierarchy])
 @waitFor(({ hierarchy }) => ([hierarchy.pending]))
 @connect(({ hierarchy }) => ({
-  hierarchy: transformHierarchy(hierarchy.hierarchy),
+  hierarchy: hierarchy.hierarchy,
   path: hierarchy.breadcrumbPath
 }))
-export default class HierarchyKeys extends React.Component {
+export default class HierarchyKeys extends React.PureComponent {
+
+  shouldComponentUpdate = nextProps => (nextProps.hierarchy !== this.props.hierarchy)
+
   props: PropTypes
 
   isCollapsed = ({ label, level }, globalPath) =>
     !!globalPath.length && globalPath[level] !== label;
+
 
   render() {
     const { dispatch, hierarchy, location, setPath, path }: PropTypes = this.props;

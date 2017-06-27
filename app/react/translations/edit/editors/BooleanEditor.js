@@ -11,8 +11,8 @@ type PropTypes = {
   onSubmit: Function,
   value: string,
   saved: boolean,
-  registerPressKey: Function,
-  pressedKeyCode: ?number,
+  registerTabPress: Function,
+  tabPressed: ?boolean,
   fieldInfo: FieldInfo
 };
 
@@ -25,11 +25,10 @@ export default class BooleanEditor extends PureComponent {
   props: PropTypes
 
   handleBlur = () => {
-    if (this.props.pressedKeyCode === 9) {
-      this.props.registerPressKey({ keyCode: null });
-      return this.handleSubmit();
+    if (this.props.tabPressed) {
+      this.handleSubmit();
+      this.props.registerTabPress({ keyCode: null });
     }
-    return null;
   }
 
   handleSubmit = (e: Event) => {
@@ -47,7 +46,7 @@ export default class BooleanEditor extends PureComponent {
             name={fieldId}
             value={value}
             onChange={this.onCheckboxChange}
-            onKeyDown={this.props.registerPressKey}
+            onKeyDown={this.props.registerTabPress}
             onBlur={this.handleBlur}
           />
         </EditorWrapper>
