@@ -118,7 +118,7 @@ export default class RichEditor extends React.Component {
             toggleRawEdit={toggleRawEdit}
           />
         </div>
-        <div className={className}>
+        <div className={className} style={styles.editor}>
           <Editor
             onClick={this.focus}
             // customStyleMap={styleMap}
@@ -144,5 +144,8 @@ const styles = {
     justifyContent: 'space-between',
     paddingBottom: '25px',
     borderBottom: `1px solid ${colors.inputBorder}`
+  },
+  editor: {
+    paddingTop: '20px'
   }
 };
