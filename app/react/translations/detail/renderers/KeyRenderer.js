@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
+
 import LabelLink from '../../../hierarchy/keys/LabelLink';
+import { colors } from '../../../globals';
 
 import type { LocationWithQuery } from '../../../types/locationTypes';
 
@@ -31,7 +33,7 @@ const styles = {
   wrapper: {
     padding: '10px 25px',
     minHeight: '40px',
-    bboxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
+    borderBottom: `1px solid ${colors.inputBorder}`,
     display: 'flex',
     alignItems: 'center'
   }

@@ -2,14 +2,15 @@
 import React, { PureComponent } from 'react';
 import TranslationEditor from '../edit';
 
-import type { TranslationEntityType } from '../../types/entityTypes';
-import type { LocationWithQuery } from '../../types/locationTypes';
-
 import SimpleRenderer from './renderers/SimpleRenderer';
 import HTMLRenderer from './renderers/HTMLRenderer';
 import ArrayRenderer from './renderers/ArrayRenderer';
 import BooleanRenderer from './renderers/BooleanRenderer';
 import KeyRenderer from './renderers/KeyRenderer';
+import { colors } from '../../globals';
+
+import type { TranslationEntityType } from '../../types/entityTypes';
+import type { LocationWithQuery } from '../../types/locationTypes';
 
 const typeRegistry = {
   html: HTMLRenderer,
@@ -102,11 +103,11 @@ export default class Translation extends PureComponent {
 
 const styles = {
   wrapper: {
-    boxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
+    boxShadow: '0 0 20px 1px #e0e0e0',
     marginBottom: '50px'
   },
   note: {
     padding: '10px 25px',
-    boxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
+    borderBottom: `1px solid ${colors.inputBorder}`
   }
 };
