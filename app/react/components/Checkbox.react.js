@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import Radium from 'radium';
 import React, { PureComponent } from 'react';
 
@@ -43,12 +44,7 @@ export default class Checkbox extends PureComponent {
           onKeyDown={onKeyDown}
           style={styles.input}
         />
-        <div
-          role="checkbox"
-          aria-checked={checked}
-          style={[styles.innerWrapper, disabled && styles.disabled]}
-          onClick={!disabled && this.toggleCheckbox}
-        >
+        <div role="checkbox" aria-checked={checked} style={[styles.innerWrapper, disabled && styles.disabled]} onClick={!disabled && this.toggleCheckbox}>
           <div style={[styles.toggler.base, checked && styles.toggler.checked]}>
             <span style={[styles.circle.base, checked && styles.circle.checked]} />
           </div>
