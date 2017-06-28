@@ -1,6 +1,7 @@
 /* @flow */
 import Radium from 'radium';
 import React from 'react';
+
 import { colors } from '../../../../../globals';
 
 type PropTypes = {

@@ -1,6 +1,7 @@
 /* @flow */
 import React from 'react';
 import RendererWrapper from './RendererWrapper';
+
 import Checkbox from '../../../components/Checkbox.react';
 
 type PropTypes = {

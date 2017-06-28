@@ -21,18 +21,18 @@ const matchEditor = {
 };
 
 type PropTypes = {
-  field: Object,
+  changeField: Function,
   dataType: string,
+  field: Object,
   handleChangeSelectedInput: Function,
-  translation: Object,
+  initField: Function,
   newTranslation: boolean,
   page: string,
-  tabPressed: ?boolean,
+  saveField: Function,
   selectedInput: number,
   registerTabPress: Function,
-  changeField: Function,
-  saveField: Function,
-  initField: Function
+  tabPressed: ?boolean,
+  translation: Object,
 };
 
 @toJS

@@ -1,11 +1,12 @@
 /* @flow */
 import Radium from 'radium';
 import React, { PureComponent } from 'react';
+
 import EditorSave from './EditorSave';
 import EditorWrapper from './EditorWrapper';
+import UnsavedLabel from './UnsavedLabel';
 
 import type { FieldInfo } from '../index';
-import UnsavedLabel from './UnsavedLabel';
 
 const typeRegistry = {
   string: 'text',
@@ -15,18 +16,18 @@ const typeRegistry = {
 };
 
 type PropTypes = {
-  onChange: Function,
-  onSubmit: Function,
-  registerTabPress: Function,
   dataType: string,
   fieldInfo: FieldInfo,
-  tabPressed: ?boolean,
-  saved: boolean,
-  value: string,
+  focused: boolean,
   handleBlur: Function,
   handleFocus: Function,
-  focused: boolean,
-  newTranslation: boolean
+  onChange: Function,
+  onSubmit: Function,
+  newTranslation: boolean,
+  registerTabPress: Function,
+  saved: boolean,
+  tabPressed: ?boolean,
+  value: string
 };
 
 @Radium
@@ -70,7 +71,7 @@ export default class SimpleEditor extends PureComponent {
             onChange={this.handleChange}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
-            style={styles.input}
+            style={[styles.input, focused && styles.focused]}
             placeholder={placeholderDisplayed && 'Translate into Czech here'}
           />
           <UnsavedLabel focused={focused} saved={saved} />
@@ -86,8 +87,11 @@ const styles = {
     padding: '5px 0',
     width: '100%',
     border: 'none',
+    opacity: .6,
+    transition: 'opacity .2s',
     ':focus': {
-      outline: 'none'
+      outline: 'none',
+      opacity: 1
     }
   }
 };

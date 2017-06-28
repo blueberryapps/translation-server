@@ -9,17 +9,16 @@ export type ArrayInfo = {
 }
 
 type PropTypes = {
-  value: string,
-  index: number,
-  selectedInput: number,
-  handleChangeSelectedInput: Function,
-  length: number,
-  handleFocus: Function,
   handleBlur: Function,
-  shouldFocus: boolean,
-  // eslint-disable-next-line react/no-unused-prop-types
+  handleChangeSelectedInput: Function,
+  handleFocus: Function,
+  index: number,
+  length: number,
   onChange: Function,
   onKeyDown: Function,
+  selectedInput: number,
+  shouldFocus: boolean,
+  value: string,
 };
 
 @Radium
@@ -32,9 +31,7 @@ export default class ElementEditor extends React.Component {
     };
   }
 
-  componentDidMount = () => {
-    if (this.props.shouldFocus) this.input.focus();
-  }
+  componentDidMount = () => this.props.shouldFocus && this.input.focus();
 
   arrayInfo: ArrayInfo
   input: HTMLInputElement
@@ -85,8 +82,12 @@ const styles = {
     flex: '1 1 auto',
     padding: '5px 5px 5px 30px',
     border: 'none',
+    opacity: .6,
+    transition: 'opacity .2s',
+    zIndex: 1,
     ':focus': {
-      outline: 'none'
+      outline: 'none',
+      opacity: 1
     }
   },
   circle: {
@@ -106,7 +107,8 @@ const styles = {
     fontWeight: 900,
     color: colors.white,
     backgroundColor: colors.inputBorder,
-    transition: 'background-color .2s'
+    transition: 'background-color .2s',
+    zIndex: 2
   },
   selected: {
     backgroundColor: colors.primary

@@ -1,17 +1,17 @@
 /* @flow */
 import Radium from 'radium';
 import React, { PureComponent } from 'react';
+
 import RendererWrapper from './RendererWrapper';
 import { colors } from '../../../globals';
 
 type PropTypes = {
-  value: string,
-  selectedInput: number
+  selectedInput: number,
+  value: string
 }
 
 @Radium
 export default class Translation extends PureComponent {
-
   props: PropTypes;
 
   render() {

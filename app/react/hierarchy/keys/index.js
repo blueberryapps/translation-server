@@ -28,14 +28,12 @@ type PropTypes = {
   path: hierarchy.breadcrumbPath
 }))
 export default class HierarchyKeys extends React.PureComponent {
-
   shouldComponentUpdate = nextProps => (nextProps.hierarchy !== this.props.hierarchy)
 
   props: PropTypes
 
   isCollapsed = ({ label, level }, globalPath) =>
     !!globalPath.length && globalPath[level] !== label;
-
 
   render() {
     const { dispatch, hierarchy, location, setPath, path }: PropTypes = this.props;

@@ -1,36 +1,27 @@
 /* @flow */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import Radium from 'radium';
+
 import Icon from '../../../components/Icon.react';
 import { colors } from '../../../globals';
 
 type PropTypes = {
-  onClick: Function,
   focused: boolean,
+  onClick: Function,
   saved: boolean
 };
 
-@Radium
-export default class EditorSave extends PureComponent {
-  props: PropTypes
-
-
-  render() {
-    const { focused, onClick, saved } = this.props;
-
-    return (
-      <div style={[styles.base, focused && !saved && styles.editted]}>
-        <div style={styles.innerWrapper}>
-          <span>Press <strong>TAB</strong> to <strong>save</strong> and continue</span>
-          <button onClick={onClick} style={styles.button}>
-            <Icon color={colors.primary} kind="save" size={16} style={styles.icon} />
-            Save
-          </button>
-        </div>
-      </div>
-    );
-  }
-}
+const EditorSave = ({ focused, onClick, saved }: PropTypes) => (
+  <div style={[styles.base, focused && !saved && styles.editted]}>
+    <div style={styles.innerWrapper}>
+      <span>Press <strong>TAB</strong> to <strong>save</strong> and continue</span>
+      <button onClick={onClick} style={styles.button}>
+        <Icon color={colors.primary} kind="save" size={16} style={styles.icon} />
+        Save
+      </button>
+    </div>
+  </div>
+);
 
 const styles = {
   base: {
@@ -67,3 +58,5 @@ const styles = {
     marginRight: '9px'
   }
 };
+
+export default Radium(EditorSave);

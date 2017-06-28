@@ -1,16 +1,16 @@
 /* @flow */
 import Radium from 'radium';
 import React, { PureComponent } from 'react';
+
 import { colors } from '../globals';
 
 type PropTypes = {
-  onChange: ?Function,
-  onChange:? Function | boolean,
-  handleFocus: Function,
-  onBlur: Function,
-  onKeyDown: Function,
-  name: string,
   disabled: boolean,
+  handleFocus: Function,
+  name: string,
+  onBlur: Function,
+  onChange: ?Function,
+  onKeyDown: Function,
   value: string
 };
 

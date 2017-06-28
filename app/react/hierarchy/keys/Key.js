@@ -1,28 +1,27 @@
 // @flow
-import Radium from 'radium';
 import React from 'react';
+
 import LabelLink from './LabelLink';
 
 import type { LocationWithQuery } from '../../types/locationTypes';
 
 type PropTypes = {
+  childrenKeys: Array<Object>,
+  collapsed: boolean,
   dispatch: Function,
+  globalPath: Array<string>,
+  isCollapsed: (Array<string>, Array<string>) => boolean,
   label: string,
   // eslint-disable-next-line
   location: LocationWithQuery,
-  childrenKeys: Array<Object>,
-  collapsed: boolean,
   path: Array<string>,
-  setPath: Function,
-  isCollapsed: (Array<string>, Array<string>) => boolean,
-  globalPath: Array<string>
+  setPath: Function
 };
 
 type StateTypes = {
   collapsed: boolean
 };
 
-@Radium
 export default class Key extends React.Component {
   static defaultProps = {
     path: []

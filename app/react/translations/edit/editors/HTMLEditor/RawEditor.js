@@ -1,13 +1,15 @@
 /* @flow */
-import Textarea from 'react-textarea-autosize';
-import Radium from 'radium';
+import Radium, { Style } from 'radium';
 import React from 'react';
+
+import Textarea from 'react-textarea-autosize';
 import ToggleHTMLButton from './components/ToggleHTMLButton';
 import { colors } from '../../../../globals';
 
 import type { FieldInfo } from '../../index';
 
 type PropTypes = {
+  focused: boolean,
   onChange: Function,
   toggleRawEdit: Function,
   editAsRaw: boolean,
@@ -37,7 +39,7 @@ export default class RawEditor extends React.Component {
     this.props.onChange(target.value, this.props.fieldInfo);
 
   render() {
-    const { value, editAsRaw, toggleRawEdit, registerTabPress } = this.props;
+    const { focused, value, editAsRaw, toggleRawEdit, registerTabPress } = this.props;
 
     return (
       <div>
@@ -47,15 +49,18 @@ export default class RawEditor extends React.Component {
             toggleRawEdit={toggleRawEdit}
           />
         </div>
-        <Textarea
-          placeholder="Insert raw HTML"
-          value={value}
-          onKeyDown={registerTabPress}
-          onBlur={this.handleBlur}
-          onFocus={this.handleFocus}
-          onChange={this.handleChange}
-          style={styles.textarea}
-        />
+        <div style={[styles.areaWrapper.base, focused && styles.areaWrapper.focused]}>
+          <Style rules={textareaStyles} />
+          <Textarea
+            placeholder="Insert raw HTML"
+            value={value}
+            onKeyDown={registerTabPress}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            onChange={this.handleChange}
+            style={styles.textarea}
+          />
+        </div>
       </div>
     );
   }
@@ -75,9 +80,21 @@ const styles = {
     width: '100%',
     minHeight: '40px',
     resize: 'none',
-    wordWrap: 'break-word',
-    ':focus': {
-      outline: 'none'
+    wordWrap: 'break-word'
+  },
+  areaWrapper: {
+    base: {
+      opacity: .6,
+      transition: 'opacity .2s'
+    },
+    focused: {
+      opacity: 1
     }
+  }
+};
+
+const textareaStyles = {
+  'textarea:focus': {
+    outline: 'none'
   }
 };

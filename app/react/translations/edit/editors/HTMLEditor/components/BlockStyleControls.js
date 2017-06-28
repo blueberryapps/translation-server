@@ -2,6 +2,7 @@
 import Radium from 'radium';
 import React, { PureComponent } from 'react';
 import type { EditorState } from 'draft-js';
+
 import Icon from '../../../../../components/Icon.react';
 import { colors } from '../../../../../globals';
 

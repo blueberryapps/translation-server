@@ -1,8 +1,10 @@
 /* @flow */
 import React from 'react';
 import type { EditorState } from 'draft-js';
-import StyleButton from './StyleButton';
+
 import ControlsWrapper from './ControlsWrapper';
+import StyleButton from './StyleButton';
+
 
 type PropTypes = {
   editorState: EditorState,

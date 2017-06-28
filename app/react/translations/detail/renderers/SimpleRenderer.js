@@ -1,19 +1,16 @@
 /* @flow */
-import React, { PureComponent } from 'react';
+import React from 'react';
+
 import RendererWrapper from './RendererWrapper';
 
 type PropTypes = {
   value: string
 };
 
-export default class SimpleRenderer extends PureComponent {
-  props: PropTypes
-
-  render() {
-    return (
-      <RendererWrapper>
-        {this.props.value}
-      </RendererWrapper>
-    );
-  }
+export default function SimpleRenderer({ value }: PropTypes) {
+  return (
+    <RendererWrapper>
+      {value}
+    </RendererWrapper>
+  );
 }

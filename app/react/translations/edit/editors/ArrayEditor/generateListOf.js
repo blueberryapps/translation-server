@@ -8,22 +8,22 @@ type PropTypes = {
 }
 
 type ListProps = {
-  // eslint-disable-next-line react/no-unused-prop-types
-  onChange: Function,
-  saved: boolean,
   focused: boolean,
-  handleFocus: Function,
   handleBlur: Function,
-  selectedInput: number,
+  handleFocus: Function,
   handleChangeSelectedInput: Function,
   // eslint-disable-next-line react/no-unused-prop-types
-  onKeyDown: Function
+  onChange: Function,
+  // eslint-disable-next-line react/no-unused-prop-types
+  onKeyDown: Function,
+  saved: boolean,
+  selectedInput: number
 };
 
 type StateTypes = {
+  elements: Object,
   // eslint-disable-next-line no-undef
   list: ReactClass<any> | null,
-  elements: Object,
   shouldFocus: boolean
 }
 // eslint-disable-next-line no-undef
@@ -72,7 +72,7 @@ export default function generateListOf(Element: ReactClass<any>) {
         const { selectedInput, handleChangeSelectedInput, saved, focused, handleFocus, handleBlur } = this.props;
         const { shouldFocus } = this.state;
         const list = (props: ListProps) => (
-          <EditorWrapper>
+          <EditorWrapper focused={focused}>
             <ul style={styles.list}>
               {value.map((el: string, i: number): Element => (
                 <li key={`${i * 4}4`} style={styles.item}>
@@ -82,7 +82,6 @@ export default function generateListOf(Element: ReactClass<any>) {
                     length={length}
                     handleFocus={handleFocus}
                     handleBlur={handleBlur}
-                    focused={focused}
                     saved={saved}
                     selectedInput={selectedInput}
                     handleChangeSelectedInput={handleChangeSelectedInput}

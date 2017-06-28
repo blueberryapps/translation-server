@@ -2,21 +2,11 @@
 import React from 'react';
 import { colors } from '../../../../../globals';
 
-type PropTypes = {
-  children: Node
-}
-
-export default class ControlsWrapper extends React.Component {
-  props: PropTypes
-
-  render() {
-    return (
-      <div style={styles.wrapper}>
-        {this.props.children}
-      </div>
-    );
-  }
-}
+const ControlsWrapper = ({ children }: { children: Node }) => (
+  <div style={styles.wrapper}>
+    {children}
+  </div>
+);
 
 const styles = {
   wrapper: {
@@ -26,3 +16,5 @@ const styles = {
     borderTop: `1px solid ${colors.inputBorder}`,
   }
 };
+
+export default ControlsWrapper;

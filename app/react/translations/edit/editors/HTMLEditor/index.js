@@ -10,16 +10,16 @@ import UnsavedLabel from '../UnsavedLabel';
 import type { FieldInfo } from '../../index';
 
 type PropTypes = {
-  onSubmit: Function,
-  onChange: Function,
-  value: string,
+  fieldInfo: FieldInfo,
   focused: boolean,
   handleBlur: Function,
   handleFocus: Function,
-  saved: boolean,
-  registerTabPress: Function,
+  onChange: Function,
+  onSubmit: Function,
   tabPressed: ?boolean,
-  fieldInfo: FieldInfo
+  registerTabPress: Function,
+  saved: boolean,
+  value: string
 }
 
 type StateTypes = {
@@ -53,21 +53,23 @@ export default class HTMLEditor extends React.Component {
           {this.state.editAsRaw
             ? <RawEditor
               editAsRaw={editAsRaw}
-              onChange={onChange}
-              toggleRawEdit={this.toggleRawEdit}
-              registerTabPress={registerTabPress}
               handleBlur={handleBlur}
               handleFocus={handleFocus}
-              tabPressed={tabPressed}
               handleSubmit={this.handleSubmit}
+              focused={focused}
+              onChange={onChange}
+              registerTabPress={registerTabPress}
+              tabPressed={tabPressed}
+              toggleRawEdit={this.toggleRawEdit}
               {...this.props}
             />
             : <RichEditor
               editAsRaw={editAsRaw}
-              onChange={onChange}
-              handleSubmit={this.handleSubmit}
               handleBlur={handleBlur}
               handleFocus={handleFocus}
+              handleSubmit={this.handleSubmit}
+              focused={focused}
+              onChange={onChange}
               toggleRawEdit={this.toggleRawEdit}
               {...this.props}
             />}

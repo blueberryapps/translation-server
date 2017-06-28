@@ -1,23 +1,12 @@
 /* @flow */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { colors } from '../../../globals';
 
-type PropTypes = {
-  children: Node
-};
-
-export default class EditorWrapper extends PureComponent {
-  props: PropTypes;
-
-  render() {
-    const { children } = this.props;
-    return (
-      <div style={styles.wrapper}>
-        {children}
-      </div>
-    );
-  }
-}
+const EditorWrapper = ({ children }: { children: Node }) => (
+  <div style={styles.wrapper}>
+    {children}
+  </div>
+);
 
 const styles = {
   wrapper: {
@@ -27,3 +16,5 @@ const styles = {
     backgroundColor: colors.white
   }
 };
+
+export default EditorWrapper;
