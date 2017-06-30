@@ -1,64 +1,81 @@
 /* @flow */
-import React, { Component } from 'react';
+import Radium from 'radium';
+import React, { PureComponent } from 'react';
+
+import Checkbox from '../../../components/Checkbox.react';
+import EditorSave from './EditorSave';
+import EditorWrapper from './EditorWrapper';
+import UnsavedLabel from './UnsavedLabel';
 
 import type { FieldInfo } from '../index';
 
 type PropTypes = {
+  focused: boolean,
+  fieldInfo: FieldInfo,
+  handleBlur: Function,
+  handleFocus: Function,
   onChange: Function,
   onSubmit: Function,
-  value: string,
+  registerTabPress: Function,
   saved: boolean,
-  fieldInfo: FieldInfo
+  tabPressed: ?boolean,
+  value: string,
 };
 
-export default class BooleanEditor extends Component {
-  toggleRadio = () => {
-    const { onChange, value, fieldInfo } = this.props;
-    const newValue = value === 'true' ? 'false' : 'true';
+@Radium
+export default class BooleanEditor extends PureComponent {
+  onCheckboxChange = (newValue) => {
+    const { onChange, fieldInfo } = this.props;
     onChange(newValue, fieldInfo);
   }
 
   props: PropTypes
 
+  handleBlur = () => {
+    if (this.props.tabPressed) {
+      this.handleSubmit();
+      this.props.registerTabPress({ keyCode: null });
+    }
+    this.props.handleBlur();
+  }
+
+  handleFocus = () => this.props.handleFocus()
+
   handleSubmit = (e: Event) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     this.props.onSubmit(this.props.value, this.props.fieldInfo);
   }
 
   render() {
-    const { value, saved, fieldInfo: { fieldId } } = this.props;
+    const { focused, value, saved, fieldInfo: { fieldId } } = this.props;
+
     return (
       <div>
-        <form>
-          True:
-          <input
-            type="radio"
-            name={`true-${fieldId}`}
-            checked={value === 'true'}
-            value={value === 'true'}
-            onChange={this.toggleRadio}
-          />
-          False:
-          <input
-            type="radio"
-            name={`false-${fieldId}`}
-            checked={value === 'false'}
-            value={value === 'false'}
-            onChange={this.toggleRadio}
-          />
-          <button
-            onClick={this.handleSubmit}
-            style={saved ? styles.default : styles.edited}
-          >Save</button>
-        </form>
+        <EditorWrapper focused={focused}>
+          <div style={[styles.wrapper, focused && styles.focused]}>
+            <Checkbox
+              handleFocus={this.handleFocus}
+              name={fieldId}
+              onChange={this.onCheckboxChange}
+              onBlur={this.handleBlur}
+              onKeyDown={this.props.registerTabPress}
+              value={value}
+            />
+          </div>
+          <UnsavedLabel focused={focused} saved={saved} />
+        </EditorWrapper>
+        <EditorSave onClick={this.handleSubmit} saved={saved} focused={focused} />
       </div>
     );
   }
 }
 
 const styles = {
-  default: {},
-  edited: {
-    backgroundColor: 'green'
+  wrapper: {
+    opacity: .6,
+    transition: 'opacity .2s'
+  },
+  focused: {
+    opacity: 1
   }
 };

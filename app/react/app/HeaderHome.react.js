@@ -40,7 +40,6 @@ const styles = {
     width: '16%'
   },
   header: {
-    alignSelf: 'auto',
     flex: '0 0 auto',
     height: '50px',
     order: 0,
@@ -52,14 +51,18 @@ const styles = {
     backgroundColor: colors.white,
     boxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
     width: '100%',
-    zIndex: '100'
+    zIndex: 100
   },
   menu: {
     display: 'inline',
     float: 'right'
   },
   container: {
-    maxWidth: '90%'
+    maxWidth: '90%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'auto',
   },
   text: {
     borderLeft: `1px solid ${colors.inputBorder}`,

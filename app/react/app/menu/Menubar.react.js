@@ -88,6 +88,11 @@ export default class Menubar extends React.PureComponent {
 const styles = {
   wrapper: {
     backgroundColor: colors.primary,
+    position: 'fixed',
+    zIndex: 100,
+    top: '50px',
+    left: 0,
+    right: 0,
     height: '50px',
   },
 

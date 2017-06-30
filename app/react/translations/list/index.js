@@ -49,13 +49,11 @@ type PropTypes = {
   breadcrumbPath: Array<string>,
   path: Array<string>,
   push: Function,
-  saveTranslation: Function,
   toggleHierarchy: Function,
-  fillTranslation: Function
 };
 
 type StateTypes = {
-  pressedKeyCode: ?number
+  tabPressed: ?boolean
 };
 
 @preload([fetchKeys, fetchLocale, fetchProjects])
@@ -86,7 +84,7 @@ export default class Translations extends PureComponent {
   constructor(props: PropTypes) {
     super(props);
     this.state = {
-      pressedKeyCode: null
+      tabPressed: false
     };
   }
 
@@ -94,8 +92,28 @@ export default class Translations extends PureComponent {
 
   props: PropTypes
 
-  registerPressKey = ({ keyCode }: KeyboardEvent) =>
-    this.setState({ pressedKeyCode: keyCode })
+  registerTabPress = ({ keyCode }: KeyboardEvent) => {
+    this.setState({ tabPressed: keyCode === 9 });
+  }
+
+  keyMapper = (key) => {
+    const { location: { query: { edited, page } }, params: { localeId }, project } = this.props;
+
+    return (
+      <Translation
+        translationKey={key.key}
+        edited={edited}
+        page={page}
+        key={key.id}
+        location={location}
+        registerTabPress={this.registerTabPress}
+        tabPressed={this.state.tabPressed}
+        currentTranslation={key.translations[+localeId]}
+        defaultTranslation={project && key.translations[project.defaultLocaleId]}
+        {...key}
+      />
+    );
+  }
 
   render() {
     const {
@@ -105,16 +123,12 @@ export default class Translations extends PureComponent {
       isVerticalMenuShown,
       keys,
       currentLocale,
-      project,
       params: {
         localeId
       },
       push,
-      saveTranslation,
-      fillTranslation,
       path
     } = this.props;
-
     return (
       <div>
         <Header push={push} location={location} page={page} />
@@ -131,28 +145,16 @@ export default class Translations extends PureComponent {
             path={path}
             location={location}
           />
-          {isVerticalMenuShown &&
-            <VerticalMenu
-              location={{
-                ...location,
-                params: { localeId },
-              }}
-            />
-          }
-          {keys.map(key => (
-            <Translation
-              saveTranslation={saveTranslation}
-              fillTranslation={fillTranslation}
-              translationKey={key.key}
-              page={page}
-              location={location}
-              registerPressKey={this.registerPressKey}
-              pressedKeyCode={this.state.pressedKeyCode}
-              currentTranslation={key.translations[+localeId]}
-              defaultTranslation={project && key.translations[project.defaultLocaleId]}
-              {...key}
-            />
-          ))}
+          <VerticalMenu
+            location={{
+              ...location,
+              params: { localeId },
+            }}
+            isShown={isVerticalMenuShown}
+          />
+          <div style={styles.translations}>
+            {keys.map(this.keyMapper)}
+          </div>
         </div>
         {pagination &&
           <Paginator {...pagination} location={location} />
@@ -165,6 +167,10 @@ export default class Translations extends PureComponent {
 const styles = {
   wrapper: {
     backgroundColor: '#F7F7F7',
-    height: '300px',
+    display: 'flex'
   },
+  translations: {
+    flex: '1 1 auto',
+    padding: '40px 100px',
+  }
 };

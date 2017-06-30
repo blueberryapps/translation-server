@@ -1,6 +1,7 @@
 /* @flow */
 import React from 'react';
-import { Box } from 'radium-flex';
+
+import RendererWrapper from './RendererWrapper';
 
 type PropTypes = {
   value: string
@@ -8,8 +9,8 @@ type PropTypes = {
 
 export default function SimpleRenderer({ value }: PropTypes) {
   return (
-    <Box>
+    <RendererWrapper>
       {value}
-    </Box>
+    </RendererWrapper>
   );
 }

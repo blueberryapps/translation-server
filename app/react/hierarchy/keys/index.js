@@ -40,10 +40,12 @@ type PropTypes = {
 @preload([fetchHierarchy])
 @waitFor(({ hierarchy }) => ([hierarchy.pending]))
 @connect(({ hierarchy }) => ({
-  hierarchy: transformHierarchy(hierarchy.hierarchy),
+  hierarchy: hierarchy.hierarchy,
   path: hierarchy.breadcrumbPath
 }))
-export default class HierarchyKeys extends React.Component {
+export default class HierarchyKeys extends React.PureComponent {
+  shouldComponentUpdate = nextProps => (nextProps.hierarchy !== this.props.hierarchy)
+
   props: PropTypes
 
   isCollapsed = ({ label, level }: KeyNode, globalPath: Array<string>): boolean =>
@@ -62,8 +64,6 @@ export default class HierarchyKeys extends React.Component {
             globalPath={path}
             collapsed={this.isCollapsed(key, path)}
             isCollapsed={this.isCollapsed}
-            style={createStyles(key.level)}
-            createStyles={createStyles}
             location={location}
             {...key}
           />

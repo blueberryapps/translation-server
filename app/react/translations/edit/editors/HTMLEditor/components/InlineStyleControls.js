@@ -1,7 +1,10 @@
 /* @flow */
 import React from 'react';
 import type { EditorState } from 'draft-js';
+
+import ControlsWrapper from './ControlsWrapper';
 import StyleButton from './StyleButton';
+
 
 type PropTypes = {
   editorState: EditorState,
@@ -9,16 +12,17 @@ type PropTypes = {
 }
 
 const INLINE_STYLES = [
-  { label: 'Bold', style: 'BOLD' },
-  { label: 'Italic', style: 'ITALIC' },
-  { label: 'Underline', style: 'UNDERLINE' },
-  { label: 'Monospace', style: 'CODE' },
+  { label: 'Bold', style: 'BOLD', content: <strong>Bold</strong> },
+  { label: 'Italic', style: 'ITALIC', content: <i>Italic</i> },
+  { label: 'Underline', style: 'UNDERLINE', content: <u>Underline</u> },
+  { label: 'Monospace', style: 'CODE', content: <span style={{ fontFamily: '"Lucida Console", monospace' }}>&lt;&gt;</span> }
 ];
 
 const InlineStyleControls = ({ editorState, onToggle }: PropTypes) => {
   const currentStyle = editorState.getCurrentInlineStyle();
+
   return (
-    <div className="RichEditor-controls">
+    <ControlsWrapper>
       {INLINE_STYLES.map(type =>
         <StyleButton
           key={type.label}
@@ -26,9 +30,11 @@ const InlineStyleControls = ({ editorState, onToggle }: PropTypes) => {
           label={type.label}
           onToggle={onToggle}
           style={type.style}
-        />
+        >
+          {type.content && type.content}
+        </StyleButton>
       )}
-    </div>
+    </ControlsWrapper>
   );
 };
 

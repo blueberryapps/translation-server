@@ -31,12 +31,12 @@ export default class Locale extends React.PureComponent {
   }
 
   render() {
-    const { code, id, projectID, translationCount, translatedCount } = this.props;
+    const { code, id, projectId, translationCount, translatedCount } = this.props;
     const { hovered } = this.state;
     const language = locale.getLanguage(code).name[0];
     return (
       <div style={styles.outerWrapper}>
-        <RadiumLink to={`project/${projectID}/locales/${id}?page=1&edited=new`} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={styles.wrapper}>
+        <RadiumLink to={`project/${projectId}/locales/${id}?page=1&edited=new`} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={styles.wrapper}>
           <Box col={12}><Image src={`/assets/flags/${code}.svg`} style={styles.image} /></Box>
           <Box col={12} style={styles.heading}>{language}</Box>
           <Box col={12} style={styles.transaltedRatio}>{translatedCount} / {translationCount}</Box>

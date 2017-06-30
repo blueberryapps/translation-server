@@ -7,7 +7,8 @@ export const colors = {
   lightGrey: '#F0F0F0',
   backgroundGrey: '#f7f7f7',
   black: 'black',
-  white: 'white'
+  white: 'white',
+  red: '#bc3030'
 };
 
 export const breakpoints = {

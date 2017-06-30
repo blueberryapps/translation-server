@@ -29,13 +29,13 @@ export default class Project extends React.PureComponent {
             <div style={styles.name}>{name}</div>
           </Box>
           <Box col={4} xs={6} ms={6} sm={3} md={2} lg={2}>
-            {defaultLocale && <Locale projectd={id} {...defaultLocale} />}
+            {defaultLocale && <Locale projectId={id} {...defaultLocale} />}
           </Box>
           <Box col={4} xs={12} ms={12} sm={6} md={6} lg={6}>
             <Flex>
               {translationLocales.map(locale => (
                 <Box col={4} xs={6} ms={3} sm={6} md={4} lg={4}>
-                  <Locale projectd={id} {...locale} />
+                  <Locale projectId={id} {...locale} />
                 </Box>
               ))}
             </Flex>

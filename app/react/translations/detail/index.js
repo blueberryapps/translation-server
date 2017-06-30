@@ -2,14 +2,15 @@
 import React, { PureComponent } from 'react';
 import TranslationEditor from '../edit';
 
-import type { TranslationEntityType } from '../../types/entityTypes';
-import type { LocationWithQuery } from '../../types/locationTypes';
-
 import SimpleRenderer from './renderers/SimpleRenderer';
 import HTMLRenderer from './renderers/HTMLRenderer';
 import ArrayRenderer from './renderers/ArrayRenderer';
 import BooleanRenderer from './renderers/BooleanRenderer';
 import KeyRenderer from './renderers/KeyRenderer';
+import { colors } from '../../globals';
+
+import type { TranslationEntityType } from '../../types/entityTypes';
+import type { LocationWithQuery } from '../../types/locationTypes';
 
 const typeRegistry = {
   html: HTMLRenderer,
@@ -22,66 +23,91 @@ const typeRegistry = {
 };
 
 type PropTypes = {
-  defaultTranslation: TranslationEntityType,
   currentTranslation: TranslationEntityType,
   dataType: string,
-  note?: string,
+  defaultTranslation: TranslationEntityType,
+  edited: string,
   location: LocationWithQuery,
-  pressedKeyCode: ?number,
+  note?: string,
   page: string,
+  registerTabPress: Function,
+  tabPressed: ?boolean,
   translationKey: string,
-  registerPressKey: Function,
 };
 
 export default class Translation extends PureComponent {
   static defaultProps = {
     note: '',
   };
+
+  state = {
+    selectedInput: null
+  };
+
   props: PropTypes;
+
+  handleChangeSelectedInput = (index) => {
+    this.setState({ selectedInput: index });
+  }
 
   render() {
     const {
-      defaultTranslation,
       currentTranslation,
       dataType,
+      defaultTranslation,
+      edited,
+      location,
       note,
-      registerPressKey,
-      pressedKeyCode,
       page,
-      translationKey,
-      location
+      registerTabPress,
+      tabPressed,
+      translationKey
     } = this.props;
+    const { selectedInput } = this.state;
     const shouldRenderDefaultTranslation = defaultTranslation && (defaultTranslation.id !== currentTranslation.id);
-
     const DefaultTranslation = typeRegistry[dataType];
+    const newTranslation = edited === 'new';
 
     return (
-      <div>
-        <div>
-          <KeyRenderer
-            translationKey={translationKey}
-            location={location}
-          />
-        </div>
-        <div>
-          {note}
-        </div>
+      <div style={styles.wrapper}>
+        <KeyRenderer
+          translationKey={translationKey}
+          location={location}
+        />
+        {note &&
+          <div style={styles.note}>
+            {note}
+          </div>
+        }
         {shouldRenderDefaultTranslation && (
           // this subcompontent exists to make styling easier later
           <DefaultTranslation
             value={defaultTranslation.text}
+            selectedInput={selectedInput}
           />
         )}
-        <div>
-          <TranslationEditor
-            translation={currentTranslation}
-            dataType={dataType}
-            registerPressKey={registerPressKey}
-            pressedKeyCode={pressedKeyCode}
-            page={page}
-          />
-        </div>
+        <TranslationEditor
+          dataType={dataType}
+          handleChangeSelectedInput={this.handleChangeSelectedInput}
+          page={page}
+          tabPressed={tabPressed}
+          registerTabPress={registerTabPress}
+          selectedInput={selectedInput}
+          translation={currentTranslation}
+          newTranslation={newTranslation}
+        />
       </div>
     );
   }
 }
+
+const styles = {
+  wrapper: {
+    boxShadow: '0 0 20px 1px #e0e0e0',
+    marginBottom: '50px'
+  },
+  note: {
+    padding: '10px 25px',
+    borderBottom: `1px solid ${colors.inputBorder}`
+  }
+};

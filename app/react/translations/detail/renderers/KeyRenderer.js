@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
+
 import LabelLink from '../../../hierarchy/keys/LabelLink';
+import { colors } from '../../../globals';
 
 import type { LocationWithQuery } from '../../../types/locationTypes';
 
@@ -13,7 +15,7 @@ type PropTypes = {
 export default function KeyRenderer({ translationKey, location }: PropTypes) {
   const labels = translationKey.split('.');
   return (
-    <div>
+    <div style={styles.wrapper}>
       {labels.map((label, i) => (
         <span key={labels.slice(0, i + 1)}>
           {i ? '.' : null}
@@ -26,3 +28,13 @@ export default function KeyRenderer({ translationKey, location }: PropTypes) {
       ))}
     </div>);
 }
+
+const styles = {
+  wrapper: {
+    padding: '10px 25px',
+    minHeight: '40px',
+    borderBottom: `1px solid ${colors.inputBorder}`,
+    display: 'flex',
+    alignItems: 'center'
+  }
+};

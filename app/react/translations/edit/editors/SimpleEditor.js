@@ -1,5 +1,10 @@
 /* @flow */
-import React, { Component } from 'react';
+import Radium from 'radium';
+import React, { PureComponent } from 'react';
+
+import EditorSave from './EditorSave';
+import EditorWrapper from './EditorWrapper';
+import UnsavedLabel from './UnsavedLabel';
 
 import type { FieldInfo } from '../index';
 
@@ -11,18 +16,25 @@ const typeRegistry = {
 };
 
 type PropTypes = {
-  onChange: Function,
-  onSubmit: Function,
-  registerPressKey: Function,
   dataType: string,
   fieldInfo: FieldInfo,
-  pressedKeyCode: ?number,
-  value: string,
+  focused: boolean,
+  handleBlur: Function,
+  handleFocus: Function,
+  onChange: Function,
+  onSubmit: Function,
+  newTranslation: boolean,
+  registerTabPress: Function,
+  saved: boolean,
+  tabPressed: ?boolean,
+  value: string
 };
 
-export default class SimpleEditor extends Component {
+@Radium
+export default class SimpleEditor extends PureComponent {
   input: HTMLInputElement
   props: PropTypes
+
 
   handleChange = (e: Event) => {
     e.preventDefault();
@@ -32,9 +44,12 @@ export default class SimpleEditor extends Component {
   }
 
   /* This needs to be done, because, onKey events are triggerd AFTER tab switches to another input */
-  handleBlur = () =>
-    (this.props.pressedKeyCode === 9) && this.handleSubmit();
+  handleBlur = () => {
+    if (this.props.tabPressed) this.handleSubmit();
+    this.props.handleBlur();
+  }
 
+  handleFocus = () => this.props.handleFocus();
 
   handleSubmit = () => {
     const { fieldInfo, value } = this.props;
@@ -42,21 +57,41 @@ export default class SimpleEditor extends Component {
   }
 
   render() {
-    const { value, dataType } = this.props;
+    const { focused, value, dataType, saved, newTranslation } = this.props;
+    const placeholderDisplayed = !value || newTranslation;
 
     return (
       <div>
-        <form>
+        <EditorWrapper>
           <input
             type={typeRegistry[dataType]}
             value={value}
-            onKeyDown={this.props.registerPressKey}
+            onKeyDown={this.props.registerTabPress}
             ref={(el) => { this.input = el; }}
             onChange={this.handleChange}
+            onFocus={this.handleFocus}
             onBlur={this.handleBlur}
+            style={[styles.input, focused && styles.focused]}
+            placeholder={placeholderDisplayed && 'Translate into Czech here'}
           />
-        </form>
+          <UnsavedLabel focused={focused} saved={saved} />
+        </EditorWrapper>
+        <EditorSave onClick={this.handleSubmit} saved={saved} focused={focused} />
       </div>
     );
   }
 }
+
+const styles = {
+  input: {
+    padding: '5px 0',
+    width: '100%',
+    border: 'none',
+    opacity: .6,
+    transition: 'opacity .2s',
+    ':focus': {
+      outline: 'none',
+      opacity: 1
+    }
+  }
+};

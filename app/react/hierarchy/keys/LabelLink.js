@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { actions } from 'onion-form';
 import { setBreadcrumbPath } from '../actions';
+import { colors } from '../../globals';
 
 import type { LocationWithQuery } from '../../types/locationTypes';
 
@@ -47,12 +48,22 @@ class LabelLink extends React.Component {
             edited: 'all'
           }
         }}
+        style={styles.link}
       >
         {label}
       </Link>
     );
   }
 }
+
+const styles = {
+  link: {
+    color: colors.primary,
+    textDecoration: 'underline',
+    display: 'inline-block',
+    fontSize: '16px'
+  }
+};
 
 export default connect(() => ({}), {
   setFormFieldProperty: actions.setFormFieldProperty,

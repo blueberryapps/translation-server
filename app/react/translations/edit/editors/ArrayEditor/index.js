@@ -1,23 +1,29 @@
 /* @flow */
 import React from 'react';
-import mapProps from './mapProps';
-import generateListOf from './generateListOf';
+
+import EditorSave from '../EditorSave';
 import ElementEditor from './ElementEditor';
+import generateListOf from './generateListOf';
+import mapProps from './mapProps';
+import UnsavedLabel from '../UnsavedLabel';
 
-import type { InputEvent } from '../../../../types/generalTypes';
 import type { ArrayInfo } from './ElementEditor';
-
 import type { FieldInfo } from '../../index';
+import type { InputEvent } from '../../../../types/generalTypes';
 
 type PropTypes = {
-  onChange: Function,
-  // eslint-disable-next-line react/no-unused-prop-types
-  onSubmit: Function,
-  saved: boolean,
+  handleBlur: Function,
+  handleFocus: Function,
+  handleChangeSelectedInput: Function,
   fieldInfo: FieldInfo,
-  value: Array<string>,
+  focused: boolean,
   // eslint-disable-next-line no-undef
   List: ReactClass<any>,
+  onChange: Function,
+  onSubmit: Function,
+  saved: boolean,
+  selectedInput: number,
+  value: Array<string>,
 };
 
 const parseArray = (propValue: any, propKey: string) => {
@@ -68,6 +74,7 @@ export default class ArrayEditor extends React.PureComponent {
   handleKeyDown = (event: InputEvent, { index, length }: ArrayInfo) => {
     const isEmpty: boolean = event.currentTarget && !event.currentTarget.value;
     const isLast: boolean = index === length - 1;
+
     if (event.keyCode === 13) {
       this.pushArray();
     }
@@ -75,38 +82,44 @@ export default class ArrayEditor extends React.PureComponent {
       event.preventDefault();
       this.popArray();
     }
+    if (event.keyCode === 9 && isLast) {
+      this.handleSubmit();
+    }
   }
 
   handleSubmit = (e: Event) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     this.props.onSubmit(this.props.value, this.props.fieldInfo);
   }
 
   render() {
-    const { saved, List }: PropTypes = this.props;
+    const { handleBlur, handleFocus, focused, saved, List, selectedInput, handleChangeSelectedInput }: PropTypes = this.props;
+
     return (
       <div>
-        {List && <List
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-        />}
-        <button
-          onClick={this.handleSubmit}
-          style={saved
-            ? styles.default
-            : styles.edited
+        <div style={styles.wrapper}>
+          {List &&
+            <List
+              onChange={this.handleChange}
+              onKeyDown={this.handleKeyDown}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              selectedInput={selectedInput}
+              saved={saved}
+              focused={focused}
+              handleChangeSelectedInput={handleChangeSelectedInput}
+            />
           }
-        >
-          Save
-        </button>
+          <UnsavedLabel focused={focused} saved={saved} />
+        </div>
+        <EditorSave onClick={this.handleSubmit} saved={saved} focused={focused} />
       </div>
     );
   }
 }
 
 const styles = {
-  default: {},
-  edited: {
-    backgroundColor: 'green'
+  wrapper: {
+    position: 'relative'
   }
 };
