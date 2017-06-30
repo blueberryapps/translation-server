@@ -10,6 +10,7 @@ RSpec.describe Release, type: :model do
 
   before do
     Translation.resolve({ locale: locale, key: key }, { text: 'foo' }).save
+    Translation.approve!(locale.translations)
   end
 
   it { should belong_to :locale }

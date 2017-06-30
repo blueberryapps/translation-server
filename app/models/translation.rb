@@ -22,7 +22,7 @@ class Translation < ActiveRecord::Base
     where(self.arel_table[:original_text].not_eq(self.arel_table[:text]))
   end
 
-  def self.approve!(translations, user)
+  def self.approve!(translations, user = nil)
     return unless translations.any?
     translations.each do |translation|
       translation.update(original_text: translation.text, user: user)

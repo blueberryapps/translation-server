@@ -20,6 +20,7 @@ class ReleasesController < BaseProjectController
 
   # POST /releases
   def create
+    Translation.approve!(current_project.locales.find(params[:release][:locale_id]).translations.not_approved, current_user)
     @release = current_project.releases.build(release_params)
     authorize @release, :manage?
     @release.save
