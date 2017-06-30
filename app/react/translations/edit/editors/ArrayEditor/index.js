@@ -83,7 +83,7 @@ export default class ArrayEditor extends React.PureComponent {
       this.popArray();
     }
     if (event.keyCode === 9 && isLast) {
-      this.handleSubmit();
+      this.handleSubmit(event);
     }
   }
 

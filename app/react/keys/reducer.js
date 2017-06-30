@@ -1,4 +1,4 @@
-/* @flow */
+/* @flow-weak */
 import { Record, Map, List } from 'immutable';
 import { FETCH_KEYS_PENDING, FETCH_KEYS_FULFILLED } from './actions';
 import type { KeyStateType } from '../types/storeTypes';

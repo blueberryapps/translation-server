@@ -1,4 +1,4 @@
-/* @flow */
+/* @flow-weak */
 import { Record, Map, List } from 'immutable';
 import { FETCH_LOCALE_PENDING, FETCH_LOCALE_FULFILLED } from './actions';
 import type { LocaleStateType } from '../types/storeTypes';

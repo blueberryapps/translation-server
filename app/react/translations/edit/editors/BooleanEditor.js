@@ -24,16 +24,16 @@ type PropTypes = {
 
 @Radium
 export default class BooleanEditor extends PureComponent {
-  onCheckboxChange = (newValue) => {
+  onCheckboxChange = (newValue: string) => {
     const { onChange, fieldInfo } = this.props;
     onChange(newValue, fieldInfo);
   }
 
   props: PropTypes
 
-  handleBlur = () => {
+  handleBlur = (e: Event) => {
     if (this.props.tabPressed) {
-      this.handleSubmit();
+      this.handleSubmit(e);
       this.props.registerTabPress({ keyCode: null });
     }
     this.props.handleBlur();
@@ -55,7 +55,7 @@ export default class BooleanEditor extends PureComponent {
           <div style={[styles.wrapper, focused && styles.focused]}>
             <Checkbox
               handleFocus={this.handleFocus}
-              name={fieldId}
+              name={`${fieldId}`}
               onChange={this.onCheckboxChange}
               onBlur={this.handleBlur}
               onKeyDown={this.props.registerTabPress}

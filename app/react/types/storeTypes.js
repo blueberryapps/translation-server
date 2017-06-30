@@ -37,7 +37,7 @@ export type KeyStateType = RecordType<{
 
 export type HierarchyStateType = {
   breadcrumbPath: Array<string>,
-  hierarchy: Object,
+  hierarchy: Array<Object>,
   pending: boolean
 }
 

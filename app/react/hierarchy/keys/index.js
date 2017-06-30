@@ -48,7 +48,7 @@ type PropTypes = {
   path: hierarchy.breadcrumbPath
 }))
 export default class HierarchyKeys extends React.PureComponent {
-  shouldComponentUpdate = nextProps => (nextProps.hierarchy !== this.props.hierarchy)
+  shouldComponentUpdate = (nextProps: PropTypes) => (nextProps.hierarchy !== this.props.hierarchy)
 
   props: PropTypes
 

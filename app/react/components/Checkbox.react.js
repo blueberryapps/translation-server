@@ -6,25 +6,38 @@ import React, { PureComponent } from 'react';
 import { colors } from '../globals';
 
 type PropTypes = {
-  disabled: boolean,
-  handleFocus: Function,
-  name: string,
+  disabled?: boolean,
+  handleFocus?: Function,
+  name?: string,
   onBlur: Function,
-  onChange: ?Function,
-  onKeyDown: Function,
+  onChange?: Function,
+  onKeyDown?: Function,
   value: string
 };
 
 @Radium
 export default class Checkbox extends PureComponent {
+  static defaultProps = {
+    disabled: false,
+    onKeyDown: () => {},
+    onChange: (...args) => {}, // eslint-disable-line no-unused-vars
+    onBlur: (...args) => {}, // eslint-disable-line no-unused-vars
+    name: '',
+    handleFocus: () => {},
+  }
+
+  checkbox: HTMLInputElement;
+
   props: PropTypes
 
   toggleCheckbox = () => {
     const { onChange, handleFocus, value } = this.props;
     const newValue = value === 'true' ? 'false' : 'true';
     this.checkbox.focus();
-    onChange(newValue);
-    handleFocus();
+    if (onChange)
+      onChange(newValue);
+    if (handleFocus)
+      handleFocus();
   }
 
   render() {

@@ -27,7 +27,7 @@ const BLOCK_TYPES = [
 export default class BlockStyleControls extends PureComponent {
   props: PropTypes
 
-  handleChange = ({ target: { value } }) => {
+  handleChange = ({ target: { value } }: Event & { target: HTMLButtonElement }) => {
     this.props.onToggle(value);
   }
 

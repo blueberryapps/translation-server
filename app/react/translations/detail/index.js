@@ -46,7 +46,7 @@ export default class Translation extends PureComponent {
 
   props: PropTypes;
 
-  handleChangeSelectedInput = (index) => {
+  handleChangeSelectedInput = (index: any) => {
     this.setState({ selectedInput: index });
   }
 
