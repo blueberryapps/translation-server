@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "gulp build",
+    "postinstall": "gulp build",
     "jest": "jest",
     "eslint": "eslint app/react/**",
     "test": "yarn eslint && yarn jest"
