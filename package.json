@@ -11,8 +11,8 @@
     "npm": "3.9.X"
   },
   "scripts": {
-    "build": "gulp build",
-    "postinstall": "gulp build",
+    "build": "yarn gulp build",
+    "postinstall": "yarn gulp build",
     "jest": "jest",
     "eslint": "eslint app/react/**",
     "test": "yarn eslint && yarn jest"
