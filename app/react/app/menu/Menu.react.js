@@ -41,7 +41,7 @@ class Menu extends React.PureComponent {
     return (
       <div style={[styles.dropdown, style]}>
         <span onClick={this.handleClick} style={styles.user}>
-          <Image style={styles.userIcon} src={'/assets/userIcon.png'} />
+          <Image style={styles.userIcon} src={'/react_assets/userIcon.png'} />
           {user}
         </span>
         {/* $FlowFixMe */}

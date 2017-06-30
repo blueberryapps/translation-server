@@ -23,7 +23,7 @@ export default class Header extends React.PureComponent {
     return (
       <header style={styles.header}>
         <Container style={styles.container}>
-          <Image src={'/assets/translationServerLogo.png'} style={styles.image} />
+          <Image src={'/react_assets/translationServerLogo.png'} style={styles.image} />
           <span style={styles.text}>Projects</span>
           <Menu style={styles.menu} user={userName} />
         </Container>

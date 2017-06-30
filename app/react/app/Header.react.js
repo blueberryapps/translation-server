@@ -63,7 +63,7 @@ export default class Header extends React.PureComponent {
       <header style={styles.header}>
         <Container style={styles.container}>
           <Image
-            src={'/assets/backArrow.png'}
+            src={'/react_assets/backArrow.png'}
             style={styles.backButton}
             onClick={this.handleClick}
           />

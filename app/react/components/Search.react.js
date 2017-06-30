@@ -32,7 +32,7 @@ export default class Search extends React.PureComponent {
             style={styles.searchbar}
           />
           <SearchSelect style={styles.searchSelect} selectSize={3} />
-          <Image src={'/assets/searchButton.png'} style={styles.searchButton} />
+          <Image src={'/react_assets/searchButton.png'} style={styles.searchButton} />
         </Form>
       </div>
     );
