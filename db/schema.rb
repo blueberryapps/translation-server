@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111083528) do
+ActiveRecord::Schema.define(version: 20170531141628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 20161111083528) do
     t.text     "yaml"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   add_index "releases", ["locale_id"], name: "index_releases_on_locale_id", using: :btree
@@ -126,9 +127,11 @@ ActiveRecord::Schema.define(version: 20161111083528) do
     t.integer  "key_id"
     t.integer  "locale_id"
     t.text     "text"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "edited",     default: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "edited",        default: false
+    t.text     "original_text"
+    t.integer  "user_id"
   end
 
   add_index "translations", ["key_id", "locale_id"], name: "index_translations_on_key_id_and_locale_id", using: :btree

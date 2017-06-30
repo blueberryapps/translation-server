@@ -9,6 +9,7 @@ import keys from './keys/reducer';
 import locales from './locales/reducer';
 import forms from './forms/reducers';
 import hierarchy from './hierarchy/reducer';
+import releases from './releases/reducer';
 
 import type { StateType } from './types/storeTypes';
 
@@ -21,7 +22,8 @@ const store: StateType = {
   keys,
   locales,
   forms,
-  hierarchy
+  hierarchy,
+  releases
 };
 
 export default store;

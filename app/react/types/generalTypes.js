@@ -16,6 +16,8 @@ export type Dependencies = {
   localesInterface: Interface,
   projectsInterface: Interface,
   translationsInterface: Interface,
+  releasesInterface: Interface,
+  genericInterface: Interface
 };
 
 export type PaginationType = {
@@ -31,3 +33,9 @@ export type InputEvent =
     currentTarget: HTMLInputElement,
     keyCode: number
   };
+
+export type KeyNode = {
+  level: number,
+  label: string,
+  childrenKeys: Array<KeyNode>
+}

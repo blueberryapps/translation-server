@@ -7,6 +7,7 @@ class ProjectPolicy < ApplicationPolicy
   alias_method :show?,        :manage?
   alias_method :update?,      :manage?
   alias_method :update_many?, :manage?
+  alias_method :not_approved?, :manage?
   alias_method :create?,      :manage?
   alias_method :destroy?,     :manage?
   alias_method :hierarchy?,   :manage?

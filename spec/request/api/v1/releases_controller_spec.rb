@@ -20,17 +20,18 @@ module API
         text_v1 = Translation.create key: key1, locale: locale_cs, text: 'Super'
         Translation.create key: key2, locale: locale_cs, text: 'Translation'
         textv_en_v1 = Translation.create key: key1, locale: locale_en, text: 'Translated'
-
+        Translation.approve!(locale_cs.reload.translations)
         @release1 = Release.create locale: locale_cs
 
         text_v1.update text: 'Released2'
 
+        Translation.approve!(locale_cs.reload.translations)
         @release2 = Release.create locale: locale_cs
-
+        Translation.approve!(locale_en.reload.translations)
         @release_en = Release.create locale: locale_en
 
         textv_en_v1.update text: 'Latest release'
-
+        Translation.approve!(locale_en.reload.translations)
         @release2_en = Release.create locale: locale_en
       end
 

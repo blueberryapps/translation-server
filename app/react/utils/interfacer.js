@@ -8,11 +8,12 @@ function snakify(body) {
 
   if (body instanceof Object) {
     const originalKeys = Object.keys(body);
+
     return originalKeys
       .map(SnakeCase)
       .reduce((acc, key, i) => ({
         ...acc,
-        [key]: body[originalKeys[i]]
+        [key]: snakify(body[originalKeys[i]])
       }), {});
   }
 

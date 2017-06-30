@@ -4,10 +4,12 @@ import React from 'react';
 import LabelLink from './LabelLink';
 
 import type { LocationWithQuery } from '../../types/locationTypes';
+import type { KeyNode } from '../../types/generalTypes';
 
-type PropTypes = {
+type PropTypes = KeyNode & {
   childrenKeys: Array<Object>,
   collapsed: boolean,
+  createStyles: (level: number) => Object,
   dispatch: Function,
   globalPath: Array<string>,
   isCollapsed: (Array<string>, Array<string>) => boolean,
@@ -16,6 +18,7 @@ type PropTypes = {
   location: LocationWithQuery,
   path: Array<string>,
   setPath: Function
+  style: Object,
 };
 
 type StateTypes = {
@@ -34,7 +37,7 @@ export default class Key extends React.Component {
 
   state: StateTypes
 
-  componentWillReceiveProps = ({ collapsed }) => {
+  componentWillReceiveProps = ({ collapsed }: PropTypes) => {
     if (collapsed !== this.state.collapsed) this.setState({ collapsed });
   }
 
@@ -75,18 +78,21 @@ export default class Key extends React.Component {
         />
         {!collapsed &&
           <div>
-            {childrenKeys.map(key => (
+            {childrenKeys.map((key: KeyNode) => (
               <Key
                 dispatch={dispatch}
                 key={key.label}
                 setPath={setPath}
                 isCollapsed={isCollapsed}
                 collapsed={isCollapsed(key, globalPath)}
+                style={createStyles(key.level)}
+                createStyles={createStyles}
                 label={key.label}
                 globalPath={globalPath}
                 path={currentPath}
+                {...key}
                 location={location}
-                childrenKeys={key.childrenKeys}
+                // childrenKeys={key.childrenKeys}
               />
             ))}
           </div>

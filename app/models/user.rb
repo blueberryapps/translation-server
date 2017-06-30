@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :projects
   has_many :locales, through: :projects
+  has_many :translations
+  has_many :releases
 
   scope :alphabetical,  -> { order :email }
 

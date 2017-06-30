@@ -3,7 +3,7 @@ import { IndexRoute, Route } from 'react-router';
 
 import App from './app/App.react';
 import Homepage from './homepage';
-// import Project from './projects/detail';
+import Releases from './releases';
 import Translation from './translations/list';
 
 export default function createRoutes() {
@@ -21,7 +21,8 @@ export default function createRoutes() {
     <Route component={App} onChange={onChange.bind(this)} path="/">
       <IndexRoute component={Homepage} />
       <Route path="project/:projectId">
-        <Route component={Translation} path="locales/:localeId" />
+        <Route component={Translation} path="translations/locales/:localeId" />
+        <Route component={Releases} path="releases/locales/:localeId" />
       </Route>
     </Route>
   );

@@ -3,6 +3,7 @@ class Translation < ActiveRecord::Base
 
   belongs_to :key
   belongs_to :locale
+  belongs_to :user
   has_one :project, through: :locale
 
   after_save :notify_translation_changed
@@ -17,10 +18,21 @@ class Translation < ActiveRecord::Base
   validates :key, uniqueness: { scope: :locale }
   validates :key, :locale, presence: true
 
-  def self.dump_hash(scope)
+  def self.not_approved
+    where(self.arel_table[:original_text].not_eq(self.arel_table[:text]))
+  end
+
+  def self.approve!(translations, user = nil)
+    return unless translations.any?
+    translations.each do |translation|
+      translation.update(original_text: translation.text, user: user)
+    end
+  end
+
+  def self.dump_hash(scope, release = false)
     scope.each_with_object({}) do |translation, hash|
       begin
-        hash.deep_merge! translation.to_hierarchical_h
+        hash.deep_merge! translation.to_hierarchical_h(release)
       rescue Exception => e
         Rails.logger.error "Problem with dumping: #{translation.key} -> #{translation}: #{e.class} #{e.message}"
       end
@@ -54,20 +66,20 @@ class Translation < ActiveRecord::Base
     text
   end
 
-  def parsed_text
-    key.normalize_value(text)
+  def parsed_text(release = false)
+    key.normalize_value(release ? original_text : text)
   end
 
-  def full_array
-    [locale.to_s] + key.key.split('.') + [parsed_text]
+  def full_array(release = false)
+    [locale.to_s] + key.key.split('.') + [parsed_text(release)]
   end
 
   def to_h
     { [locale, key.key].join('.') => parsed_text }
   end
 
-  def to_hierarchical_h
-    hierarchical_hash_from_array(full_array)
+  def to_hierarchical_h(release = false)
+    hierarchical_hash_from_array(full_array(release))
   end
 
   def hierarchical_hash_from_array(array_hierarchy, hash_hierarchy = {})
