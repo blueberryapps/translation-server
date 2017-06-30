@@ -1,5 +1,5 @@
 /* @flow */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { SimpleEditor, BooleanEditor, HTMLEditor, ArrayEditor } from './editors';
 import * as actions from '../../forms/translations/actions';
@@ -21,19 +21,26 @@ const matchEditor = {
 };
 
 type PropTypes = {
-  field: Object,
-  dataType: string,
-  translation: Object,
-  page: string,
-  pressedKeyCode: ?number,
-  registerPressKey: Function,
   changeField: Function,
+  dataType: string,
+  field: Object,
+  handleChangeSelectedInput: Function,
+  initField: Function,
+  newTranslation: boolean,
+  page: string,
   saveField: Function,
-  initField: Function
+  selectedInput: number,
+  registerTabPress: Function,
+  tabPressed: ?boolean,
+  translation: Object,
 };
 
 @toJS
-class TranslationEditor extends Component {
+class TranslationEditor extends PureComponent {
+  state = {
+    focused: false
+  }
+
   componentDidMount() {
     const { page, translation: { id }, initField } = this.props;
     initField(page, id, this.props.field);
@@ -41,18 +48,25 @@ class TranslationEditor extends Component {
 
   props: PropTypes
 
+  handleBlur = () => this.setState({ focused: false });
+
+  handleFocus = () => this.setState({ focused: true });
+
   render() {
     const {
       field,
       dataType,
+      handleChangeSelectedInput,
       translation: { id },
       page,
       changeField,
       saveField,
-      registerPressKey,
-      pressedKeyCode
+      selectedInput,
+      registerTabPress,
+      tabPressed,
+      newTranslation
     } = this.props;
-
+    const { focused } = this.state;
     const Editor = matchEditor[dataType];
 
     return (
@@ -61,13 +75,18 @@ class TranslationEditor extends Component {
           fieldInfo={{ page, fieldId: id }}
           onSubmit={saveField}
           onChange={changeField}
-          registerPressKey={registerPressKey}
-          pressedKeyCode={pressedKeyCode}
+          focused={focused}
+          selectedInput={selectedInput}
+          handleBlur={this.handleBlur}
+          handleFocus={this.handleFocus}
+          handleChangeSelectedInput={handleChangeSelectedInput}
+          registerTabPress={registerTabPress}
+          tabPressed={tabPressed}
           dataType={dataType}
+          newTranslation={newTranslation}
           value={field && field.value}
           saved={field && field.saved}
         />
-        {!field.saved && <span>Unsaved</span>}
       </div>
     );
   }

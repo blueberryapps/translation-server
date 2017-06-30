@@ -1,17 +1,24 @@
 /* @flow */
+import Radium from 'radium';
 import React from 'react';
-import { Editor, EditorState, RichUtils, ContentState, convertFromHTML } from 'draft-js';
 import type { EditorState as EditorStateType } from 'draft-js';
+import { Editor, EditorState, RichUtils, ContentState, convertFromHTML } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 
 import BlockStyleControls from './components/BlockStyleControls';
 import InlineStyleControls from './components/InlineStyleControls';
+import StylingControls from './components/StylingControls';
 import ToggleHTMLButton from './components/ToggleHTMLButton';
+import { colors } from '../../../../globals';
 
 type PropTypes = {
+  focused: boolean,
   onChange: Function,
   toggleRawEdit: Function,
+  handleSubmit: Function,
   value: string,
+  handleBlur: Function,
+  handleFocus: Function,
   editAsRaw: boolean,
   fieldInfo: Object
 }
@@ -20,13 +27,12 @@ type StateTypes = {
   editorState: EditorStateType
 }
 
-const getBlockStyle = block =>
-  (block.getType() === 'blockquote') && 'RichEditor-blockquote';
-
+@Radium
 export default class RichEditor extends React.Component {
   constructor(props: PropTypes) {
     super(props);
     const markup = convertFromHTML(props.value);
+
     const editorState: EditorStateType = ContentState.createFromBlockArray(
       markup.contentBlocks,
       markup.entityMap
@@ -52,13 +58,25 @@ export default class RichEditor extends React.Component {
     }
     return false;
   }
+
+  handleBlur = () => this.props.handleBlur();
+
+  handleFocus = () => this.props.handleFocus();
+
   onTab = (e: Event): void => {
     const maxDepth = 4;
+    this.props.handleSubmit();
     this.handleChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
   }
+
   toggleBlockType = (blockType: string): void => {
     this.handleChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
   }
+
+  toggleStylingType = (blockType: string): void => {
+    this.handleChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+  }
+
   toggleInlineStyle = (inlineStyle: string): void => {
     this.handleChange(
       RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle),
@@ -73,7 +91,7 @@ export default class RichEditor extends React.Component {
 
   render() {
     const { editorState }: StateTypes = this.state;
-    const { editAsRaw, toggleRawEdit }: PropTypes = this.props;
+    const { focused, editAsRaw, toggleRawEdit }: PropTypes = this.props;
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
     let className = 'RichEditor-editor';
@@ -85,27 +103,34 @@ export default class RichEditor extends React.Component {
     }
     return (
       <div className="RichEditor-root">
-        <ToggleHTMLButton
-          editAsRaw={editAsRaw}
-          toggleRawEdit={toggleRawEdit}
-        />
-        <BlockStyleControls
-          editorState={editorState}
-          onToggle={this.toggleBlockType}
-        />
-        <InlineStyleControls
-          editorState={editorState}
-          onToggle={this.toggleInlineStyle}
-        />
-        <div className={className}>
+        <div style={styles.controls}>
+          <BlockStyleControls
+            editorState={editorState}
+            onToggle={this.toggleBlockType}
+          />
+          <InlineStyleControls
+            editorState={editorState}
+            onToggle={this.toggleInlineStyle}
+          />
+          <StylingControls
+            editorState={editorState}
+            onToggle={this.toggleStylingType}
+          />
+          <ToggleHTMLButton
+            editAsRaw={editAsRaw}
+            toggleRawEdit={toggleRawEdit}
+          />
+        </div>
+        <div className={className} style={[styles.editor, focused && styles.focused]}>
           <Editor
-            blockStyleFn={getBlockStyle}
             onClick={this.focus}
             // customStyleMap={styleMap}
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.handleChange}
             onTab={this.onTab}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
             placeholder="Insert your translation"
             ref={(elem: HTMLElement) => { this.editor = elem; }}
             spellCheck
@@ -115,3 +140,21 @@ export default class RichEditor extends React.Component {
     );
   }
 }
+
+const styles = {
+  controls: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingBottom: '25px',
+    fontSize: '15px',
+    borderBottom: `1px solid ${colors.inputBorder}`
+  },
+  focused: {
+    opacity: 1
+  },
+  editor: {
+    paddingTop: '20px',
+    opacity: .6,
+    transition: 'opacity .2s'
+  }
+};

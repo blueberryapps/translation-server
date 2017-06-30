@@ -1,7 +1,10 @@
 /* @flow */
-import React from 'react';
+import Radium from 'radium';
+import React, { PureComponent } from 'react';
 import type { EditorState } from 'draft-js';
-import StyleButton from './StyleButton';
+
+import Icon from '../../../../../components/Icon.react';
+import { colors } from '../../../../../globals';
 
 type PropTypes = {
   editorState: EditorState,
@@ -9,38 +12,79 @@ type PropTypes = {
 };
 
 const BLOCK_TYPES = [
-  { label: 'H1', style: 'header-one' },
-  { label: 'H2', style: 'header-two' },
-  { label: 'H3', style: 'header-three' },
-  { label: 'H4', style: 'header-four' },
-  { label: 'H5', style: 'header-five' },
-  { label: 'H6', style: 'header-six' },
+  { label: 'Normal text', style: 'unstyled' },
+  { label: 'Heading 1', style: 'header-one' },
+  { label: 'Heading 2', style: 'header-two' },
+  { label: 'Heading 3', style: 'header-three' },
+  { label: 'Heading 4', style: 'header-four' },
+  { label: 'Heading 5', style: 'header-five' },
+  { label: 'Heading 6', style: 'header-six' },
   { label: 'Blockquote', style: 'blockquote' },
-  { label: 'UL', style: 'unordered-list-item' },
-  { label: 'OL', style: 'ordered-list-item' },
   { label: 'Code Block', style: 'code-block' },
 ];
 
-const BlockStyleControls = ({ editorState, onToggle }: PropTypes) => {
-  const selection = editorState.getSelection();
-  const blockType = editorState
-    .getCurrentContent()
-    .getBlockForKey(selection.getStartKey())
-    .getType();
+@Radium
+export default class BlockStyleControls extends PureComponent {
+  props: PropTypes
 
-  return (
-    <div className="RichEditor-controls">
-      {BLOCK_TYPES.map(type =>
-        <StyleButton
-          key={type.label}
-          active={type.style === blockType}
-          label={type.label}
-          onToggle={onToggle}
-          style={type.style}
-        />
-      )}
-    </div>
-  );
+  handleChange = ({ target: { value } }) => {
+    this.props.onToggle(value);
+  }
+
+  render() {
+    const { editorState } = this.props;
+    const selection = editorState.getSelection();
+    const blockType = editorState
+      .getCurrentContent()
+      .getBlockForKey(selection.getStartKey())
+      .getType();
+
+    return (
+      <div style={styles.wrapper}>
+        <Icon kind="letter" size={14} style={[styles.icon.base, styles.icon.letter]} />
+        <select onChange={this.handleChange} value={blockType} style={styles.select}>
+          {BLOCK_TYPES.map(type =>
+            <option
+              key={type.label}
+              label={type.label}
+              value={type.style}
+            />
+          )}
+        </select>
+        <Icon kind="arrow" size={6} style={[styles.icon.base, styles.icon.arrow]} />
+      </div>
+    );
+  }
+}
+
+const styles = {
+  select: {
+    border: `1px solid ${colors.inputBorder}`,
+    backgroundColor: colors.white,
+    borderRadius: 0,
+    paddingLeft: '33px',
+    paddingRight: '15px',
+    width: '150px',
+    WebkitAppearance: 'none',
+    ':focus': {
+      outline: 'none'
+    }
+  },
+  wrapper: {
+    display: 'flex',
+    position: 'relative'
+  },
+  icon: {
+    base: {
+      position: 'absolute',
+      top: '50%',
+      transform: 'translateY(-50%)'
+    },
+    letter: {
+      left: '12px'
+    },
+    arrow: {
+      right: '15px'
+    }
+  }
 };
-
-export default BlockStyleControls;

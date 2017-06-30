@@ -1,6 +1,8 @@
 /* @flow */
 import React from 'react';
-import { Box } from 'radium-flex';
+import RendererWrapper from './RendererWrapper';
+
+import Checkbox from '../../../components/Checkbox.react';
 
 type PropTypes = {
   value: string
@@ -8,8 +10,11 @@ type PropTypes = {
 
 export default function BooleanRenderer({ value }: PropTypes) {
   return (
-    <Box>
-      {value}
-    </Box>
+    <RendererWrapper>
+      <Checkbox
+        disabled
+        value={value}
+      />
+    </RendererWrapper>
   );
 }

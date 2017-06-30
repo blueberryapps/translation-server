@@ -5646,7 +5646,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.0.0:
+prop-types@^15.0.0, prop-types@^15.5.8:
   version "15.5.8"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
   dependencies:
@@ -5864,6 +5864,12 @@ react-test-renderer:
   dependencies:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
+
+react-textarea-autosize@^5.0.6:
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-5.0.6.tgz#a3742e0a319484021b4dbfa1519df287768f2133"
+  dependencies:
+    prop-types "^15.5.8"
 
 react@^15.0.0, react@^15.4.2:
   version "15.4.2"

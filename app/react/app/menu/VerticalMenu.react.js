@@ -30,7 +30,7 @@ class VerticalMenu extends React.PureComponent {
 
 const styles = {
   wrapper: {
-    padding: '40px',
+    padding: '30px 40px 40px 20px',
     background: 'white',
     overflow: 'hidden',
     display: 'none',
