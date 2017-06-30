@@ -17,7 +17,7 @@ type PropTypes = KeyNode & {
   // eslint-disable-next-line
   location: LocationWithQuery,
   path: Array<string>,
-  setPath: Function
+  setPath: Function,
   style: Object,
 };
 
