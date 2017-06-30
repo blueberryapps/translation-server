@@ -5,8 +5,10 @@ import { useRouterHistory } from 'react-router';
 
 import configureCommonStore from './configs/configureStore';
 
+export const basename = '/app';
+
 export default function configureStoreWithHistory() {
-  const appHistory = withScroll(useRouterHistory(createBrowserHistory)({ basename: '/app' }));
+  const appHistory = withScroll(useRouterHistory(createBrowserHistory)({ basename }));
   const store = configureCommonStore({
     initialState: window.__INITIAL_STATE__, // eslint-disable-line no-underscore-dangle
     platformMiddleware: [routerMiddleware(appHistory)],

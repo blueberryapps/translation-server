@@ -34,7 +34,7 @@ export default class Project extends React.PureComponent {
           <Box col={4} xs={12} ms={12} sm={6} md={6} lg={6}>
             <Flex>
               {translationLocales.map(locale => (
-                <Box col={4} xs={6} ms={3} sm={6} md={4} lg={4}>
+                <Box key={locale.id} col={4} xs={6} ms={3} sm={6} md={4} lg={4}>
                   <Locale projectId={id} {...locale} />
                 </Box>
               ))}

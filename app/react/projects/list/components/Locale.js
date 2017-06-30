@@ -19,7 +19,7 @@ export default class Locale extends React.PureComponent {
     const language = locale.getLanguage(code).name[0];
     return (
       <Box col={2}>
-        <Link to={`project/${projectId}/translations/locales/${id}?page=1&edited=all`}>
+        <Link to={`project/${projectId}/locales/${id}/translations?page=1&edited=all`}>
           <Flex>
             <Box col={12}>{language}</Box>
             <Box col={12}>{translatedCount} / {translationCount}</Box>
@@ -29,7 +29,7 @@ export default class Locale extends React.PureComponent {
           </Flex>
         </Link>
         {!!+translatedCount && !!+translationCount &&
-          <Link to={`project/${projectId}/releases/locales/${id}`}>
+          <Link to={`project/${projectId}/locales/${id}/releases`}>
             Release
           </Link>}
       </Box>

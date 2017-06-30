@@ -36,7 +36,7 @@ export default class Locale extends React.PureComponent {
     const language = locale.getLanguage(code).name[0];
     return (
       <div style={styles.outerWrapper}>
-        <RadiumLink to={`project/${projectId}/locales/${id}?page=1&edited=new`} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={styles.wrapper}>
+        <RadiumLink to={`project/${projectId}/locales/${id}/translations?page=1&edited=new`} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={styles.wrapper}>
           <Box col={12}><Image src={`/react_assets/flags/${code}.svg`} style={styles.image} /></Box>
           <Box col={12} style={styles.heading}>{language}</Box>
           <Box col={12} style={styles.transaltedRatio}>{translatedCount} / {translationCount}</Box>

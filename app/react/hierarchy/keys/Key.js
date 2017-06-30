@@ -52,6 +52,7 @@ export default class Key extends React.Component {
     const {
       dispatch,
       label,
+      createStyles,
       childrenKeys,
       location,
       path,

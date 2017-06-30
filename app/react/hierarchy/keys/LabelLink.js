@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { actions } from 'onion-form';
 import { setBreadcrumbPath } from '../actions';
 import { colors } from '../../globals';
+import { basename } from '../../configureStoreWithHistory';
 
 import type { LocationWithQuery } from '../../types/locationTypes';
 
@@ -17,6 +18,14 @@ type PropTypes = {
   setFormFieldProperty: Function
 };
 
+const serialize = (obj) => {
+  var str = [];
+  for(var p in obj)
+    if (obj.hasOwnProperty(p)) {
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    }
+  return str.join("&");
+}
 
 class LabelLink extends React.Component {
   constructor(props: PropTypes) {
@@ -28,7 +37,6 @@ class LabelLink extends React.Component {
   newSearch: string
 
   handleSearch = (event) => {
-    event.preventDefault();
     const { setFormFieldProperty, setPath, path } = this.props;
     setFormFieldProperty('searchForm', 'SearchField', 'value', this.newSearch);
     setPath(path);
@@ -36,17 +44,17 @@ class LabelLink extends React.Component {
 
   render() {
     const { location, label } = this.props;
+    const query = {
+      search: this.newSearch,
+      page: '1',
+      edited: 'all'
+    }
     return (
       <Link
         onClick={this.handleSearch}
         to={{
-          ...location,
-          query: {
-            ...location.query,
-            search: this.newSearch,
-            page: '1',
-            edited: 'all'
-          }
+          pathname: location.pathname.replace(basename, ''),
+          search: `?${serialize(query)}`
         }}
         style={styles.link}
       >

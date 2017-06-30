@@ -8,6 +8,10 @@ import { fetchPrerelease, createRelease } from './actions';
 import { initField, toggleField } from '../forms/releases/actions';
 import transform from './transform';
 
+const createStyles = (level = 0) => ({
+  marginLeft: level * 10
+});
+
 type PropTypes = {
   hierarchy: Object,
   router: Object,
@@ -64,7 +68,3 @@ export default class Releases extends React.Component {
     );
   }
 }
-
-const createStyles = (level = 0) => ({
-  marginLeft: level * 10
-});
