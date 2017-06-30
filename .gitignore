@@ -25,6 +25,7 @@ coverage
 
 app/assets/javascripts/react.js
 app/assets/react.js
+public/react_assets/react.js
 
 # OSX
 .DS_Store

@@ -19,7 +19,7 @@ function build() {
     .transform(babelify.configure(babelrc))
     .bundle()
     .on('error', swallowError)
-    .pipe(fs.createWriteStream('./app/assets/react.js'));
+    .pipe(fs.createWriteStream('./public/react_assets/react.js'));
 }
 
 function watch() {
@@ -38,14 +38,14 @@ function watch() {
     b
       .bundle()
       .on('error', swallowError)
-      .pipe(fs.createWriteStream('./app/assets/react.js'))
+      .pipe(fs.createWriteStream('./public/react_assets/react.js'))
       .on('finish', () =>
         console.log('Finished in ' + (new Date().getTime() - startedAt.getTime()) + 'ms')); //eslint-disable-line
   }
 
   b.on('error', swallowError);
   b.on('update', rebuild);
-  b.bundle().pipe(fs.createWriteStream('./app/assets/react.js'));
+  b.bundle().pipe(fs.createWriteStream('./public/react_assets/react.js'));
 
   return rebuild();
 }
