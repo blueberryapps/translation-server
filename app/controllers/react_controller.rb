@@ -13,6 +13,6 @@ class ReactController < AuthController
   end
 
   def script
-    send_file(Rails.root.join('app', 'assets', 'javascripts', 'react.js'))
+    send_file(Rails.root.join('app', 'assets', 'react.js'))
   end
 end

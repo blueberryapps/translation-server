@@ -24,6 +24,7 @@ coverage
 .DS_Store
 
 app/assets/javascripts/react.js
+app/assets/react.js
 
 # OSX
 .DS_Store
