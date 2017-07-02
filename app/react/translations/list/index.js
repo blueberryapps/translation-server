@@ -154,11 +154,11 @@ export default class Translations extends PureComponent {
           />
           <div style={styles.translations}>
             {keys.map(this.keyMapper)}
+            {pagination &&
+              <Paginator {...pagination} location={location} />
+            }
           </div>
         </div>
-        {pagination &&
-          <Paginator {...pagination} location={location} />
-        }
       </div>
     );
   }

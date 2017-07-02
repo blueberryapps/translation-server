@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import ReactPaginate from 'react-paginate';
+import { Style } from 'radium';
 import { withRouter } from 'react-router';
 
 /*
@@ -36,12 +37,16 @@ export default class Paginator extends PureComponent {
 
   render() {
     const { totalPages, location: { query: page } } = this.props;
+
     return (
       <div>
+        <Style rules={styles} scopeSelector=".pagination" />
         <ReactPaginate
           pageCount={totalPages}
-          pageRangeDisplayed={5}
-          initialPage={+page.page}
+          pageRangeDisplayed={3}
+          containerClassName="pagination"
+          activeClassName="active"
+          initialPage={+page.page - 1}
           marginPagesDisplayed={2}
           onPageChange={this.handleChangePage}
         />
@@ -49,3 +54,23 @@ export default class Paginator extends PureComponent {
     );
   }
 }
+
+const styles = {
+  '.break': {
+    position: 'relative',
+    float: 'left',
+    padding: '6px 12px',
+    lineHeight: '1.42857',
+    textDecoration: 'none',
+    color: '#337ab7',
+    backgroundColor: '#fff',
+    border: '1px solid #ddd',
+    marginLeft: '-1px',
+  },
+  'li > a': {
+    cursor: 'pointer'
+  },
+  '.disabled > a': {
+    cursor: 'not-allowed'
+  }
+};
