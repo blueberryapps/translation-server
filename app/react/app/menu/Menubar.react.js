@@ -90,7 +90,7 @@ const styles = {
     backgroundColor: colors.primary,
     position: 'fixed',
     zIndex: 100,
-    top: '50px',
+    top: '65px',
     left: 0,
     right: 0,
     height: '50px',

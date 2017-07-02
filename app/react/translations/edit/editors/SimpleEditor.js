@@ -23,7 +23,6 @@ type PropTypes = {
   handleFocus: Function,
   onChange: Function,
   onSubmit: Function,
-  newTranslation: boolean,
   registerTabPress: Function,
   saved: boolean,
   tabPressed: ?boolean,
@@ -57,8 +56,7 @@ export default class SimpleEditor extends PureComponent {
   }
 
   render() {
-    const { focused, value, dataType, saved, newTranslation } = this.props;
-    const placeholderDisplayed = !value || newTranslation;
+    const { focused, value, dataType, saved } = this.props;
 
     return (
       <div>
@@ -71,8 +69,7 @@ export default class SimpleEditor extends PureComponent {
             onChange={this.handleChange}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
-            style={[styles.input]}
-            placeholder={placeholderDisplayed && 'Translate into Czech here'}
+            style={[styles.input, focused && styles.focused]}
           />
           <UnsavedLabel focused={focused} saved={saved} />
         </EditorWrapper>

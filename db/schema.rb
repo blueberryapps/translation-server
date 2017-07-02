@@ -161,10 +161,17 @@ ActiveRecord::Schema.define(version: 20170531141628) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "highlights", "images"
+  add_foreign_key "highlights", "images"
+  add_foreign_key "highlights", "keys"
   add_foreign_key "highlights", "keys"
   add_foreign_key "images", "locations"
+  add_foreign_key "images", "locations"
+  add_foreign_key "releases", "locales"
   add_foreign_key "releases", "locales"
   add_foreign_key "restricted_ips", "users"
+  add_foreign_key "restricted_ips", "users"
   add_foreign_key "translations", "keys"
+  add_foreign_key "translations", "keys"
+  add_foreign_key "translations", "locales"
   add_foreign_key "translations", "locales"
 end

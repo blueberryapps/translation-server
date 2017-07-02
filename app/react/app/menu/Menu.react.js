@@ -5,7 +5,7 @@ import Radium from 'radium';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Image from '../../components/Image.react';
+import Icon from '../../components/Icon.react';
 import { colors } from '../../globals';
 import { signOut } from '../actions';
 
@@ -41,7 +41,7 @@ class Menu extends React.PureComponent {
     return (
       <div style={[styles.dropdown, style]}>
         <span onClick={this.handleClick} style={styles.user}>
-          <Image style={styles.userIcon} src={'/react_assets/userIcon.png'} />
+          <Icon color="white" style={styles.icon.base} kind="person" size={20} wrapperStyle={styles.icon.wrapper} />
           {user}
         </span>
         {/* $FlowFixMe */}
@@ -70,6 +70,7 @@ export default connect(() => ({}), { signOut })(Menu);
 
 const styles = {
   dropdown: {
+    marginLeft: '25px',
     position: 'relative',
     display: 'inline-block',
   },
@@ -83,7 +84,8 @@ const styles = {
   },
   user: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    fontSize: '19px'
   },
   dropdownList: {
     boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
@@ -102,7 +104,21 @@ const styles = {
       backgroundColor: colors.lightGrey,
     }
   },
-  userIcon: {
-    marginRight: '10px'
+  icon: {
+    base: {
+      position: 'absolute',
+      bottom: 0,
+      left: '50%',
+      marginLeft: '-10px'
+    },
+    wrapper: {
+      marginRight: '10px',
+      borderRadius: '50%',
+      overflow: 'hidden',
+      position: 'relative',
+      width: '26px',
+      height: '26px',
+      backgroundColor: colors.primary
+    }
   }
 };

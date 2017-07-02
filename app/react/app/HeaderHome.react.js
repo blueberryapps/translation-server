@@ -2,9 +2,9 @@
 import Radium from 'radium';
 import React from 'react';
 
-import Container from '../components/Container.react';
-import Image from '../components/Image.react';
+import Logo from '../components/Logo.react';
 import Menu from './menu/Menu.react';
+import Separator from '../components/Separator.react';
 import { colors } from '../globals';
 
 @Radium
@@ -14,7 +14,7 @@ export default class Header extends React.PureComponent {
     userName: 'Admin'
   }
   props: {
-    userName: string,
+    userName: string
   }
 
   render() {
@@ -22,11 +22,15 @@ export default class Header extends React.PureComponent {
 
     return (
       <header style={styles.header}>
-        <Container style={styles.container}>
-          <Image src={'/react_assets/translationServerLogo.png'} style={styles.image} />
+        <div style={styles.logo.wrapper}>
+          <div style={styles.image}>
+            <Logo />
+            <span style={styles.logo.text}>Translation Server</span>
+          </div>
+          <Separator />
           <span style={styles.text}>Projects</span>
-          <Menu style={styles.menu} user={userName} />
-        </Container>
+        </div>
+        <Menu style={styles.menu} user={userName} />
       </header>
     );
   }
@@ -34,16 +38,17 @@ export default class Header extends React.PureComponent {
 
 const styles = {
   image: {
-    cursor: 'pointer',
-    marginRight: '20px',
-    verticalAlign: 'middle',
-    width: '16%'
+    display: 'flex',
+    alignItems: 'center'
   },
   header: {
     flex: '0 0 auto',
-    height: '50px',
+    height: '65px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '0 10px',
     order: 0,
-    padding: '10px 0px',
     position: 'fixed',
     left: 0,
     right: 0,
@@ -57,18 +62,19 @@ const styles = {
     display: 'inline',
     float: 'right'
   },
-  container: {
-    maxWidth: '90%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'auto',
+  logo: {
+    wrapper: {
+      display: 'flex',
+      alignItems: 'center'
+    },
+    text: {
+      fontSize: '22px',
+      display: 'block',
+      margin: '0 20px 0 13px'
+    }
   },
   text: {
-    borderLeft: `1px solid ${colors.inputBorder}`,
-    display: 'inline',
-    fontSize: '20px',
-    padding: '0 25px',
-    verticalAlign: 'middle'
+    fontSize: '22px',
+    padding: '0 25px'
   }
 };
