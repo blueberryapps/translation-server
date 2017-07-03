@@ -29,7 +29,7 @@ export default class ApplicationLayout extends React.PureComponent {
 
 const styles = {
   wrapper: {
-    paddingTop: '100px',
+    paddingTop: '140px',
     backgroundColor: colors.backgroundGrey,
     minHeight: '100vh',
     overflow: 'hidden'
