@@ -1,5 +1,5 @@
 /* @flow */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-static-element-interactions */
 import autobind from 'core-decorators/lib/autobind';
 import Radium from 'radium';
 import React from 'react';

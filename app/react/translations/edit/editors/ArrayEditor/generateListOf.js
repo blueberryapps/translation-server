@@ -17,7 +17,8 @@ type ListProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   onKeyDown: Function,
   saved: boolean,
-  selectedInput: number
+  selectedInput: number,
+  value: any,
 };
 
 type StateTypes = {

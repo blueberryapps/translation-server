@@ -24,7 +24,7 @@ const InlineStyleControls = ({ editorState, onToggle }: PropTypes) => {
   return (
     <ControlsWrapper>
       {INLINE_STYLES.map(type =>
-        <StyleButton
+        (<StyleButton
           key={type.label}
           active={currentStyle.has(type.style)}
           label={type.label}
@@ -32,7 +32,7 @@ const InlineStyleControls = ({ editorState, onToggle }: PropTypes) => {
           style={type.style}
         >
           {type.content && type.content}
-        </StyleButton>
+        </StyleButton>)
       )}
     </ControlsWrapper>
   );

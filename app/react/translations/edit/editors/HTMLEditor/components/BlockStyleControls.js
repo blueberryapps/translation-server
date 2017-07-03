@@ -44,11 +44,11 @@ export default class BlockStyleControls extends PureComponent {
         <Icon kind="letter" size={14} style={[styles.icon.base, styles.icon.letter]} />
         <select onChange={this.handleChange} value={blockType} style={styles.select}>
           {BLOCK_TYPES.map(type =>
-            <option
+            (<option
               key={type.label}
               label={type.label}
               value={type.style}
-            />
+            />)
           )}
         </select>
         <Icon kind="arrow" size={6} style={[styles.icon.base, styles.icon.arrow]} />

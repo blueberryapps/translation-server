@@ -26,14 +26,14 @@ const StylingControls = ({ editorState, onToggle }: PropTypes) => {
   return (
     <ControlsWrapper>
       {STYLING_STYLES.map(type =>
-        <StyleButton
+        (<StyleButton
           key={type.label}
           active={type.style === blockType}
           onToggle={onToggle}
           style={type.style}
         >
           {type.content && type.content}
-        </StyleButton>
+        </StyleButton>)
       )}
     </ControlsWrapper>
   );
