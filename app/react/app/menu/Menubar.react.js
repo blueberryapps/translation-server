@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import Button from '../../components/Button.react';
 import * as actions from '../../ui/actions';
 import { colors } from '../../globals';
 
@@ -16,8 +15,8 @@ import { colors } from '../../globals';
   }),
   dispatch => bindActionCreators(actions, dispatch),
 )
-@Radium
 @withRouter
+@Radium
 export default class Menubar extends React.PureComponent {
   static defaultProps = {
     translatedCount: 0,
@@ -58,26 +57,27 @@ export default class Menubar extends React.PureComponent {
     const { totalCount, translatedCount, location: { query } } = this.props;
     return (
       <div style={styles.wrapper}>
-        <div style={styles.menuButton}>
-          <Button onClick={this.handleToggleHierarchy} style={styles.verticalMenu}>
-            Navigate by key
-          </Button>
-        </div>
+        <button onClick={this.handleToggleHierarchy} style={styles.verticalMenu}>
+          Navigate by key
+        </button>
         <div style={styles.translationButtons}>
-          <Button
+          <button
             disabled={query.edited === 'new'}
             onClick={this.handleShowUntranslated}
-            style={[styles.translations, styles.untranslated]}
+            style={[styles.button, query.edited === 'new' && styles.active]}
           >
-            Untranslated {totalCount - translatedCount}
-          </Button>
-          <Button
+            Untranslated
+            <div style={styles.number}>{totalCount - translatedCount}</div>
+          </button>
+          <div style={styles.separator} />
+          <button
             onClick={this.handleShowAll}
-            style={styles.translations}
+            style={[styles.button, query.edited === 'all' && styles.active]}
             disabled={!query.edited || query.edited === 'all'}
           >
-            All {totalCount}
-          </Button>
+            All
+            <div style={styles.number}>{totalCount}</div>
+          </button>
 
         </div>
       </div>
@@ -95,35 +95,60 @@ const styles = {
     right: 0,
     height: '50px',
   },
-
   translationButtons: {
-    textAlign: 'center',
+    justifyContent: 'center',
+    display: 'flex',
     width: '100%',
   },
-
-  menuButton: {
-    position: 'absolute',
-  },
-
-  translations: {
-    fontSize: '16px',
-    padding: '13px 32px',
-  },
-
-  untranslated: {
-    borderColor: `${colors.darkBlue}`,
+  button: {
+    width: '150px',
+    textAlign: 'center',
+    border: 'none',
+    backgroundColor: colors.primary,
+    fontSize: '17px',
+    height: '50px',
+    color: colors.white,
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    fontWeight: 400,
+    borderColor: 'transparent',
     borderStyle: 'solid',
-    borderWidth: '0 1px 0 0',
+    borderWidth: '0 0 4px 0',
   },
-
+  number: {
+    fontSize: '13px',
+    opacity: .6
+  },
+  active: {
+    borderColor: colors.white,
+  },
   verticalMenu: {
-    borderColor: `${colors.darkBlue}`,
+    borderColor: colors.darkBlue,
+    backgroundColor: colors.primary,
+    color: colors.white,
+    position: 'absolute',
+    left: 0,
+    top: 0,
     borderStyle: 'solid',
     borderWidth: '0 1px 0 0',
-    fontSize: '16px',
+    fontWeight: 900,
+    fontSize: '14px',
+    height: '50px',
+    textTransform: 'uppercase',
     padding: '13px 32px',
-    ':active': {
+    ':focus': {
+      outline: 'none'
+    },
+    ':hover': {
       backgroundColor: colors.darkBlue,
     },
   },
+  separator: {
+    display: 'inline-flex',
+    height: '50px',
+    width: '1px',
+    backgroundColor: colors.darkBlue
+  }
 };
