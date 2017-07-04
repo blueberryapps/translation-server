@@ -41,7 +41,14 @@ export default class Locale extends React.PureComponent {
   render() {
     const { code, id, projectID, translationCount, translatedCount } = this.props;
     const { hovered } = this.state;
-    const language = locale.getLanguage(code).name[0];
+    let language;
+    try {
+      language = locale.getLanguage(code).name[0];
+    } catch (e) {
+      // TODO: Add correct wrong locale handling
+      console.warn(`Unknown locale "${code}" in /projects/list/componennts/Locale`, e); // eslint-disable-line no-console
+      return null;
+    }
     return (
       <div style={styles.outerWrapper}>
         <RadiumLink to={`project/${projectID}/locales/${id}/translations?page=1&edited=new`} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={styles.wrapper}>
