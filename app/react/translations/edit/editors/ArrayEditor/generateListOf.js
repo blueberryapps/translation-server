@@ -17,7 +17,8 @@ type ListProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   onKeyDown: Function,
   saved: boolean,
-  selectedInput: number
+  selectedInput: number,
+  value: any,
 };
 
 type StateTypes = {
@@ -31,7 +32,7 @@ export default function generateListOf(Element: ReactClass<any>) {
   // eslint-disable-next-line no-undef
   return (Wrapped: ReactClass<any>) =>
     class Decorator extends React.Component {
-      constructor(props: PropTypes) {
+      constructor(props: PropTypes & ListProps) {
         super(props);
         this.state = {
           list: null,
@@ -39,7 +40,7 @@ export default function generateListOf(Element: ReactClass<any>) {
           shouldFocus: false
         };
       }
-      props: PropTypes
+      props: PropTypes & ListProps
       state: StateTypes
 
       componentWillMount = () => this.initializeValues(this.props.value);

@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import Radium from 'radium';
 import React from 'react';
 
@@ -8,12 +9,16 @@ type PropTypes = {
   onToggle: Function,
   children: Node,
   active: boolean,
-  label: string,
+  label?: string,
   style: string
 }
 
 @Radium
 export default class StyleButton extends React.Component {
+  static defaultProps = {
+    label: '',
+  }
+
   constructor(props: PropTypes) {
     super(props);
     this.onToggle = (event: Event) => {

@@ -16,8 +16,16 @@ const RadiumLink = Radium(Link);
 
 @Radium
 export default class Locale extends React.PureComponent {
+  constructor(props: LocaleEntityType) {
+    super(props);
+
+    this.state = {
+      hovered: false,
+    };
+  }
+
   state: {
-    hovered: false
+    hovered: boolean,
   }
 
   props: LocaleEntityType
@@ -31,12 +39,19 @@ export default class Locale extends React.PureComponent {
   }
 
   render() {
-    const { code, id, projectId, translationCount, translatedCount } = this.props;
+    const { code, id, projectID, translationCount, translatedCount } = this.props;
     const { hovered } = this.state;
-    const language = locale.getLanguage(code).name[0];
+    let language;
+    try {
+      language = locale.getLanguage(code).name[0];
+    } catch (e) {
+      // TODO: Add correct wrong locale handling
+      console.warn(`Unknown locale "${code}" in /projects/list/componennts/Locale`, e); // eslint-disable-line no-console
+      return null;
+    }
     return (
       <div style={styles.outerWrapper}>
-        <RadiumLink to={`project/${projectId}/locales/${id}/translations?page=1&edited=new`} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={styles.wrapper}>
+        <RadiumLink to={`project/${projectID}/locales/${id}/translations?page=1&edited=new`} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} style={styles.wrapper}>
           <Box col={12}><Image src={`/react_assets/flags/${code}.svg`} style={styles.image} /></Box>
           <Box col={12} style={styles.heading}>{language}</Box>
           <Box col={12} style={styles.transaltedRatio}>{translatedCount} / {translationCount}</Box>

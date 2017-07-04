@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable react/no-danger */
 import React from 'react';
 import DOMPurify from 'dompurify';
 import RendererWrapper from './RendererWrapper';
@@ -14,3 +15,5 @@ export default function HTMLRenderer({ value }: PropTypes) {
     </RendererWrapper>
   );
 }
+
+/* eslint-enable */

@@ -19,13 +19,13 @@ type PropTypes = {
 };
 
 const serialize = (obj) => {
-  var str = [];
-  for(var p in obj)
-    if (obj.hasOwnProperty(p)) {
-      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+  const str = [];
+  for (const p in obj) // eslint-disable-line no-restricted-syntax
+    if (obj.hasOwnProperty(p)) { // eslint-disable-line no-prototype-builtins
+      str.push(`${encodeURIComponent(p)}=${encodeURIComponent(obj[p])}`);
     }
-  return str.join("&");
-}
+  return str.join('&');
+};
 
 class LabelLink extends React.Component {
   constructor(props: PropTypes) {
@@ -36,7 +36,7 @@ class LabelLink extends React.Component {
   props: PropTypes
   newSearch: string
 
-  handleSearch = (event) => {
+  handleSearch = () => {
     const { setFormFieldProperty, setPath, path } = this.props;
     setFormFieldProperty('searchForm', 'SearchField', 'value', this.newSearch);
     setPath(path);
@@ -48,7 +48,7 @@ class LabelLink extends React.Component {
       search: this.newSearch,
       page: '1',
       edited: 'all'
-    }
+    };
     return (
       <Link
         onClick={this.handleSearch}

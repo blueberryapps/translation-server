@@ -1,4 +1,4 @@
-/* @flow */
+/* @flow-weak */
 // Tools and Libraries
 import React, { PureComponent } from 'react';
 import preload from 'redux-preload';
@@ -96,8 +96,8 @@ export default class Translations extends PureComponent {
     this.setState({ tabPressed: keyCode === 9 });
   }
 
-  keyMapper = (key) => {
-    const { location: { query: { edited, page } }, params: { localeId }, project } = this.props;
+  keyMapper = (key: KeyEntityType) => {
+    const { location: { query: { edited, page } }, params: { localeId }, project, location } = this.props;
 
     return (
       <Translation

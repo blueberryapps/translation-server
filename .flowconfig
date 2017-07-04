@@ -2,6 +2,7 @@
 .*/node_modules/fbjs/*
 .*/node_modules/changelog/examples/*
 .*\/node_modules\/draft-js\/lib\/.*.js.flow.*
+.*\/vendor/*
 
 [include]
 

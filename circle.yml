@@ -8,6 +8,8 @@ machine:
   ruby:
     version:
       2.2.0
+  node:
+    version: 6.11.0
 
   # Add some environment variables
   environment:
@@ -20,10 +22,20 @@ database:
   override:
     - bundle exec rake db:create db:schema:load
 
+dependencies:
+  pre:
+    - export PATH
+    - export NODE_ENV
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
+  override:
+    - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+    - yarn install
+
 test:
   override:
     - bundle exec rspec
     - yarn eslint
+    - yarn flow
 
 general:
   artifacts:

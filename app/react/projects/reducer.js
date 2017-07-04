@@ -1,4 +1,4 @@
-/* @flow */
+/* @flow-weak */
 import { Record, Map, List } from 'immutable';
 import { FETCH_PROJECTS_PENDING, FETCH_PROJECTS_FULFILLED } from './actions';
 import type { Action } from '../types/generalTypes';

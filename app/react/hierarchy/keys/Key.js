@@ -1,4 +1,4 @@
-// @flow
+// @flow-weak
 import React from 'react';
 
 import LabelLink from './LabelLink';
@@ -18,7 +18,7 @@ type PropTypes = KeyNode & {
   location: LocationWithQuery,
   path: Array<string>,
   setPath: Function,
-  style: Object,
+  style?: Object,
 };
 
 type StateTypes = {

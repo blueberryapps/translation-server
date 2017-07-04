@@ -26,9 +26,9 @@ export default class Translation extends PureComponent {
     return (
       <RendererWrapper>
         {parsedArray.map((element, i) =>
-          <div key={`${element}${i * 3}`} style={styles.wrapper}>
+          (<div key={`${element}${i * 3}`} style={styles.wrapper}>
             <span style={[styles.circle, selectedInput === i && styles.selected]}>{i + 1}</span> {element}
-          </div>
+          </div>)
         )}
       </RendererWrapper>
     );

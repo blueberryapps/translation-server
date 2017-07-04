@@ -31,7 +31,10 @@ export default class ElementEditor extends React.Component {
     };
   }
 
-  componentDidMount = () => this.props.shouldFocus && this.input.focus();
+  componentDidMount() {
+    if (this.props.shouldFocus)
+      this.input.focus();
+  }
 
   arrayInfo: ArrayInfo
   input: HTMLInputElement

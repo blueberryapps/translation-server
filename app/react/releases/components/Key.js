@@ -26,7 +26,7 @@ export default class Key extends React.Component {
     if (isEndNode) initField(path, params);
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillReceiveProps(nextProps, nextState) {
     if (this.props.checked !== nextProps.checked) {
       this.setState({ checked: !!nextProps.checked });
     }

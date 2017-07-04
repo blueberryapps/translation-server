@@ -6,4 +6,4 @@ export default () => (
     <h1>Not Found</h1>
     <Link to="/">Back to known space</Link>
   </div>
-)
+);
