@@ -1,6 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 
+import Icon from './Icon.react';
 import handleEvent from './handleEvent';
 import { colors } from '../globals';
 
@@ -97,6 +98,7 @@ export default class Select extends React.PureComponent {
           }
           {children || options.map(renderOption)}
         </select>
+        <Icon kind="arrow" color="black" size={10} style={styles.icon} />
       </div>
     );
   }
@@ -105,15 +107,20 @@ export default class Select extends React.PureComponent {
 const styles = {
   select: {
     appearance: 'none',
+    WebkitAppearance: 'none',
+    MozAppeareance: 'input',
     backgroundColor: colors.lightGrey,
-    borderColor: 'hsl(0, 0%, 80%)',
-    borderRadius: '2px',
+    borderColor: colors.inputBorder,
+    color: colors.inputColor,
     borderStyle: 'solid',
     borderWidth: '1px',
-    color: 'hsl(0, 0%, 30%)',
+    borderRadius: 0,
     cursor: 'pointer',
+    paddingRight: '25px',
+    paddingLeft: '15px',
+    height: '40px',
     fontSize: '14px',
-    fontWeight: '300',
+    fontWeight: 400,
     outline: 'none',
     position: 'relative',
     transition: 'border-color .2s',
@@ -174,12 +181,9 @@ const styles = {
     color: colors.black,
     pointerEvents: 'none',
     position: 'absolute',
-    right: 0,
-    top: '1px',
-    userSelect: 'none',
-    width: '24px',
-    '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)': {
-      display: 'none'
-    }
+    right: '15px',
+    top: '50%',
+    marginTop: '-5px',
+    userSelect: 'none'
   }
 };

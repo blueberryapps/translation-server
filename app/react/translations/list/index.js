@@ -131,7 +131,7 @@ export default class Translations extends PureComponent {
     } = this.props;
     return (
       <div>
-        <Header push={push} location={location} page={page} />
+        <Header push={push} location={location} page={page} currentLocaleCode={currentLocale && currentLocale.code} />
         <Menubar
           totalCount={currentLocale && currentLocale.translationCount}
           translatedCount={currentLocale && currentLocale.translatedCount}

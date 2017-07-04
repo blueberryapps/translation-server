@@ -1,6 +1,6 @@
 export const colors = {
   primary: '#317BBC',
-  green: '#3DB683',
+  green: '#30bc65',
   darkBlue: '#185C99',
   inputBorder: '#d3d3d3',
   inputColor: '#474747',

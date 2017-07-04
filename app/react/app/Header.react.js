@@ -3,10 +3,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Button from '../components/Button.react';
-import Container from '../components/Container.react';
+import Icon from '../components/Icon.react';
 import Image from '../components/Image.react';
 import Menu from './menu/Menu.react';
 import Search from '../components/Search.react';
+import Separator from '../components/Separator.react';
 import { colors, media } from '../globals';
 import { saveAllFields } from '../forms/translations/actions';
 
@@ -29,6 +30,7 @@ export default class Header extends React.PureComponent {
   }
 
   props: {
+    currentLocaleCode: string,
     projectName: string,
     userName: string,
     location: Location,
@@ -57,40 +59,53 @@ export default class Header extends React.PureComponent {
   }
 
   render() {
-    const { menuShown, projectName, userName, location } = this.props;
+    const { currentLocaleCode, menuShown, projectName, userName, location } = this.props;
 
     return (
       <header style={styles.header}>
-        <Container style={styles.container}>
-          <Image
-            src={'/react_assets/backArrow.png'}
-            style={styles.backButton}
+        <div style={styles.info}>
+          <Icon
+            kind="back"
+            size={25}
+            color={colors.primary}
+            wrapperStyle={styles.back}
             onClick={this.handleClick}
           />
+          <Separator />
           <span style={styles.projectName}>{projectName}</span>
+          <Image src={`/react_assets/flags/${currentLocaleCode}.svg`} style={styles.image} />
           <span style={styles.text}>Translations</span>
-          <Search onChange={this.handleDebounceSearch} search={location.query.search || ''} />
-          <div style={styles.saveAllWrapper}>
-            <Button onClick={this.handleSaveAll} style={styles.saveAll}>Save all</Button>
-          </div>
-          <Menu style={styles.menu} menuShown={menuShown} user={userName} />
-        </Container>
+        </div>
+        <Search onChange={this.handleDebounceSearch} search={location.query.search || ''} />
+        <div style={styles.controls}>
+          <Button onClick={this.handleSaveAll} style={styles.saveAll.wrapper}>
+            <Icon kind="save" color="white" size={13} style={styles.saveAll.icon} />
+            Save all
+          </Button>
+          <Separator />
+          <Menu menuShown={menuShown} user={userName} />
+        </div>
       </header>
     );
   }
 }
 
 const styles = {
-  backButton: {
-    marginRight: '15px',
-    width: '10px',
-    [media.l]: {
-      marginRight: '25px',
-    },
+  back: {
+    marginRight: '16px',
+    padding: '10px',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center'
   },
   header: {
     alignSelf: 'auto',
     flex: '0 0 auto',
+    display: 'flex',
+    height: '65px',
+    padding: '0 10px',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     order: 0,
     position: 'fixed',
     left: 0,
@@ -101,53 +116,41 @@ const styles = {
     width: '100%',
     zIndex: 100
   },
-  menu: {
-    borderLeft: `1px solid ${colors.inputBorder}`,
-    fontSize: '16px',
-    paddingLeft: '10px',
-    [media.l]: {
-      fontSize: '20px',
-      paddingLeft: '30px',
-    },
-  },
-  container: {
-    maxWidth: '90%',
-    display: 'flex',
-    height: '50px',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'auto',
-  },
   projectName: {
-    borderLeft: `1px solid ${colors.inputBorder}`,
-    fontSize: '15px',
-    padding: '0 10px',
-    verticalAlign: 'middle',
-    [media.l]: {
-      fontSize: '20px',
-      padding: '0 25px',
-    },
-  },
-  saveAllWrapper: {
-    marginRight: '30px',
-    marginLeft: 0,
-    verticalAlign: 'middle',
-    [media.l]: {
-      marginLeft: '15%',
-      marginRight: '30px',
-    },
+    padding: '0 16px 0 26px'
   },
   saveAll: {
-    backgroundColor: colors.green,
-    fontSize: '1em',
-    padding: '7px 20px',
+    wrapper: {
+      backgroundColor: colors.green,
+      boxShadow: 'none',
+      display: 'inline-flex',
+      alignItems: 'center',
+      marginRight: '25px',
+      fontSize: '14px',
+      textTransform: 'uppercase',
+      padding: '8px 14px'
+    },
+    icon: {
+      marginRight: '8px'
+    }
   },
   text: {
-    display: 'inline-block',
-    fontSize: '16px',
-    verticalAlign: 'middle',
-    [media.l]: {
-      fontSize: '20px',
-    },
+    padding: '0 16px',
   },
+  info: {
+    display: 'flex',
+    fontSize: '18px',
+    alignItems: 'center',
+    [media.l]: {
+      fontSize: '22px',
+    }
+  },
+  image: {
+    width: '22px',
+    height: '15px'
+  },
+  controls: {
+    display: 'flex',
+    alignItems: 'center'
+  }
 };

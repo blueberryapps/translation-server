@@ -34,7 +34,7 @@ export default class Container extends React.PureComponent {
 const styles = {
   default: {
     margin: '0 auto',
-    maxWidth: '1140px',
+    maxWidth: '100%',
     position: 'relative',
   },
   variant: {
