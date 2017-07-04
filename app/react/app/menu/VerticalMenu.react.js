@@ -35,9 +35,10 @@ const styles = {
   wrapper: {
     background: 'white',
     position: 'fixed',
-    top: '110px',
+    zIndex: 18,
+    top: '115px',
     left: '-420px',
-    boxShadow: 'rgba(0, 0, 0, 0.1) 7px 0px 7px -7px',
+    boxShadow: 'rgba(0, 0, 0, 0.25) 0px 2px 12px 1px',
     transition: 'left .2s'
   },
   isShown: {

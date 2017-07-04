@@ -141,10 +141,13 @@ export default class Translations extends PureComponent {
           toggleHierarchy={this.props.toggleHierarchy}
         />
         <div style={styles.wrapper}>
-          <Breadcrumbs
-            path={path}
-            location={location}
-          />
+          {path.length !== 0 &&
+            <Breadcrumbs
+              path={path}
+              location={location}
+              isVerticalMenuShown={isVerticalMenuShown}
+            />
+          }
           <VerticalMenu
             location={{
               ...location,
