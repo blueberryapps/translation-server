@@ -103,7 +103,7 @@ export default class Translation extends PureComponent {
 
 const styles = {
   wrapper: {
-    boxShadow: '0 0 20px 1px #e0e0e0',
+    boxShadow: `0 0 20px ${colors.inputBorder}`,
     marginBottom: '50px'
   },
   note: {
