@@ -19,10 +19,13 @@ class VerticalMenu extends React.PureComponent {
 
     return (
       <div style={[styles.wrapper, isShown && styles.isShown]}>
-        <HierarchyKeys
-          location={location}
-          push={push}
-        />
+        <div style={styles.innerWrapper}>
+          <HierarchyKeys
+            location={location}
+            push={push}
+          />
+        </div>
+        <div style={styles.fade} />
       </div>
     );
   }
@@ -30,19 +33,29 @@ class VerticalMenu extends React.PureComponent {
 
 const styles = {
   wrapper: {
-    padding: '30px 40px 40px 20px',
     background: 'white',
-    overflow: 'hidden',
-    display: 'none',
-    width: 0,
+    position: 'fixed',
+    top: '110px',
+    left: '-420px',
+    boxShadow: 'rgba(0, 0, 0, 0.1) 7px 0px 7px -7px',
+    transition: 'left .2s'
   },
   isShown: {
-    flex: '1 1 auto',
-    minWidth: '350px',
-    maxWidth: '450px',
-    display: 'block',
-    boxShadow: 'rgba(0, 0, 0, 0.098) 7px 0px 7px -7px',
+    left: 0
+  },
+  innerWrapper: {
+    padding: '30px 40px 40px 20px',
+    height: 'calc(100vh - 110px)',
     overflow: 'scroll',
+    width: '400px',
+  },
+  fade: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '40px',
+    background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 100%)'
   }
 };
 
