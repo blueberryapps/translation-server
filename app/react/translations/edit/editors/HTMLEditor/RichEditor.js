@@ -25,7 +25,10 @@ type PropTypes = {
 }
 
 type StateTypes = {
-  editorState: EditorStateType
+  editorState: EditorStateType,
+  urlValue?: string,
+  urlError: boolean,
+  showURLInput: boolean
 }
 
 @Radium
@@ -47,6 +50,7 @@ export default class RichEditor extends React.Component {
     this.state = {
       editorState: EditorState.createWithContent(editorState, decorator),
       urlValue: '',
+      showURLInput: false,
       urlError: false
     };
     this.focus = () => this.editor.focus();
@@ -70,7 +74,7 @@ export default class RichEditor extends React.Component {
     return false;
   }
 
-  promptForLink = (e: Event): void => {
+  promptForLink = (e: Event & { target: HTMLElement }): void => {
     e.preventDefault();
     const { editorState } = this.state;
     const selection = editorState.getSelection();
@@ -96,7 +100,7 @@ export default class RichEditor extends React.Component {
     }
   }
 
-  onURLChange = (e: Event): void => {
+  onURLChange = (e: Event & { target: HTMLInputElement }): void => {
     this.setState({
       urlValue: e.target.value,
       urlError: (!/^(f|ht)tps?:\/\//i.test(e.target.value))
@@ -125,7 +129,7 @@ export default class RichEditor extends React.Component {
     });
   }
 
-  removeLink = (e) => {
+  removeLink = (e: Event): void => {
     e.preventDefault();
     const { editorState } = this.state;
     const selection = editorState.getSelection();
@@ -136,7 +140,7 @@ export default class RichEditor extends React.Component {
     }
   }
 
-  onLinkInputKeyDown = (e) => {
+  onLinkInputKeyDown = (e: KeyboardEvent): void => {
     if (e.which === 13) {
       this.confirmLink(e);
     }
@@ -151,6 +155,8 @@ export default class RichEditor extends React.Component {
     this.props.handleSubmit();
     this.handleChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
   }
+
+  url: HTMLElement;
 
   toggleBlockType = (blockType: string): void => {
     this.handleChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
@@ -195,12 +201,11 @@ export default class RichEditor extends React.Component {
             Remove
         </button>
         {this.state.showURLInput &&
-        <div style={styles.urlInputContainer}>
-          <div style={styles.urlInputContainer}>
+        <div>
+          <div>
             <input
               onChange={this.onURLChange}
               ref={(elem: HTMLElement) => { this.url = elem; }}
-              style={styles.urlInput}
               type="text"
               onFocus={this.handleFocus}
               onBlur={this.handleBlur}
