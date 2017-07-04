@@ -12,7 +12,7 @@ export default function configureStore({ initialState, platformMiddleware } = {}
 
   const railsState = initialState;
   const newInitialState = {
-    init: railsState,
+    init: railsState, // TODO: fix Redux state initiation, store init has no appropriate reducer
   };
 
   // Combine all reducers and enhance them
