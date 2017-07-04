@@ -69,7 +69,7 @@ export default class SimpleEditor extends PureComponent {
             onChange={this.handleChange}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
-            style={[styles.input, focused && styles.focused]}
+            style={styles.input}
           />
           <UnsavedLabel focused={focused} saved={saved} />
         </EditorWrapper>
