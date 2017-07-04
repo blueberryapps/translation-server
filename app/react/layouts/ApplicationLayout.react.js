@@ -6,15 +6,18 @@ import Container from '../components/Container.react';
 import { colors } from '../globals';
 
 type PropTypes = {
-  isVerticalMenuShown: boolean,
   children: Node,
-  error:string,
+  error?: string,
+  isVerticalMenuShown?: boolean
 }
 
 @connect(state => ({ error: state.ui.get('error') }))
 @Radium
 export default class ApplicationLayout extends React.PureComponent {
-
+  static defaultProps = {
+    error: '',
+    isVerticalMenuShown: false
+  }
   props: PropTypes
 
   render() {
