@@ -1,6 +1,5 @@
 /* @flow */
 import React from 'react';
-import Layout from '../layouts/ApplicationLayout.react';
 
 export default class App extends React.PureComponent {
   props: { children: Node }
@@ -9,9 +8,9 @@ export default class App extends React.PureComponent {
     const { children } = this.props;
 
     return (
-      <Layout>
+      <div>
         {children}
-      </Layout>
+      </div>
     );
   }
 }

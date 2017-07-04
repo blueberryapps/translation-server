@@ -18,7 +18,7 @@ function handleChangePage({ selected: page }) {
 @withRouter
 export default class Paginator extends PureComponent {
   static defaultProps = {
-    totalPages: 1,
+    totalPages: 0,
   };
 
   constructor(props) {
@@ -37,6 +37,8 @@ export default class Paginator extends PureComponent {
 
   render() {
     const { totalPages, location: { query: page } } = this.props;
+
+    if (totalPages === 0) return null;
 
     return (
       <div>
