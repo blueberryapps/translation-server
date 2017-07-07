@@ -89,7 +89,7 @@ const styles = {
   wrapper: {
     backgroundColor: colors.primary,
     position: 'fixed',
-    zIndex: 100,
+    zIndex: 15,
     top: '65px',
     left: 0,
     right: 0,
@@ -103,7 +103,6 @@ const styles = {
   button: {
     width: '150px',
     textAlign: 'center',
-    border: 'none',
     backgroundColor: colors.primary,
     fontSize: '17px',
     height: '50px',

@@ -89,13 +89,14 @@ const styles = {
   },
   dropdownList: {
     boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
+    backgroundColor: colors.white,
     left: '-45px',
     listStyle: 'none',
     paddingLeft: '0px',
     position: 'absolute',
     textAlign: 'center',
     top: '35px',
-    zIndex: 1,
+    zIndex: 20,
     width: '140px'
   },
   dropdownElement: {

@@ -7,8 +7,10 @@ import React, {PureComponent as Component} from 'react';
 
 const iconList = [
   'arrow',
-  'back',
+  'arrow-left',
+  'arrow-right',
   'edit',
+  'key',
   'letter',
   'magnifier',
   'ordered-list',
@@ -25,8 +27,10 @@ class Icon extends Component {
     height: React.PropTypes.number,
     kind: React.PropTypes.oneOf([
       'arrow',
-      'back',
+      'arrow-left',
+      'arrow-right',
       'edit',
+      'key',
       'letter',
       'magnifier',
       'ordered-list',
@@ -93,8 +97,10 @@ class Icon extends Component {
     switch (kind) {
       default: return null;
       case ('arrow'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 220 103"><path d="M110 103L0 0h220L110 103z"/></svg>);
-      case ('back'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 44.8 81.1"><path d="M32.4 0l12.4 9.9-24.5 30.6 24.5 30.7-12.4 9.9L0 40.5z"/></svg>);
+      case ('arrow-left'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 44.8 81.1"><path d="M32.4 0l12.4 9.9-24.5 30.6 24.5 30.7-12.4 9.9L0 40.5z"/></svg>);
+      case ('arrow-right'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 44.8 81.1"><path d="M44.8 40.5L12.4 81.1 0 71.2l24.5-30.7L0 9.9 12.4 0z"/></svg>);
       case ('edit'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 355.8 355.8"><path d="M1.9 323c-5.1 11.9.4 25.7 12.3 30.8 5.9 2.5 12.6 2.5 18.5 0l85.9-36.3L38 236.9 1.9 323zM348.7 64.8L290.8 6.9c-9.2-9.2-24-9.2-33.2 0L59.3 204.7l91.3 91.6L348.9 98c9.2-9.2 9.2-24 0-33.2h-.2z"/></svg>);
+      case ('key'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 407 402"><path d="M131.6.1c69.8 0 126.5 56.5 126.5 126.5 0 14.8-3 29.6-7.4 44.6L407 328v74h-74.5v-44.6h-44.6v-44.6h-44.6l-67.1-67.3c-13.3 4.4-28.1 7.4-44.4 7.4C62 255.8 3 201.6.1 131.8S51.4 3 121.2.1c3.5-.1 6.9-.1 10.4 0zM94.3 134c25.4 0 44.6-19.2 44.6-44.4 0-25.4-19.2-44.8-44.4-44.8-25.4 0-44.8 19.5-44.8 44.6 0 25.3 19.5 44.6 44.6 44.6z"/></svg>);
       case ('letter'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 13.4 13.3"><path d="M7.7 13.3v-.7c1.2-.2 1.3-.4 1-1.3-.3-.6-.6-1.4-.9-2.3H4c-.2.6-.5 1.3-.7 2.1-.3 1-.2 1.2 1.2 1.4v.7H0v-.7c1.3-.2 1.6-.4 2.2-2.1L6.3.3l1-.3c1.3 3.5 2.5 7 3.8 10.4.7 1.8.9 2 2.2 2.2v.7H7.7zM6 3.7C5.3 5.1 4.8 6.6 4.3 8h3.1L6 3.7z"/></svg>);
       case ('magnifier'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 289.1 289"><path d="M281.9 247.9L219.2 185l-1.1-.9c36.1-54.8 20.9-128.5-34-164.6S55.7-1.3 19.6 53.5-1.3 182 53.6 218.1c39.6 26.1 91 26.1 130.6 0l.9 1.1 62.9 62.9c9.5 9.4 24.9 9.2 34.2-.3 9.3-9.4 9.2-24.6-.1-34l-.2.1zM119 196.6c-42.9 0-77.7-34.8-77.7-77.7 0-42.9 34.8-77.7 77.7-77.7 42.9 0 77.7 34.8 77.7 77.7-.1 43-34.8 77.7-77.7 77.7z"/></svg>);
       case ('ordered-list'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 471.7 444"><path d="M28.9 190.6c2-3.2 5.4-5.1 9.2-5 4.4 0 7.8 1.4 9.7 3.9 2.2 2.5 3.3 5.8 3.3 10 0 3.1-1.1 6.7-3.1 10.5-2.2 4.2-6.1 8.6-10.5 13.9L1.4 260.8v15.8h76.9v-17.8H36.6l-.3-1.1 15-16.1c9.7-10.5 16.6-18.3 20.3-23.9 3.6-5.3 5.6-11.4 5.6-18.3 0-10.3-3.6-18.6-10.5-24.4-8.1-6.4-18.3-9.5-28.6-8.9-11.4 0-20.5 3.6-27.7 10.5-6.9 6.9-10.3 15.5-10 25.8h25.3c-.1-4.3 1.1-8.5 3.3-12.2v.4zm-2.8-99.9h-25V111h77.4V90.7h-25V0L1.4 7.8v18.3h25l-.3 64.6zM61.3 386c5.3-2.2 9.4-5.5 12.5-9.7 3.1-4 4.7-8.9 4.7-13.9.3-9-3.8-17.6-11.1-23-6.9-5.5-16.7-8.3-28.6-8.3-10.5 0-19.4 2.8-26.6 8.3-7 4.9-11 13.1-10.5 21.6v.8H27c0-4.4 1.4-5.8 3.9-7.8 2.8-1.9 5.6-3.1 8.9-3.1 4.2 0 7.5 1.1 9.7 3.3 2.2 2.5 3.3 5.3 3.3 8.6 0 4.4-1.1 8.3-3.6 10.5-2.9 2.7-6.8 4.1-10.8 3.9h-12v18h11.9c5.3 0 9.2 1.4 11.9 3.9 2.8 2.5 4.4 6.4 4.4 11.7 0 3.9-1.4 7.2-4.2 9.7-3 2.7-7 4.1-11.1 3.9-3.7-.1-7.3-1.6-10-4.2-2.9-2.3-4.4-5.8-4.2-9.4H.1l-.1 1.3c0 10.3 3.6 18.3 11.1 23.6 8.3 5.6 17.2 8.3 27.8 8.3 11.9 0 22.2-2.8 29.7-8.3 7.7-5.5 12.1-14.4 11.7-23.9.2-5.7-1.6-11.3-5-15.8-3.7-4.6-8.5-8.1-14-10zm410.4 30.2V333h-333v83.2h333zm0-166.5v-55.5h-333v55.5h333zm0-138.7V27.7h-333V111h333z"/></svg>);

@@ -1,5 +1,6 @@
 /* @flow-weak */
 // Tools and Libraries
+import Radium from 'radium';
 import React, { PureComponent } from 'react';
 import preload from 'redux-preload';
 import { push as pushLocation } from 'react-router-redux';
@@ -17,6 +18,7 @@ import { fetchProjects } from '../../projects/actions';
 import Translation from '../detail';
 import VerticalMenu from '../../app/menu/VerticalMenu.react';
 import Menubar from '../../app/menu/Menubar.react';
+import Layout from '../../layouts/ApplicationLayout.react';
 import Paginator from '../../components/Paginator.react';
 import Header from '../../app/Header.react';
 import Breadcrumbs from '../../hierarchy/Breadcrumbs';
@@ -80,6 +82,7 @@ type StateTypes = {
   return { type: 'QUERY_CHANGED', payload: { trigger, props } };
 })
 @toJS
+@Radium
 export default class Translations extends PureComponent {
   constructor(props: PropTypes) {
     super(props);
@@ -130,7 +133,7 @@ export default class Translations extends PureComponent {
       path
     } = this.props;
     return (
-      <div>
+      <Layout isVerticalMenuShown={isVerticalMenuShown}>
         <Header push={push} location={location} page={page} currentLocaleCode={currentLocale && currentLocale.code} />
         <Menubar
           totalCount={currentLocale && currentLocale.translationCount}
@@ -141,10 +144,13 @@ export default class Translations extends PureComponent {
           toggleHierarchy={this.props.toggleHierarchy}
         />
         <div style={styles.wrapper}>
-          <Breadcrumbs
-            path={path}
-            location={location}
-          />
+          {path.length !== 0 &&
+            <Breadcrumbs
+              path={path}
+              location={location}
+              isVerticalMenuShown={isVerticalMenuShown}
+            />
+          }
           <VerticalMenu
             location={{
               ...location,
@@ -159,7 +165,7 @@ export default class Translations extends PureComponent {
             }
           </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 }
@@ -167,10 +173,8 @@ export default class Translations extends PureComponent {
 const styles = {
   wrapper: {
     backgroundColor: '#F7F7F7',
-    display: 'flex'
   },
   translations: {
-    flex: '1 1 auto',
-    padding: '40px 100px',
+    padding: '40px 0px'
   }
 };

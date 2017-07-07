@@ -3,6 +3,7 @@ import preload from 'redux-preload';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router';
 
+import Layout from '../layouts/ApplicationLayout.react';
 import Key from './components/Key';
 import { fetchPrerelease, createRelease } from './actions';
 import { initField, toggleField } from '../forms/releases/actions';
@@ -38,7 +39,7 @@ export default class Releases extends React.Component {
     const { hierarchy, params: { projectId, localeId }, params } = this.props;
 
     return (
-      <div>
+      <Layout>
         {hierarchy && hierarchy.length ?
           <div>
             <button onClick={this.handleSubmit}>RELEASE!</button>
@@ -64,7 +65,7 @@ export default class Releases extends React.Component {
             <Link to="/">go back.</Link>
           </div>
         )}
-      </div>
+      </Layout>
     );
   }
 }

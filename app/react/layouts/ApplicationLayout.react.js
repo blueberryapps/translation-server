@@ -1,25 +1,31 @@
+// @flow
 import Radium from 'radium';
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Container from '../components/Container.react';
 import { colors } from '../globals';
+
+type PropTypes = {
+  children: Node,
+  error?: string,
+  isVerticalMenuShown?: boolean
+}
 
 @connect(state => ({ error: state.ui.get('error') }))
 @Radium
 export default class ApplicationLayout extends React.PureComponent {
   static defaultProps = {
-    error: null,
-  };
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    error: PropTypes.string,
-  };
+    error: '',
+    isVerticalMenuShown: false
+  }
+  props: PropTypes
 
   render() {
-    const { children, error } = this.props;
+    const { children, error, isVerticalMenuShown } = this.props;
+
     return (
       <div style={styles.wrapper}>
-        <Container error={error}>
+        <Container error={error} style={[isVerticalMenuShown && styles.isVerticalMenuShown]}>
           {children}
         </Container>
       </div>
@@ -29,9 +35,15 @@ export default class ApplicationLayout extends React.PureComponent {
 
 const styles = {
   wrapper: {
-    paddingTop: '140px',
+    paddingTop: '165px',
     backgroundColor: colors.backgroundGrey,
     minHeight: '100vh',
     overflow: 'hidden'
+  },
+  isVerticalMenuShown: {
+    '@media screen and (max-width: 1900px)': {
+      transition: 'margin .2s',
+      margin: '0 auto 0 430px'
+    }
   }
 };

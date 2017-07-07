@@ -65,7 +65,7 @@ export default class Header extends React.PureComponent {
       <header style={styles.header}>
         <div style={styles.info}>
           <Icon
-            kind="back"
+            kind="arrow-left"
             size={25}
             color={colors.primary}
             wrapperStyle={styles.back}
@@ -114,7 +114,7 @@ const styles = {
     backgroundColor: colors.white,
     boxShadow: '0 0 7px hsla(0, 0%, 0%, 0.1)',
     width: '100%',
-    zIndex: 100
+    zIndex: 16
   },
   projectName: {
     padding: '0 16px 0 26px'
