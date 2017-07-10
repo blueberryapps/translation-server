@@ -19,7 +19,10 @@ class Translation < ActiveRecord::Base
   validates :key, :locale, presence: true
 
   def self.not_approved
-    where(self.arel_table[:original_text].not_eq(self.arel_table[:text]))
+    where(
+      self.arel_table[:original_text].not_eq(self.arel_table[:text])
+        .or(self.arel_table[:original_text].eq(nil))
+    )
   end
 
   def self.approve!(translations, user = nil)
