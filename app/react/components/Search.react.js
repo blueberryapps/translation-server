@@ -8,8 +8,9 @@ import { Searchbar } from './fields';
 import { searchValidations as validations } from '../configs/search/validations';
 
 type SearchProps = {
+  onChange: Function,
+  onClear: Function,
   search: string,
-  onChange: Function
 };
 
 @Radium
@@ -17,7 +18,7 @@ export default class Search extends React.PureComponent {
   props: SearchProps
 
   render() {
-    const { onChange, search } = this.props;
+    const { onChange, onClear, search } = this.props;
 
     return (
       <Form name="searchForm" validations={validations}>
