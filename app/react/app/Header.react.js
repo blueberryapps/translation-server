@@ -11,6 +11,7 @@ import Search from '../components/Search.react';
 import Separator from '../components/Separator.react';
 import { colors, media } from '../globals';
 import { saveAllFields } from '../forms/translations/actions';
+const { clearForm } = onionActions;
 
 const { clearForm } = onionActions;
 
