@@ -121,7 +121,7 @@ export default class Translations extends PureComponent {
   render() {
     const {
       pagination,
-      location: { query: { page } },
+      location: { query: { page, search = '' } },
       location,
       isVerticalMenuShown,
       keys,
@@ -159,6 +159,9 @@ export default class Translations extends PureComponent {
             isShown={isVerticalMenuShown}
           />
           <div style={styles.translations}>
+            {(keys.length === 0 && search !== '') && (
+              <h3>Sorry, no matches found for: &ldquo;<strong><em>{search}</em></strong>&rdquo;</h3>
+            )}
             {keys.map(this.keyMapper)}
             {pagination &&
               <Paginator {...pagination} location={location} />
