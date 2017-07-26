@@ -1,4 +1,5 @@
 // @flow
+import { parse, toObject } from 'search-params';
 import {
   FETCH_HIERARCHY_PENDING,
   FETCH_HIERARCHY_FULFILLED,
@@ -8,8 +9,16 @@ import {
 import type { HierarchyStateType } from '../types/storeTypes';
 import type { Action } from '../types/generalTypes';
 
+let path = [];
+if (window && window.location) {
+  const search = window.location.search || '';
+  const queryAttributes = toObject(parse(search.substring(1)));
+  const { search: pathString = '' } = queryAttributes;
+  path = pathString.split('.').filter(v => v !== '');
+}
+
 const initialState = {
-  breadcrumbPath: [],
+  breadcrumbPath: path,
   hierarchy: [],
   pending: false
 };
