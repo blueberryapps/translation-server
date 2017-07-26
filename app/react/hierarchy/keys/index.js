@@ -52,8 +52,12 @@ export default class HierarchyKeys extends React.PureComponent {
 
   props: PropTypes
 
-  isCollapsed = ({ label, level }: KeyNode, globalPath: Array<string>): boolean =>
-    !!globalPath.length && globalPath[level] !== label;
+  isCollapsed = ({ label, level }: KeyNode, globalPath: Array<string>): boolean => {
+    if (!globalPath.length) {
+      return true;
+    }
+    return globalPath[level] !== label;
+  }
 
   render() {
     const { dispatch, hierarchy, location, setPath, path }: PropTypes = this.props;

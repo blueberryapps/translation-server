@@ -44,8 +44,10 @@ export default class Key extends React.Component {
   props: PropTypes
 
 
-  toggle = () =>
-    this.setState({ collapsed: !this.state.collapsed })
+  toggle = (event) => {
+    event.preventDefault();
+    this.setState(prevState => ({ collapsed: !prevState.collapsed }));
+  }
 
   render() {
     const { collapsed } = this.state;
@@ -64,18 +66,18 @@ export default class Key extends React.Component {
 
     return (
       <div style={styles.wrapper}>
-        {/*
-        <button onClick={this.toggle}>
+        <a href="#toggle" onClick={this.toggle} style={styles.toggleButton}>
           {collapsed
-            ? <span>&#9654;</span>
-            : <span>&#9660;</span>
+            ? <span>&#9656;</span>
+            : <span>&#9662;</span>
           }
-        </button> */}
+        </a>
 
         <LabelLink
           path={currentPath}
           location={location}
           label={label}
+          style={styles.label}
         />
         {!collapsed &&
           <div>
@@ -106,6 +108,15 @@ export default class Key extends React.Component {
 const styles = {
   wrapper: {
     marginTop: '10px',
-    marginLeft: '20px'
-  }
+    marginLeft: '20px',
+    textOverflow: 'ellipsis',
+    position: 'relative',
+  },
+  toggleButton: {
+    textDecoration: 'none',
+    display: 'inline-block',
+    padding: '0 0.5em',
+    position: 'absolute',
+    top: 0,
+  },
 };
