@@ -11,7 +11,12 @@ import Separator from '../components/Separator.react';
 import { colors, media } from '../globals';
 import { saveAllFields } from '../forms/translations/actions';
 
-@connect(null, { saveAllFields })
+@connect(
+  state => ({
+    unsavedCount: state.forms.translations.unsavedCount,
+  }),
+  { saveAllFields }
+)
 @Radium
 export default class Header extends React.PureComponent {
   static defaultProps = {
@@ -31,13 +36,14 @@ export default class Header extends React.PureComponent {
 
   props: {
     currentLocaleCode: string,
-    projectName: string,
-    userName: string,
     location: Location,
-    page: string,
     menuShown: boolean,
+    page: string,
+    projectName: string,
     push: Function,
     saveAllFields: Function,
+    unsavedCount: number,
+    userName: string,
   }
 
   handleClick = () => this.props.push('/');
@@ -59,7 +65,14 @@ export default class Header extends React.PureComponent {
   }
 
   render() {
-    const { currentLocaleCode, menuShown, projectName, userName, location } = this.props;
+    const {
+      currentLocaleCode,
+      location,
+      menuShown,
+      unsavedCount,
+      projectName,
+      userName,
+    } = this.props;
 
     return (
       <header style={styles.header}>
@@ -78,10 +91,12 @@ export default class Header extends React.PureComponent {
         </div>
         <Search onChange={this.handleDebounceSearch} search={location.query.search || ''} />
         <div style={styles.controls}>
+          {(unsavedCount >= 1) &&
           <Button onClick={this.handleSaveAll} style={styles.saveAll.wrapper}>
             <Icon kind="save" color="white" size={13} style={styles.saveAll.icon} />
             Save all
           </Button>
+          }
           <Separator />
           <Menu menuShown={menuShown} user={userName} />
         </div>
