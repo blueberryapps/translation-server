@@ -4,7 +4,7 @@ import { Form } from 'onion-form';
 
 import Icon from './Icon.react';
 import { colors } from '../globals';
-import { Searchbar, SearchSelect } from './fields';
+import { Searchbar } from './fields';
 import { searchValidations as validations } from '../configs/search/validations';
 
 type SearchProps = {
