@@ -40,6 +40,12 @@ export default class Paginator extends PureComponent {
 
     if (totalPages === 0) return null;
 
+    if (totalPages === 1) {
+      return (
+        <div>No other translations</div>
+      );
+    }
+
     return (
       <div>
         <Style rules={styles} scopeSelector=".pagination" />
