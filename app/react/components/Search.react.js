@@ -4,7 +4,7 @@ import { Form } from 'onion-form';
 
 import Icon from './Icon.react';
 import { colors } from '../globals';
-import { Searchbar, SearchSelect } from './fields';
+import { Searchbar } from './fields';
 import { searchValidations as validations } from '../configs/search/validations';
 
 type SearchProps = {
@@ -27,7 +27,6 @@ export default class Search extends React.PureComponent {
             onChange={onChange}
             placeholder="Search through translations"
           />
-          <SearchSelect selectSize={3} />
           <Icon color="white" kind="magnifier" size={16} wrapperStyle={styles.searchButton} />
         </div>
       </Form>

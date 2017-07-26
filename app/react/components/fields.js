@@ -1,7 +1,5 @@
 import { connectField } from 'onion-form';
 
 import TextField from './TextField.react';
-import Select from './Select.react';
 
-export const Searchbar = connectField('SearchField')(TextField);
-export const SearchSelect = connectField('SearchSelect')(Select);
+export const Searchbar = connectField('SearchField')(TextField); // eslint-disable-line import/prefer-default-export
