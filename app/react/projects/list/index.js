@@ -10,7 +10,12 @@ import { getProjectsMerged } from '../../projects/selectors';
 import toJS from '../../utils/toJS';
 
 import * as actions from '../../projects/actions';
-import type { ProjectEntityType } from '../../types/entityTypes';
+import type { FilteredProjectEntityType } from '../../types/entityTypes';
+
+type PropTypes = {
+  fiteredProjects?: Array<FilteredProjectEntityType>,
+  filterValue?: string
+};
 
 @preload(actions.fetchProjects)
 @connect(
@@ -19,22 +24,24 @@ import type { ProjectEntityType } from '../../types/entityTypes';
     return {
       filterValue: projects.filterValue,
       list: projects.list,
-      projects: fuzzy.filter(projects.filterValue, merged.toJS(), { extract: el => (el.name) })
+      fiteredProjects: fuzzy.filter(projects.filterValue, merged.toJS(), { extract: el => (el.name) })
     };
   },
   dispatch => bindActionCreators(actions, dispatch),
 )
 @toJS
 export default class Projects extends React.PureComponent {
-  props: {
-    projects: Array<ProjectEntityType>,
-    filterValue: string
+  static defaultProps = {
+    filterValue: '',
+    fiteredProjects: []
   }
 
-  render() {
-    const { projects, filterValue } = this.props;
+  props: PropTypes
 
-    if (projects.length === 0 && filterValue !== '') {
+  render() {
+    const { fiteredProjects, filterValue } = this.props;
+
+    if (fiteredProjects && fiteredProjects.length === 0 && filterValue !== '') {
       return <div>No projects found!</div>;
     }
 
@@ -45,7 +52,7 @@ export default class Projects extends React.PureComponent {
           <Box col={4} xs={6} ms={6} sm={3} md={2} lg={2}>Original</Box>
           <Box col={4} xs={0} ms={0} sm={6} md={6} lg={6}>Translations</Box>
         </Flex>
-        {projects.map(({ original }) =>
+        {fiteredProjects && fiteredProjects.map(({ original }) =>
           <Project key={original.id} {...original} />)
         }
       </div>

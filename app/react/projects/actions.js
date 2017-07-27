@@ -18,7 +18,7 @@ export function fetchProjects(): Function {
   });
 }
 
-export function filterProjects(filterValue: string): Function {
+export function filterProjects(filterValue: string): Object {
   return ({
     type: FILTER_PROJECTS,
     payload: {

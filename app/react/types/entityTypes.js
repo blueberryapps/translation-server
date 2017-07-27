@@ -19,6 +19,10 @@ export type ProjectEntityType = {
   filterProjects: Function
 };
 
+export type FilteredProjectEntityType = {
+  original: ProjectEntityType
+}
+
 export type TranslationEntityType = {
   id: ID,
   text: string,

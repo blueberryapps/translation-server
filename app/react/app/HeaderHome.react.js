@@ -21,15 +21,18 @@ import { filterProjects } from '../projects/actions';
 export default class Header extends React.PureComponent {
   static defaultProps = {
     projectName: 'Dev Project',
-    userName: 'Admin'
-  }
-  props: {
-    userName: string,
-    filterProjects: Function,
-    filterValue: string
+    userName: 'Admin',
+    filterProjects: () => {},
+    filterValue: ''
   }
 
-  handleChange = ({ value }) => {
+  props: {
+    userName: string,
+    filterProjects?: Function,
+    filterValue:? string
+  }
+
+  handleChange = ({ value }: { value: string }): void => {
     this.props.filterProjects(value);
   }
 
