@@ -28,8 +28,8 @@ export default class Search extends React.PureComponent {
             onChange={onChange}
             placeholder="Search through translations"
           />
-          <Icon color="white" kind="magnifier" size={16} wrapperStyle={[styles.searchButton, styles.clear]} onClick={onClear} />
-          <Icon color="black" kind="close" size={16} wrapperStyle={styles.searchButton} />
+          <Icon color={colors.inputColor} kind="close" size={16} wrapperStyle={[styles.searchButton, styles.clear]} onClick={onClear} />
+          <Icon color="white" kind="magnifier" size={16} wrapperStyle={styles.searchButton} />
         </div>
       </Form>
     );
@@ -54,6 +54,12 @@ const styles = {
   clear: {
     backgroundColor: 'transparent',
     position: 'absolute',
-    right: '40px'
-  }
+    right: '40px',
+    opacity: .5,
+    top: 0,
+    transition: 'opacity .2s',
+    ':hover': {
+      opacity: 1,
+    }
+  },
 };

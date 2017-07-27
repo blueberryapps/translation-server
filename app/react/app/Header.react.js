@@ -11,6 +11,8 @@ import Search from '../components/Search.react';
 import Separator from '../components/Separator.react';
 import { colors, media } from '../globals';
 import { saveAllFields } from '../forms/translations/actions';
+import { setBreadcrumbPath } from '../hierarchy/actions';
+
 const { clearForm } = onionActions;
 
 const { clearForm } = onionActions;
@@ -19,7 +21,7 @@ const { clearForm } = onionActions;
   state => ({
     unsavedCount: state.forms.translations.unsavedCount,
   }),
-  { saveAllFields, clearForm }
+  { saveAllFields, clearForm, setBreadcrumbPath }
 )
 @Radium
 export default class Header extends React.PureComponent {
@@ -47,6 +49,7 @@ export default class Header extends React.PureComponent {
     projectName: string,
     push: Function,
     saveAllFields: Function,
+    setBreadcrumbPath: Function,
     unsavedCount: number,
     userName: string,
   }
@@ -64,6 +67,7 @@ export default class Header extends React.PureComponent {
 
   handleSearchClear = () => {
     this.props.clearForm('searchForm');
+    this.props.setBreadcrumbPath([]);
     this.handleSearchChange({ value: '' });
   };
 
