@@ -22,6 +22,7 @@ export default class Project extends React.PureComponent {
 
     const translationLocales = locales
       .filter(locale => locale.id !== defaultLocaleId);
+
     return (
       <div>
         <Flex style={styles.row}>
