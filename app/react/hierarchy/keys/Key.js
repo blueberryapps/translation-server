@@ -9,7 +9,6 @@ import type { KeyNode } from '../../types/generalTypes';
 type PropTypes = KeyNode & {
   childrenKeys: Array<Object>,
   collapsed: boolean,
-  createStyles: (level: number) => Object,
   dispatch: Function,
   globalPath: Array<string>,
   isCollapsed: (Array<string>, Array<string>) => boolean,
@@ -54,7 +53,6 @@ export default class Key extends React.Component {
     const {
       dispatch,
       label,
-      createStyles,
       childrenKeys,
       location,
       path,
@@ -66,18 +64,18 @@ export default class Key extends React.Component {
 
     return (
       <div style={styles.wrapper}>
-        <a href="#toggle" onClick={this.toggle} style={styles.toggleButton}>
-          {collapsed
-            ? <span>&#9656;</span>
-            : <span>&#9662;</span>
-          }
-        </a>
-
+        {childrenKeys.length !== 0 &&
+          <a href="#toggle" onClick={this.toggle} style={styles.toggleButton}>
+            {collapsed
+              ? <span>&#9656;</span>
+              : <span>&#9662;</span>
+            }
+          </a>
+        }
         <LabelLink
           path={currentPath}
           location={location}
           label={label}
-          style={styles.label}
         />
         {!collapsed &&
           <div>
@@ -88,8 +86,6 @@ export default class Key extends React.Component {
                 setPath={setPath}
                 isCollapsed={isCollapsed}
                 collapsed={isCollapsed(key, globalPath)}
-                style={createStyles(key.level)}
-                createStyles={createStyles}
                 label={key.label}
                 globalPath={globalPath}
                 path={currentPath}
@@ -108,15 +104,17 @@ export default class Key extends React.Component {
 const styles = {
   wrapper: {
     marginTop: '10px',
-    marginLeft: '20px',
-    textOverflow: 'ellipsis',
+    marginLeft: '10px',
+    paddingLeft: '20px',
     position: 'relative',
+    textOverflow: 'ellipsis',
   },
   toggleButton: {
     textDecoration: 'none',
     display: 'inline-block',
     padding: '0 0.5em',
     position: 'absolute',
-    top: 0,
+    left: 0,
+    top: '1px'
   },
 };

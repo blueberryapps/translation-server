@@ -10,10 +10,6 @@ import Key from './Key';
 import type { LocationWithQuery } from '../../types/locationTypes';
 import type { KeyNode } from '../../types/generalTypes';
 
-
-const createStyles = (level: number): Object => ({
-  marginLeft: level * 10
-});
 const preloader = <div>Preloading</div>;
 const waitFor = createWaitFor(preloader);
 const maxLevel = 10;
@@ -66,7 +62,6 @@ export default class HierarchyKeys extends React.PureComponent {
       <div>
         {hierarchy.map((key: KeyNode) => (
           <Key
-            createStyles={createStyles}
             dispatch={dispatch}
             key={key.label}
             setPath={setPath}

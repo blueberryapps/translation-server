@@ -1,12 +1,22 @@
 /* @flow */
 import Radium from 'radium';
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import Logo from '../components/Logo.react';
 import Menu from './menu/Menu.react';
 import Separator from '../components/Separator.react';
+import TextField from '../components/TextField.react';
 import { colors } from '../globals';
+import { filterProjects } from '../projects/actions';
 
+@connect(
+  state => ({
+    filterValue: state.projects.filterValue,
+  }),
+  dispatch => bindActionCreators({ filterProjects }, dispatch),
+)
 @Radium
 export default class Header extends React.PureComponent {
   static defaultProps = {
@@ -14,11 +24,17 @@ export default class Header extends React.PureComponent {
     userName: 'Admin'
   }
   props: {
-    userName: string
+    userName: string,
+    filterProjects: Function,
+    filterValue: string
+  }
+
+  handleChange = ({ value }) => {
+    this.props.filterProjects(value);
   }
 
   render() {
-    const { userName } = this.props;
+    const { userName, filterValue } = this.props;
 
     return (
       <header style={styles.header}>
@@ -30,6 +46,12 @@ export default class Header extends React.PureComponent {
           <Separator />
           <span style={styles.text}>Projects</span>
         </div>
+        <TextField
+          name="project-search"
+          onChange={this.handleChange}
+          placeholder="Search through projects"
+          value={filterValue}
+        />
         <Menu style={styles.menu} user={userName} />
       </header>
     );

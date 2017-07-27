@@ -1,6 +1,6 @@
 /* @flow-weak */
 import { Record, Map, List } from 'immutable';
-import { FETCH_PROJECTS_PENDING, FETCH_PROJECTS_FULFILLED } from './actions';
+import { FETCH_PROJECTS_PENDING, FETCH_PROJECTS_FULFILLED, FILTER_PROJECTS } from './actions';
 import type { Action } from '../types/generalTypes';
 import type { ProjectStateType } from '../types/storeTypes';
 
@@ -9,8 +9,9 @@ const InitialState = Record({
   pending: false,
   entities: new Map({
     locales: new Map(),
-    projects: new Map()
-  })
+    projects: new Map(),
+  }),
+  filterValue: '',
 });
 
 export default function reducer(state: ProjectStateType = new InitialState(), action: Action) {
@@ -24,6 +25,11 @@ export default function reducer(state: ProjectStateType = new InitialState(), ac
         .set('pending', true)
         .set('list', List(Object.values(projects)))
         .mergeIn(['entities'], entities);
+    }
+
+    case FILTER_PROJECTS: {
+      const { filterValue } = action.payload;
+      return state.set('filterValue', filterValue);
     }
 
     default:

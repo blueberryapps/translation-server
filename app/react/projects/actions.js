@@ -4,6 +4,7 @@ import type { Action } from '../types/generalTypes';
 
 export const FETCH_PROJECTS_PENDING = 'FETCH_PROJECTS_PENDING';
 export const FETCH_PROJECTS_FULFILLED = 'FETCH_PROJECTS_FULFILLED';
+export const FILTER_PROJECTS = 'FILTER_PROJECTS';
 
 export function fetchProjects(): Function {
   return ({ projectsInterface }): Action => ({
@@ -13,6 +14,15 @@ export function fetchProjects(): Function {
         error: 'Projects failed to fetch',
         schema: { projects: [projectSchema] }
       }),
+    },
+  });
+}
+
+export function filterProjects(filterValue: string): Function {
+  return ({
+    type: FILTER_PROJECTS,
+    payload: {
+      filterValue,
     },
   });
 }
