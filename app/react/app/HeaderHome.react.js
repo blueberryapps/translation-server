@@ -11,6 +11,8 @@ import TextField from '../components/TextField.react';
 import { colors } from '../globals';
 import { filterProjects } from '../projects/actions';
 
+import type { HandleEventPayload } from '../components/handleEvent';
+
 @connect(
   state => ({
     filterValue: state.projects.filterValue,
@@ -28,11 +30,11 @@ export default class Header extends React.PureComponent {
 
   props: {
     userName: string,
-    filterProjects?: Function,
-    filterValue:? string
+    filterProjects: Function,
+    filterValue: ?string
   }
 
-  handleChange = ({ value }: { value: string }): void => {
+  handleChange = ({ value }: HandleEventPayload): void => {
     this.props.filterProjects(value);
   }
 
