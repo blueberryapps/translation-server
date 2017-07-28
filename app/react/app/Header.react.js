@@ -15,8 +15,6 @@ import { setBreadcrumbPath } from '../hierarchy/actions';
 
 const { clearForm } = onionActions;
 
-const { clearForm } = onionActions;
-
 @connect(
   state => ({
     unsavedCount: state.forms.translations.unsavedCount,
