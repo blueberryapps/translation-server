@@ -28,8 +28,19 @@ type PropTypes = {
 
 const parseArray = (propValue: any, propKey: string) => {
   switch (propKey) {
-    case 'value':
-      return propValue && JSON.parse(propValue);
+    case 'value': {
+      let parsedValue = [];
+      try {
+        parsedValue = propValue && JSON.parse(propValue);
+      } catch (e) {
+        console.warn('Malformed array value!', propValue); // eslint-disable-line no-console
+        /**
+         * Fallback for invalid JSON data. User has ability to see value in first item of array.
+         */
+        parsedValue = [propValue];
+      }
+      return parsedValue;
+    }
     case 'onChange': return (value, fieldId) =>
       propValue(JSON.stringify(value), fieldId);
     case 'onSubmit': return (value, fieldId) =>
