@@ -1,12 +1,10 @@
 /* @flow */
-import fuzzy from 'fuzzy';
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import preload from 'redux-preload';
 import { Flex, Box } from 'radium-flex';
 import Project from './components/Project';
-import { getProjectsMerged } from '../../projects/selectors';
 import toJS from '../../utils/toJS';
 
 import * as actions from '../../projects/actions';
@@ -19,14 +17,11 @@ type PropTypes = {
 
 @preload(actions.fetchProjects)
 @connect(
-  ({ projects }) => {
-    const merged = getProjectsMerged(projects);
-    return {
-      filterValue: projects.filterValue,
-      list: projects.list,
-      fiteredProjects: fuzzy.filter(projects.filterValue, merged.toJS(), { extract: el => (el.name) })
-    };
-  },
+  ({ projects }) => ({
+    filterValue: projects.filterValue,
+    list: projects.list,
+    fiteredProjects: projects.fiteredProjects
+  }),
   dispatch => bindActionCreators(actions, dispatch),
 )
 @toJS
