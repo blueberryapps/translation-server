@@ -85,22 +85,26 @@ const styles = {
   user: {
     display: 'flex',
     alignItems: 'center',
-    fontSize: '19px'
+    fontSize: '19px',
+    cursor: 'pointer',
   },
   dropdownList: {
-    boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
+    boxShadow: '8px 8px 16px 8px rgba(0,0,0,0.2)',
     backgroundColor: colors.white,
     left: '-45px',
     listStyle: 'none',
-    paddingLeft: '0px',
+    padding: '0',
     position: 'absolute',
-    textAlign: 'center',
+    textAlign: 'left',
     top: '35px',
     zIndex: 20,
-    width: '140px'
+    minWidth: '140px'
   },
   dropdownElement: {
-    padding: '10px 0px',
+    padding: '1em 1.5em',
+    fontSize: '16px',
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
     ':hover': {
       backgroundColor: colors.lightGrey,
     }
