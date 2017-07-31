@@ -8,8 +8,9 @@ import { Searchbar } from './fields';
 import { searchValidations as validations } from '../configs/search/validations';
 
 type SearchProps = {
+  onChange: Function,
+  onClear: Function,
   search: string,
-  onChange: Function
 };
 
 @Radium
@@ -17,7 +18,7 @@ export default class Search extends React.PureComponent {
   props: SearchProps
 
   render() {
-    const { onChange, search } = this.props;
+    const { onChange, onClear, search } = this.props;
 
     return (
       <Form name="searchForm" validations={validations}>
@@ -27,6 +28,7 @@ export default class Search extends React.PureComponent {
             onChange={onChange}
             placeholder="Search through translations"
           />
+          <Icon color={colors.inputColor} kind="close" size={16} wrapperStyle={[styles.searchButton, styles.clear]} onClick={onClear} />
           <Icon color="white" kind="magnifier" size={16} wrapperStyle={styles.searchButton} />
         </div>
       </Form>
@@ -37,6 +39,7 @@ export default class Search extends React.PureComponent {
 const styles = {
   search: {
     display: 'flex',
+    position: 'relative',
     alignItems: 'center'
   },
   searchButton: {
@@ -47,5 +50,16 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.primary
-  }
+  },
+  clear: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    right: '40px',
+    opacity: .5,
+    top: 0,
+    transition: 'opacity .2s',
+    ':hover': {
+      opacity: 1,
+    }
+  },
 };

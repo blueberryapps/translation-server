@@ -1,5 +1,6 @@
 import Radium from 'radium';
 import React from 'react';
+import { actions as onionActions } from 'onion-form';
 import { connect } from 'react-redux';
 
 import Button from '../components/Button.react';
@@ -10,12 +11,15 @@ import Search from '../components/Search.react';
 import Separator from '../components/Separator.react';
 import { colors, media } from '../globals';
 import { saveAllFields } from '../forms/translations/actions';
+import { setBreadcrumbPath } from '../hierarchy/actions';
+
+const { clearForm } = onionActions;
 
 @connect(
   state => ({
     unsavedCount: state.forms.translations.unsavedCount,
   }),
-  { saveAllFields }
+  { saveAllFields, clearForm, setBreadcrumbPath }
 )
 @Radium
 export default class Header extends React.PureComponent {
@@ -35,6 +39,7 @@ export default class Header extends React.PureComponent {
   }
 
   props: {
+    clearForm: Function,
     currentLocaleCode: string,
     location: Location,
     menuShown: boolean,
@@ -42,6 +47,7 @@ export default class Header extends React.PureComponent {
     projectName: string,
     push: Function,
     saveAllFields: Function,
+    setBreadcrumbPath: Function,
     unsavedCount: number,
     userName: string,
   }
@@ -55,6 +61,12 @@ export default class Header extends React.PureComponent {
       ...this.props.location,
       query: { ...this.props.location.query, page: 1, search: value },
     });
+  };
+
+  handleSearchClear = () => {
+    this.props.clearForm('searchForm');
+    this.props.setBreadcrumbPath([]);
+    this.handleSearchChange({ value: '' });
   };
 
   handleDebounceSearch = (...arg) => {
@@ -89,7 +101,7 @@ export default class Header extends React.PureComponent {
           <Image src={`/react_assets/flags/${currentLocaleCode}.svg`} style={styles.image} />
           <span style={styles.text}>Translations</span>
         </div>
-        <Search onChange={this.handleDebounceSearch} search={location.query.search || ''} />
+        <Search onChange={this.handleDebounceSearch} onClear={this.handleSearchClear} search={location.query.search || ''} />
         <div style={styles.controls}>
           {(unsavedCount >= 1) &&
           <Button onClick={this.handleSaveAll} style={styles.saveAll.wrapper}>

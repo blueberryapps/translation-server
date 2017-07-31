@@ -9,6 +9,8 @@ const iconList = [
   'arrow',
   'arrow-left',
   'arrow-right',
+  'back',
+  'close',
   'edit',
   'key',
   'letter',
@@ -29,6 +31,8 @@ class Icon extends Component {
       'arrow',
       'arrow-left',
       'arrow-right',
+      'back',
+      'close',
       'edit',
       'key',
       'letter',
@@ -99,6 +103,8 @@ class Icon extends Component {
       case ('arrow'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 220 103"><path d="M110 103L0 0h220L110 103z"/></svg>);
       case ('arrow-left'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 44.8 81.1"><path d="M32.4 0l12.4 9.9-24.5 30.6 24.5 30.7-12.4 9.9L0 40.5z"/></svg>);
       case ('arrow-right'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 44.8 81.1"><path d="M44.8 40.5L12.4 81.1 0 71.2l24.5-30.7L0 9.9 12.4 0z"/></svg>);
+      case ('back'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 44.8 81.1"><path d="M32.4 0l12.4 9.9-24.5 30.6 24.5 30.7-12.4 9.9L0 40.5z"/></svg>);
+      case ('close'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 512 512"><path d="M448.864 399.824L305.04 256l143.823-143.824-49.04-49.041L256 206.959 112.176 63.135l-49.041 49.042L206.958 256 63.135 399.823l49.04 49.04L255.999 305.04l143.824 143.825z"/></svg>);
       case ('edit'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 355.8 355.8"><path d="M1.9 323c-5.1 11.9.4 25.7 12.3 30.8 5.9 2.5 12.6 2.5 18.5 0l85.9-36.3L38 236.9 1.9 323zM348.7 64.8L290.8 6.9c-9.2-9.2-24-9.2-33.2 0L59.3 204.7l91.3 91.6L348.9 98c9.2-9.2 9.2-24 0-33.2h-.2z"/></svg>);
       case ('key'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 407 402"><path d="M131.6.1c69.8 0 126.5 56.5 126.5 126.5 0 14.8-3 29.6-7.4 44.6L407 328v74h-74.5v-44.6h-44.6v-44.6h-44.6l-67.1-67.3c-13.3 4.4-28.1 7.4-44.4 7.4C62 255.8 3 201.6.1 131.8S51.4 3 121.2.1c3.5-.1 6.9-.1 10.4 0zM94.3 134c25.4 0 44.6-19.2 44.6-44.4 0-25.4-19.2-44.8-44.4-44.8-25.4 0-44.8 19.5-44.8 44.6 0 25.3 19.5 44.6 44.6 44.6z"/></svg>);
       case ('letter'): return (<svg height={height || size} width={width || size} onClick={onClick} style={style} fill={color} viewBox="0 0 13.4 13.3"><path d="M7.7 13.3v-.7c1.2-.2 1.3-.4 1-1.3-.3-.6-.6-1.4-.9-2.3H4c-.2.6-.5 1.3-.7 2.1-.3 1-.2 1.2 1.2 1.4v.7H0v-.7c1.3-.2 1.6-.4 2.2-2.1L6.3.3l1-.3c1.3 3.5 2.5 7 3.8 10.4.7 1.8.9 2 2.2 2.2v.7H7.7zM6 3.7C5.3 5.1 4.8 6.6 4.3 8h3.1L6 3.7z"/></svg>);
