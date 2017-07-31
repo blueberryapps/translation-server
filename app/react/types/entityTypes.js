@@ -15,8 +15,13 @@ export type ProjectEntityType = {
   name: string,
   locales: Array<LocaleEntityType>,
   defaultLocaleId: number,
-  apiToken: string
+  apiToken: string,
+  filterProjects: Function
 };
+
+export type FilteredProjectEntityType = {
+  original: ProjectEntityType
+}
 
 export type TranslationEntityType = {
   id: ID,

@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 const getMainEntity = state =>
   state.get('list').map(id => state.getIn(['entities', 'projects', `${id}`]));
 
+
 const getLocalesEntity = state =>
   state.getIn(['entities', 'locales']);
 

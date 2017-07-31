@@ -5,27 +5,40 @@ import { connect } from 'react-redux';
 import preload from 'redux-preload';
 import { Flex, Box } from 'radium-flex';
 import Project from './components/Project';
-import { getProjectsMerged } from '../../projects/selectors';
 import toJS from '../../utils/toJS';
 
 import * as actions from '../../projects/actions';
-import type { ProjectEntityType } from '../../types/entityTypes';
+import type { FilteredProjectEntityType } from '../../types/entityTypes';
+
+type PropTypes = {
+  fiteredProjects?: Array<FilteredProjectEntityType>,
+  filterValue?: string
+};
 
 @preload(actions.fetchProjects)
 @connect(
   ({ projects }) => ({
-    projects: getProjectsMerged(projects)
+    filterValue: projects.filterValue,
+    list: projects.list,
+    fiteredProjects: projects.fiteredProjects
   }),
   dispatch => bindActionCreators(actions, dispatch),
 )
 @toJS
-class Projects extends React.PureComponent {
-  props: {
-    projects: Array<ProjectEntityType>
+export default class Projects extends React.PureComponent {
+  static defaultProps = {
+    filterValue: '',
+    fiteredProjects: []
   }
 
+  props: PropTypes
+
   render() {
-    const { projects } = this.props;
+    const { fiteredProjects, filterValue } = this.props;
+
+    if (fiteredProjects && fiteredProjects.length === 0 && filterValue !== '') {
+      return <div>No projects found!</div>;
+    }
 
     return (
       <div>
@@ -34,8 +47,8 @@ class Projects extends React.PureComponent {
           <Box col={4} xs={6} ms={6} sm={3} md={2} lg={2}>Original</Box>
           <Box col={4} xs={0} ms={0} sm={6} md={6} lg={6}>Translations</Box>
         </Flex>
-        {projects.map(project =>
-          <Project key={project.id} {...project} />)
+        {fiteredProjects && fiteredProjects.map(({ original }) =>
+          <Project key={original.id} {...original} />)
         }
       </div>
     );
@@ -48,8 +61,3 @@ const styles = {
     fontWeight: 400
   }
 };
-
-export default connect(({ projects }) => ({
-  projects: getProjectsMerged(projects)
-}),
-dispatch => bindActionCreators(actions, dispatch))(Projects);

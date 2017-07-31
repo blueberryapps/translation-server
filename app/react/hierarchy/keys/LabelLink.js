@@ -69,8 +69,7 @@ const styles = {
     color: colors.primary,
     textDecoration: 'underline',
     display: 'inline-block',
-    fontSize: '16px',
-    marginLeft: '1.5em',
+    fontSize: '16px'
   }
 };
 
