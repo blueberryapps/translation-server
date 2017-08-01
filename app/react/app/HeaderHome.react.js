@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import Logo from '../components/Logo.react';
 import Menu from './menu/Menu.react';
 import Separator from '../components/Separator.react';
-import TextField from '../components/TextField.react';
+import Search from '../components/Search.react';
 import { colors } from '../globals';
 import { filterProjects } from '../projects/actions';
 
@@ -34,8 +34,12 @@ export default class Header extends React.PureComponent {
     filterValue: ?string
   }
 
+  handleClear = () => {
+    this.props.filterProjects('');
+  }
+
   handleChange = ({ value }: HandleEventPayload): void => {
-    this.props.filterProjects(value);
+    this.props.filterProjects(value || '');
   }
 
   render() {
@@ -51,12 +55,7 @@ export default class Header extends React.PureComponent {
           <Separator />
           <span style={styles.text}>Projects</span>
         </div>
-        <TextField
-          name="project-search"
-          onChange={this.handleChange}
-          placeholder="Search through projects"
-          value={filterValue}
-        />
+        <Search onChange={this.handleChange} onClear={this.handleClear} search={filterValue} noSearchButton />
         <Menu style={styles.menu} user={userName} />
       </header>
     );
@@ -103,5 +102,28 @@ const styles = {
   text: {
     fontSize: '22px',
     padding: '0 25px'
-  }
+  },
+  field: {
+    paddingRight: '40px'
+  },
+  fieldWrapper: {
+    position: 'relative'
+  },
+  clearButton: {
+    cursor: 'pointer',
+    height: '40px',
+    width: '40px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    right: 0,
+    opacity: .5,
+    top: 0,
+    transition: 'opacity .2s',
+    ':hover': {
+      opacity: 1,
+    }
+  },
 };

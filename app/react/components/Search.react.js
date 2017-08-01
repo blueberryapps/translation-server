@@ -10,7 +10,8 @@ import { searchValidations as validations } from '../configs/search/validations'
 type SearchProps = {
   onChange: Function,
   onClear: Function,
-  search: string,
+  noSearchButton: boolean,
+  search: string
 };
 
 @Radium
@@ -18,7 +19,7 @@ export default class Search extends React.PureComponent {
   props: SearchProps
 
   render() {
-    const { onChange, onClear, search } = this.props;
+    const { onChange, onClear, noSearchButton, search } = this.props;
 
     return (
       <Form name="searchForm" validations={validations}>
@@ -28,8 +29,14 @@ export default class Search extends React.PureComponent {
             onChange={onChange}
             placeholder="Search through translations"
           />
-          <Icon color={colors.inputColor} kind="close" size={16} wrapperStyle={[styles.searchButton, styles.clear]} onClick={onClear} />
-          <Icon color="white" kind="magnifier" size={16} wrapperStyle={styles.searchButton} />
+          <Icon
+            color={colors.inputColor}
+            kind="close"
+            size={16}
+            wrapperStyle={[styles.searchButton, styles.clear.base, noSearchButton && styles.clear.noSearchButton]}
+            onClick={onClear}
+          />
+          {!noSearchButton && <Icon color="white" kind="magnifier" size={16} wrapperStyle={styles.searchButton} />}
         </div>
       </Form>
     );
@@ -52,14 +59,19 @@ const styles = {
     backgroundColor: colors.primary
   },
   clear: {
-    backgroundColor: 'transparent',
-    position: 'absolute',
-    right: '40px',
-    opacity: .5,
-    top: 0,
-    transition: 'opacity .2s',
-    ':hover': {
-      opacity: 1,
+    base: {
+      backgroundColor: 'transparent',
+      position: 'absolute',
+      right: '40px',
+      opacity: .5,
+      top: 0,
+      transition: 'opacity .2s',
+      ':hover': {
+        opacity: 1,
+      }
+    },
+    noSearchButton: {
+      right: 0
     }
   },
 };
