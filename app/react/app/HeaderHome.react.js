@@ -34,7 +34,7 @@ export default class Header extends React.PureComponent {
     filterValue: ?string
   }
 
-  handleClear = () => {
+  handleClear = (): void => {
     this.props.filterProjects('');
   }
 
