@@ -28,11 +28,13 @@ export default class Header extends React.PureComponent {
     projectName: 'Dev Project',
     userName: 'Admin',
     filterProjects: () => {},
+    clearForm: () => {},
     filterValue: ''
   }
 
   props: {
     userName: string,
+    clearForm: Function,
     filterProjects: Function,
     filterValue: ?string
   }
