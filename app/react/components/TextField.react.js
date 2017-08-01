@@ -27,7 +27,7 @@ export default class TextField extends React.PureComponent {
 
   render() {
     const { name, placeholder, value, type, style, onChange, onBlur, onFocus } = this.props;
-
+    console.log('render');
     return (
       <input
         id={name}
