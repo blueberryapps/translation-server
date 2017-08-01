@@ -11,6 +11,7 @@ type SearchProps = {
   onChange: Function,
   onClear: Function,
   noSearchButton: boolean,
+  placeholder: String,
   search: string
 };
 
@@ -19,15 +20,15 @@ export default class Search extends React.PureComponent {
   props: SearchProps
 
   render() {
-    const { onChange, onClear, noSearchButton, search } = this.props;
+    const { onChange, onClear, noSearchButton, placeholder, search } = this.props;
 
     return (
       <Form name="searchForm" validations={validations}>
         <div style={styles.search}>
           <Searchbar
-            defaultValue={search}
+            value={search}
             onChange={onChange}
-            placeholder="Search through translations"
+            placeholder={placeholder}
           />
           <Icon
             color={colors.inputColor}

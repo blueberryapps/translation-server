@@ -1,7 +1,7 @@
 /* @flow */
 import Radium from 'radium';
 import React from 'react';
-import { bindActionCreators } from 'redux';
+import { actions as onionActions } from 'onion-form';
 import { connect } from 'react-redux';
 
 import Logo from '../components/Logo.react';
@@ -13,11 +13,14 @@ import { filterProjects } from '../projects/actions';
 
 import type { HandleEventPayload } from '../components/handleEvent';
 
+
+const { clearForm } = onionActions;
+
 @connect(
   state => ({
     filterValue: state.projects.filterValue,
   }),
-  dispatch => bindActionCreators({ filterProjects }, dispatch),
+  { filterProjects, clearForm }
 )
 @Radium
 export default class Header extends React.PureComponent {
@@ -35,6 +38,7 @@ export default class Header extends React.PureComponent {
   }
 
   handleClear = (): void => {
+    this.props.clearForm('searchForm');
     this.props.filterProjects('');
   }
 
@@ -55,7 +59,7 @@ export default class Header extends React.PureComponent {
           <Separator />
           <span style={styles.text}>Projects</span>
         </div>
-        <Search onChange={this.handleChange} onClear={this.handleClear} search={filterValue} noSearchButton />
+        <Search onChange={this.handleChange} onClear={this.handleClear} search={filterValue || ''} placeholder="Search through projects" noSearchButton />
         <Menu style={styles.menu} user={userName} />
       </header>
     );

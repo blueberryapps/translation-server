@@ -101,7 +101,7 @@ export default class Header extends React.PureComponent {
           <Image src={`/react_assets/flags/${currentLocaleCode}.svg`} style={styles.image} />
           <span style={styles.text}>Translations</span>
         </div>
-        <Search onChange={this.handleDebounceSearch} onClear={this.handleSearchClear} search={location.query.search || ''} />
+        <Search onChange={this.handleDebounceSearch} onClear={this.handleSearchClear} search={location.query.search || ''} placeholder="Search through translations" />
         <div style={styles.controls}>
           {(unsavedCount >= 1) &&
           <Button onClick={this.handleSaveAll} style={styles.saveAll.wrapper}>
