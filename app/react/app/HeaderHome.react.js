@@ -11,7 +11,7 @@ import { colors } from '../globals';
 export default class Header extends React.PureComponent {
   static defaultProps = {
     projectName: 'Dev Project',
-    userName: 'Admin'
+    userName: 'test'
   }
   props: {
     userName: string,
