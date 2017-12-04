@@ -9,6 +9,7 @@ RSpec.describe Locale, type: :model do
     context 'with valid name' do
       specify { expect(Locale.new(code: 'foo_bar').valid?).to eq(true) }
       specify { expect(Locale.new(code: 'foo_bar').valid?).to eq(true) }
+      specify { expect(Locale.new(code: 'foo-bar').valid?).to eq(true) }
       specify { expect(Locale.new(code: 'Foo_bar').valid?).to eq(true) }
       specify { expect(Locale.new(code: 'foo_bar1').valid?).to eq(true) }
     end

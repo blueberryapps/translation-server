@@ -13,7 +13,7 @@ class Locale < ActiveRecord::Base
 
   validates :code, uniqueness: { scope: :project_id },
                    length: { minimum: 1 },
-                   format: { with: /\A[a-zA-Z0-9_]+\z/ }
+                   format: { with: /\A[a-zA-Z0-9_-]+\z/ }
 
   scope :alphabetical, -> { order :code }
 
