@@ -12,7 +12,7 @@ gem 'bootstrap-wysihtml5-rails'
 gem 'coffee-rails'
 gem 'devise'
 gem 'dotenv-rails'
-gem 'envied'
+gem 'envied', '~> 0.9.3'
 gem 'flutie'
 gem 'font-awesome-rails'
 gem 'has_scope'
@@ -49,7 +49,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'hashie'
   gem 'rspec-rails', '>= 3.1'
 end

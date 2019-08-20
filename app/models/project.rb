@@ -7,7 +7,7 @@ class Project < ApplicationRecord
   has_many :releases, through: :locales
   has_many :images, through: :locations
 
-  has_one :default_locale, class: Locale
+  has_one :default_locale, class_name: 'Locale'
   has_and_belongs_to_many :users
 
   before_create :ensure_api_token

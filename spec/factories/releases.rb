@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :release do
     locale
-    yaml '---'
+    yaml { '---' }
   end
 end

@@ -3,7 +3,7 @@ module API
     class ChangesController < ApiController
       include ActionController::Live
 
-      skip_before_filter :authenticate
+      skip_before_action :authenticate
 
       def index
         return render_unauthorized unless (current_project = Project.find_by(api_token: params[:token]))

@@ -1,7 +1,7 @@
 module API
   module V1
     class TransferController < ApiController
-      skip_before_filter :authenticate
+      skip_before_action :authenticate
 
       def index
         return render_unauthorized unless (project = Project.find_by(api_token: params[:token]))

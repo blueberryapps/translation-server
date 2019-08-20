@@ -1,8 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :translation do
     key
     locale
-    text "translated text"
+    text { 'translated text' }
   end
-
 end

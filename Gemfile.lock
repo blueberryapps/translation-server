@@ -140,11 +140,11 @@ GEM
     erubi (1.8.0)
     eventmachine (1.0.9.1)
     execjs (2.7.0)
-    factory_girl (4.9.0)
-      activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
-      railties (>= 3.0.0)
+    factory_bot (5.0.2)
+      activesupport (>= 4.2.0)
+    factory_bot_rails (5.0.2)
+      factory_bot (~> 5.0.2)
+      railties (>= 4.2.0)
     ffi (1.11.1)
     flutie (2.1.0)
     font-awesome-rails (4.7.0.5)
@@ -468,8 +468,8 @@ DEPENDENCIES
   database_cleaner
   devise
   dotenv-rails
-  envied
-  factory_girl_rails
+  envied (~> 0.9.3)
+  factory_bot_rails
   flutie
   font-awesome-rails
   guard-rspec
