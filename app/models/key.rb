@@ -1,4 +1,4 @@
-class Key < ActiveRecord::Base
+class Key < ApplicationRecord
   include Resolvable
 
   DATA_TYPES = %w(string array integer float symbol boolean)

@@ -1,4 +1,4 @@
-class Highlight < ActiveRecord::Base
+class Highlight < ApplicationRecord
   include Resolvable
 
   belongs_to :image

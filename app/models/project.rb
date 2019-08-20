@@ -1,4 +1,4 @@
-class Project < ActiveRecord::Base
+class Project < ApplicationRecord
   has_many :locales, dependent: :destroy
   has_many :locations, dependent: :destroy
   has_many :keys, dependent: :destroy

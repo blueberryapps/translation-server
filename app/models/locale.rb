@@ -1,4 +1,4 @@
-class Locale < ActiveRecord::Base
+class Locale < ApplicationRecord
   include Resolvable
 
   default_scope { order(:code) }

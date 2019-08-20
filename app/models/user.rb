@@ -1,6 +1,6 @@
 require 'digest'
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   ROLES = %w(admin user)
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

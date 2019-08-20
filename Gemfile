@@ -5,6 +5,7 @@ ruby '2.6.1'
 gem 'active_model_serializers'
 gem 'airbrake'
 gem 'autoprefixer-rails'
+gem 'bootsnap', require: false
 gem 'bootstrap-kaminari-views'
 gem 'bootstrap-switch-rails'
 gem 'bootstrap-wysihtml5-rails'
