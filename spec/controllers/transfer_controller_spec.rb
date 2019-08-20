@@ -33,7 +33,7 @@ RSpec.describe TransferController, type: :controller do
     end
 
     action do
-      post :create, project_transfer: data
+      post :create, params: { project_transfer: data }
     end
 
     it 'returns redirects to transer root' do

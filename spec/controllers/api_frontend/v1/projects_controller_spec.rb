@@ -52,7 +52,7 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
   describe 'GET #show' do
     context 'existing project' do
       action do
-        get :show, id: project.to_param
+        get :show, params: { id: project.to_param }
       end
 
       it 'response 200' do
@@ -75,7 +75,7 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
 
     context 'non existing project' do
       action do
-        get :show, id: -1
+        get :show, params: { id: -1 }
       end
 
       it 'response 404' do
@@ -87,7 +87,7 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
   describe 'POST #create' do
     context 'valid response' do
       action do
-        post :create, project: valid_attributes
+        post :create, params: { project: valid_attributes }
       end
 
       it 'response 201' do
@@ -105,7 +105,7 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
 
     context 'invalid response' do
       action do
-        post :create, project: invalid_attributes
+        post :create, params: { project: invalid_attributes }
       end
 
       it 'response 400' do
@@ -125,7 +125,7 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
   describe 'PUT #update' do
     context 'valid response' do
       action do
-        put :update, id: project.to_param, project: { name: 'changed name' }
+        put :update, params: { id: project.to_param, project: { name: 'changed name' } }
       end
 
       it 'response 200' do
@@ -143,7 +143,7 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
 
     context 'invalid response' do
       action do
-        put :update, id: project.to_param, project: { name: '' }
+        put :update, params: { id: project.to_param, project: { name: '' } }
       end
 
       it 'response 400' do
@@ -163,7 +163,7 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
   describe 'DELETE #destroy' do
     context 'valid response' do
       action do
-        delete :destroy, id: project.to_param
+        delete :destroy, params: { id: project.to_param }
       end
 
       it 'response 200' do
@@ -173,7 +173,7 @@ RSpec.describe APIFrontend::V1::ProjectsController, type: :controller do
 
     context 'nonexisting project' do
       action do
-        delete :destroy, id: -1
+        delete :destroy, params: { id: -1 }
       end
 
       it 'response 404' do

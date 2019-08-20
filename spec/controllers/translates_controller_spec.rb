@@ -9,7 +9,7 @@ RSpec.describe TranslatesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns http success' do
-      get :index, project_id: project, locale_code: locale.code
+      get :index, params: { project_id: project, locale_code: locale.code }
       expect(response).to have_http_status(:success)
     end
   end

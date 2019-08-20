@@ -89,7 +89,7 @@ RSpec.describe API::V1::TranslationsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       action do
-        post :create, attributes
+        post :create, params: attributes
       end
 
       it 'rep' do
@@ -98,7 +98,7 @@ RSpec.describe API::V1::TranslationsController, type: :controller do
 
       it 'creates a new Translations', action: false do
         expect {
-          post :create, attributes
+          post :create, params: attributes
         }.to change(Translation, :count).by(3)
       end
 

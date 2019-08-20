@@ -21,7 +21,7 @@ module API
 
         describe 'GET /api/v1/translations' do
           action do
-            get '/api/v1/translations', {}, headers
+            get '/api/v1/translations', params: {}, headers: headers
           end
 
           it 'responds with Bad credentials' do
@@ -39,7 +39,7 @@ module API
         end
 
         action do
-          get '/api/v1/translations.json', {}, headers
+          get '/api/v1/translations.json', params: {}, headers: headers
         end
 
         it 'responds with success' do
@@ -58,7 +58,7 @@ module API
         end
 
         action do
-          get '/api/v1/translations.yaml', {}, headers
+          get '/api/v1/translations.yaml', params: {}, headers: headers
         end
 
         it 'responds with success' do
@@ -98,7 +98,7 @@ module API
         end
 
         action do
-          post '/api/v1/translations', attributes.to_json, headers
+          post '/api/v1/translations', params: attributes.to_json, headers: headers
         end
 
         it 'responds with success' do

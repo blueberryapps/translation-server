@@ -23,7 +23,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
   describe 'GET #index' do
     context 'without searching' do
       action do
-        get :index, project_id: project.id
+        get :index, params: { project_id: project.id }
       end
 
       it 'response 200' do
@@ -50,26 +50,26 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
 
     context 'with searching' do
       it 'responses with paginated keys' do
-        get :index, project_id: project.id, size: 1
+        get :index, params: { project_id: project.id, size: 1 }
 
         expect(api_response.fetch('keys').count).to eq(1)
       end
 
       it 'responses with default pagination' do
-        get :index, project_id: project.id
+        get :index, params: { project_id: project.id }
 
         expect(api_response.fetch('keys').count).to eq(2)
       end
 
       it 'responses with second page' do
-        get :index, project_id: project.id, size: 1, page: 2
+        get :index, params: { project_id: project.id, size: 1, page: 2 }
 
         expect(api_response.fetch('keys').count).to eq(1)
         expect(api_response.fetch('keys').first.fetch('key')).to eq(project.keys.last.key)
       end
 
       it 'response should have pagination in meta for first page' do
-        get :index, project_id: project.id, size: 1, page: 1
+        get :index, params: { project_id: project.id, size: 1, page: 1 }
         pagination = api_response.meta.pagination
 
         expect(pagination).to include(current_page: 1)
@@ -80,7 +80,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
       end
 
       it 'response should have pagination in meta for second page' do
-        get :index, project_id: project.id, size: 1, page: 2
+        get :index, params: { project_id: project.id, size: 1, page: 2 }
         pagination = api_response.meta.pagination
 
         expect(pagination).to include(current_page: 2)
@@ -100,7 +100,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
         end
 
         it 'responses with keys of one locale' do
-          get :index, project_id: project.id, locale_id: locale.id
+          get :index, params: { project_id: project.id, locale_id: locale.id }
 
           expect(api_response.fetch('keys').map(&:id))
             .to eq(locale.translations.map(&:key).map(&:id))
@@ -112,7 +112,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
   describe 'GET #hierarchy' do
     context 'existing locale' do
       action do
-        get :hierarchy, project_id: project.id
+        get :hierarchy, params: { project_id: project.id }
       end
 
       it 'response 200' do
@@ -132,7 +132,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
   describe 'GET #show' do
     context 'existing locale' do
       action do
-        get :show, id: key.to_param
+        get :show, params: { id: key.to_param }
       end
 
       it 'response 200' do
@@ -150,7 +150,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
 
     context 'non existing locale' do
       action do
-        get :show, id: -1
+        get :show, params: { id: -1 }
       end
 
       it 'response 404' do
@@ -162,7 +162,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
   describe 'POST #create' do
     context 'valid response' do
       action do
-        post :create, project_id: project.id, key: valid_attributes
+        post :create, params: { project_id: project.id, key: valid_attributes }
       end
 
       it 'response 201' do
@@ -180,7 +180,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
 
     context 'invalid response' do
       action do
-        post :create, project_id: project.id, key: invalid_attributes
+        post :create, params: { project_id: project.id, key: invalid_attributes }
       end
 
       it 'response 400' do
@@ -200,7 +200,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
   describe 'PUT #update' do
     context 'valid response' do
       action do
-        put :update, id: key.to_param, key: { key: 'changed' }
+        put :update, params: { id: key.to_param, key: { key: 'changed' } }
       end
 
       it 'response 200' do
@@ -218,7 +218,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
 
     context 'invalid response' do
       action do
-        put :update, id: key.to_param, key: { key: '' }
+        put :update, params: { id: key.to_param, key: { key: '' } }
       end
 
       it 'response 400' do
@@ -238,7 +238,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
   describe 'DELETE #destroy' do
     context 'valid response' do
       action do
-        delete :destroy, id: key.to_param
+        delete :destroy, params: { id: key.to_param }
       end
 
       it 'response 200' do
@@ -248,7 +248,7 @@ RSpec.describe APIFrontend::V1::KeysController, type: :controller do
 
     context 'nonexisting locale' do
       action do
-        delete :destroy, id: -1
+        delete :destroy, params: { id: -1 }
       end
 
       it 'response 404' do

@@ -14,13 +14,13 @@ module API
         end
 
         it 'responds with forbidden when ip is in range' do
-          post '/api/v1/translations', nil, headers
+          post '/api/v1/translations', headers: headers
 
           expect(response.status).to eq 403
         end
 
         it 'GET requests are not affected' do
-          get '/api/v1/translations', nil, headers
+          get '/api/v1/translations', headers: headers
 
           expect(response.status).to_not eq 403
         end
@@ -29,7 +29,7 @@ module API
           headers = {
             'Original-IP-Address' => '192.168.99.1'
           }
-          post '/api/v1/translations', nil, headers
+          post '/api/v1/translations', headers: headers
 
           expect(response.status).to_not eq 403
         end
@@ -37,13 +37,13 @@ module API
 
       context 'headers dont include Original-IP-Address' do
         it 'responds with forbidden when ip is in range' do
-          post '/api/v1/translations', nil, 'REMOTE_ADDR' => '192.168.0.1'
+          post '/api/v1/translations', headers: { 'REMOTE_ADDR' => '192.168.0.1' }
 
           expect(response.status).to eq 403
         end
 
         it 'doesnt respond with forbidden when ip isnt in range' do
-          post '/api/v1/translations', nil, 'REMOTE_ADDR' => '192.168.99.1'
+          post '/api/v1/translations', headers: { 'REMOTE_ADDR' => '192.168.99.1' }
 
           expect(response.status).to_not eq 403
         end

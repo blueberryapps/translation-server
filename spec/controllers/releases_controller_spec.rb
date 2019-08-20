@@ -11,7 +11,7 @@ RSpec.describe ReleasesController, type: :controller do
   describe "GET #index" do
     it "assigns all releases as @releases" do
       release = Release.create! valid_attributes
-      get :index, project_id: project
+      get :index, params: { project_id: project }
       expect(assigns(:releases)).to eq([release])
     end
   end
@@ -19,14 +19,14 @@ RSpec.describe ReleasesController, type: :controller do
   describe "GET #show" do
     it "assigns the requested release as @release" do
       release = Release.create! valid_attributes
-      get :show, id: release.to_param
+      get :show, params: { id: release.to_param }
       expect(assigns(:release)).to eq(release)
     end
   end
 
   describe "GET #new" do
     it "assigns a new release as @release" do
-      get :new, project_id: project
+      get :new, params: { project_id: project }
       expect(assigns(:release)).to be_a_new(Release)
     end
   end
@@ -35,18 +35,18 @@ RSpec.describe ReleasesController, type: :controller do
     context "with valid params" do
       it "creates a new Release" do
         expect {
-          post :create, project_id: project, release: valid_attributes
+          post :create, params: { project_id: project, release: valid_attributes }
         }.to change(Release, :count).by(1)
       end
 
       it "assigns a newly created release as @release" do
-        post :create, project_id: project, release: valid_attributes
+        post :create, params: { project_id: project, release: valid_attributes }
         expect(assigns(:release)).to be_a(Release)
         expect(assigns(:release)).to be_persisted
       end
 
       it "redirects to the created release" do
-        post :create, project_id: project, release: valid_attributes
+        post :create, params: { project_id: project, release: valid_attributes }
         expect(response).to redirect_to(Release.last)
       end
     end
@@ -56,13 +56,13 @@ RSpec.describe ReleasesController, type: :controller do
     it "destroys the requested release" do
       release = Release.create! valid_attributes
       expect {
-        delete :destroy, id: release.to_param
+        delete :destroy, params: { id: release.to_param }
       }.to change(Release, :count).by(-1)
     end
 
     it "redirects to the releases list" do
       release = Release.create! valid_attributes
-      delete :destroy, id: release.to_param
+      delete :destroy, params: { id: release.to_param }
       expect(response).to redirect_to([project, :releases])
     end
   end

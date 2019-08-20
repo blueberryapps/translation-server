@@ -11,7 +11,7 @@ RSpec.describe API::V1::ChangesController, type: :controller do
   describe 'GET #index' do
     context 'without authorization' do
       action do
-        get :index, token: 'INVALID'
+        get :index, params: { token: 'INVALID' }
       end
 
       it 'response 401' do
@@ -21,7 +21,7 @@ RSpec.describe API::V1::ChangesController, type: :controller do
 
     context 'with authorization' do
       action do
-        get :index, token: project.api_token
+        get :index, params: { token: project.api_token }
       end
 
       it 'response 200' do
