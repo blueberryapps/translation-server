@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.0'
+ruby '2.6.1'
 
 gem 'active_model_serializers'
 gem 'airbrake'
@@ -8,7 +8,7 @@ gem 'autoprefixer-rails'
 gem 'bootstrap-kaminari-views'
 gem 'bootstrap-switch-rails'
 gem 'bootstrap-wysihtml5-rails'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'envied'
@@ -19,10 +19,10 @@ gem 'highlight_js-rails'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'pg'
-gem 'puma'
+gem 'puma', '4.0.0'
 gem 'pundit'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 4.2.0'
+gem 'rails', '~> 5.2.3'
 gem 'redcarpet'
 gem 'responders'
 gem 'rest-client'
@@ -48,21 +48,23 @@ group :development do
 end
 
 group :development, :test do
-  gem 'hashie'
   gem 'factory_girl_rails'
+  gem 'hashie'
   gem 'rspec-rails', '>= 3.1'
 end
 
 group :staging, :production do
   gem 'newrelic_rpm', '>= 3.9.6'
-  gem 'rails_12factor' #for HEROKU
+  gem 'rails_12factor'
+  gem 'redis-rack-cache'
+  gem 'redis-rails'
 end
 
 group :test do
-  gem 'poltergeist', '>= 1.5.0'
   gem 'database_cleaner'
-  gem 'simplecov', '~> 0.9.1', require: false
+  gem 'poltergeist', '>= 1.5.0'
   gem 'shoulda-matchers', require: false
+  gem 'simplecov', '~> 0.9.1', require: false
   gem 'webmock'
 end
 
