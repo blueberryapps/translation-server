@@ -8,9 +8,6 @@ module ResponseHelpers
   end
 end
 
-# TODO FIX
-# [ActionController::TestResponse, ActionDispatch::TestResponse].each do |res|
-
 [ActionDispatch::TestResponse].each do |res|
   res.send(:include, ResponseHelpers)
 end

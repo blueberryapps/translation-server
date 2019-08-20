@@ -13,7 +13,7 @@ RSpec.describe HighlightsController, type: :controller do
                    locale_id: locale.id
   end
 
-  let(:invalid_attributes) { valid_attributes.merge('image_id' => nil) }
+  let(:invalid_attributes) { valid_attributes.merge(image_id: nil) }
 
   let(:user)    { create(:user, :with_project) }
   let(:project) { user.projects.first }

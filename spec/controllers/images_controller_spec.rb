@@ -8,7 +8,7 @@ RSpec.describe ImagesController, type: :controller do
     attributes_for :image, location_id: location.id
   end
 
-  let(:invalid_attributes) { valid_attributes.merge('name' => nil) }
+  let(:invalid_attributes) { valid_attributes.merge(name: nil) }
 
   let(:user)    { create(:user, :with_project) }
   let(:project) { user.projects.first }

@@ -9,7 +9,7 @@ RSpec.describe TranslationsController, type: :controller do
     attributes_for :translation, locale_id: locale.id, key_id: key.id
   end
 
-  let(:invalid_attributes) { valid_attributes.merge('key_id' => nil) }
+  let(:invalid_attributes) { valid_attributes.merge(key_id: nil) }
 
   let(:user)    { create(:user, :with_project) }
   let(:project) { user.projects.first }
@@ -132,5 +132,4 @@ RSpec.describe TranslationsController, type: :controller do
       expect(response).to redirect_to([project, :translations])
     end
   end
-
 end

@@ -118,7 +118,7 @@ module API
 
       describe 'HEAD /api/v1/releases' do
         it 'returns Etag' do
-          head '/api/v1/releases', {}, headers
+          head '/api/v1/releases', params: {}, headers: headers
           expect(response.status).to eq(200)
           expect(response.headers['ETag']).not_to eq(nil)
         end
@@ -126,7 +126,7 @@ module API
 
       describe 'HEAD /api/v1/releases/:version' do
         it 'returns valid yaml version 1' do
-          head "/api/v1/releases/#{@release1.version}", {}, headers
+          head "/api/v1/releases/#{@release1.version}", params: {}, headers: headers
           expect(response.status).to eq(200)
           expect(response.headers['ETag']).not_to eq(nil)
         end

@@ -31,7 +31,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.render_views
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
 end
 
 Capybara.javascript_driver = :poltergeist

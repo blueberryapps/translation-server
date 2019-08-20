@@ -66,7 +66,7 @@ class TranslationsController < BaseProjectController
 
   # Only allow a trusted parameter "white list" through.
   def new_translation_params
-    params.permit(:key_id, :locale_id)
+    params.except(:project_id).permit(:key_id, :locale_id)
   end
 
   # Only allow a trusted parameter "white list" through.

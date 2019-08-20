@@ -64,12 +64,13 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'poltergeist', '>= 1.5.0'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers', require: false
-  gem 'simplecov', '~> 0.9.1', require: false
+  gem 'simplecov', require: false
   gem 'webmock'
 end
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-sass'
-  gem 'rails-assets-jcrop',  '0.9.12'
+  gem 'rails-assets-jcrop','0.9.12'
 end
