@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Locale, type: :model do
-  it { should belong_to :project }
-  it { should have_many :translations }
-  it { should have_many :releases }
+  it { is_expected.to belong_to :project }
+  it { is_expected.to have_many :translations }
+  it { is_expected.to have_many :releases }
 
   describe '#valid?' do
     context 'with valid name' do

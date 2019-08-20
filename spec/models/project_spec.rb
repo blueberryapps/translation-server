@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  it { should have_many :locales }
-  it { should have_one  :default_locale }
-  it { should have_many :keys }
-  it { should have_many :locations }
-  it { should have_many :translations }
-  it { should have_many :releases }
-  it { should have_many :highlights }
-  it { should have_many :images }
-  it { should have_and_belong_to_many :users }
-  it { should validate_uniqueness_of :api_token }
-  it { should validate_uniqueness_of :name }
-  it { should validate_length_of(:name).is_at_least(3) }
+  it { is_expected.to have_many :locales }
+  it { is_expected.to have_one  :default_locale }
+  it { is_expected.to have_many :keys }
+  it { is_expected.to have_many :locations }
+  it { is_expected.to have_many :translations }
+  it { is_expected.to have_many :releases }
+  it { is_expected.to have_many :highlights }
+  it { is_expected.to have_many :images }
+  it { is_expected.to have_and_belong_to_many :users }
+  it { is_expected.to validate_uniqueness_of :api_token }
+  it { is_expected.to validate_uniqueness_of :name }
+  it { is_expected.to validate_length_of(:name).is_at_least(3) }
 
   describe '#api_token' do
     it 'should be nil when not created' do

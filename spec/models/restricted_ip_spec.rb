@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe RestrictedIp, type: :model do
-  it { should belong_to :user }
+  it { is_expected.to belong_to :user }
 
   describe '#cidr_prefix' do
     subject do

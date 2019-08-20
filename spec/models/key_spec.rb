@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Key, type: :model do
-  it { should belong_to :project }
-  it { should have_many :translations }
-  it { should have_many :highlights }
+  it { is_expected.to belong_to :project }
+  it { is_expected.to have_many :translations }
+  it { is_expected.to have_many :highlights }
 
   let(:key) { Key.new key: 'super.key' }
 
