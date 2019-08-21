@@ -21,7 +21,7 @@ RSpec.configure do |config|
 
       while example_group
         example_groups << example_group
-        example_group = example_group[:example_group]
+        example_group = example_group[:parent_example_group]
       end
 
       action = example_groups[0..-2].map{ |e| e[:description_args].first }.reverse.join(' ')
