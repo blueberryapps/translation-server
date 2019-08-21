@@ -1,4 +1,4 @@
-class Project < ActiveRecord::Base
+class Project < ApplicationRecord
   has_many :locales, dependent: :destroy
   has_many :locations, dependent: :destroy
   has_many :keys, dependent: :destroy
@@ -7,7 +7,7 @@ class Project < ActiveRecord::Base
   has_many :releases, through: :locales
   has_many :images, through: :locations
 
-  has_one :default_locale, class: Locale
+  has_one :default_locale, class_name: 'Locale'
   has_and_belongs_to_many :users
 
   before_create :ensure_api_token

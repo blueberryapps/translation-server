@@ -39,7 +39,7 @@ module API
 
         it 'responds with success' do
           expect {
-            post '/api/v1/images', attributes.to_json, headers
+            post '/api/v1/images', params: attributes.to_json, headers: headers
           }.to change(Image, :count).by(1)
 
           expect(response.status).to eq 200

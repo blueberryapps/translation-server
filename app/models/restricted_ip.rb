@@ -1,4 +1,4 @@
-class RestrictedIp < ActiveRecord::Base
+class RestrictedIp < ApplicationRecord
   belongs_to :user
 
   validates_presence_of :ip

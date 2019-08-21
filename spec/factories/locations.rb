@@ -1,7 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :location do
     project
     sequence(:path) { |n| "super/path/#{n}" }
   end
-
 end

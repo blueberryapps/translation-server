@@ -1,22 +1,28 @@
+services:
+  - postgresql
+
 before_install:
   - echo '--colour' > ~/.rspec
   - 'echo ''gem: --no-document'' > ~/.gemrc'
-  - export DISPLAY=:99.0
-  - export DATABASE_URL=postgres://localhost/translation_server_test
-  - sh -e /etc/init.d/xvfb start
+
 before_script:
-  - psql -c 'create database "translation_server_test";' -U postgres
-branches:
-  only:
-  - master
+  - psql -c 'CREATE DATABASE translation_server_test;' -U postgres
+  - bin/setup
+
 cache:
   - bundler
+
 language:
   - ruby
+
 notifications:
   email:
     - false
 rvm:
-  - 2.2.0
-addons:
-  postgresql: '9.3'
+  - 2.6.1
+
+script:
+  - bundle exec rspec
+
+env:
+  - RAILS_ENV=test

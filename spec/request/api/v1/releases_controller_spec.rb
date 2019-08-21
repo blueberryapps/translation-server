@@ -36,7 +36,7 @@ module API
 
       describe 'GET /api/v1/releases' do
         action do
-          get '/api/v1/releases', {}, headers
+          get '/api/v1/releases', params: {}, headers: headers
         end
 
         it 'returns 200 status code' do
@@ -51,7 +51,7 @@ module API
       describe "GET /api/v1/releases/:version.json" do
         context 'version 1' do
           it 'returns valid json version 1' do
-            get "/api/v1/releases/#{@release1.version}.json", {}, headers
+            get "/api/v1/releases/#{@release1.version}.json", params: {}, headers: headers
             expect(response.status).to eq(200)
             expect(response.json.cs.foo.bar).to eq('Super')
             expect(response.json.cs.bar.foo).to eq('Translation')
@@ -60,7 +60,7 @@ module API
 
         context 'version 2' do
           it 'returns valid json for version 2', action: false do
-            get "/api/v1/releases/#{@release2.version}.json", {}, headers
+            get "/api/v1/releases/#{@release2.version}.json", params: {}, headers: headers
             expect(response.status).to eq(200)
             expect(response.json.cs.foo.bar).to eq('Released2')
             expect(response.json.cs.bar.foo).to eq('Translation')
@@ -69,7 +69,7 @@ module API
 
         context 'dirrefent locales in one release' do
           it 'returns valid json for version 2', action: false do
-            get "/api/v1/releases/#{@release2.version},#{@release_en.version}.json", {}, headers
+            get "/api/v1/releases/#{@release2.version},#{@release_en.version}.json", params: {}, headers: headers
             expect(response.status).to eq(200)
             expect(response.json.cs.foo.bar).to eq('Released2')
             expect(response.json.cs.bar.foo).to eq('Translation')
@@ -79,7 +79,7 @@ module API
 
         context 'latest release for locale' do
           it 'returns valid json for version 2', action: false do
-            get "/api/v1/releases/#{@release2_en.locale.code}_latest", {}, headers
+            get "/api/v1/releases/#{@release2_en.locale.code}_latest", params: {}, headers: headers
             expect(response.status).to eq(200)
             expect(response.json.en.foo.bar).to eq('Latest release')
           end
@@ -89,7 +89,7 @@ module API
       describe "GET /api/v1/releases/:version.yaml" do
         context 'version 1' do
           it 'returns valid yaml version 1' do
-            get "/api/v1/releases/#{@release1.version}.yaml", {}, headers
+            get "/api/v1/releases/#{@release1.version}.yaml", params: {}, headers: headers
             expect(response.status).to eq(200)
             expect(response.yaml.cs.foo.bar).to eq('Super')
             expect(response.yaml.cs.bar.foo).to eq('Translation')
@@ -98,7 +98,7 @@ module API
 
         context 'version 2' do
           it 'returns valid yaml for version 2', action: false do
-            get "/api/v1/releases/#{@release2.version}.yaml", {}, headers
+            get "/api/v1/releases/#{@release2.version}.yaml", params: {}, headers: headers
             expect(response.status).to eq(200)
             expect(response.yaml.cs.foo.bar).to eq('Released2')
             expect(response.yaml.cs.bar.foo).to eq('Translation')
@@ -107,7 +107,7 @@ module API
 
         context 'dirrefent locales in one release' do
           it 'returns valid yaml for version 2', action: false do
-            get "/api/v1/releases/#{@release2.version},#{@release_en.version}.yaml", {}, headers
+            get "/api/v1/releases/#{@release2.version},#{@release_en.version}.yaml", params: {}, headers: headers
             expect(response.status).to eq(200)
             expect(response.yaml.cs.foo.bar).to eq('Released2')
             expect(response.yaml.cs.bar.foo).to eq('Translation')
@@ -118,7 +118,7 @@ module API
 
       describe 'HEAD /api/v1/releases' do
         it 'returns Etag' do
-          head '/api/v1/releases', {}, headers
+          head '/api/v1/releases', params: {}, headers: headers
           expect(response.status).to eq(200)
           expect(response.headers['ETag']).not_to eq(nil)
         end
@@ -126,7 +126,7 @@ module API
 
       describe 'HEAD /api/v1/releases/:version' do
         it 'returns valid yaml version 1' do
-          head "/api/v1/releases/#{@release1.version}", {}, headers
+          head "/api/v1/releases/#{@release1.version}", params: {}, headers: headers
           expect(response.status).to eq(200)
           expect(response.headers['ETag']).not_to eq(nil)
         end

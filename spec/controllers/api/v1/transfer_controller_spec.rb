@@ -18,7 +18,7 @@ RSpec.describe API::V1::TransferController, type: :controller do
   describe 'GET #index' do
     context 'without authorization' do
       action do
-        get :index, token: 'INVALID', locale_codes: locale_codes
+        get :index, params: { token: 'INVALID', locale_codes: locale_codes }
       end
 
       it 'response 401' do
@@ -28,7 +28,7 @@ RSpec.describe API::V1::TransferController, type: :controller do
 
     context 'with authorization' do
       action do
-        get :index, token: project.api_token, locale_codes: locale_codes
+        get :index, params: { token: project.api_token, locale_codes: locale_codes }
       end
 
       it 'response 200' do

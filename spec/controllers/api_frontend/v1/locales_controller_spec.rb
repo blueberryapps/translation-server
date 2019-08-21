@@ -21,7 +21,7 @@ RSpec.describe APIFrontend::V1::LocalesController, type: :controller do
 
   describe 'GET #index' do
     action do
-      get :index, project_id: project.id
+      get :index, params: { project_id: project.id }
     end
 
     it 'response 200' do
@@ -52,7 +52,7 @@ RSpec.describe APIFrontend::V1::LocalesController, type: :controller do
   describe 'GET #show' do
     context 'existing locale' do
       action do
-        get :show, id: locale.to_param
+        get :show, params: { id: locale.to_param }
       end
 
       it 'response 200' do
@@ -70,7 +70,7 @@ RSpec.describe APIFrontend::V1::LocalesController, type: :controller do
 
     context 'non existing locale' do
       action do
-        get :show, id: -1
+        get :show, params: { id: -1 }
       end
 
       it 'response 404' do
@@ -82,7 +82,7 @@ RSpec.describe APIFrontend::V1::LocalesController, type: :controller do
   describe 'POST #create' do
     context 'valid response' do
       action do
-        post :create, project_id: project.id, locale: valid_attributes
+        post :create, params: { project_id: project.id, locale: valid_attributes }
       end
 
       it 'response 201' do
@@ -100,7 +100,7 @@ RSpec.describe APIFrontend::V1::LocalesController, type: :controller do
 
     context 'invalid response' do
       action do
-        post :create, project_id: project.id, locale: invalid_attributes
+        post :create, params: { project_id: project.id, locale: invalid_attributes }
       end
 
       it 'response 400' do
@@ -120,7 +120,7 @@ RSpec.describe APIFrontend::V1::LocalesController, type: :controller do
   describe 'PUT #update' do
     context 'valid response' do
       action do
-        put :update, id: locale.to_param, locale: { code: 'changed' }
+        put :update, params: { id: locale.to_param, locale: { code: 'changed' } }
       end
 
       it 'response 200' do
@@ -138,7 +138,7 @@ RSpec.describe APIFrontend::V1::LocalesController, type: :controller do
 
     context 'invalid response' do
       action do
-        put :update, id: locale.to_param, locale: { code: '' }
+        put :update, params: { id: locale.to_param, locale: { code: '' } }
       end
 
       it 'response 400' do
@@ -158,7 +158,7 @@ RSpec.describe APIFrontend::V1::LocalesController, type: :controller do
   describe 'DELETE #destroy' do
     context 'valid response' do
       action do
-        delete :destroy, id: locale.to_param
+        delete :destroy, params: { id: locale.to_param }
       end
 
       it 'response 200' do
@@ -168,7 +168,7 @@ RSpec.describe APIFrontend::V1::LocalesController, type: :controller do
 
     context 'nonexisting locale' do
       action do
-        delete :destroy, id: -1
+        delete :destroy, params: { id: -1 }
       end
 
       it 'response 404' do

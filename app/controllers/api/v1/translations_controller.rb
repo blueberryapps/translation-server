@@ -13,7 +13,7 @@ module API
 
         if translation_cache = TranslationCache.find_cache(kind: cache_key, etag: index_etag)
           response.headers['CustomCache'] = index_etag.to_json
-          render status: 200, text: translation_cache.cache
+          render status: 200, plain: translation_cache.cache
         else
           @output = Translation.dump_hash current_project.translations.include_dependencies
 

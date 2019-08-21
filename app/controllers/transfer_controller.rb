@@ -7,7 +7,7 @@ class TransferController < AuthController
   end
 
   def create
-    @transfer = ProjectTransfer.new(params[:project_transfer])
+    @transfer = ProjectTransfer.new(params.to_unsafe_h[:project_transfer])
 
     if @transfer.valid? && @transfer.execute
       redirect_to [:transfer], flash: { notice: "Transfered #{@transfer.locales} to #{@transfer.project_name}" }

@@ -6,7 +6,7 @@ class ImportsController < BaseProjectController
 
   def create
     @import = ImportForm.new(
-      params[:import_form].merge(
+      params.to_unsafe_h[:import_form].merge(
         available_locales: current_project.locales.map(&:code),
         project: current_project
       )

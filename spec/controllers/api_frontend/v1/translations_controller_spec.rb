@@ -28,7 +28,7 @@ RSpec.describe APIFrontend::V1::TranslationsController, type: :controller do
   describe 'GET #show' do
     context 'existing translation' do
       action do
-        get :show, id: translation.to_param
+        get :show, params: { id: translation.to_param }
       end
 
       it 'response 200' do
@@ -50,7 +50,7 @@ RSpec.describe APIFrontend::V1::TranslationsController, type: :controller do
 
     context 'non existing translation' do
       action do
-        get :show, id: -1
+        get :show, params: { id: -1 }
       end
 
       it 'response 404' do
@@ -62,7 +62,7 @@ RSpec.describe APIFrontend::V1::TranslationsController, type: :controller do
   describe 'PUT #update' do
     context 'valid response' do
       action do
-        put :update, id: translation.to_param, translation: { text: 'changed text' }
+        put :update, params: { id: translation.to_param, translation: { text: 'changed text' } }
       end
 
       it 'response 200' do
@@ -82,7 +82,7 @@ RSpec.describe APIFrontend::V1::TranslationsController, type: :controller do
   describe 'DELETE #destroy' do
     context 'valid response' do
       action do
-        delete :destroy, id: translation.to_param
+        delete :destroy, params: { id: translation.to_param }
       end
 
       it 'response 200' do
@@ -92,7 +92,7 @@ RSpec.describe APIFrontend::V1::TranslationsController, type: :controller do
 
     context 'nonexisting translation' do
       action do
-        delete :destroy, id: -1
+        delete :destroy, params: { id: -1 }
       end
 
       it 'response 404' do

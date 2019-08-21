@@ -1,6 +1,6 @@
 require 'base64'
 
-class Image < ActiveRecord::Base
+class Image < ApplicationRecord
   include Resolvable
 
   include ActionView::Helpers::TagHelper

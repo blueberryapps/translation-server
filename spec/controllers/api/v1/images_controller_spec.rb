@@ -33,7 +33,7 @@ RSpec.describe API::V1::ImagesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       action do
-        post :create, attributes
+        post :create, params: attributes
       end
 
       it 'rep' do
@@ -42,7 +42,7 @@ RSpec.describe API::V1::ImagesController, type: :controller do
 
       it 'creates a new Image', action: false do
         expect {
-          post :create, attributes
+          post :create, params: attributes
         }.to change(Image, :count).by(1)
       end
 

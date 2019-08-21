@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Release, type: :model do
-  it { should belong_to :locale }
-  it { should have_one :project }
+  it { is_expected.to belong_to :locale }
+  it { is_expected.to have_one :project }
   let(:locale) { Locale.resolve code: 'cs' }
   let(:key)    { Key.resolve key: 'foo.bar' }
 
@@ -10,7 +10,7 @@ RSpec.describe Release, type: :model do
     Translation.resolve({ locale: locale, key: key }, { text: 'foo' }).save
   end
 
-  it { should belong_to :locale }
+  it { is_expected.to belong_to :locale }
 
   describe '#version' do
     let(:release) { Release.create(locale: locale) }

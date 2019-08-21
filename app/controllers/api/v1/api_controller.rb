@@ -3,7 +3,7 @@ module API
     class ApiController < ActionController::Base
 
       before_action :block_restricted_ips, only: :create
-      before_filter :authenticate
+      before_action :authenticate
 
       respond_to :json, :yaml
 

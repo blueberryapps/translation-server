@@ -1,4 +1,4 @@
-class Release < ActiveRecord::Base
+class Release < ApplicationRecord
   LATEST_VERSION = /_latest$/
   belongs_to :locale
   has_one :project, through: :locale

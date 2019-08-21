@@ -7,14 +7,14 @@ RSpec.describe ImportsController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do
-      get :index, project_id: project
+      get :index, params: { project_id: project }
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "POST #create" do
     it "returns http success" do
-      post :create, project_id: project, import_form: {text: "cs:\n  hi: hello\n"}
+      post :create, params: {project_id: project, import_form: {text: "cs:\n  hi: hello\n"}}
       expect(response).to have_http_status(:success)
       expect(assigns[:import].error)
         .to eq("ImportForm::ImportError User hasn't got permission to manage this locale.")

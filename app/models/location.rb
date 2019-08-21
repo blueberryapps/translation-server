@@ -1,4 +1,4 @@
-class Location < ActiveRecord::Base
+class Location < ApplicationRecord
   include Resolvable
 
   has_many :images, dependent: :destroy

@@ -1,6 +1,6 @@
 require 'digest'
 
-class TranslationCache < ActiveRecord::Base
+class TranslationCache < ApplicationRecord
 
   def self.find_cache(kind:, etag:)
     find_by(kind: kind, etag: build_etag(etag))

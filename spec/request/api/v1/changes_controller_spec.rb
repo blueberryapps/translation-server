@@ -12,7 +12,7 @@ module API
         end
 
         action do
-          get '/api/v1/changes', { token: project.api_token }, {}
+          get '/api/v1/changes', params: {token: project.api_token}, headers: {}
         end
 
         it 'returns stream of events' do
