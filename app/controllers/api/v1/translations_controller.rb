@@ -9,9 +9,14 @@ module API
 
       def index
         return unless stale? etag: index_etag
+
         cache_key = "#{current_project.id}-#{params[:format]}"
 
-        if translation_cache = TranslationCache.find_cache(kind: cache_key, etag: index_etag)
+        translation_cache = Rails.cache.fetch("#{cache_key}/#{index_etag}", expires_in: 24.hours) do
+          TranslationCache.find_cache(kind: cache_key, etag: index_etag)
+        end
+
+        if translation_cache
           response.headers['CustomCache'] = index_etag.to_json
           render status: 200, plain: translation_cache.cache
         else

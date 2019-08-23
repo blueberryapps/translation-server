@@ -50,20 +50,23 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :warn
+  config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  config.cache_store = :redis_store if ENV['REDIS_URL']
+  if ENV['REDIS_URL']
+    config.cache_store = :redis_store
 
-  config.action_dispatch.rack_cache = {
-    metastore: "#{ENV['REDIS_URL']}/1/rack_cache_metastore",
-    entitystore: "#{ENV['REDIS_URL']}/1/rack_cache_entitystore"
-  }
+    config.action_dispatch.rack_cache = {
+      verbose:     true,
+      metastore:   "#{ENV['REDIS_URL']}/1/rack_cache_metastore",
+      entitystore: "#{ENV['REDIS_URL']}/1/rack_cache_entitystore"
+    }
+  end
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
