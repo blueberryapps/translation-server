@@ -1,4 +1,0 @@
-# A sample Envfile
-enable_defaults! { ENV['RACK_ENV'] != 'production' }
-
-variable :YANDEX_KEY, :string, default: ''

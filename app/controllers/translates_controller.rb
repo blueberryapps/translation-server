@@ -57,6 +57,6 @@ class TranslatesController < BaseProjectController
   end
 
   def translator
-    @translator ||= Yandex::Translator.new(ENVied.YANDEX_KEY)
+    @translator ||= Yandex::Translator.new(ENV['YANDEX_KEY'])
   end
 end
