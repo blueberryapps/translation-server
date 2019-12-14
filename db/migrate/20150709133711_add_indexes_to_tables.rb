@@ -1,4 +1,4 @@
-class AddIndexesToTables < ActiveRecord::Migration
+class AddIndexesToTables < ActiveRecord::Migration[4.2]
   def change
     add_index :locales, :code
     add_index :locations, :path

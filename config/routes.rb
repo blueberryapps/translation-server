@@ -1,4 +1,10 @@
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+
 Rails.application.routes.draw do
+  authenticate :user, lambda { |user| user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   resources :projects do
     resources :releases, except: [:edit, :update], shallow: true

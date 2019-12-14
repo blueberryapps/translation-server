@@ -9,9 +9,18 @@ module API
       let(:key)       { create :key, key: 'foo.bar', project: project }
       let(:array_key) { create :key, key: 'bar', data_type: 'array', project: project }
 
-
       let(:headers) do
         { 'HTTP_AUTHORIZATION' => "Token token=#{project.api_token}" }
+      end
+
+      let!(:translations) do
+        create :translation, locale: cs, key: key, text: 'cs translated text'
+        create :translation, locale: en, key: key, text: 'en translated text'
+        create :translation, locale: en, key: array_key, text: "- A \n- B"
+      end
+
+      before do
+        project.cache_translations!
       end
 
       context 'not authorized' do
@@ -32,12 +41,6 @@ module API
       end
 
       describe 'GET /api/v1/translations.json' do
-        let!(:translations) do
-          create :translation, locale: cs, key: key, text: 'cs translated text'
-          create :translation, locale: en, key: key, text: 'en translated text'
-          create :translation, locale: en, key: array_key, text: "- A \n- B"
-        end
-
         action do
           get '/api/v1/translations.json', params: {}, headers: headers
         end
@@ -51,12 +54,6 @@ module API
       end
 
       describe 'GET /api/v1/translations.yaml' do
-        let!(:translations) do
-          create :translation, locale: cs, key: key, text: 'cs translated text'
-          create :translation, locale: en, key: key, text: 'en translated text'
-          create :translation, locale: en, key: array_key, text: "- A \n- B"
-        end
-
         action do
           get '/api/v1/translations.yaml', params: {}, headers: headers
         end

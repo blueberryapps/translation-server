@@ -1,4 +1,4 @@
-class CreateDefaultProject < ActiveRecord::Migration
+class CreateDefaultProject < ActiveRecord::Migration[4.2]
   def up
     unless Project.where(id: 1).first
       Key.update_all(project_id: 1)

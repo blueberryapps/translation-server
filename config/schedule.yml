@@ -1,0 +1,4 @@
+cache_translations:
+  active_job: true
+  cron: '* * * * *'
+  class: 'Scheduled::CacheTranslations'
