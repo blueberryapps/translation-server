@@ -21,6 +21,10 @@ RSpec.describe API::V1::TranslationsController, type: :controller do
   end
 
   describe 'GET #index' do
+    before do
+      project.cache_translations!
+    end
+
     action do
       get :index, format: format
     end
@@ -36,10 +40,6 @@ RSpec.describe API::V1::TranslationsController, type: :controller do
         expect(response.content_type).to eq('application/json')
       end
 
-      it 'response headers does not contain CustomCache' do
-        expect(response.headers).not_to have_key('CustomCache')
-      end
-
       context 'with cache' do
         before do
           get :index, format: format
@@ -51,10 +51,6 @@ RSpec.describe API::V1::TranslationsController, type: :controller do
 
         it 'response content type' do
           expect(response.content_type).to eq('application/json')
-        end
-
-        it 'response headers does not contain CustomCache' do
-          expect(response.headers).to have_key('CustomCache')
         end
       end
     end

@@ -8,11 +8,26 @@ class Project < ApplicationRecord
   has_many :images, through: :locations
 
   has_one :default_locale, class_name: 'Locale'
+  has_one :translation_cache
   has_and_belongs_to_many :users
 
   before_create :ensure_api_token
   validates :api_token, uniqueness: true
   validates :name, length: { minimum: 3 }, uniqueness: true
+
+  def cache_translations!
+    cache           = translation_cache || build_translation_cache
+    last_updated_at = translations.maximum(:updated_at)
+
+    return if last_updated_at && cache.persisted? &&
+                cache.updated_at > last_updated_at
+
+    output = Translation.dump_hash(translations.include_dependencies)
+    cache.update(
+      cache_yaml: YAML.dump(output).html_safe,
+      cache_json: output.to_json,
+    )
+  end
 
   def to_s
     name

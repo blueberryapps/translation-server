@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Project, type: :model do
   it { is_expected.to have_many :locales }
   it { is_expected.to have_one  :default_locale }
+  it { is_expected.to have_one  :translation_cache }
   it { is_expected.to have_many :keys }
   it { is_expected.to have_many :locations }
   it { is_expected.to have_many :translations }
@@ -25,6 +26,34 @@ RSpec.describe Project, type: :model do
 
     it 'projects api_tokens are uniq!' do
       expect(create(:project).api_token).not_to eq(create(:project).api_token)
+    end
+  end
+
+  describe '#cache_translations!' do
+    subject { create(:project) }
+
+    before do
+      create :locale, :with_translations, project: subject
+    end
+
+    it 'should create new cache' do
+      expect {
+        subject.cache_translations!
+      }.to change(TranslationCache, :count).by(1)
+    end
+
+    it 'should not create another cache' do
+      subject.cache_translations!
+
+      expect {
+        subject.cache_translations!
+      }.not_to change(TranslationCache, :count)
+    end
+
+    it 'should not generate new cache if nothing changed' do
+      subject.cache_translations!
+
+      expect(subject.cache_translations!).to eq(nil)
     end
   end
 end

@@ -1,4 +1,4 @@
-class CreateRestrictedIps < ActiveRecord::Migration
+class CreateRestrictedIps < ActiveRecord::Migration[4.2]
   def change
     create_table :restricted_ips do |t|
       t.inet :ip

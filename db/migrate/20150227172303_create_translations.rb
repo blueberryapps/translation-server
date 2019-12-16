@@ -1,4 +1,4 @@
-class CreateTranslations < ActiveRecord::Migration
+class CreateTranslations < ActiveRecord::Migration[4.2]
   def change
     create_table :translations do |t|
       t.belongs_to :key, index: true
